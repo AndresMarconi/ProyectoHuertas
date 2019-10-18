@@ -1,15 +1,15 @@
 Class {
-	#name : #Farm,
+	#name : #Plot,
 	#superclass : #Object,
 	#instVars : [
-		'name',
-		'plots',
-		'campaings'
+		'id',
+		'surface',
+		'events'
 	],
 	#category : #'ProyectoHuertas-model'
 }
 
 { #category : #initialization }
-Farm >> initialize [
-	campaings := OrderedCollection new.
+Plot >> initialize [
+	events := OrderedCollection new.
 ]
