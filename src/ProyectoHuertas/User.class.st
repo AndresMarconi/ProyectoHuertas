@@ -2,6 +2,7 @@ Class {
 	#name : #User,
 	#superclass : #Object,
 	#instVars : [
+		'username',
 		'name',
 		'surname',
 		'password',
@@ -20,6 +21,23 @@ User class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+User class >> newUserName: anUsername Name: aName Surname: aSurname Password: aPassword [
+| user |
+	user := User new.
+	user
+		username: anUsername;
+		name: aName;
+		surname: aSurname;
+		password: aPassword.
+	^user
+]
+
+{ #category : #accessing }
+User >> addFarm: aFarm [
+	farms add: aFarm 
+]
+
 { #category : #accessing }
 User >> employess [
 	^ employess
@@ -35,9 +53,14 @@ User >> farms [
 	^ farms
 ]
 
-{ #category : #accessing }
-User >> farms: anObject [
-	farms := anObject
+{ #category : #initialization }
+User >> initialize [ 
+	employess := OrderedCollection new.
+	farms := OrderedCollection new.
+	products := OrderedCollection new.
+	sales := OrderedCollection new.
+	purchases := OrderedCollection new.
+	inputs := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -108,4 +131,14 @@ User >> surname [
 { #category : #accessing }
 User >> surname: anObject [
 	surname := anObject
+]
+
+{ #category : #accessing }
+User >> username [
+	^ username
+]
+
+{ #category : #accessing }
+User >> username: anObject [
+	username := anObject
 ]

@@ -14,6 +14,14 @@ Farm class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Farm class >> newFarm: aName [
+| farm |
+	farm := self new.
+	farm name: aName.
+	^ farm
+]
+
 { #category : #accessing }
 Farm >> campaings [
 	^ campaings
@@ -27,6 +35,7 @@ Farm >> campaings: anObject [
 { #category : #initialization }
 Farm >> initialize [
 	campaings := OrderedCollection new.
+	plots := OrderedCollection new.
 ]
 
 { #category : #accessing }
