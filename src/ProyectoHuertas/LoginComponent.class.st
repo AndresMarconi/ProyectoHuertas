@@ -11,7 +11,7 @@ Class {
 { #category : #rendering }
 LoginComponent >> renderContentOn: anHtmlCanvas [
 	anHtmlCanvas unorderedList: [  
-		(self session sistema) do: [ :user | 
+		(self session sistema users) do: [ :user | 
 			anHtmlCanvas listItem: user username.
 			anHtmlCanvas unorderedList: [ 
 				user farms do:[ :farm | anHtmlCanvas listItem: farm name ] ] ] ] 

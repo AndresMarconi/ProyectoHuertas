@@ -14,6 +14,16 @@ Plot class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Plot class >> newPLotId: anId Surface: aSurface [
+| plot |
+	plot := Plot new.
+	plot
+		id: anId;
+		surface: aSurface.
+	^ plot
+]
+
 { #category : #accessing }
 Plot >> events [
 	^ events

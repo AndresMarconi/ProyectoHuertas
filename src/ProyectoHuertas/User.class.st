@@ -30,7 +30,7 @@ User class >> newUserName: anUsername Name: aName Surname: aSurname Password: aP
 		name: aName;
 		surname: aSurname;
 		password: aPassword.
-	^user
+	^ user
 ]
 
 { #category : #accessing }
