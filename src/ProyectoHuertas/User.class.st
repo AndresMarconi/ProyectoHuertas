@@ -22,15 +22,19 @@ User class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-User class >> newUserName: anUsername Name: aName Surname: aSurname Password: aPassword [
+User class >> newWithName: anUsername Name: aName Surname: aSurname Password: aPassword [
 | user |
 	user := User new.
-	user
+	^ user
 		username: anUsername;
 		name: aName;
 		surname: aSurname;
 		password: aPassword.
-	^ user
+]
+
+{ #category : #accessing }
+User >> addEmploy: anObject [
+	employess add: anObject
 ]
 
 { #category : #accessing }
@@ -39,13 +43,28 @@ User >> addFarm: aFarm [
 ]
 
 { #category : #accessing }
-User >> employess [
-	^ employess
+User >> addInput: anObject [
+	inputs add: anObject
 ]
 
 { #category : #accessing }
-User >> employess: anObject [
-	employess := anObject
+User >> addProduct: anObject [
+	products add: anObject
+]
+
+{ #category : #accessing }
+User >> addPurchase: anObject [
+	purchases add: anObject
+]
+
+{ #category : #accessing }
+User >> addSale: anObject [
+	sales add: anObject
+]
+
+{ #category : #accessing }
+User >> employess [
+	^ employess
 ]
 
 { #category : #accessing }
@@ -66,11 +85,6 @@ User >> initialize [
 { #category : #accessing }
 User >> inputs [
 	^ inputs
-]
-
-{ #category : #accessing }
-User >> inputs: anObject [
-	inputs := anObject
 ]
 
 { #category : #accessing }
@@ -99,28 +113,13 @@ User >> products [
 ]
 
 { #category : #accessing }
-User >> products: anObject [
-	products := anObject
-]
-
-{ #category : #accessing }
 User >> purchases [
 	^ purchases
 ]
 
 { #category : #accessing }
-User >> purchases: anObject [
-	purchases := anObject
-]
-
-{ #category : #accessing }
 User >> sales [
 	^ sales
-]
-
-{ #category : #accessing }
-User >> sales: anObject [
-	sales := anObject
 ]
 
 { #category : #accessing }

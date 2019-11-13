@@ -15,13 +15,12 @@ Plot class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Plot class >> newPLotId: anId Surface: aSurface [
+Plot class >> newWithId: anId Surface: aSurface [
 | plot |
 	plot := Plot new.
-	plot
+	^ plot
 		id: anId;
 		surface: aSurface.
-	^ plot
 ]
 
 { #category : #accessing }

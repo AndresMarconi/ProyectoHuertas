@@ -14,6 +14,16 @@ Campaing class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Campaing class >> newWithYear: aYear StartDate: sDate EndDate: eDate [
+	| campaing |
+	campaing := self new.
+	^ campaing 
+		year: aYear;
+		startDate: sDate;
+		endDate: eDate.
+]
+
 { #category : #accessing }
 Campaing >> endDate [
 	^ endDate

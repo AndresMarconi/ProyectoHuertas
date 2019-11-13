@@ -13,6 +13,17 @@ Harvest class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Harvest class >> newWithSowing: aSowing Quantity: aQuantity Date: aDate Surface: aSurface [
+	| harvest |
+	harvest  := self new.
+	^ harvest 
+		sowing: aSowing;
+		quantity: aQuantity;
+		date: aDate;
+		surface: aSurface
+]
+
 { #category : #accessing }
 Harvest >> quantity [
 	^ quantity

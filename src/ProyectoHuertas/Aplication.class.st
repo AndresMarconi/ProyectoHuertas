@@ -17,6 +17,21 @@ Aplication class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Aplication class >> newWithInput: anInput Dose: aDose Type: aType Machine: aMachine Lack: aLack ActiveIngredient: ai Date: aDate Surface: aSurface [
+	| aplication |
+	aplication := self new.
+	^ aplication
+		input: anInput;
+		dose: aDose;
+		type: aType;
+		machine: aMachine;
+		lack: aLack;
+		activeIngredient: ai;
+		date: aDate;
+		surface: aSurface
+]
+
 { #category : #accessing }
 Aplication >> activeIngredient [
 	^ activeIngredient

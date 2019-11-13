@@ -15,6 +15,18 @@ Sowing class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Sowing class >> newWithProduct: aProduct System: aSystem Distribution: aDist PQ: pq [
+	| sowing |
+	sowing := self new.
+	^ sowing
+		product: aProduct;
+		system: aSystem;
+		plantsQuantity: pq;
+		distribution: aDist.
+ 
+]
+
 { #category : #accessing }
 Sowing >> distribution [
 	^ distribution

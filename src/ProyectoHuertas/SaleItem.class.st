@@ -14,6 +14,16 @@ SaleItem class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+SaleItem class >> newWithProduct: aProduct Kg: kg Plot: aPlot [
+	| saleItem |
+	saleItem := self new.
+	^ saleItem 
+		product: aProduct;
+		kg: kg;
+		plot: aPlot 
+]
+
 { #category : #accessing }
 SaleItem >> kg [
 	^ kg

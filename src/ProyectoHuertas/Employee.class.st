@@ -14,6 +14,16 @@ Employee class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Employee class >> newWithName: aName Password: aPassword Surname: aSurname [
+	| employee |
+	employee := self new.
+	^ employee 
+		name: aName;
+		password: aPassword;
+		surname: aSurname.
+]
+
 { #category : #accessing }
 Employee >> name [
 	^ name

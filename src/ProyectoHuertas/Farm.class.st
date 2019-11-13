@@ -15,21 +15,25 @@ Farm class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Farm class >> newFarm: aName [
+Farm class >> newWithName: aName [
 | farm |
 	farm := self new.
-	farm name: aName.
-	^ farm
+	^ farm name: aName.
+]
+
+{ #category : #accessing }
+Farm >> addCampaings: anObject [
+	campaings add: anObject
+]
+
+{ #category : #accessing }
+Farm >> addPlot: anObject [
+	plots add: anObject
 ]
 
 { #category : #accessing }
 Farm >> campaings [
 	^ campaings
-]
-
-{ #category : #accessing }
-Farm >> campaings: anObject [
-	campaings := anObject
 ]
 
 { #category : #initialization }
@@ -51,9 +55,4 @@ Farm >> name: anObject [
 { #category : #accessing }
 Farm >> plots [
 	^ plots
-]
-
-{ #category : #accessing }
-Farm >> plots: anObject [
-	plots := anObject
 ]

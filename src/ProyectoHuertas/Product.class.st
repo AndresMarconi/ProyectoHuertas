@@ -13,6 +13,15 @@ Product class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Product class >> newWithName: aName Variety: aVariety [
+	| product |
+	product := self new.
+	^ product
+		name: aName;
+		variety: aVariety
+]
+
 { #category : #accessing }
 Product >> name [
 	^ name

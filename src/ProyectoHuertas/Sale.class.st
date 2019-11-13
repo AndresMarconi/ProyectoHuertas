@@ -14,6 +14,20 @@ Sale class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Sale class >> newWithClient: aClient Date: aDate [
+	| sale |
+	sale:= self new.
+	^ sale
+		date: aDate;
+		client: aClient 
+]
+
+{ #category : #accessing }
+Sale >> addItem: anObject [
+	items := anObject
+]
+
 { #category : #accessing }
 Sale >> client [
 	^ client
@@ -42,9 +56,4 @@ Sale >> initialize [
 { #category : #accessing }
 Sale >> items [
 	^ items
-]
-
-{ #category : #accessing }
-Sale >> items: anObject [
-	items := anObject
 ]

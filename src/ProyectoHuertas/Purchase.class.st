@@ -14,6 +14,16 @@ Purchase class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+Purchase class >> newWithInput: anInput Distribution: aDist Date: aDate [
+	| purchase |
+	purchase := self new.
+	^ purchase 
+		date: aDate;
+		inputs: anInput;
+		distribution: aDist
+]
+
 { #category : #accessing }
 Purchase >> date [
 	^ date

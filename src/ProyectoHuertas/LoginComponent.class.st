@@ -14,6 +14,10 @@ LoginComponent >> renderContentOn: anHtmlCanvas [
 		(self session sistema users) do: [ :user | 
 			anHtmlCanvas listItem: user username.
 			anHtmlCanvas unorderedList: [ 
-				user farms do:[ :farm | anHtmlCanvas listItem: farm name ] ] ] ] 
+				user farms do:[ :farm | 
+					anHtmlCanvas listItem: farm name.
+					anHtmlCanvas unorderedList: [ 
+						farm plots do:[ :plot | 
+							anHtmlCanvas listItem: plot id ] ] ] ] ] ] 
 	
 ]
