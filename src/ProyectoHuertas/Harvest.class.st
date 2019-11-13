@@ -24,6 +24,11 @@ Harvest class >> newWithSowing: aSowing Quantity: aQuantity Date: aDate Surface:
 		surface: aSurface
 ]
 
+{ #category : #testing }
+Harvest >> isEvent: aName [
+	^ aName = 'harvest'
+]
+
 { #category : #accessing }
 Harvest >> quantity [
 	^ quantity

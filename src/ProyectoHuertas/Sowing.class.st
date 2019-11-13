@@ -16,14 +16,16 @@ Sowing class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Sowing class >> newWithProduct: aProduct System: aSystem Distribution: aDist PQ: pq [
+Sowing class >> newWithProduct: aProduct System: aSystem Distribution: aDist PQ: pq Date: aDate Surface: aSurface [
 	| sowing |
 	sowing := self new.
 	^ sowing
 		product: aProduct;
 		system: aSystem;
 		plantsQuantity: pq;
-		distribution: aDist.
+		distribution: aDist;
+		date: aDate;
+		surface: aSurface
  
 ]
 
@@ -35,6 +37,11 @@ Sowing >> distribution [
 { #category : #accessing }
 Sowing >> distribution: anObject [
 	distribution := anObject
+]
+
+{ #category : #testing }
+Sowing >> isEvent: aName [
+	^ aName = 'sowing'
 ]
 
 { #category : #accessing }

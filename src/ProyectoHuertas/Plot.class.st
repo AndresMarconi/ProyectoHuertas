@@ -24,13 +24,23 @@ Plot class >> newWithId: anId Surface: aSurface [
 ]
 
 { #category : #accessing }
+Plot >> addEvent: anObject [
+	events add: anObject
+]
+
+{ #category : #accessing }
+Plot >> aplications [
+	^ events select: [ :event | event isEvent: 'aplication' ]
+]
+
+{ #category : #accessing }
 Plot >> events [
 	^ events
 ]
 
 { #category : #accessing }
-Plot >> events: anObject [
-	events := anObject
+Plot >> harvests [
+	^ events select: [ :event | event isEvent: 'harvest' ]
 ]
 
 { #category : #accessing }
@@ -46,6 +56,16 @@ Plot >> id: anObject [
 { #category : #initialization }
 Plot >> initialize [
 	events := OrderedCollection new.
+]
+
+{ #category : #accessing }
+Plot >> problems [
+	^ events select: [ :event | event isEvent: 'problem' ]
+]
+
+{ #category : #accessing }
+Plot >> sowings [
+	^ events select: [ :event | event isEvent: 'sowing' ]
 ]
 
 { #category : #accessing }

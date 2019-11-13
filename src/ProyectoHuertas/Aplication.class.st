@@ -62,6 +62,11 @@ Aplication >> input: anObject [
 	input := anObject
 ]
 
+{ #category : #testing }
+Aplication >> isEvent: aName [
+	^ aName = 'aplication'
+]
+
 { #category : #accessing }
 Aplication >> lack [
 	^ lack

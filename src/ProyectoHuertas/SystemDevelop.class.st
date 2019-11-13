@@ -17,6 +17,20 @@ SystemDevelop >> initialize [
 	users add: user1; add: user2
 ]
 
+{ #category : #'as yet unclassified' }
+SystemDevelop >> loadEvents: aPlot [
+	| sowing harvest aplication problem |	
+	sowing:= Sowing newWithProduct: (Product newWithName: 'tomate' Variety: 'perita') 
+							System: 'colgante' Distribution: 'pareja' PQ: '300' Date: (Date today) Surface: aPlot surface.
+	harvest:= Harvest newWithSowing: sowing Quantity: 200 Date: (Date tomorrow) Surface: aPlot surface.
+	aplication:= Aplication newWithInput: (Input new) Dose: 2 Type: 'tipo' Machine: 'one' Lack: 3 ActiveIngredient: 'anActive' Date: (Date today) Surface: aPlot surface.
+	problem:= Problem newWithName: 'plaga' Date: (Date yesterday) Surface: aPlot surface.
+	aPlot addEvent: sowing;
+			addEvent: problem;
+			addEvent: aplication;
+			addEvent: harvest.
+]
+
 { #category : #adding }
 SystemDevelop >> loadFarms: user [
 	| farm1 farm2 |
@@ -30,10 +44,9 @@ SystemDevelop >> loadFarms: user [
 { #category : #adding }
 SystemDevelop >> loadPlots: farm [
 	| plot1 plot2 |
-	
 	plot1 := Plot newWithId: 11 Surface: 32.
 	plot2 := Plot newWithId: 12 Surface: 10.
-	
+	self loadEvents: plot1; loadEvents: plot2.
 	farm addPlot: plot1 ; addPlot: plot2.
 
 

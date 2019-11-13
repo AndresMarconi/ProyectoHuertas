@@ -23,6 +23,11 @@ Event >> date: anObject [
 	date := anObject
 ]
 
+{ #category : #testing }
+Event >> isEvent: aName [
+	^ SubclassResponsibility 
+]
+
 { #category : #accessing }
 Event >> surface [
 	^ surface

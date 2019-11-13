@@ -8,16 +8,70 @@ Class {
 	#category : #'ProyectoHuertas-view'
 }
 
+{ #category : #'as yet unclassified' }
+LoginComponent >> listAplication: aPlot With: anHtmlCanvas [
+	aPlot aplications do:[ : aplication | 
+		anHtmlCanvas listItem with: [ 
+			anHtmlCanvas text: 'aplication of '.
+			anHtmlCanvas text: aplication input ] ].
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listFarm: aFarm With: anHtmlCanvas [
+	anHtmlCanvas listItem: aFarm name.
+		anHtmlCanvas unorderedList: [ 
+			aFarm plots do:[ :plot | 
+				self listPlot: plot With: anHtmlCanvas ] ]
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listHarvest: aPlot With: anHtmlCanvas [
+	aPlot harvests do:[ :harvest | 
+		anHtmlCanvas listItem with: [ 
+			anHtmlCanvas text: 'harvest of '.
+			anHtmlCanvas text: harvest sowing product name ] ]
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listPlot: aPlot With: anHtmlCanvas [
+	anHtmlCanvas listItem with: [ 
+		anHtmlCanvas text: 'plot '. 
+		anHtmlCanvas text: aPlot id ].
+	anHtmlCanvas unorderedList: [ 
+		self listSowing: aPlot  With: anHtmlCanvas. 
+		self listProblem: aPlot  With: anHtmlCanvas.
+		self listAplication: aPlot  With: anHtmlCanvas.
+		self listHarvest: aPlot  With: anHtmlCanvas. ]
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listProblem: aPlot With: anHtmlCanvas [
+	aPlot problems do:[ : problem | 
+		anHtmlCanvas listItem with: [ 
+			anHtmlCanvas text: 'problem of '.
+			anHtmlCanvas text: problem  name ] ].
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listSowing: aPlot With: anHtmlCanvas [
+	aPlot sowings do:[ :sowing | 
+		anHtmlCanvas listItem with: [ 
+			anHtmlCanvas text: 'sowing of '.
+			anHtmlCanvas text: sowing product name ] ].
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> listUser: aUser With: anHtmlCanvas [
+	anHtmlCanvas listItem: aUser username.
+		anHtmlCanvas unorderedList: [ 
+			aUser farms do:[ :farm | 
+				self listFarm: farm With: anHtmlCanvas ] ]
+]
+
 { #category : #rendering }
 LoginComponent >> renderContentOn: anHtmlCanvas [
 	anHtmlCanvas unorderedList: [  
 		(self session sistema users) do: [ :user | 
-			anHtmlCanvas listItem: user username.
-			anHtmlCanvas unorderedList: [ 
-				user farms do:[ :farm | 
-					anHtmlCanvas listItem: farm name.
-					anHtmlCanvas unorderedList: [ 
-						farm plots do:[ :plot | 
-							anHtmlCanvas listItem: plot id ] ] ] ] ] ] 
+			self listUser: user With: anHtmlCanvas ] ] 
 	
 ]

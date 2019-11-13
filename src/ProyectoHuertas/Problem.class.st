@@ -33,6 +33,11 @@ Problem >> initialize [
 	solutions := OrderedCollection new.
 ]
 
+{ #category : #testing }
+Problem >> isEvent: aName [
+	^ aName = 'problem'
+]
+
 { #category : #accessing }
 Problem >> name [
 	^ name
