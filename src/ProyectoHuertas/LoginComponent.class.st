@@ -9,6 +9,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+LoginComponent >> inputsWith: anHtmlCanvas [
+	anHtmlCanvas heading: 'Inputs'. 
+	anHtmlCanvas unorderedList: [  
+		(self session sistema inputs) do: [ :input | 
+			anHtmlCanvas listItem: input product ] ].
+]
+
+{ #category : #'as yet unclassified' }
 LoginComponent >> listAplication: aPlot With: anHtmlCanvas [
 	aPlot aplications do:[ : aplication | 
 		anHtmlCanvas listItem with: [ 
@@ -68,10 +76,28 @@ LoginComponent >> listUser: aUser With: anHtmlCanvas [
 				self listFarm: farm With: anHtmlCanvas ] ]
 ]
 
+{ #category : #'as yet unclassified' }
+LoginComponent >> productsWith: anHtmlCanvas [
+	anHtmlCanvas heading: 'Products'. 
+	anHtmlCanvas unorderedList: [  
+		(self session sistema products) do: [ :product | 
+			anHtmlCanvas listItem: [ 
+				anHtmlCanvas text: product name.
+				anHtmlCanvas space.
+				anHtmlCanvas text: product variety ] ] ].
+]
+
 { #category : #rendering }
 LoginComponent >> renderContentOn: anHtmlCanvas [
+	self usersWith: anHtmlCanvas.
+	self inputsWith: anHtmlCanvas.
+	self productsWith: anHtmlCanvas.
+]
+
+{ #category : #'as yet unclassified' }
+LoginComponent >> usersWith:anHtmlCanvas [
+	anHtmlCanvas heading: 'Users'.
 	anHtmlCanvas unorderedList: [  
 		(self session sistema users) do: [ :user | 
-			self listUser: user With: anHtmlCanvas ] ] 
-	
+			self listUser: user With: anHtmlCanvas ] ].
 ]
