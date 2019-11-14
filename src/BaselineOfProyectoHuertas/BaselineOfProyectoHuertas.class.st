@@ -1,6 +1,6 @@
 Class {
 	#name : #BaselineOfProyectoHuertas,
-	#superclass : #Object,
+	#superclass : #BaselineOf,
 	#category : #BaselineOfProyectoHuertas
 }
 
