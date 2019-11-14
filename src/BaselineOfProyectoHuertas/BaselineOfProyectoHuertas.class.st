@@ -26,7 +26,7 @@ BaselineOfProyectoHuertas >> bootstrap4: spec [
 		package: 'Bootstrap4-Core'
 		with: [ spec repository: 'github://astares/Seaside-Bootstrap4:master/src' ].
 	spec
-		package: 'Bootstrap-Examples'
+		package: 'Bootstrap4-Examples'
 		with: [ spec repository: 'github://astares/Seaside-Bootstrap4:master/src' ].
 
 ]
@@ -42,10 +42,8 @@ BaselineOfProyectoHuertas >> oicdForSeaside: spec [
 BaselineOfProyectoHuertas >> seaside: spec [
 	spec
 		baseline: 'Seaside3'
-		with: [ spec repository: 'github://SeasideSt/Seaside:master/repository' ].
-	spec
-		package: 'Seaside-REST-Core'
-		with: [ spec repository: 'github://SeasideSt/Seaside:master/repository' ]
+		with: [ spec repository: 'github://SeasideSt/Seaside:3.3.4/repository' ].
+
 ]
 
 { #category : #baselines }
