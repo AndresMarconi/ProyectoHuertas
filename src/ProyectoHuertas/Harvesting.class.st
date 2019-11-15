@@ -14,17 +14,6 @@ Harvesting class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Harvesting class >> newWithSowing: aSowing Quantity: aQuantity Date: aDate Surface: aSurface [
-	| harvest |
-	harvest  := self new.
-	^ harvest 
-		sowing: aSowing;
-		quantity: aQuantity;
-		date: aDate;
-		surface: aSurface
-]
-
-{ #category : #'instance creation' }
 Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 	^ self new
 		quantity: aQuantity;
@@ -46,16 +35,6 @@ Harvesting >> quantity [
 { #category : #accessing }
 Harvesting >> quantity: anObject [
 	quantity := anObject
-]
-
-{ #category : #accessing }
-Harvesting >> sowing [
-	^ sowing
-]
-
-{ #category : #accessing }
-Harvesting >> sowing: anObject [
-	sowing := anObject
 ]
 
 { #category : #accessing }

@@ -50,13 +50,3 @@ Campaign >> startDate [
 Campaign >> startDate: anObject [
 	startDate := anObject
 ]
-
-{ #category : #accessing }
-Campaign >> year [
-	^ year
-]
-
-{ #category : #accessing }
-Campaign >> year: anObject [
-	year := anObject
-]

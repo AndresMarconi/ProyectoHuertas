@@ -20,6 +20,7 @@ FOMVoyageExampleLoader >> ensureRepository [
 FOMVoyageExampleLoader >> load [
 	self
 		ensureRepository;
+		loadVarieties;
 		loadUsers;
 		loadFarms;
 		loadSubstances;
@@ -94,12 +95,6 @@ FOMVoyageExampleLoader >> loadPlots [
 ]
 
 { #category : #loading }
-FOMVoyageExampleLoader >> loadProducts [
-	(Variety name: 'Tomate' variety: 'Perita') save.
-	(Variety name: 'Tomate' variety: 'Cherry') save
-]
-
-{ #category : #loading }
 FOMVoyageExampleLoader >> loadSubstances [
 	| glifosato sulfato |
 	glifosato := Substance
@@ -136,4 +131,14 @@ FOMVoyageExampleLoader >> loadUsers [
 		lastName: 'Lopez'
 		password: 'lkjdsf75'.
 	mlopez save
+]
+
+{ #category : #loading }
+FOMVoyageExampleLoader >> loadVarieties [
+	(Variety
+		vulgarName: 'Tomate perita'
+		taxonomicName: 'Tomateous periteus') save.
+	(Variety
+		vulgarName: 'Tomate cherry'
+		taxonomicName: 'Tomateous cherrisius') save
 ]

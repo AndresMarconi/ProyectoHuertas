@@ -14,21 +14,11 @@ Variety class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Variety class >> name: aName variety: aVariety [
+Variety class >> vulgarName: vulgarName taxonomicName: taxonomicName [
 	^ self new
-		name: aName;
-		variety: aVariety;
+		vulgarName: vulgarName;
+		taxonomicName: taxonomicName;
 		yourself
-]
-
-{ #category : #accessing }
-Variety >> name [
-	^ name
-]
-
-{ #category : #accessing }
-Variety >> name: anObject [
-	name := anObject
 ]
 
 { #category : #accessing }
@@ -39,16 +29,6 @@ Variety >> taxonomicName [
 { #category : #accessing }
 Variety >> taxonomicName: anObject [
 	taxonomicName := anObject
-]
-
-{ #category : #accessing }
-Variety >> variety [
-	^ variety
-]
-
-{ #category : #accessing }
-Variety >> variety: anObject [
-	variety := anObject
 ]
 
 { #category : #accessing }
