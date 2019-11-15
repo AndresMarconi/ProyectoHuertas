@@ -2,19 +2,27 @@ Class {
 	#name : #FOMSession,
 	#superclass : #WASession,
 	#instVars : [
-		'user',
-		'sistema'
+		'user'
 	],
 	#category : #'ProyectoHuertas-ui'
 }
 
-{ #category : #initialization }
-FOMSession >> initialize [
-	super initialize.
-	sistema := FOMVoyageExampleLoader new.
+{ #category : #accessing }
+FOMSession >> farms [
+	^ Farm selectAll
 ]
 
 { #category : #accessing }
-FOMSession >> sistema [
-	^ sistema
+FOMSession >> substances [
+	^ Substance selectAll
+]
+
+{ #category : #accessing }
+FOMSession >> users [
+  ^User selectAll 
+]
+
+{ #category : #accessing }
+FOMSession >> varieties [
+	^ Variety selectAll
 ]
