@@ -2,7 +2,7 @@ Class {
 	#name : #SaleItem,
 	#superclass : #Object,
 	#instVars : [
-		'kg',
+		'kilograms',
 		'plot',
 		'product'
 	],
@@ -15,23 +15,22 @@ SaleItem class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-SaleItem class >> newWithProduct: aProduct Kg: kg Plot: aPlot [
-	| saleItem |
-	saleItem := self new.
-	^ saleItem 
+SaleItem class >> product: aProduct kilograms: kg fromPlot: aPlot [
+	^ self new
 		product: aProduct;
 		kg: kg;
-		plot: aPlot 
+		plot: aPlot;
+		yourself
 ]
 
 { #category : #accessing }
-SaleItem >> kg [
-	^ kg
+SaleItem >> kilograms [
+	^ kilograms
 ]
 
 { #category : #accessing }
-SaleItem >> kg: anObject [
-	kg := anObject
+SaleItem >> kilograms: anObject [
+	kilograms := anObject
 ]
 
 { #category : #accessing }

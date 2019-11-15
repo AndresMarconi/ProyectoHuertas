@@ -1,13 +1,13 @@
 Class {
 	#name : #FOMMainComponent,
 	#superclass : #WAComponent,
-	#category : #'ProyectoHuertas-view'
+	#category : #'ProyectoHuertas-ui'
 }
 
 { #category : #updating }
-FOMMainComponent >> updateRoot: arg1 [
-	super updateRoot: arg1.
-	arg1
+FOMMainComponent >> updateRoot: aWARoot [
+	super updateRoot: aWARoot.
+	aWARoot
 		beHtml5;
 		title: 'FarmOMatic'
 ]

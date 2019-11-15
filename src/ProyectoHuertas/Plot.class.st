@@ -9,18 +9,17 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'instance creation' }
+Plot class >> id: anId surface: aSurface [
+	^ self new
+		id: anId;
+		surface: aSurface;
+		yourself
+]
+
 { #category : #testing }
 Plot class >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #'instance creation' }
-Plot class >> newWithId: anId Surface: aSurface [
-| plot |
-	plot := Plot new.
-	^ plot
-		id: anId;
-		surface: aSurface.
 ]
 
 { #category : #accessing }

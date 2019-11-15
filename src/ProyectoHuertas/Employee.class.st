@@ -2,54 +2,41 @@ Class {
 	#name : #Employee,
 	#superclass : #Object,
 	#instVars : [
-		'name',
-		'surname',
-		'password'
+		'firstName',
+		'lastName'
 	],
 	#category : #'ProyectoHuertas-model'
 }
+
+{ #category : #'instance creation' }
+Employee class >> firstName: aName lastName: aSurname [
+	^ self new
+		firstName: aName;
+		lastName: aSurname;
+		yourself
+]
 
 { #category : #testing }
 Employee class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'instance creation' }
-Employee class >> newWithName: aName Password: aPassword Surname: aSurname [
-	| employee |
-	employee := self new.
-	^ employee 
-		name: aName;
-		password: aPassword;
-		surname: aSurname.
+{ #category : #accessing }
+Employee >> firstName [
+	^ firstName
 ]
 
 { #category : #accessing }
-Employee >> name [
-	^ name
+Employee >> firstName: anObject [
+	firstName := anObject
 ]
 
 { #category : #accessing }
-Employee >> name: anObject [
-	name := anObject
+Employee >> lastName [
+	^ lastName
 ]
 
 { #category : #accessing }
-Employee >> password [
-	^ password
-]
-
-{ #category : #accessing }
-Employee >> password: anObject [
-	password := anObject
-]
-
-{ #category : #accessing }
-Employee >> surname [
-	^ surname
-]
-
-{ #category : #accessing }
-Employee >> surname: anObject [
-	surname := anObject
+Employee >> lastName: anObject [
+	lastName := anObject
 ]

@@ -5,13 +5,13 @@ Class {
 		'user',
 		'sistema'
 	],
-	#category : #'ProyectoHuertas-model'
+	#category : #'ProyectoHuertas-ui'
 }
 
 { #category : #initialization }
 FOMSession >> initialize [
 	super initialize.
-	sistema := SystemDevelop new.
+	sistema := FOMVoyageExampleLoader new.
 ]
 
 { #category : #accessing }

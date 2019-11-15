@@ -3,17 +3,12 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'username',
-		'name',
-		'surname',
+		'firstName',
+		'lastName',
 		'password',
-		'employess',
-		'farms',
-		'products',
-		'sales',
-		'purchases',
-		'inputs'
+		'farms'
 	],
-	#category : #'ProyectoHuertas-model'
+	#category : #'ProyectoHuertas-ui'
 }
 
 { #category : #testing }
@@ -22,19 +17,13 @@ User class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-User class >> newWithName: anUsername Name: aName Surname: aSurname Password: aPassword [
-| user |
-	user := User new.
-	^ user
+User class >> username: anUsername firstName: aFirstName lastName: aLastname password: aPassword [
+	^ User new
 		username: anUsername;
-		name: aName;
-		surname: aSurname;
-		password: aPassword.
-]
-
-{ #category : #accessing }
-User >> addEmploy: anObject [
-	employess add: anObject
+		firstName: aFirstName;
+		lastName: aLastname;
+		password: aPassword;
+		yourself
 ]
 
 { #category : #accessing }
@@ -43,58 +32,34 @@ User >> addFarm: aFarm [
 ]
 
 { #category : #accessing }
-User >> addInput: anObject [
-	inputs add: anObject
-]
-
-{ #category : #accessing }
-User >> addProduct: anObject [
-	products add: anObject
-]
-
-{ #category : #accessing }
-User >> addPurchase: anObject [
-	purchases add: anObject
-]
-
-{ #category : #accessing }
-User >> addSale: anObject [
-	sales add: anObject
-]
-
-{ #category : #accessing }
-User >> employess [
-	^ employess
-]
-
-{ #category : #accessing }
 User >> farms [
 	^ farms
 ]
 
+{ #category : #accessing }
+User >> firstName [
+	^ firstName
+]
+
+{ #category : #accessing }
+User >> firstName: anObject [
+	firstName := anObject
+]
+
 { #category : #initialization }
 User >> initialize [ 
-	employess := OrderedCollection new.
 	farms := OrderedCollection new.
-	products := OrderedCollection new.
-	sales := OrderedCollection new.
-	purchases := OrderedCollection new.
-	inputs := OrderedCollection new.
+
 ]
 
 { #category : #accessing }
-User >> inputs [
-	^ inputs
+User >> lastName [
+	^ lastName
 ]
 
 { #category : #accessing }
-User >> name [
-	^ name
-]
-
-{ #category : #accessing }
-User >> name: anObject [
-	name := anObject
+User >> lastName: anObject [
+	lastName := anObject
 ]
 
 { #category : #accessing }
@@ -105,31 +70,6 @@ User >> password [
 { #category : #accessing }
 User >> password: anObject [
 	password := anObject
-]
-
-{ #category : #accessing }
-User >> products [
-	^ products
-]
-
-{ #category : #accessing }
-User >> purchases [
-	^ purchases
-]
-
-{ #category : #accessing }
-User >> sales [
-	^ sales
-]
-
-{ #category : #accessing }
-User >> surname [
-	^ surname
-]
-
-{ #category : #accessing }
-User >> surname: anObject [
-	surname := anObject
 ]
 
 { #category : #accessing }

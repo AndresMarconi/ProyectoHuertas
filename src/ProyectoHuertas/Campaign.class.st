@@ -1,8 +1,7 @@
 Class {
-	#name : #Campaing,
+	#name : #Campaign,
 	#superclass : #Object,
 	#instVars : [
-		'year',
 		'startDate',
 		'endDate'
 	],
@@ -10,12 +9,12 @@ Class {
 }
 
 { #category : #testing }
-Campaing class >> isVoyageRoot [
+Campaign class >> isVoyageRoot [
 	^ true
 ]
 
 { #category : #'instance creation' }
-Campaing class >> newWithYear: aYear StartDate: sDate EndDate: eDate [
+Campaign class >> newWithYear: aYear StartDate: sDate EndDate: eDate [
 	| campaing |
 	campaing := self new.
 	^ campaing 
@@ -24,32 +23,40 @@ Campaing class >> newWithYear: aYear StartDate: sDate EndDate: eDate [
 		endDate: eDate.
 ]
 
+{ #category : #'instance creation' }
+Campaign class >> startDate: sDate endDate: eDate [
+	^ self new
+		startDate: sDate;
+		endDate: eDate;
+		yourself
+]
+
 { #category : #accessing }
-Campaing >> endDate [
+Campaign >> endDate [
 	^ endDate
 ]
 
 { #category : #accessing }
-Campaing >> endDate: anObject [
+Campaign >> endDate: anObject [
 	endDate := anObject
 ]
 
 { #category : #accessing }
-Campaing >> startDate [
+Campaign >> startDate [
 	^ startDate
 ]
 
 { #category : #accessing }
-Campaing >> startDate: anObject [
+Campaign >> startDate: anObject [
 	startDate := anObject
 ]
 
 { #category : #accessing }
-Campaing >> year [
+Campaign >> year [
 	^ year
 ]
 
 { #category : #accessing }
-Campaing >> year: anObject [
+Campaign >> year: anObject [
 	year := anObject
 ]

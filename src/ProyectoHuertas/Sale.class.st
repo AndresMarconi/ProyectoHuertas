@@ -9,18 +9,17 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'instance creation' }
+Sale class >> client: aClient date: aDate [
+	^ self new
+		date: aDate;
+		client: aClient;
+		yourself
+]
+
 { #category : #testing }
 Sale class >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #'instance creation' }
-Sale class >> newWithClient: aClient Date: aDate [
-	| sale |
-	sale:= self new.
-	^ sale
-		date: aDate;
-		client: aClient 
 ]
 
 { #category : #accessing }

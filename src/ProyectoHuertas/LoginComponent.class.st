@@ -5,8 +5,22 @@ Class {
 		'username',
 		'password'
 	],
-	#category : #'ProyectoHuertas-view'
+	#category : #'ProyectoHuertas-ui'
 }
+
+{ #category : #initialization }
+LoginComponent class >> initialize [
+	"self initialize"
+
+	| app |
+	app := WAAdmin register: self asApplicationAt: 'login'.
+	app
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: JQUiDeploymentLibrary;
+		addLibrary: SBSDeploymentLibrary;
+		addLibrary: SBSDevelopmentLibrary.
+	app sessionClass: FOMSession
+]
 
 { #category : #'as yet unclassified' }
 LoginComponent >> inputsWith: anHtmlCanvas [
@@ -98,6 +112,6 @@ LoginComponent >> renderContentOn: anHtmlCanvas [
 LoginComponent >> usersWith:anHtmlCanvas [
 	anHtmlCanvas heading: 'Users'.
 	anHtmlCanvas unorderedList: [  
-		(self session sistema users) do: [ :user | 
+		(self session users) do: [ :user | 
 			self listUser: user With: anHtmlCanvas ] ].
 ]

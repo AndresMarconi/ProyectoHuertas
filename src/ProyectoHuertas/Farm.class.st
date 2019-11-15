@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'plots',
-		'campaings'
+		'campaings',
+		'substanceStock'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -15,10 +16,10 @@ Farm class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Farm class >> newWithName: aName [
-| farm |
-	farm := self new.
-	^ farm name: aName.
+Farm class >> name: aName [
+	^ self new
+		name: aName;
+		yourself
 ]
 
 { #category : #accessing }
@@ -40,6 +41,7 @@ Farm >> campaings [
 Farm >> initialize [
 	campaings := OrderedCollection new.
 	plots := OrderedCollection new.
+	substanceStock := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -55,4 +57,14 @@ Farm >> name: anObject [
 { #category : #accessing }
 Farm >> plots [
 	^ plots
+]
+
+{ #category : #accessing }
+Farm >> updateStockOf: substance with: quantity expiringOn: aDate [
+	substanceStock
+		add:
+			(SubstanceStock
+				substance: substance
+				quantity: quantity
+				expirationDate: aDate)
 ]

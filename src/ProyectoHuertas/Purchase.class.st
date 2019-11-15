@@ -9,19 +9,18 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'instance creation' }
+Purchase class >> input: anInput distribution: aDist date: aDate [
+	^ self new
+		date: aDate;
+		inputs: anInput;
+		distribution: aDist;
+		yourself
+]
+
 { #category : #testing }
 Purchase class >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #'instance creation' }
-Purchase class >> newWithInput: anInput Distribution: aDist Date: aDate [
-	| purchase |
-	purchase := self new.
-	^ purchase 
-		date: aDate;
-		inputs: anInput;
-		distribution: aDist
 ]
 
 { #category : #accessing }

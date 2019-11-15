@@ -1,5 +1,5 @@
 Class {
-	#name : #Input,
+	#name : #FarmInput,
 	#superclass : #Object,
 	#instVars : [
 		'product',
@@ -12,68 +12,67 @@ Class {
 }
 
 { #category : #testing }
-Input class >> isVoyageRoot [
+FarmInput class >> isVoyageRoot [
 	^ true
 ]
 
 { #category : #'instance creation' }
-Input class >> newWithProduct: aProduct Brand: aBrand Container: aContainer Expires: aDate Quantity: aQuantity [
-	| input |
-	input := self new.
-	^ input
+FarmInput class >> product: aProduct brand: aBrand container: aContainer expires: aDate quantity: aQuantity [
+	^ self new
 		product: aProduct;
 		brand: aBrand;
 		container: aContainer;
 		expires: aDate;
-		quantity: aQuantity
+		quantity: aQuantity;
+		yourself
 ]
 
 { #category : #accessing }
-Input >> brand [
+FarmInput >> brand [
 	^ brand
 ]
 
 { #category : #accessing }
-Input >> brand: anObject [
+FarmInput >> brand: anObject [
 	brand := anObject
 ]
 
 { #category : #accessing }
-Input >> container [
+FarmInput >> container [
 	^ container
 ]
 
 { #category : #accessing }
-Input >> container: anObject [
+FarmInput >> container: anObject [
 	container := anObject
 ]
 
 { #category : #accessing }
-Input >> expires [
+FarmInput >> expires [
 	^ expires
 ]
 
 { #category : #accessing }
-Input >> expires: anObject [
+FarmInput >> expires: anObject [
 	expires := anObject
 ]
 
 { #category : #accessing }
-Input >> product [
+FarmInput >> product [
 	^ product
 ]
 
 { #category : #accessing }
-Input >> product: anObject [
+FarmInput >> product: anObject [
 	product := anObject
 ]
 
 { #category : #accessing }
-Input >> quantity [
+FarmInput >> quantity [
 	^ quantity
 ]
 
 { #category : #accessing }
-Input >> quantity: anObject [
+FarmInput >> quantity: anObject [
 	quantity := anObject
 ]

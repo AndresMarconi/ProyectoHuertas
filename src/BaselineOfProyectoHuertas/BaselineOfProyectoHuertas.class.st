@@ -42,7 +42,7 @@ BaselineOfProyectoHuertas >> oicdForSeaside: spec [
 BaselineOfProyectoHuertas >> seaside: spec [
 	spec
 		baseline: 'Seaside3'
-		with: [ spec repository: 'github://SeasideSt/Seaside:3.3.4/repository' ].
+		with: [ spec repository: 'github://SeasideSt/Seaside:master/repository' ].
 
 ]
 

@@ -14,13 +14,12 @@ Problem class >> isVoyageRoot [
 ]
 
 { #category : #'instance creation' }
-Problem class >> newWithName: aName Date: aDate Surface: aSurface [
-	| problem |
-	problem := self new.
-	^ problem
+Problem class >> name: aName date: aDate surface: aSurface [
+	^ self new
 		name: aName;
 		date: aDate;
-		surface: aSurface
+		surface: aSurface;
+		yourself
 ]
 
 { #category : #accessing }
@@ -31,11 +30,6 @@ Problem >> addSolutions: anObject [
 { #category : #initialization }
 Problem >> initialize [
 	solutions := OrderedCollection new.
-]
-
-{ #category : #testing }
-Problem >> isEvent: aName [
-	^ aName = 'problem'
 ]
 
 { #category : #accessing }
