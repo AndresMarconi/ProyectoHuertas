@@ -29,7 +29,7 @@ Plot >> addEvent: anObject [
 
 { #category : #accessing }
 Plot >> aplications [
-	^ events select: [ :event | event isEvent: 'aplication' ]
+	^ events select: [ :event | event class = Application ]
 ]
 
 { #category : #accessing }
@@ -39,7 +39,7 @@ Plot >> events [
 
 { #category : #accessing }
 Plot >> harvests [
-	^ events select: [ :event | event isEvent: 'harvest' ]
+	^ events select: [ :event | event class = Harvesting ]
 ]
 
 { #category : #accessing }
@@ -59,12 +59,12 @@ Plot >> initialize [
 
 { #category : #accessing }
 Plot >> problems [
-	^ events select: [ :event | event isEvent: 'problem' ]
+	^ events select: [ :event | event class = Problem ]
 ]
 
 { #category : #accessing }
 Plot >> sowings [
-	^ events select: [ :event | event isEvent: 'sowing' ]
+	^ events select: [ :event | event class = Sowing ]
 ]
 
 { #category : #accessing }

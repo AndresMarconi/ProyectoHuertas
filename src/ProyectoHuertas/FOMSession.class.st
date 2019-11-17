@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'user'
 	],
-	#category : #'ProyectoHuertas-ui'
+	#category : #'ProyectoHuertas-ui-core'
 }
 
 { #category : #accessing }

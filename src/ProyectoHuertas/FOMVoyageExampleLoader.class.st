@@ -5,7 +5,7 @@ Class {
 		'jgomez',
 		'mlopez'
 	],
-	#category : #'ProyectoHuertas-example'
+	#category : #'ProyectoHuertas-example-data'
 }
 
 { #category : #loading }
@@ -101,13 +101,13 @@ FOMVoyageExampleLoader >> loadSubstances [
 		comercialName: 'Glifosato'
 		brand: 'Monsanto'
 		activeIngredients: 'Glifosato de marportombolo'
-		waitingPeriodAfterApplication: 45 days.
+		waitingPeriodAfterApplication: 45.
 	glifosato save.
 	sulfato := Substance
 		comercialName: 'Sulfato de cobre'
 		brand: 'genérico'
 		activeIngredients: 'Sulfato de cobre'
-		waitingPeriodAfterApplication: 0 days.
+		waitingPeriodAfterApplication: 0.
 	sulfato save.
 	Farm selectAll
 		do: [ :each | 

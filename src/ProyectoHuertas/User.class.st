@@ -8,7 +8,7 @@ Class {
 		'password',
 		'farms'
 	],
-	#category : #'ProyectoHuertas-ui'
+	#category : #'ProyectoHuertas-ui-core'
 }
 
 { #category : #testing }

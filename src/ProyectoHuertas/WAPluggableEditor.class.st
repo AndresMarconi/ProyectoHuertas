@@ -8,6 +8,13 @@ Class {
 	#category : #'ProyectoHuertas-widgets'
 }
 
+{ #category : #'instance creation' }
+WAPluggableEditor class >> subject: anObject [
+	^ self new
+		subject: anObject;
+		yourself
+]
+
 { #category : #callbacks }
 WAPluggableEditor >> accept [
 	(self children anySatisfy: [ :each | each hasProblems ])
@@ -31,14 +38,8 @@ WAPluggableEditor >> children [
 	^ self subclassResponsibility
 ]
 
-{ #category : #initialization }
-WAPluggableEditor >> initialize [
-	super initialize.
-	self intializeComponents
-]
-
 { #category : #'subclass-responsibility' }
-WAPluggableEditor >> intializeComponents [
+WAPluggableEditor >> initializeComponents [
 	"Initialize all property components"
 
 	^ self subclassResponsibility
@@ -102,5 +103,6 @@ WAPluggableEditor >> subject [
 
 { #category : #accessing }
 WAPluggableEditor >> subject: anObject [
-	subject := anObject
+	subject := anObject.
+	self initializeComponents
 ]

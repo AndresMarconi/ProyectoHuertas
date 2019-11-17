@@ -41,7 +41,7 @@ ExampleOfPluggableEditor >> initialize [
 ]
 
 { #category : #initialization }
-ExampleOfPluggableEditor >> intializeComponents [
+ExampleOfPluggableEditor >> initializeComponents [
 	"Initialize all property components"
 
 	fullNameEditorComponent := TextLinePropertyEditorComponent

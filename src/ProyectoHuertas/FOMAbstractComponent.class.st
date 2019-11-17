@@ -10,7 +10,7 @@ Class {
 		'parent',
 		'problems'
 	],
-	#category : #'ProyectoHuertas-ui'
+	#category : #'ProyectoHuertas-ui-core'
 }
 
 { #category : #initialization }
@@ -29,7 +29,7 @@ FOMAbstractComponent >> parent: anObject [
 	parent := anObject
 ]
 
-{ #category : #bootstrap4 }
+{ #category : #updating }
 FOMAbstractComponent >> rendererClass [
 	^ SBSHtmlCanvas
 ]
