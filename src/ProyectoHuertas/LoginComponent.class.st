@@ -1,6 +1,6 @@
 Class {
 	#name : #LoginComponent,
-	#superclass : #FOMMainComponent,
+	#superclass : #FOMAbstractComponent,
 	#instVars : [
 		'username',
 		'password'

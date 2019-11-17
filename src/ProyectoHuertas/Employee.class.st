@@ -3,7 +3,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'firstName',
-		'lastName'
+		'lastName',
+		'startDate',
+		'salary',
+		'notes'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -39,4 +42,34 @@ Employee >> lastName [
 { #category : #accessing }
 Employee >> lastName: anObject [
 	lastName := anObject
+]
+
+{ #category : #accessing }
+Employee >> notes [
+	^ notes
+]
+
+{ #category : #accessing }
+Employee >> notes: anObject [
+	notes := anObject
+]
+
+{ #category : #accessing }
+Employee >> salary [
+	^ salary
+]
+
+{ #category : #accessing }
+Employee >> salary: anObject [
+	salary := anObject
+]
+
+{ #category : #accessing }
+Employee >> startDate [
+	^ startDate
+]
+
+{ #category : #accessing }
+Employee >> startDate: anObject [
+	startDate := anObject
 ]
