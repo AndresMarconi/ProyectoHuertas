@@ -1,34 +1,31 @@
 Class {
-	#name : #UserEditor,
+	#name : #EmployeeEditor,
 	#superclass : #WAPluggableEditor,
 	#instVars : [
-		'userNameEditorComponent',
 		'firstNameEditorComponent',
 		'lastNameEditorComponent',
-		'passwordEditorComponent'
+		'salaryEditorComponent',
+		'notesEditorComponent',
+		'startDateEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #'subclass-responsibility' }
-UserEditor >> children [
+EmployeeEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
-	^ {userNameEditorComponent.
+	^ {salaryEditorComponent.
 		firstNameEditorComponent.
 		lastNameEditorComponent.
-		passwordEditorComponent}
+		notesEditorComponent.
+		startDateEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
-UserEditor >> initializeComponents [
+EmployeeEditor >> initializeComponents [
 	"Initialize all property components"
 
-	userNameEditorComponent := TextLinePropertyEditorComponent
-		subject: subject
-		selector: #username
-		label: 'Nombre de Usuario'
-		required: true.
 	firstNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #firstName
@@ -37,11 +34,21 @@ UserEditor >> initializeComponents [
 	lastNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #lastName
-		label: 'Apellido'
+		label: 'apellido'
 		required: true.
-	passwordEditorComponent := TextLinePropertyEditorComponent
+	salaryEditorComponent := NumberPropertyEditorComponent
 		subject: subject
-		selector: #password
-		label: 'Contaseña'
+		selector: #salary
+		label: 'salario'
+		required: true.
+	startDateEditorComponent := DatePropertyEditorComponent
+		subject: subject
+		selector: #startDate
+		label: 'fecha de inicio'
+		required: true.
+	notesEditorComponent := TextLinePropertyEditorComponent
+	e	subject: subject
+		selector: #notes
+		label: 'notas'
 		required: true
 ]

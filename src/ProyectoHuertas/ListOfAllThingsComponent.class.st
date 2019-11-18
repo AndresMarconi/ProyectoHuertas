@@ -31,6 +31,36 @@ ListOfAllThingsComponent class >> initialize [
 ]
 
 { #category : #callbacks }
+ListOfAllThingsComponent >> addAplication: plot [
+	| aplication |
+	aplication  := self call: (AplicationEditor subject: Application new).
+	aplication ifNotNil: [ :it | 
+		it save.
+		plot addEvent: it.
+		plot save ]
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> addFarm: user [
+	| farm |
+	farm := self call: (FarmEditor subject: Farm new).
+	farm ifNotNil: [ :it | 
+		it save.
+		user addFarm: it.
+		user save ]
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> addPlot: farm [
+	| plot |
+	plot := self call: (PlotEditor subject: Plot new).
+	plot ifNotNil: [ :it | 
+		it save.
+		farm addPlot: it.
+		farm save ]
+]
+
+{ #category : #callbacks }
 ListOfAllThingsComponent >> addSubstance [
 	| substance |
 	substance := self call: (SubstanceEditor subject: Substance new).
@@ -45,6 +75,18 @@ ListOfAllThingsComponent >> addUser [
 ]
 
 { #category : #callbacks }
+ListOfAllThingsComponent >> editFarm: farm [
+	(self call: (FarmEditor subject: farm))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> editPlot: plot [
+	(self call: (PlotEditor subject: plot))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
 ListOfAllThingsComponent >> editSubstance: substance [
 	(self call: (SubstanceEditor subject: substance))
 		ifNotNil: [ :it | it save ]
@@ -54,6 +96,16 @@ ListOfAllThingsComponent >> editSubstance: substance [
 ListOfAllThingsComponent >> editUser: user [
 	(self call: (UserEditor subject: user))
 		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> removeFarm: farm [
+	farm remove
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> removePlot: plot [
+	plot remove
 ]
 
 { #category : #callbacks }
@@ -105,7 +157,20 @@ ListOfAllThingsComponent >> renderExampleButtonsOn: anHtmlCanvas [
 
 { #category : #'as yet unclassified' }
 ListOfAllThingsComponent >> renderFarm: aFarm on: anHtmlCanvas [
-	anHtmlCanvas listItem: aFarm name.
+	anHtmlCanvas listItem with:[ 
+			anHtmlCanvas text: aFarm name.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self editFarm: aFarm  ];
+				with: 'Editar'.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self removeFarm: aFarm ];
+				with: 'Eliminar'.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self addPlot: aFarm ];
+				with: 'Agregar Plot' ].
 		anHtmlCanvas unorderedList: [ 
 			aFarm plots do:[ :plot | 
 				self renderPlot: plot on: anHtmlCanvas ] ]
@@ -125,6 +190,9 @@ ListOfAllThingsComponent >> renderPlot: aPlot on: anHtmlCanvas [
 	anHtmlCanvas listItem with: [ 
 		anHtmlCanvas text: 'plot '. 
 		anHtmlCanvas text: aPlot id ].
+		anHtmlCanvas anchor
+				callback: [ self addAplication: aPlot ];
+				with: 'Agregar aplicacion'.
 	anHtmlCanvas unorderedList: [ 
 		self renderSowing: aPlot  on: anHtmlCanvas. 
 		self renderProblem: aPlot  on: anHtmlCanvas.
@@ -182,15 +250,19 @@ ListOfAllThingsComponent >> renderSubstancesOn: anHtmlCanvas [
 { #category : #'as yet unclassified' }
 ListOfAllThingsComponent >> renderUser: aUser on: anHtmlCanvas [
 	anHtmlCanvas listItem with:[ 
-		anHtmlCanvas text: aUser username.
-		anHtmlCanvas space.
-		anHtmlCanvas anchor
-			callback: [ self editUser: aUser ];
-			with: 'Editar'.
-		anHtmlCanvas space.
-		anHtmlCanvas anchor
-			callback: [ self removeUser: aUser ];
-			with: 'Eliminar' ].
+			anHtmlCanvas text: aUser username.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self editUser: aUser ];
+				with: 'Editar'.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self removeUser: aUser ];
+				with: 'Eliminar'.
+			anHtmlCanvas space.
+			anHtmlCanvas anchor
+				callback: [ self addFarm: aUser ];
+				with: 'Agregar granja' ].
 		anHtmlCanvas unorderedList: [ 
 			aUser farms do:[ :farm | 
 				self renderFarm: farm on: anHtmlCanvas ] ]
