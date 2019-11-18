@@ -43,6 +43,11 @@ ListOfAllThingsComponent >> editSubstance: substance [
 		ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #callbacks }
+ListOfAllThingsComponent >> removeSubstance: substance [
+	substance remove
+]
+
 { #category : #'as yet unclassified' }
 ListOfAllThingsComponent >> renderAplication: aPlot on: anHtmlCanvas [
 	aPlot aplications
@@ -55,8 +60,8 @@ ListOfAllThingsComponent >> renderAplication: aPlot on: anHtmlCanvas [
 { #category : #rendering }
 ListOfAllThingsComponent >> renderContentOn: anHtmlCanvas [
 	self renderExampleButtonsOn: anHtmlCanvas.
-	self renderUsersOn: anHtmlCanvas.
-	self renderSubstancesOn: anHtmlCanvas
+	self renderSubstancesOn: anHtmlCanvas.
+	self renderUsersOn: anHtmlCanvas
 ]
 
 { #category : #rendering }
@@ -66,12 +71,12 @@ ListOfAllThingsComponent >> renderExampleButtonsOn: anHtmlCanvas [
 		with: [ anHtmlCanvas formButton
 				bePrimary;
 				with: 'Cargar ejemplos' ].
-			anHtmlCanvas space.
-				anHtmlCanvas anchor
-		callback: [ ];
+	anHtmlCanvas space.
+	anHtmlCanvas anchor
+		callback: [ self addSubstance ];
 		with: [ anHtmlCanvas formButton
 				bePrimary;
-				with: 'Borrar todo' ]
+				with: 'Agregar substancia' ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -143,12 +148,11 @@ ListOfAllThingsComponent >> renderSubstancesOn: anHtmlCanvas [
 								space.
 							anHtmlCanvas anchor
 								callback: [ self editSubstance: substance ];
-								with: 'Edit' ] ] ].
-	anHtmlCanvas anchor
-		callback: [ self addSubstance ];
-		with: [ anHtmlCanvas formButton
-				bePrimary;
-				with: 'Agregar substancia' ]
+								with: 'Editar'.
+							anHtmlCanvas space.
+							anHtmlCanvas anchor
+								callback: [ self removeSubstance: substance ];
+								with: 'Eliminar' ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
