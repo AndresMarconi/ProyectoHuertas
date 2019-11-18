@@ -2,10 +2,18 @@ Class {
 	#name : #FOMSession,
 	#superclass : #WASession,
 	#instVars : [
-		'user'
+		'user',
+		'farm'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
+
+{ #category : #accessing }
+FOMSession >> farm [
+	"the currently selected farm"
+
+	^ farm
+]
 
 { #category : #accessing }
 FOMSession >> farms [

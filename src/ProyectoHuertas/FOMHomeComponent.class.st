@@ -45,7 +45,7 @@ FOMHomeComponent >> renderNavbarOn: html [
 		with: [ html navigationBarBrand: 'Farm-O-Matic'.
 			html
 				form: [ html formButton bePrimary
-						callback: [ self returnToIntro ];
+						callback: [  ];
 						with: 'Salir' ] ]
 ]
 
