@@ -38,14 +38,32 @@ ListOfAllThingsComponent >> addSubstance [
 ]
 
 { #category : #callbacks }
+ListOfAllThingsComponent >> addUser [
+	| user |
+	user := self call: (UserEditor subject: User new).
+	user ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
 ListOfAllThingsComponent >> editSubstance: substance [
 	(self call: (SubstanceEditor subject: substance))
 		ifNotNil: [ :it | it save ]
 ]
 
 { #category : #callbacks }
+ListOfAllThingsComponent >> editUser: user [
+	(self call: (UserEditor subject: user))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
 ListOfAllThingsComponent >> removeSubstance: substance [
-	substance remove
+	substance  remove
+]
+
+{ #category : #callbacks }
+ListOfAllThingsComponent >> removeUser: user [
+	user remove
 ]
 
 { #category : #'as yet unclassified' }
@@ -76,7 +94,13 @@ ListOfAllThingsComponent >> renderExampleButtonsOn: anHtmlCanvas [
 		callback: [ self addSubstance ];
 		with: [ anHtmlCanvas formButton
 				bePrimary;
-				with: 'Agregar substancia' ]
+				with: 'Agregar substancia' ].
+	anHtmlCanvas space.
+	anHtmlCanvas anchor
+		callback: [ self addUser ];
+		with: [ anHtmlCanvas formButton
+				bePrimary;
+				with: 'Agregar usuario' ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -157,7 +181,16 @@ ListOfAllThingsComponent >> renderSubstancesOn: anHtmlCanvas [
 
 { #category : #'as yet unclassified' }
 ListOfAllThingsComponent >> renderUser: aUser on: anHtmlCanvas [
-	anHtmlCanvas listItem: aUser username.
+	anHtmlCanvas listItem with:[ 
+		anHtmlCanvas text: aUser username.
+		anHtmlCanvas space.
+		anHtmlCanvas anchor
+			callback: [ self editUser: aUser ];
+			with: 'Editar'.
+		anHtmlCanvas space.
+		anHtmlCanvas anchor
+			callback: [ self removeUser: aUser ];
+			with: 'Eliminar' ].
 		anHtmlCanvas unorderedList: [ 
 			aUser farms do:[ :farm | 
 				self renderFarm: farm on: anHtmlCanvas ] ]
