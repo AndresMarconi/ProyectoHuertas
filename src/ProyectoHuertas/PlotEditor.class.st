@@ -2,7 +2,7 @@ Class {
 	#name : #PlotEditor,
 	#superclass : #WAPluggableEditor,
 	#instVars : [
-		'idEditorComponent',
+		'idPEditorComponent',
 		'surfaceEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
@@ -12,7 +12,7 @@ Class {
 PlotEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
-	^ {idEditorComponent.
+	^ {idPEditorComponent.
 		surfaceEditorComponent}
 ]
 
@@ -20,12 +20,12 @@ PlotEditor >> children [
 PlotEditor >> initializeComponents [
 	"Initialize all property components"
 
-	idEditorComponent := NumberPropertyEditorComponent
+	idPEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #id
 		label: 'Numero de lote'
 		required: true.
-	idEditorComponent := NumberPropertyEditorComponent
+	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
 		label: 'Superficie del lote (m2)'

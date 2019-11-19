@@ -87,6 +87,12 @@ ListOfAllThingsComponent >> editPlot: plot [
 ]
 
 { #category : #callbacks }
+ListOfAllThingsComponent >> editSowing: sowing [
+	(self call: (SowingEditor subject: sowing))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
 ListOfAllThingsComponent >> editSubstance: substance [
 	(self call: (SubstanceEditor subject: substance))
 		ifNotNil: [ :it | it save ]
@@ -189,7 +195,13 @@ ListOfAllThingsComponent >> renderHarvest: aPlot on: anHtmlCanvas [
 ListOfAllThingsComponent >> renderPlot: aPlot on: anHtmlCanvas [
 	anHtmlCanvas listItem with: [ 
 		anHtmlCanvas text: 'plot '. 
-		anHtmlCanvas text: aPlot id ].
+		anHtmlCanvas text: aPlot id.
+		anHtmlCanvas anchor
+				callback: [ self editPlot: aPlot ];
+				with: 'editar'.
+		anHtmlCanvas anchor
+				callback: [ self addPlot: aPlot ];
+				with: 'agregar' ].
 		anHtmlCanvas anchor
 				callback: [ self addAplication: aPlot ];
 				with: 'Agregar aplicacion'.
@@ -225,7 +237,10 @@ ListOfAllThingsComponent >> renderSowing: aPlot on: anHtmlCanvas [
 		do: [ :sowing | 
 			anHtmlCanvas listItem
 				with: [ anHtmlCanvas text: 'sowing of '.
-					anHtmlCanvas text: sowing variety vulgarName ] ]
+					anHtmlCanvas text: sowing variety vulgarName ].
+					anHtmlCanvas anchor
+						callback: [ self editSowing: sowing ];
+						with: 'edit' ]
 ]
 
 { #category : #'as yet unclassified' }
