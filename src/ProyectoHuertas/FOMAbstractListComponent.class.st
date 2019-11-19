@@ -1,9 +1,6 @@
 Class {
 	#name : #FOMAbstractListComponent,
-	#superclass : #WAComponent,
-	#instVars : [
-		'parent'
-	],
+	#superclass : #FOMAbstractComponent,
 	#category : #'ProyectoHuertas-ui-core'
 }
 
@@ -15,4 +12,9 @@ FOMAbstractListComponent >> parent [
 { #category : #accessing }
 FOMAbstractListComponent >> parent: anObject [
 	parent := anObject
+]
+
+{ #category : #rendering }
+FOMAbstractListComponent >> renderContentOn: html [
+	html text: self printString
 ]

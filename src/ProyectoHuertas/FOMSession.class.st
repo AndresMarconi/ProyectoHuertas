@@ -21,6 +21,11 @@ FOMSession >> farms [
 ]
 
 { #category : #accessing }
+FOMSession >> plots [
+	^ farm ifNil: [ Plot selectAll ] ifNotNil: [ farm plots ]
+]
+
+{ #category : #accessing }
 FOMSession >> substances [
 	^ Substance selectAll
 ]

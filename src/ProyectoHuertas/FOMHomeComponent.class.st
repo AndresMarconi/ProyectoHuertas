@@ -8,12 +8,39 @@
 "
 Class {
 	#name : #FOMHomeComponent,
-	#superclass : #WAComponent,
+	#superclass : #FOMAbstractComponent,
 	#instVars : [
-		'selectedComponent'
+		'selectedComponent',
+		'plotsComponent',
+		'sowingComponent',
+		'harvestComponent',
+		'salesComponent',
+		'problemsComponent',
+		'applicationsComponent',
+		'varietiesComponent',
+		'substancesComponent',
+		'stockComponent'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
+
+{ #category : #'accessing-children' }
+FOMHomeComponent >> children [
+	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
+]
+
+{ #category : #initialization }
+FOMHomeComponent >> initialize [
+	plotsComponent := FOMPlotsComponent new.
+	sowingComponent := FOMSowingComponent new.
+	harvestComponent := FOMHarvestComponent new.
+	salesComponent := FOMSalesComponent new.
+	problemsComponent := FOMProblemsComponent new.
+	applicationsComponent := FOMApplicationsComponent new.
+	substancesComponent := FOMSubstancesComponent new.
+	varietiesComponent := FOMVarietiesComponent new.
+	stockComponent := FOMStockComponent new
+]
 
 { #category : #rendering }
 FOMHomeComponent >> renderContentOn: html [
@@ -28,28 +55,33 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 	| item |
 	html
 		form: [ html
-				listGroup: [ {'Lotes' . 'Problemas' . 'Siembras' . 'Cosechas' . 'Aplicaciones'.
-					'Ventas'}
+				listGroup: [ {plotsComponent.
+					sowingComponent.
+					harvestComponent.
+					salesComponent.
+					problemsComponent.
+					applicationsComponent.
+					varietiesComponent.
+					substancesComponent.
+					stockComponent}
 						do: [ :ex | 
 							item := html listGroupLinkedItem.
 							selectedComponent = ex
 								ifTrue: [ item beActive ].
 							item
 								callback: [ selectedComponent := ex ];
-								with: ex ] ] ]
+								with: ex printString ] ] ]
 ]
 
 { #category : #rendering }
 FOMHomeComponent >> renderNavbarOn: html [
-	html navigationBar
-		with: [ html navigationBarBrand: 'Farm-O-Matic'.
+	| bar |
+	bar := html navigationBar.
+	bar beLight.
+	bar
+		with: [ html navigationBarBrand with: 'Farm-O-Matic'.
 			html
-				form: [ html formButton bePrimary
+				form: [ html outlineButton bePrimary  beSmall
 						callback: [  ];
 						with: 'Salir' ] ]
-]
-
-{ #category : #rendering }
-FOMHomeComponent >> rendererClass [
-	^ SBSHtmlCanvas
 ]
