@@ -39,9 +39,16 @@ HarvestingEditor >> initializeComponents [
 		selector: #quantity
 		label: 'cantidad'
 		required: true.
-	varietyEditorComponent := TextLinePropertyEditorComponent
+	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #variety
-		label: 'variedad'
-		required: true
+		label: 'Producto'
+		required: true.
+	varietyEditorComponent
+		possibleValues: {nil} , (self varieties).
+]
+
+{ #category : #accessing }
+HarvestingEditor >> varieties [
+	^ (Variety selectAll) asOrderedCollection.
 ]

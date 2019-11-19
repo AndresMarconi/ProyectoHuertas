@@ -32,9 +32,16 @@ PurchaseEditor >> initializeComponents [
 		selector: #distributor
 		label: 'Distribuidor'
 		required: true.
-	inputEditorComponent := TextLinePropertyEditorComponent
+	inputEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #inputs
-		label: 'producto'
-		required: true
+		label: 'Producto'
+		required: true.
+	inputEditorComponent
+		possibleValues: {nil} , (self substances).
+]
+
+{ #category : #accessing }
+PurchaseEditor >> substances [
+	^ (Substance selectAll) asOrderedCollection.
 ]

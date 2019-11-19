@@ -57,6 +57,13 @@ Plot >> initialize [
 	events := OrderedCollection new.
 ]
 
+{ #category : #printing }
+Plot >> printOn: aStream [
+	^ aStream
+		nextPutAll: ('Lote N° ');
+		nextPutAll: (self id)
+]
+
 { #category : #accessing }
 Plot >> problems [
 	^ events select: [ :event | event class = Problem ]

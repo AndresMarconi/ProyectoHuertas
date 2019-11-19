@@ -38,4 +38,31 @@ SowingEditor >> initializeComponents [
 		selector: #surface
 		label: 'm2 de aplicacion'
 		required: true.
+	varietyEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #variety
+		label: 'Producto'
+		required: true.
+	varietyEditorComponent
+		possibleValues: {nil} , (self varieties).
+	conductionSystemEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #conductionSystem
+		label: 'Sistema de conduccion'
+		required: true.
+	distributionEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #distribution
+		label: 'Distribucion'
+		required: true.
+	quantityEditorComponent := NumberPropertyEditorComponent
+		subject: subject
+		selector: #quantity
+		label: 'Cantidad'
+		required: true.
+]
+
+{ #category : #accessing }
+SowingEditor >> varieties [
+	^ (Variety selectAll) asOrderedCollection
 ]

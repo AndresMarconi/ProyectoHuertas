@@ -32,9 +32,16 @@ SaleItemEditor >> initializeComponents [
 		selector: #kilograms
 		label: 'kilogramos'
 		required: true.
-	plotEditorComponent := TextLinePropertyEditorComponent
+	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #plot
-		label: 'lote'
-		required: true
+		label: 'Lote'
+		required: true.
+	plotEditorComponent
+		possibleValues: {nil} , (self plots).
+]
+
+{ #category : #accessing }
+SaleItemEditor >> plots [ 
+	^ (Plot selectAll) asOrderedCollection.
 ]

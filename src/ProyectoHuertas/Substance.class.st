@@ -55,6 +55,14 @@ Substance >> comercialName: anObject [
 	comercialName := anObject
 ]
 
+{ #category : #printing }
+Substance >> printOn: aStream [
+	^ aStream
+		nextPutAll: (self comercialName);
+		nextPutAll: (' - ');
+		nextPutAll: (self brand).
+]
+
 { #category : #accessing }
 Substance >> waitingPeriodAfterApplication [
 	^ waitingPeriodAfterApplication

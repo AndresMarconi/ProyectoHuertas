@@ -47,7 +47,7 @@ EmployeeEditor >> initializeComponents [
 		label: 'fecha de inicio'
 		required: true.
 	notesEditorComponent := TextLinePropertyEditorComponent
-	e	subject: subject
+		subject: subject
 		selector: #notes
 		label: 'notas'
 		required: true

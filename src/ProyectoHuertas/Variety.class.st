@@ -21,6 +21,12 @@ Variety class >> vulgarName: vulgarName taxonomicName: taxonomicName [
 		yourself
 ]
 
+{ #category : #printing }
+Variety >> printOn: aStream [
+	^ aStream
+		nextPutAll: (self vulgarName).
+]
+
 { #category : #accessing }
 Variety >> taxonomicName [
 	^ taxonomicName
