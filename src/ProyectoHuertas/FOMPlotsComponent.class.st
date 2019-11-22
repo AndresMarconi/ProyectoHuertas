@@ -25,6 +25,11 @@ FOMPlotsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Lotes'
 ]
 
+{ #category : #removing }
+FOMPlotsComponent >> removePlot: plot [
+	plot remove
+]
+
 { #category : #rendering }
 FOMPlotsComponent >> render: plot on: html [
 	html card
@@ -33,8 +38,8 @@ FOMPlotsComponent >> render: plot on: html [
 		with: [ html
 				cardBody: [ html cardTitle level5 with: [ 
 						html anchor
-						callback: [ self editPlot: plot  ];
-						with: [ html text: 'Lote N°'. html text: plot id ] ].
+							callback: [ self editPlot: plot  ];
+							with: [ html text: 'Lote N°'. html text: plot id ] ].
 					html
 						cardText: [ html
 								text: 'Variedad: algo.';
@@ -42,19 +47,23 @@ FOMPlotsComponent >> render: plot on: html [
 								text: 'Ultimo evento: resumen del último evento.';
 								break;
 								text: '....' ].
-					html formButton bePrimary with: 'Detalles'.
-					html space.
-					html formButton bePrimary 
-						callback: [ self editPlot: plot  ];
-						with: 'Editar'. ] ]
+					html form: [
+						html formButton bePrimary with: 'Detalles'.
+						html space.
+						html formButton
+							beDanger;
+							callback: [ self removePlot: plot ];
+							with: 'Eliminar' ] ] ]
 ]
 
 { #category : #rendering }
 FOMPlotsComponent >> renderContentOn: html [
 	html
 		row: [ self session plots do: [ :plot | self render: plot on: html ] ];
-		row: [ html anchor
-					callback: [ self addPlot: (self session farm) ];
-					with: [ html formButton bePrimary;
-								with: 'Agregar lote' ] ]
+		break.
+	html anchor
+		callback: [ self addPlot: (self session farm) ];
+		with: [ html formButton bePrimary;
+						with: 'Agregar lote' ]
+			
 ]
