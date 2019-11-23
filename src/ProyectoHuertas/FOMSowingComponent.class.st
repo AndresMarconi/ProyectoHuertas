@@ -16,12 +16,12 @@ FOMSowingComponent >> editSowing: sowing [
 
 { #category : #initialization }
 FOMSowingComponent >> initialize [ 
-	paginator := Paginator newTotalElements: self sowings
+	paginator := Paginator newTotalElements: self sowings perPage: 10
 ]
 
 { #category : #'as yet unclassified' }
 FOMSowingComponent >> listSowing: sowing On: html [
-	html listGroupItem: [ 
+	html listGroupItem with: [ 
 		html row class:'d-flex justify-content-between'; with: [ 
 			html paragraph: [ html text: sowing variety; text: ' sembrado el ';	text: sowing date ].
 			html form: [ 
