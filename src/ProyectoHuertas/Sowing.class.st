@@ -27,6 +27,11 @@ Sowing class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'as yet unclassified' }
+Sowing >> classRow [
+	^ 'list-group-item-primary'
+]
+
 { #category : #accessing }
 Sowing >> conductionSystem [
 	^ conductionSystem
@@ -47,6 +52,11 @@ Sowing >> distribution: anObject [
 	distribution := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Sowing >> editor [ 
+	^ SowingEditor subject: self
+]
+
 { #category : #accessing }
 Sowing >> quantity [
 	^ quantity
@@ -55,6 +65,11 @@ Sowing >> quantity [
 { #category : #accessing }
 Sowing >> quantity: anObject [
 	quantity := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Sowing >> rowText [
+	^ 'Siembra de ',(self variety vulgarName), ' echa el ', (self date asString).
 ]
 
 { #category : #accessing }

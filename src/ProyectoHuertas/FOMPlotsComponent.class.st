@@ -14,6 +14,11 @@ FOMPlotsComponent >> addPlot: farm [
 							  farm save ] ]
 ]
 
+{ #category : #'as yet unclassified' }
+FOMPlotsComponent >> detailsPlot: plot [
+	(self call: (FOMPlotEventComponent plot: plot))
+]
+
 { #category : #callbacks }
 FOMPlotsComponent >> editPlot: plot [
 	(self call: (PlotEditor subject: plot))
@@ -48,7 +53,9 @@ FOMPlotsComponent >> render: plot on: html [
 								break;
 								text: '....' ].
 					html form: [
-						html formButton bePrimary with: 'Detalles'.
+						html formButton bePrimary;
+							callback: [ self detailsPlot: plot ];
+							with: 'Datalles'.
 						html space.
 						html formButton
 							beDanger;

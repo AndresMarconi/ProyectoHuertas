@@ -13,6 +13,11 @@ Event class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'as yet unclassified' }
+Event >> classRow [
+	^ SubclassResponsibility 
+]
+
 { #category : #accessing }
 Event >> date [
 	^ date
@@ -21,6 +26,16 @@ Event >> date [
 { #category : #accessing }
 Event >> date: anObject [
 	date := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Event >> editor [
+	^ SubclassResponsibility 
+]
+
+{ #category : #'as yet unclassified' }
+Event >> rowText [
+	^ SubclassResponsibility 
 ]
 
 { #category : #accessing }

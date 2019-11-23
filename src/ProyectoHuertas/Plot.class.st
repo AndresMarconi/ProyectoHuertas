@@ -34,12 +34,12 @@ Plot >> aplications [
 
 { #category : #accessing }
 Plot >> events [
-	^ events
+	^ events asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #accessing }
 Plot >> harvests [
-	^ events select: [ :event | event class = Harvesting ]
+	^ (self events) select: [ :event | event class = Harvesting ]
 ]
 
 { #category : #accessing }

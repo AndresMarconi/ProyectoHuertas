@@ -119,10 +119,13 @@ Paginator >> previousButtonOn: html [
 { #category : #'as yet unclassified' }
 Paginator >> showElementsOf: collection [
 	| total col |
-	total := (totalElements - (elements * page)).
-	col := collection last: total.
-	(total > elements) 
-		ifTrue: [ col := col first: elements ].
+	(elements < totalElements)
+	ifTrue: [ 
+		total := (totalElements - (elements * page)).
+		col := collection last: total.
+		(total > elements) 
+		ifTrue: [ col := col first: elements ] ]
+	ifFalse: [ col:= collection ].
 	^ col
 ]
 

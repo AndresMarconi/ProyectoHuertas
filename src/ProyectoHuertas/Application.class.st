@@ -25,6 +25,11 @@ Application class >> substance: aSubstance dose: aDose machine: aMachine date: a
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+Application >> classRow [
+	^ 'list-group-item-secondary'
+]
+
 { #category : #accessing }
 Application >> dose [
 	^ dose
@@ -35,6 +40,11 @@ Application >> dose: anObject [
 	dose := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Application >> editor [ 
+	^ AplicationEditor subject: self
+]
+
 { #category : #accessing }
 Application >> machine [
 	^ machine
@@ -43,6 +53,11 @@ Application >> machine [
 { #category : #accessing }
 Application >> machine: anObject [
 	machine := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Application >> rowText [
+	^ 'Aplicacion de ',(self substance comercialName), ' echa el ', (self date asString).
 ]
 
 { #category : #accessing }

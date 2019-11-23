@@ -22,6 +22,16 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+Harvesting >> classRow [
+	^ 'list-group-item-warning'
+]
+
+{ #category : #'as yet unclassified' }
+Harvesting >> editor [ 
+	^ HarvestingEditor subject: self
+]
+
 { #category : #testing }
 Harvesting >> isEvent: aName [
 	^ aName = 'harvest'
@@ -35,6 +45,11 @@ Harvesting >> quantity [
 { #category : #accessing }
 Harvesting >> quantity: anObject [
 	quantity := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Harvesting >> rowText [
+	^ 'Cosecha de ',(self variety vulgarName), ' echa el ', (self date asString).
 ]
 
 { #category : #accessing }

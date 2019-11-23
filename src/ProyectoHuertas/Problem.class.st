@@ -27,6 +27,16 @@ Problem >> addSolutions: anObject [
 	solutions add: anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Problem >> classRow [
+	^ 'list-group-item-danger'
+]
+
+{ #category : #'as yet unclassified' }
+Problem >> editor [ 
+	^ ProblemEditor subject: self
+]
+
 { #category : #initialization }
 Problem >> initialize [
 	solutions := OrderedCollection new.
@@ -40,6 +50,11 @@ Problem >> name [
 { #category : #accessing }
 Problem >> name: anObject [
 	name := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Problem >> rowText [
+	^ 'Problema de ',(self name), ' ocurrido el ', (self date asString).
 ]
 
 { #category : #accessing }
