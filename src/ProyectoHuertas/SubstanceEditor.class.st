@@ -27,7 +27,7 @@ SubstanceEditor >> initializeComponents [
 	comercialNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #comercialName
-		label: 'Nombre comercial'
+		label: 'Nombre Comercial'
 		required: true.
 	brandEditorComponent := TextLinePropertyEditorComponent
 		subject: subject

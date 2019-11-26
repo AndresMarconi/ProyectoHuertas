@@ -25,16 +25,16 @@ ProblemEditor >> initializeComponents [
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
-		label: 'fecha de Aplicacion'
+		label: 'Fecha del Problema'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 de aplicacion'
+		label: 'm2 con Problemas'
 		required: true.
 	nameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #name
-		label: 'problema'
+		label: 'Problema'
 		required: true
 ]

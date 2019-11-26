@@ -23,11 +23,11 @@ VarietyEditor >> initializeComponents [
 	taxonomicNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #taxonomicName
-		label: 'nombre taxonomico'
+		label: 'Nombre Taxonomico'
 		required: true.
 	vulgarNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #vulgarName
-		label: 'Nombre comun'
+		label: 'Nombre Comun'
 		required: true.
 ]

@@ -13,7 +13,7 @@ Class {
 FOMPlotEventComponent class >> plot: aPlot [
 	^ self new
 		plot: aPlot;
-		paginator: (Paginator newTotalElements: (aPlot events) perPage: 10);
+		paginator: (Paginator newTotalElements: (aPlot events) perPage: 7);
 		yourself
 	
 ]

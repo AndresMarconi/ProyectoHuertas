@@ -23,11 +23,11 @@ CampaingEditor >> initializeComponents [
 	startDateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #startDate
-		label: 'fecha de inicio'
+		label: 'Fecha de Inicio'
 		required: true.
 	endDateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #endDate
-		label: 'fecha fin'
+		label: 'Fecha Fin'
 		required: true
 ]

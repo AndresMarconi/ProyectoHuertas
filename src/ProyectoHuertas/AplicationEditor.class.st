@@ -29,12 +29,12 @@ AplicationEditor >> initializeComponents [
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
-		label: 'fecha de Aplicacion'
+		label: 'Fecha de Aplicacion'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 de aplicacion'
+		label: 'm2 de Aplicacion'
 		required: true.
 	doseEditorComponent := NumberPropertyEditorComponent
 		subject: subject
@@ -44,7 +44,7 @@ AplicationEditor >> initializeComponents [
 	machineEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #machine
-		label: 'Maquina usada'
+		label: 'Maquina Usada'
 		required: true.
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject

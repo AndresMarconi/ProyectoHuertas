@@ -28,6 +28,6 @@ PlotEditor >> initializeComponents [
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'Superficie del lote (m2)'
+		label: 'Superficie del Lote (m2)'
 		required: true
 ]

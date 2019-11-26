@@ -25,7 +25,7 @@ PurchaseEditor >> initializeComponents [
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
-		label: 'fecha'
+		label: 'Fecha'
 		required: true.
 	distributorEditorComponent := TextLinePropertyEditorComponent
 		subject: subject

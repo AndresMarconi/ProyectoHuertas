@@ -31,12 +31,12 @@ SowingEditor >> initializeComponents [
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
-		label: 'fecha de Aplicacion'
+		label: 'Fecha de Siembra'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 de aplicacion'
+		label: 'm2 Sembrados'
 		required: true.
 	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
@@ -48,7 +48,7 @@ SowingEditor >> initializeComponents [
 	conductionSystemEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #conductionSystem
-		label: 'Sistema de conduccion'
+		label: 'Sistema de Conduccion'
 		required: true.
 	distributionEditorComponent := TextLinePropertyEditorComponent
 		subject: subject

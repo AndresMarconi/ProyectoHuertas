@@ -34,21 +34,21 @@ EmployeeEditor >> initializeComponents [
 	lastNameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #lastName
-		label: 'apellido'
+		label: 'Apellido'
 		required: true.
 	salaryEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #salary
-		label: 'salario'
+		label: 'Salario'
 		required: true.
 	startDateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #startDate
-		label: 'fecha de inicio'
+		label: 'Fecha de Inicio'
 		required: true.
 	notesEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #notes
-		label: 'notas'
+		label: 'Notas'
 		required: true
 ]

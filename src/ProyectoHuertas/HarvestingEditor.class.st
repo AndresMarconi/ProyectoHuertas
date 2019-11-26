@@ -27,17 +27,17 @@ HarvestingEditor >> initializeComponents [
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
-		label: 'fecha de Aplicacion'
+		label: 'Fecha de Cosecha'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 de aplicacion'
+		label: 'm2 Cosechados'
 		required: true.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
-		label: 'cantidad'
+		label: 'Cantidad'
 		required: true.
 	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject

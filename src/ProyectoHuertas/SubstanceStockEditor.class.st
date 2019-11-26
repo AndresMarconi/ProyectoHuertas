@@ -25,7 +25,7 @@ SubstanceStockEditor >> initializeComponents [
 	substanceEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #substance
-		label: 'substancia'
+		label: 'Substancia'
 		required: true.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
@@ -35,6 +35,6 @@ SubstanceStockEditor >> initializeComponents [
 	expirationDateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #expirationDate
-		label: 'Fecha de vencimiento'
+		label: 'Fecha de Vencimiento'
 		required: true
 ]
