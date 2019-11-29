@@ -4,6 +4,22 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #callbacks }
+FOMApplicationsComponent >> editElement: element [
+	(self call: (AplicationEditor subject: element))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #callbacks }
+FOMApplicationsComponent >> elements [
+	^ (Application selectAll) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #callbacks }
+FOMApplicationsComponent >> heading [ 
+	^ 'Aplicaciones'
+]
+
 { #category : #printing }
 FOMApplicationsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Aplicaciones'
@@ -11,11 +27,5 @@ FOMApplicationsComponent >> printOn: aStream [
 
 { #category : #printing }
 FOMApplicationsComponent >> renderContentOn: html [
-	html
-		paragraph: 'Listado de aplicaciones en order cronológico inverso'.
-	html
-		paragraph:
-			'De cada aplicación ofrecer los datos mas relevantes y en todo caso ofrecer un botón para editar'.
-	html
-		paragraph: 'Arriba de todo ofrecer un botán para agregar uno/a nuevo'
+	self listTempleteOn: html.
 ]

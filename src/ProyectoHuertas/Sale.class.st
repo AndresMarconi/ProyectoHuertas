@@ -56,3 +56,8 @@ Sale >> initialize [
 Sale >> items [
 	^ items
 ]
+
+{ #category : #'as yet unclassified' }
+Sale >> rowText [
+	^ 'Venta realizada el ', date, ' al cliente', client
+]

@@ -52,3 +52,8 @@ Purchase >> inputs [
 Purchase >> inputs: anObject [
 	inputs := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+Purchase >> rowText [
+	^ 'Compra de ', inputs, ' realizada el ', Date, ' a', distributor 
+]

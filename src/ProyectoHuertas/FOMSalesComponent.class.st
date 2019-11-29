@@ -4,6 +4,20 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #callbacks }
+FOMSalesComponent >> editElement: element [
+]
+
+{ #category : #callbacks }
+FOMSalesComponent >> elements [
+	^ (Sale selectAll) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #callbacks }
+FOMSalesComponent >> heading [ 
+	^ 'Ventas'
+]
+
 { #category : #printing }
 FOMSalesComponent >> printOn: aStream [
 	aStream nextPutAll: 'Ventas'
@@ -11,10 +25,5 @@ FOMSalesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSalesComponent >> renderContentOn: html [
-	html paragraph: 'Listado de ventas en order cronológico inverso'.
-	html
-		paragraph:
-			'De cada problema venta los datos mas relevantes y en todo caso ofrecer un botón para editar'.
-	html
-		paragraph: 'Arriba de todo ofrecer un botán para agregar uno/a nuevo'
+	self listTempleteOn: html
 ]

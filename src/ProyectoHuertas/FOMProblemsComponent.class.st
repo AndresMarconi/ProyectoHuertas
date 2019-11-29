@@ -4,6 +4,22 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #rendering }
+FOMProblemsComponent >> editElement: element [
+	(self call: (ProblemEditor subject: element))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #rendering }
+FOMProblemsComponent >> elements [
+	^ (Problem selectAll) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #rendering }
+FOMProblemsComponent >> heading [ 
+	^ 'Problemas'
+]
+
 { #category : #printing }
 FOMProblemsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Problemas'
@@ -11,10 +27,5 @@ FOMProblemsComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMProblemsComponent >> renderContentOn: html [
-	html paragraph: 'Listado de problemas en order cronológico inverso'.
-	html
-		paragraph:
-			'De cada problema ofrecer los datos mas relevantes y en todo caso ofrecer un botón para editar'.
-	html
-		paragraph: 'Arriba de todo ofrecer un botán para agregar uno/a nuevo'
+	self listTempleteOn: html
 ]

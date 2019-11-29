@@ -27,6 +27,11 @@ Variety >> printOn: aStream [
 		nextPutAll: (self vulgarName).
 ]
 
+{ #category : #'as yet unclassified' }
+Variety >> rowText [
+	^ 'variadad ', vulgarName 
+]
+
 { #category : #accessing }
 Variety >> taxonomicName [
 	^ taxonomicName

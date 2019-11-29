@@ -2,9 +2,7 @@ Class {
 	#name : #FOMPlotEventComponent,
 	#superclass : #FOMAbstractListComponent,
 	#instVars : [
-		'plot',
-		'page',
-		'paginator'
+		'plot'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -13,7 +11,6 @@ Class {
 FOMPlotEventComponent class >> plot: aPlot [
 	^ self new
 		plot: aPlot;
-		paginator: (Paginator newTotalElements: (aPlot events) perPage: 7);
 		yourself
 	
 ]
@@ -39,8 +36,18 @@ FOMPlotEventComponent >> editEvent: editor [
 		ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #accessing }
+FOMPlotEventComponent >> elements [ 
+	^ plot events
+]
+
+{ #category : #'t-rotating' }
+FOMPlotEventComponent >> heading [
+	^ 'Eventos del lote'
+]
+
 { #category : #'as yet unclassified' }
-FOMPlotEventComponent >> listEvent: event On: html [
+FOMPlotEventComponent >> listElement: event On: html [
 	| item |
 	item:= html listGroupItem class: (event classRow). 
 	item with: [ 
@@ -50,16 +57,6 @@ FOMPlotEventComponent >> listEvent: event On: html [
 			html formButton bePrimary;
 				callback: [ self editEvent: (event editor) ];
 				with: 'Modificar' ] ] ]. 
-]
-
-{ #category : #accessing }
-FOMPlotEventComponent >> paginator [
-	^ paginator
-]
-
-{ #category : #accessing }
-FOMPlotEventComponent >> paginator: anObject [
-	paginator := anObject
 ]
 
 { #category : #accessing }
@@ -103,11 +100,6 @@ FOMPlotEventComponent >> renderButtonsOn: html [
 
 { #category : #hooks }
 FOMPlotEventComponent >> renderContentOn: html [
-	html row class:'container'; with: [ 
-		html column class:'col-md-12'; with:[
-			html heading level2 with: [ html text: 'Eventos del lote '. html text: plot events size ].
-			html listGroup flush with: [ (paginator showElementsOf: (plot events)) do: [ :event | 
-					self listEvent: event On: html ] ] ] ].
-	html row class: 'd-flex justify-content-center'; with: [ paginator paginationOn: html ].
+	self listTempleteOn: html.
 	self renderButtonsOn: html
 ]

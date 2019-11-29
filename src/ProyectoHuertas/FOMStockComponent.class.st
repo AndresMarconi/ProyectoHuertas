@@ -4,6 +4,22 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #rendering }
+FOMStockComponent >> editElement: element [
+	(self call: (PurchaseEditor subject: element))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #rendering }
+FOMStockComponent >> elements [
+	^ (Purchase selectAll) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #rendering }
+FOMStockComponent >> heading [ 
+	^ 'Stock'
+]
+
 { #category : #printing }
 FOMStockComponent >> printOn: aStream [
 	aStream nextPutAll: 'Depósito'
@@ -11,8 +27,5 @@ FOMStockComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMStockComponent >> renderContentOn: html [
-	html
-		paragraph:
-			'Listado de los insumos (substancias, etc.) en stock. Tal ves se pueden utilizar cards para esto dado que no deberían ser muchos'.
-	html paragraph: 'Pensar como lo vamos a manejar'
+	self listTempleteOn: html
 ]

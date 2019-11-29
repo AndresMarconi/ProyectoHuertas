@@ -54,6 +54,11 @@ Employee >> notes: anObject [
 	notes := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Employee >> rowText [
+	^ 'Empleado ', lastName, firstName 
+]
+
 { #category : #accessing }
 Employee >> salary [
 	^ salary
