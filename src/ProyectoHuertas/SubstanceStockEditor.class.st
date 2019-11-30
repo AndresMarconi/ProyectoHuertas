@@ -21,12 +21,13 @@ SubstanceStockEditor >> children [
 { #category : #'subclass-responsibility' }
 SubstanceStockEditor >> initializeComponents [
 	"Initialize all property components"
-	
-	substanceEditorComponent := TextLinePropertyEditorComponent
+	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #substance
 		label: 'Substancia'
 		required: true.
+	substanceEditorComponent
+		possibleValues: {nil} , (self substances).
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -37,4 +38,9 @@ SubstanceStockEditor >> initializeComponents [
 		selector: #expirationDate
 		label: 'Fecha de Vencimiento'
 		required: true
+]
+
+{ #category : #accessing }
+SubstanceStockEditor >> substances [
+	^ (Substance selectAll) asOrderedCollection.
 ]

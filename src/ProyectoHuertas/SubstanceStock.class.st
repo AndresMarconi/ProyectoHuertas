@@ -9,6 +9,11 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #testing }
+SubstanceStock class >> isVoyageRoot [
+	^ true
+]
+
 { #category : #'instance creation' }
 SubstanceStock class >> substance: substance quantity: quantity expirationDate: date [
 	^ self new
@@ -40,7 +45,7 @@ SubstanceStock >> quantity: anObject [
 
 { #category : #'as yet unclassified' }
 SubstanceStock >> rowText [
-	^ 'Stock de ', substance comercialName, ': ', quantity
+	^ 'Stock de ', substance comercialName, ': ', quantity asString
 ]
 
 { #category : #accessing }

@@ -4,6 +4,13 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #adding }
+FOMSalesComponent >> addSale [
+	| sale |
+	sale := self call: (SaleEditor subject: Sale new).
+	sale ifNotNil: [ :it | it save ]
+]
+
 { #category : #callbacks }
 FOMSalesComponent >> editElement: element [
 ]
@@ -25,5 +32,9 @@ FOMSalesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSalesComponent >> renderContentOn: html [
-	self listTempleteOn: html
+	self listTempleteOn: html.
+	html anchor
+		callback: [ self addSale ];
+		with: [ html formButton bePrimary;
+						with: 'Agregar venta' ]
 ]

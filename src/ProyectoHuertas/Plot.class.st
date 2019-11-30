@@ -57,6 +57,18 @@ Plot >> initialize [
 	events := OrderedCollection new.
 ]
 
+{ #category : #accessing }
+Plot >> lastEvent [
+	events ifEmpty: [ ^ 'Lote sin eventos' ] 
+	ifNotEmpty:[ ^ self events first rowText ]
+]
+
+{ #category : #accessing }
+Plot >> lastSowing [
+	self sowings ifEmpty: [ ^ 'sin siembras' ] 
+		ifNotEmpty:[ ^ self sowings first variety ]
+]
+
 { #category : #printing }
 Plot >> printOn: aStream [
 	^ aStream

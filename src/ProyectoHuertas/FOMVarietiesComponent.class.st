@@ -4,6 +4,13 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #adding }
+FOMVarietiesComponent >> addVariety [
+	| variety |
+	variety := self call: (VarietyEditor subject: Variety new).
+	variety ifNotNil: [ :it | it save ]
+]
+
 { #category : #callbacks }
 FOMVarietiesComponent >> editElement: element [
 	(self call: (VarietyEditor subject: element))
@@ -27,5 +34,9 @@ FOMVarietiesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMVarietiesComponent >> renderContentOn: html [
-	self listTempleteOn: html
+	self listTempleteOn: html.
+	html anchor
+		callback: [ self addVariety  ];
+		with: [ html formButton bePrimary;
+						with: 'Agregar variedad' ]
 ]

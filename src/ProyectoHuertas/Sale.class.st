@@ -59,5 +59,5 @@ Sale >> items [
 
 { #category : #'as yet unclassified' }
 Sale >> rowText [
-	^ 'Venta realizada el ', date, ' al cliente', client
+	^ 'Venta realizada el ', date asString, ' al cliente ', client
 ]

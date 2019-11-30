@@ -43,7 +43,7 @@ Campaign >> endDate: anObject [
 
 { #category : #'as yet unclassified' }
 Campaign >> rowText [
-	^ 'Campaña desde ', startDate, ' hasta ', endDate.
+	^ 'Campaña desde ', startDate asString , ' hasta ', endDate asString.
 ]
 
 { #category : #accessing }

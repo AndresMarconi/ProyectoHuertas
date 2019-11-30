@@ -47,11 +47,9 @@ FOMPlotsComponent >> render: plot on: html [
 							with: [ html text: 'Lote N°'. html text: plot id ] ].
 					html
 						cardText: [ html
-								text: 'Variedad: algo.';
+								text: plot lastSowing ;
 								break;
-								text: 'Ultimo evento: resumen del último evento.';
-								break;
-								text: '....' ].
+								text: plot lastEvent ].
 					html form: [
 						html formButton bePrimary;
 							callback: [ self detailsPlot: plot ];
