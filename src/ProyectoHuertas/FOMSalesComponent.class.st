@@ -17,7 +17,7 @@ FOMSalesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMSalesComponent >> elements [
-	^ (Sale selectAll) asSortedCollection: [ :a :b | a date > b date ]
+	^ (Sale selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #callbacks }

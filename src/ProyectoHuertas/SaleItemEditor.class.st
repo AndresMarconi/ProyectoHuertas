@@ -43,5 +43,5 @@ SaleItemEditor >> initializeComponents [
 
 { #category : #accessing }
 SaleItemEditor >> plots [ 
-	^ (Plot selectAll) asOrderedCollection.
+	^ (Plot selectMany: [ :each | each archived ]) asOrderedCollection.
 ]

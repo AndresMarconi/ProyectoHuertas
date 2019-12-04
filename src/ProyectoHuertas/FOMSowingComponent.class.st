@@ -12,7 +12,7 @@ FOMSowingComponent >> editElement: element [
 
 { #category : #accessing }
 FOMSowingComponent >> elements [
-	^ (Sowing selectAll) asSortedCollection: [ :a :b | a date > b date ]
+	^ (Sowing selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #'t-rotating' }

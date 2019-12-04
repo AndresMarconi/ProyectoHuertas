@@ -1,6 +1,6 @@
 Class {
 	#name : #Employee,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'firstName',
 		'lastName',
@@ -16,12 +16,18 @@ Employee class >> firstName: aName lastName: aSurname [
 	^ self new
 		firstName: aName;
 		lastName: aSurname;
+		archived: true;
 		yourself
 ]
 
 { #category : #testing }
 Employee class >> isVoyageRoot [
 	^ true
+]
+
+{ #category : #'submorphs-add/remove' }
+Employee >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

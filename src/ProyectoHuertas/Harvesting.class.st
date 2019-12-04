@@ -19,12 +19,18 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 		quantity: aQuantity;
 		variety: aVariety;
 		date: aDate;
+		archived: true;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
 Harvesting >> classRow [
 	^ 'list-group-item-warning'
+]
+
+{ #category : #'submorphs-add/remove' }
+Harvesting >> delete [ 
+	archived:= false.
 ]
 
 { #category : #'as yet unclassified' }

@@ -43,5 +43,5 @@ PurchaseEditor >> initializeComponents [
 
 { #category : #accessing }
 PurchaseEditor >> substances [
-	^ (Substance selectAll) asOrderedCollection.
+	^ (Substance selectMany: [ :each | each archived ]) asOrderedCollection.
 ]

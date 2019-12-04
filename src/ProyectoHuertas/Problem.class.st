@@ -19,6 +19,7 @@ Problem class >> name: aName date: aDate surface: aSurface [
 		name: aName;
 		date: aDate;
 		surface: aSurface;
+		archived: true;
 		yourself
 ]
 
@@ -30,6 +31,11 @@ Problem >> addSolutions: anObject [
 { #category : #'as yet unclassified' }
 Problem >> classRow [
 	^ 'list-group-item-danger'
+]
+
+{ #category : #'submorphs-add/remove' }
+Problem >> delete [ 
+	archived:= false
 ]
 
 { #category : #'as yet unclassified' }

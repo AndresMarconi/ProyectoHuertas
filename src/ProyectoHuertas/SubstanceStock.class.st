@@ -1,6 +1,6 @@
 Class {
 	#name : #SubstanceStock,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'substance',
 		'quantity',
@@ -20,7 +20,13 @@ SubstanceStock class >> substance: substance quantity: quantity expirationDate: 
 		substance: substance;
 		quantity: quantity;
 		expirationDate: date;
+		archived: true;
 		yourself
+]
+
+{ #category : #'submorphs-add/remove' }
+SubstanceStock >> delete [ 
+	archived:= false
 ]
 
 { #category : #accessing }

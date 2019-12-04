@@ -1,6 +1,6 @@
 Class {
 	#name : #Purchase,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'date',
 		'distributor',
@@ -15,6 +15,7 @@ Purchase class >> input: anInput distribution: aDist date: aDate [
 		date: aDate;
 		inputs: anInput;
 		distribution: aDist;
+		archived: true;
 		yourself
 ]
 
@@ -31,6 +32,11 @@ Purchase >> date [
 { #category : #accessing }
 Purchase >> date: anObject [
 	date := anObject
+]
+
+{ #category : #'submorphs-add/remove' }
+Purchase >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

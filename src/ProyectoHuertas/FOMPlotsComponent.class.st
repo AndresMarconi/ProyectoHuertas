@@ -32,7 +32,7 @@ FOMPlotsComponent >> printOn: aStream [
 
 { #category : #removing }
 FOMPlotsComponent >> removePlot: plot [
-	plot remove
+	plot delete
 ]
 
 { #category : #rendering }

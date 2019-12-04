@@ -1,6 +1,6 @@
 Class {
 	#name : #Plot,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'id',
 		'surface',
@@ -14,6 +14,7 @@ Plot class >> id: anId surface: aSurface [
 	^ self new
 		id: anId;
 		surface: aSurface;
+		archived: true;
 		yourself
 ]
 
@@ -30,6 +31,13 @@ Plot >> addEvent: anObject [
 { #category : #accessing }
 Plot >> aplications [
 	^ events select: [ :event | event class = Application ]
+]
+
+{ #category : #'submorphs-add/remove' }
+Plot >> delete [ 
+	archived:= false.
+	events do: [ :event | event archived: false ]
+	
 ]
 
 { #category : #accessing }

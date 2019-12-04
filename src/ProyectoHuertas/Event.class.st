@@ -1,6 +1,6 @@
 Class {
 	#name : #Event,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'date',
 		'surface'

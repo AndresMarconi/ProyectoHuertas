@@ -29,7 +29,11 @@ FOMAbstractListComponent >> listElement: element On: html [
 			html form: [ 
 				html formButton bePrimary;
 					callback: [ self editElement: element ];
-					with: 'Modificar' ] ] ].
+					with: 'Modificar'.
+				html space.
+				html formButton beDanger;
+					callback: [ self removeElement: element ];
+					with: 'Eliminar' ] ] ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -53,6 +57,11 @@ FOMAbstractListComponent >> parent [
 { #category : #accessing }
 FOMAbstractListComponent >> parent: anObject [
 	parent := anObject
+]
+
+{ #category : #removing }
+FOMAbstractListComponent >> removeElement: element [
+	element delete
 ]
 
 { #category : #rendering }

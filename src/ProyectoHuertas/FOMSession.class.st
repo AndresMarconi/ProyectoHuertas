@@ -17,25 +17,25 @@ FOMSession >> farm [
 
 { #category : #accessing }
 FOMSession >> farms [
-	^ Farm selectAll
+	^ Farm selectMany: [ :each | each archived ]
 ]
 
 { #category : #accessing }
 FOMSession >> plots [
-	^ farm ifNil: [ Plot selectAll ] ifNotNil: [ farm plots ]
+	^ farm ifNil: [ Plot selectMany: [ :each | each archived ] ] ifNotNil: [ farm plots ]
 ]
 
 { #category : #accessing }
 FOMSession >> substances [
-	^ Substance selectAll
+	^ Substance selectMany: [ :each | each archived ]
 ]
 
 { #category : #accessing }
 FOMSession >> users [
-  ^User selectAll 
+  ^ User selectMany: [ :each | each archived ] 
 ]
 
 { #category : #accessing }
 FOMSession >> varieties [
-	^ Variety selectAll
+	^ Variety selectMany: [ :each | each archived ]
 ]

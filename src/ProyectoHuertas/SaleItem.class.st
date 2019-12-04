@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleItem,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'kilograms',
 		'plot',
@@ -20,7 +20,13 @@ SaleItem class >> product: aProduct kilograms: kg fromPlot: aPlot [
 		product: aProduct;
 		kg: kg;
 		plot: aPlot;
+		archived: true;
 		yourself
+]
+
+{ #category : #'submorphs-add/remove' }
+SaleItem >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

@@ -12,7 +12,7 @@ FOMProblemsComponent >> editElement: element [
 
 { #category : #rendering }
 FOMProblemsComponent >> elements [
-	^ (Problem selectAll) asSortedCollection: [ :a :b | a date > b date ]
+	^ (Problem selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #rendering }

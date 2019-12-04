@@ -1,6 +1,6 @@
 Class {
 	#name : #Farm,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'name',
 		'plots',
@@ -19,6 +19,7 @@ Farm class >> isVoyageRoot [
 Farm class >> name: aName [
 	^ self new
 		name: aName;
+		archived: true;
 		yourself
 ]
 

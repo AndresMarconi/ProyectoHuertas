@@ -19,7 +19,7 @@ FOMVarietiesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMVarietiesComponent >> elements [
-	^ (Variety selectAll) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ (Variety selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #callbacks }

@@ -22,12 +22,18 @@ Application class >> substance: aSubstance dose: aDose machine: aMachine date: a
 		date: aDate;
 		surface: aSurface;
 		substance: aSubstance;
+		archived: true;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
 Application >> classRow [
 	^ 'list-group-item-secondary'
+]
+
+{ #category : #'submorphs-add/remove' }
+Application >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

@@ -1,6 +1,6 @@
 Class {
 	#name : #Sale,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'date',
 		'client',
@@ -14,6 +14,7 @@ Sale class >> client: aClient date: aDate [
 	^ self new
 		date: aDate;
 		client: aClient;
+		archived: true;
 		yourself
 ]
 
@@ -45,6 +46,12 @@ Sale >> date [
 { #category : #accessing }
 Sale >> date: anObject [
 	date := anObject
+]
+
+{ #category : #'submorphs-add/remove' }
+Sale >> delete [ 
+	archived:= false.
+	items do: [ :item | item archived: false ]
 ]
 
 { #category : #initialization }

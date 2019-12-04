@@ -1,6 +1,6 @@
 Class {
 	#name : #Variety,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'vulgarName',
 		'taxonomicName'
@@ -18,7 +18,13 @@ Variety class >> vulgarName: vulgarName taxonomicName: taxonomicName [
 	^ self new
 		vulgarName: vulgarName;
 		taxonomicName: taxonomicName;
+		archived: true;
 		yourself
+]
+
+{ #category : #'submorphs-add/remove' }
+Variety >> delete [ 
+	archived:= false
 ]
 
 { #category : #printing }

@@ -1,6 +1,6 @@
 Class {
 	#name : #Substance,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'comercialName',
 		'brand',
@@ -17,6 +17,7 @@ Substance class >> comercialName: comercialName brand: brand activeIngredients: 
 		brand: brand;
 		activeIngredients: activeIngredients;
 		waitingPeriodAfterApplication: waitingPeriodAfterApplication;
+		archived: true;
 		yourself
 ]
 
@@ -53,6 +54,11 @@ Substance >> comercialName [
 { #category : #accessing }
 Substance >> comercialName: anObject [
 	comercialName := anObject
+]
+
+{ #category : #'submorphs-add/remove' }
+Substance >> delete [ 
+	archived:= false.
 ]
 
 { #category : #printing }

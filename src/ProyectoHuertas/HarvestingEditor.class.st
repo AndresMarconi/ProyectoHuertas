@@ -50,5 +50,5 @@ HarvestingEditor >> initializeComponents [
 
 { #category : #accessing }
 HarvestingEditor >> varieties [
-	^ (Variety selectAll) asOrderedCollection.
+	^ (Variety selectMany: [ :each | each archived ]) asOrderedCollection.
 ]

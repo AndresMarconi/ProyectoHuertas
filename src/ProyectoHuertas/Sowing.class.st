@@ -19,6 +19,7 @@ Sowing class >> conductionSystem: conductionSystem quantity: quantity distributi
 		variety: variety;
 		date: date;
 		surface: surface;
+		archived: true;
 		yourself
 ]
 
@@ -40,6 +41,11 @@ Sowing >> conductionSystem [
 { #category : #accessing }
 Sowing >> conductionSystem: anObject [
 	conductionSystem := anObject
+]
+
+{ #category : #'submorphs-add/remove' }
+Sowing >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

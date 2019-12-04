@@ -1,6 +1,6 @@
 Class {
 	#name : #Campaign,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'startDate',
 		'endDate'
@@ -28,7 +28,13 @@ Campaign class >> startDate: sDate endDate: eDate [
 	^ self new
 		startDate: sDate;
 		endDate: eDate;
+		archived: true;
 		yourself
+]
+
+{ #category : #'submorphs-add/remove' }
+Campaign >> delete [ 
+	archived:= false.
 ]
 
 { #category : #accessing }

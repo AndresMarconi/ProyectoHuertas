@@ -19,7 +19,7 @@ FOMStockComponent >> editElement: element [
 
 { #category : #rendering }
 FOMStockComponent >> elements [
-	^ (SubstanceStock selectAll) asSortedCollection: [ :a :b | a expirationDate > b expirationDate ]
+	^ (SubstanceStock selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a expirationDate > b expirationDate ]
 ]
 
 { #category : #rendering }
