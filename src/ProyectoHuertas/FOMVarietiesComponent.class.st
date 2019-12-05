@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMVarietiesComponent >> addVariety [
 	| variety |
-	variety := self call: (VarietyEditor subject: Variety new).
+	variety := self call: (VarietyEditor subject: Variety newFom).
 	variety ifNotNil: [ :it | it save ]
 ]
 

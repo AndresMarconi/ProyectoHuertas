@@ -75,7 +75,7 @@ Sowing >> quantity: anObject [
 
 { #category : #'as yet unclassified' }
 Sowing >> rowText [
-	^ 'Siembra de ',(self variety vulgarName), ' echa el ', (self date asString).
+	^ 'Siembra de ',(self variety vulgarName)
 ]
 
 { #category : #accessing }

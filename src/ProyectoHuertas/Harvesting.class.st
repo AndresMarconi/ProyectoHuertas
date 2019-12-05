@@ -55,7 +55,7 @@ Harvesting >> quantity: anObject [
 
 { #category : #'as yet unclassified' }
 Harvesting >> rowText [
-	^ 'Cosecha de ',(self variety vulgarName), ' echa el ', (self date asString).
+	^ 'Cosecha de ',(self variety vulgarName)
 ]
 
 { #category : #accessing }

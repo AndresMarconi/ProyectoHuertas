@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMPlotsComponent >> addPlot: farm [
 	| plot |
-	plot := self call: (PlotEditor subject: Plot new).
+	plot := self call: (PlotEditor subject: Plot newFom).
 	plot ifNotNil: [ :it | 
 		it save.
 		farm ifNotNil: [ farm addPlot: it.

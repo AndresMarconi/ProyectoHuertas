@@ -27,5 +27,5 @@ FOMHarvestComponent >> printOn: aStream [
 
 { #category : #printing }
 FOMHarvestComponent >> renderContentOn: html [
-	self listTempleteOn: html
+	self tableTempleteOn: html.
 ]

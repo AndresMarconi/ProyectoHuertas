@@ -27,5 +27,5 @@ FOMProblemsComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMProblemsComponent >> renderContentOn: html [
-	self listTempleteOn: html
+	self tableTempleteOn: html.
 ]

@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMStockComponent >> addSubstanceStock [
 	| substanceStock |
-	substanceStock := self call: (SubstanceStockEditor subject: SubstanceStock new).
+	substanceStock := self call: (SubstanceStockEditor subject: SubstanceStock newFom).
 	substanceStock ifNotNil: [ :it | it save ]
 ]
 

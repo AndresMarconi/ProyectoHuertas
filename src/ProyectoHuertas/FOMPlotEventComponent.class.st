@@ -9,16 +9,18 @@ Class {
 
 { #category : #accessing }
 FOMPlotEventComponent class >> plot: aPlot [
-	^ self new
+	| component |
+	component:= self new.
+	component
 		plot: aPlot;
-		yourself
-	
+		paginator: (Paginator newTotalElements: component elements perPage: 10).
+	^ component
 ]
 
 { #category : #adding }
 FOMPlotEventComponent >> addEvent: editor [
 	| event |
-	event  := self call: (editor).
+	event  := (self call: (editor)).
 	event ifNotNil: [ :it | 
 		it save.
 		plot addEvent: it.
@@ -33,7 +35,7 @@ FOMPlotEventComponent >> backToPlots [
 { #category : #'as yet unclassified' }
 FOMPlotEventComponent >> editEvent: editor [ 
 	(self call: (editor))
-		ifNotNil: [ :it | it save ]
+		ifNotNil: [ :it | it save. self plot save ]
 ]
 
 { #category : #accessing }
@@ -44,6 +46,10 @@ FOMPlotEventComponent >> elements [
 { #category : #'t-rotating' }
 FOMPlotEventComponent >> heading [
 	^ 'Eventos del lote'
+]
+
+{ #category : #initialization }
+FOMPlotEventComponent >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,19 +84,19 @@ FOMPlotEventComponent >> printOn: aStream [
 FOMPlotEventComponent >> renderButtonsOn: html [
 	html form: [ 
 		html formButton bePrimary;
-			callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
+			callback: [ self addEvent: (SowingEditor subject: Sowing newFom) ];
 			with: 'Agregar Siembra'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
+			callback: [ self addEvent: (HarvestingEditor subject: Harvesting newFom) ];
 			with: 'Agregar Cosecha'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (AplicationEditor subject: Application new) ];
+			callback: [ self addEvent: (AplicationEditor subject: Application newFom) ];
 			with: 'Agregar Aplicacion'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
+			callback: [ self addEvent: (ProblemEditor subject: Problem newFom) ];
 			with: 'Agregar Problema'.
 		html space.
 		html formButton beDanger;
@@ -100,6 +106,31 @@ FOMPlotEventComponent >> renderButtonsOn: html [
 
 { #category : #hooks }
 FOMPlotEventComponent >> renderContentOn: html [
-	self listTempleteOn: html.
+	self tableTempleteOn: html.
 	self renderButtonsOn: html
+]
+
+{ #category : #rendering }
+FOMPlotEventComponent >> renderTableOn: html usingStyle: aStyle [
+	html table
+		class: aStyle;
+		with: [ 
+			html tableHead: [ 
+				html tableRow: [ 	
+					html tableHeading: 'Fecha'.	
+					html tableHeading: 'Descripcion'.
+					html tableHeading: 'Opciones' ] ].
+			html tableBody: [ (paginator showElementsOf: (self elements)) do: [ :element | 
+				html tableRow: 	[ 
+					html tableData: element date asString.	
+					html tableData: element rowText.
+					html tableData: [ 
+						html form: [ 
+							html formButton bePrimary;
+								callback: [ self editEvent: (element editor) ];
+								with: 'Modificar'.
+							html space.
+							html formButton beDanger;
+								callback: [ self removeElement: element ];
+								with: 'Eliminar' ] ] ] ] ] ]
 ]

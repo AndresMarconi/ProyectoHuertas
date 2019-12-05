@@ -60,7 +60,7 @@ Problem >> name: anObject [
 
 { #category : #'as yet unclassified' }
 Problem >> rowText [
-	^ 'Problema de ',(self name), ' ocurrido el ', (self date asString).
+	^ 'Problema de ',(self name)
 ]
 
 { #category : #accessing }

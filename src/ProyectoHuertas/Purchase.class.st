@@ -61,5 +61,5 @@ Purchase >> inputs: anObject [
 
 { #category : #'as yet unclassified' }
 Purchase >> rowText [
-	^ 'Compra de ', inputs, ' realizada el ', date asString, ' a', distributor 
+	^ 'Compra de ', inputs, ' a ', distributor 
 ]

@@ -25,7 +25,6 @@ AplicationEditor >> children [
 { #category : #'subclass-responsibility' }
 AplicationEditor >> initializeComponents [
 	"Initialize all property components"
-
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date

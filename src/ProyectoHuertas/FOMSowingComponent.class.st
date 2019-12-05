@@ -27,5 +27,5 @@ FOMSowingComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSowingComponent >> renderContentOn: html [
-	self listTempleteOn: html
+	self tableTempleteOn: html.
 ]

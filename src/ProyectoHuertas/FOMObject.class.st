@@ -12,6 +12,12 @@ FOMObject class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+FOMObject class >> newFom [
+	^ self new
+		archived: true
+]
+
 { #category : #accessing }
 FOMObject >> archived [
 	^ archived

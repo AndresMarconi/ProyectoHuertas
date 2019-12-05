@@ -63,7 +63,7 @@ Application >> machine: anObject [
 
 { #category : #'as yet unclassified' }
 Application >> rowText [
-	^ 'Aplicacion de ',(self substance comercialName), ' echa el ', (self date asString).
+	^ 'Aplicacion de ',(self substance comercialName), date asString.
 ]
 
 { #category : #accessing }

@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMSalesComponent >> addSale [
 	| sale |
-	sale := self call: (SaleEditor subject: Sale new).
+	sale := self call: (SaleEditor subject: Sale newFom).
 	sale ifNotNil: [ :it | it save ]
 ]
 

@@ -27,5 +27,5 @@ FOMApplicationsComponent >> printOn: aStream [
 
 { #category : #printing }
 FOMApplicationsComponent >> renderContentOn: html [
-	self listTempleteOn: html.
+	self tableTempleteOn: html
 ]
