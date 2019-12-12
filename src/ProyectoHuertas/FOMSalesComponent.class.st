@@ -13,6 +13,9 @@ FOMSalesComponent >> addSale [
 
 { #category : #callbacks }
 FOMSalesComponent >> editElement: element [
+	| sale |
+	sale := self call: (SaleEditor subject: element).
+	sale ifNotNil: [ :it | it save ]
 ]
 
 { #category : #callbacks }
