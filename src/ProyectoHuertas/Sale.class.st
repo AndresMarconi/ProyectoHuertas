@@ -25,7 +25,7 @@ Sale class >> isVoyageRoot [
 
 { #category : #accessing }
 Sale >> addItem: anObject [
-	items := anObject
+	items add: anObject 
 ]
 
 { #category : #accessing }

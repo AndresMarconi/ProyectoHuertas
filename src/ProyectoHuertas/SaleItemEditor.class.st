@@ -21,12 +21,13 @@ SaleItemEditor >> children [
 { #category : #'subclass-responsibility' }
 SaleItemEditor >> initializeComponents [
 	"Initialize all property components"
-	
-	productEditorComponent := TextLinePropertyEditorComponent
+	productEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #product
 		label: 'Producto'
 		required: true.
+	productEditorComponent
+		possibleValues: {nil} , (self varieties).
 	kilogramsEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #kilograms
@@ -44,4 +45,9 @@ SaleItemEditor >> initializeComponents [
 { #category : #accessing }
 SaleItemEditor >> plots [ 
 	^ (Plot selectMany: [ :each | each archived ]) asOrderedCollection.
+]
+
+{ #category : #accessing }
+SaleItemEditor >> varieties [
+	^ (Variety selectMany: [ :each | each archived ]) asOrderedCollection.
 ]

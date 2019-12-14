@@ -81,7 +81,7 @@ Plot >> lastSowing [
 Plot >> printOn: aStream [
 	^ aStream
 		nextPutAll: ('Lote N° ');
-		nextPutAll: (self id)
+		nextPutAll: (self id asString)
 ]
 
 { #category : #accessing }

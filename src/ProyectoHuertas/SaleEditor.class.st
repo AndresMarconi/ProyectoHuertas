@@ -13,7 +13,6 @@ SaleEditor >> addItem: sale [
 	| item |
 	item := self call: (SaleItemEditor subject: SaleItem newFom).
 	item ifNotNil: [ :it | sale addItem: item ].
-	sale save
 ]
 
 { #category : #'subclass-responsibility' }
@@ -61,9 +60,8 @@ SaleEditor >> renderChildrenOn: html [
 					html tableData: element product.	
 					html tableData: element plot id.
 					html tableData: element kilograms ] ] ] ].
-	html anchor
-		callback: [ self addItem: subject ];
-		with: [ html formButton bePrimary;
-						with: 'Agregar Item' ].
-	html break
+	html formButton
+				bePrimary;
+				callback: [ self addItem: subject ];
+				with: 'Agregar Item'.
 ]
