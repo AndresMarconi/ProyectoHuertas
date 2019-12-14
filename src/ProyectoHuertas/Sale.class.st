@@ -64,6 +64,11 @@ Sale >> items [
 	^ items
 ]
 
+{ #category : #removing }
+Sale >> removeItem: item [
+items remove: item.
+]
+
 { #category : #'as yet unclassified' }
 Sale >> rowText [
 	^ 'Venta al cliente ', client
