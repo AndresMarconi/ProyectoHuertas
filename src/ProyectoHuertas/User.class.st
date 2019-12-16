@@ -1,12 +1,14 @@
 Class {
 	#name : #User,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'username',
 		'firstName',
 		'lastName',
 		'password',
-		'farms'
+		'farms',
+		'stock',
+		'sales'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -23,6 +25,7 @@ User class >> username: anUsername firstName: aFirstName lastName: aLastname pas
 		firstName: aFirstName;
 		lastName: aLastname;
 		password: aPassword;
+		archived: true;
 		yourself
 ]
 
@@ -32,8 +35,18 @@ User >> addFarm: aFarm [
 ]
 
 { #category : #accessing }
+User >> addSale: aSale [
+	sales add: aSale 
+]
+
+{ #category : #accessing }
+User >> addStock: aSubstance [
+	stock add: aSubstance  
+]
+
+{ #category : #accessing }
 User >> farms [
-	^ farms
+	^ farms select: [ :farm | farm archived ]
 ]
 
 { #category : #accessing }
@@ -49,7 +62,8 @@ User >> firstName: anObject [
 { #category : #initialization }
 User >> initialize [ 
 	farms := OrderedCollection new.
-
+	stock := OrderedCollection new.
+	sales := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -70,6 +84,16 @@ User >> password [
 { #category : #accessing }
 User >> password: anObject [
 	password := anObject
+]
+
+{ #category : #accessing }
+User >> sales [
+	^ sales select: [ :sale | sale archived ]
+]
+
+{ #category : #accessing }
+User >> stock [
+	^ stock select: [ :substance | substance archived ]
 ]
 
 { #category : #accessing }

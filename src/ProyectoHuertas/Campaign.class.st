@@ -32,11 +32,6 @@ Campaign class >> startDate: sDate endDate: eDate [
 		yourself
 ]
 
-{ #category : #'submorphs-add/remove' }
-Campaign >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 Campaign >> endDate [
 	^ endDate

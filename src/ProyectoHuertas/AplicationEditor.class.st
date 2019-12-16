@@ -56,5 +56,5 @@ AplicationEditor >> initializeComponents [
 
 { #category : #accessing }
 AplicationEditor >> substances [
-	^ (Substance selectMany: [ :each | each archived ]) asOrderedCollection.
+	^ (self session substances) asOrderedCollection.
 ]

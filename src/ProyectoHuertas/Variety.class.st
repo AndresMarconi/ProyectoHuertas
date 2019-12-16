@@ -22,11 +22,6 @@ Variety class >> vulgarName: vulgarName taxonomicName: taxonomicName [
 		yourself
 ]
 
-{ #category : #'submorphs-add/remove' }
-Variety >> delete [ 
-	archived:= false
-]
-
 { #category : #printing }
 Variety >> printOn: aStream [
 	^ aStream

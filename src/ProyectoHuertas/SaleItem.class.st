@@ -24,11 +24,6 @@ SaleItem class >> product: aProduct kilograms: kg fromPlot: aPlot [
 		yourself
 ]
 
-{ #category : #'submorphs-add/remove' }
-SaleItem >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 SaleItem >> kilograms [
 	^ kilograms

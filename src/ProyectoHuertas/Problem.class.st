@@ -33,11 +33,6 @@ Problem >> classRow [
 	^ 'list-group-item-danger'
 ]
 
-{ #category : #'submorphs-add/remove' }
-Problem >> delete [ 
-	archived:= false
-]
-
 { #category : #'as yet unclassified' }
 Problem >> editor [ 
 	^ ProblemEditor subject: self

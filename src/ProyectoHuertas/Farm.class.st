@@ -57,7 +57,7 @@ Farm >> name: anObject [
 
 { #category : #accessing }
 Farm >> plots [
-	^ plots
+	^ plots select: [ :plot | plot archived ]
 ]
 
 { #category : #accessing }

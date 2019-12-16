@@ -12,7 +12,7 @@ FOMApplicationsComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMApplicationsComponent >> elements [
-	^ (Application selectAll) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session aplications) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #callbacks }

@@ -8,7 +8,10 @@ Class {
 FOMStockComponent >> addSubstanceStock [
 	| substanceStock |
 	substanceStock := self call: (SubstanceStockEditor subject: SubstanceStock newFom).
-	substanceStock ifNotNil: [ :it | it save ]
+	substanceStock ifNotNil: [ :it | 
+		it save.
+		self session user addStock: it.
+		self session user save  ]
 ]
 
 { #category : #rendering }
@@ -19,7 +22,7 @@ FOMStockComponent >> editElement: element [
 
 { #category : #rendering }
 FOMStockComponent >> elements [
-	^ (SubstanceStock selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a expirationDate > b expirationDate ]
+	^ (self session stock) asSortedCollection: [ :a :b | a expirationDate > b expirationDate ]
 ]
 
 { #category : #rendering }

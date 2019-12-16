@@ -19,7 +19,7 @@ FOMSubstancesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMSubstancesComponent >> elements [
-	^ (Substance selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a comercialName < b comercialName ]
+	^ (self session substances) asSortedCollection: [ :a :b | a comercialName < b comercialName ]
 ]
 
 { #category : #callbacks }

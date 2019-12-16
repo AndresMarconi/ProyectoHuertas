@@ -25,11 +25,6 @@ Employee class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'submorphs-add/remove' }
-Employee >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 Employee >> firstName [
 	^ firstName

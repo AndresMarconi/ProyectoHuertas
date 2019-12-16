@@ -27,3 +27,8 @@ FOMObject >> archived [
 FOMObject >> archived: anObject [
 	archived := anObject
 ]
+
+{ #category : #'submorphs-add/remove' }
+FOMObject >> delete [ 
+	archived:= false.
+]

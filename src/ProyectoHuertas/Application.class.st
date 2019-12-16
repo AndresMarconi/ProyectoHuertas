@@ -31,11 +31,6 @@ Application >> classRow [
 	^ 'list-group-item-secondary'
 ]
 
-{ #category : #'submorphs-add/remove' }
-Application >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 Application >> dose [
 	^ dose

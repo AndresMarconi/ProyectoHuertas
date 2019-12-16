@@ -8,7 +8,10 @@ Class {
 FOMSalesComponent >> addSale [
 	| sale |
 	sale := self call: (SaleEditor subject: Sale newFom).
-	sale ifNotNil: [ :it | it save ]
+	sale ifNotNil: [ :it | 
+		it save. 
+		self session user addSale: it.
+		self session user save ]
 ]
 
 { #category : #callbacks }
@@ -20,7 +23,7 @@ FOMSalesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMSalesComponent >> elements [
-	^ (Sale selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session sales) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #callbacks }

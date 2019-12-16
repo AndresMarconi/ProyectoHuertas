@@ -12,7 +12,7 @@ FOMHarvestComponent >> editElement: element [
 
 { #category : #'as yet unclassified' }
 FOMHarvestComponent >> elements [
-	^ (Harvesting selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session harvestings) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #printing }

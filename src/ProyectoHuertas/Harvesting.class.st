@@ -28,11 +28,6 @@ Harvesting >> classRow [
 	^ 'list-group-item-warning'
 ]
 
-{ #category : #'submorphs-add/remove' }
-Harvesting >> delete [ 
-	archived:= false.
-]
-
 { #category : #'as yet unclassified' }
 Harvesting >> editor [ 
 	^ HarvestingEditor subject: self

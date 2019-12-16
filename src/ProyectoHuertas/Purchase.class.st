@@ -34,11 +34,6 @@ Purchase >> date: anObject [
 	date := anObject
 ]
 
-{ #category : #'submorphs-add/remove' }
-Purchase >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 Purchase >> distributor [
 	^ distributor

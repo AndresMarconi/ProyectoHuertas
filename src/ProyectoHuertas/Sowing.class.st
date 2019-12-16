@@ -43,11 +43,6 @@ Sowing >> conductionSystem: anObject [
 	conductionSystem := anObject
 ]
 
-{ #category : #'submorphs-add/remove' }
-Sowing >> delete [ 
-	archived:= false.
-]
-
 { #category : #accessing }
 Sowing >> distribution [
 	^ distribution

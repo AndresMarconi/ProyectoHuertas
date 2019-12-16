@@ -64,5 +64,5 @@ SowingEditor >> initializeComponents [
 
 { #category : #accessing }
 SowingEditor >> varieties [
-	^ (Variety selectMany: [ :each | each archived ]) asOrderedCollection
+	^ (self session varieties) asOrderedCollection
 ]

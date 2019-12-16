@@ -56,11 +56,6 @@ Substance >> comercialName: anObject [
 	comercialName := anObject
 ]
 
-{ #category : #'submorphs-add/remove' }
-Substance >> delete [ 
-	archived:= false.
-]
-
 { #category : #printing }
 Substance >> printOn: aStream [
 	^ aStream

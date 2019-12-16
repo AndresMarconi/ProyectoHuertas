@@ -42,5 +42,5 @@ SubstanceStockEditor >> initializeComponents [
 
 { #category : #accessing }
 SubstanceStockEditor >> substances [
-	^ (Substance selectMany: [ :each | each archived ]) asOrderedCollection.
+	^ (self session substances) asOrderedCollection.
 ]

@@ -24,11 +24,6 @@ SubstanceStock class >> substance: substance quantity: quantity expirationDate: 
 		yourself
 ]
 
-{ #category : #'submorphs-add/remove' }
-SubstanceStock >> delete [ 
-	archived:= false
-]
-
 { #category : #accessing }
 SubstanceStock >> expirationDate [
 	^ expirationDate

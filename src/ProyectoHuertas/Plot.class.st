@@ -30,19 +30,19 @@ Plot >> addEvent: anObject [
 
 { #category : #accessing }
 Plot >> aplications [
-	^ events select: [ :event | event class = Application ]
+	^ self events select: [ :event | event class = Application ]
 ]
 
 { #category : #'submorphs-add/remove' }
 Plot >> delete [ 
 	archived:= false.
-	events do: [ :event | event archived: false ]
+	events do: [ :event | event delete ]
 	
 ]
 
 { #category : #accessing }
 Plot >> events [
-	^ events asSortedCollection: [ :a :b | a date > b date ]
+	^ (events select: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #accessing }
@@ -86,12 +86,12 @@ Plot >> printOn: aStream [
 
 { #category : #accessing }
 Plot >> problems [
-	^ events select: [ :event | event class = Problem ]
+	^ self events select: [ :event | event class = Problem ]
 ]
 
 { #category : #accessing }
 Plot >> sowings [
-	^ events select: [ :event | event class = Sowing ]
+	^ self events select: [ :event | event class = Sowing ]
 ]
 
 { #category : #accessing }

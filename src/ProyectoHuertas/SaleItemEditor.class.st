@@ -44,10 +44,10 @@ SaleItemEditor >> initializeComponents [
 
 { #category : #accessing }
 SaleItemEditor >> plots [ 
-	^ (Plot selectMany: [ :each | each archived ]) asOrderedCollection.
+	^ (self session plots) asOrderedCollection.
 ]
 
 { #category : #accessing }
 SaleItemEditor >> varieties [
-	^ (Variety selectMany: [ :each | each archived ]) asOrderedCollection.
+	^ (self session varieties) asOrderedCollection.
 ]

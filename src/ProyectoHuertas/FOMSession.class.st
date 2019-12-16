@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #accessing }
+FOMSession >> aplications [
+	^ self plots flatCollect: [ :each | each aplications ]
+]
+
+{ #category : #accessing }
 FOMSession >> farm [
 	"the currently selected farm"
 
@@ -17,12 +22,44 @@ FOMSession >> farm [
 
 { #category : #accessing }
 FOMSession >> farms [
-	^ Farm selectMany: [ :each | each archived ]
+	^ user farms
+]
+
+{ #category : #accessing }
+FOMSession >> harvestings [ 
+	^ self plots flatCollect: [ :each | each harvests ]
+]
+
+{ #category : #initialization }
+FOMSession >> initialize [ 
+	super initialize.
+	user:= self users at: 1.
+	farm := user farms at: 1.
 ]
 
 { #category : #accessing }
 FOMSession >> plots [
-	^ farm ifNil: [ Plot selectMany: [ :each | each archived ] ] ifNotNil: [ farm plots ]
+	^ farm ifNil: [ self farms flatCollect: [ :each | each plots ] ] ifNotNil: [ farm plots ]
+]
+
+{ #category : #accessing }
+FOMSession >> problems [
+	^ self plots flatCollect: [ :each | each problems ]
+]
+
+{ #category : #accessing }
+FOMSession >> sales [
+	^ user sales
+]
+
+{ #category : #accessing }
+FOMSession >> sowings [  
+	^ self plots flatCollect: [ :each | each sowings ]
+]
+
+{ #category : #accessing }
+FOMSession >> stock [
+	^ user stock
 ]
 
 { #category : #accessing }
@@ -31,8 +68,13 @@ FOMSession >> substances [
 ]
 
 { #category : #accessing }
+FOMSession >> user [ 
+	^ user
+]
+
+{ #category : #accessing }
 FOMSession >> users [
-  ^ User selectMany: [ :each | each archived ] 
+  ^ (User selectMany: [ :each | each archived ]) asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
 ]
 
 { #category : #accessing }

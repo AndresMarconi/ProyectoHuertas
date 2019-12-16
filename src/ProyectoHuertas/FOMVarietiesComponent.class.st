@@ -19,7 +19,7 @@ FOMVarietiesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMVarietiesComponent >> elements [
-	^ (Variety selectMany: [ :each | each archived ]) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ (self session varieties) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #callbacks }
