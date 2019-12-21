@@ -1,6 +1,8 @@
 "
+""This is part of the initialize method on the class side""
+
 | app |
-  app := WAAdmin register: FOMHomeComponent  asApplicationAt: 'fom'.
+  app := WAAdmin register: FOMHomeComponent  asApplicationAt: 'huertas'.
   app 	addLibrary: JQDeploymentLibrary;
 		addLibrary: JQUiDeploymentLibrary;
 		addLibrary: SBSDeploymentLibrary. 
@@ -23,6 +25,17 @@ Class {
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
+
+{ #category : #initialization }
+FOMHomeComponent class >> initialize [
+	| app |
+	app := WAAdmin register: FOMHomeComponent asApplicationAt: 'huertas'.
+	app
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: JQUiDeploymentLibrary;
+		addLibrary: SBSDeploymentLibrary.
+	app sessionClass: FOMSession
+]
 
 { #category : #'accessing-children' }
 FOMHomeComponent >> children [

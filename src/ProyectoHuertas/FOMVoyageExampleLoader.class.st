@@ -10,10 +10,9 @@ Class {
 
 { #category : #loading }
 FOMVoyageExampleLoader >> ensureRepository [
-	User voyageRepository
-		ifNil: [ | repository |
-			repository := VOMemoryRepository new.
-			repository enableSingleton ]
+	"check if there is a repository set for any of the persistent classes, if not, use one in memory"
+
+	User voyageRepository ifNil: [ FOMStorage inMemory ]
 ]
 
 { #category : #loading }
