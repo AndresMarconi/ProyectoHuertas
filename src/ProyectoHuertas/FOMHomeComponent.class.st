@@ -94,6 +94,11 @@ FOMHomeComponent >> loginUrl [
 	^ self application preferenceAt: #loginApp
 ]
 
+{ #category : #callbacks }
+FOMHomeComponent >> logout [
+	^ self session logout
+]
+
 { #category : #rendering }
 FOMHomeComponent >> renderContentOn: html [
 	self session loginRequired
@@ -149,6 +154,6 @@ FOMHomeComponent >> renderNavbarOn: html [
 		with: [ html navigationBarBrand with: 'Farm-O-Matic'.
 			html
 				form: [ html outlineButton bePrimary  beSmall
-						callback: [  ];
+						callback: [ self logout ];
 						with: 'Salir' ] ]
 ]
