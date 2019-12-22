@@ -12,7 +12,7 @@ Class {
 FOMVoyageExampleLoader >> ensureRepository [
 	"check if there is a repository set for any of the persistent classes, if not, use one in memory"
 
-	User voyageRepository ifNil: [ FOMStorage inMemory ]
+	FOMUser voyageRepository ifNil: [ FOMStorage inMemory ]
 ]
 
 { #category : #loading }
@@ -68,7 +68,7 @@ FOMVoyageExampleLoader >> loadEvents [
 
 { #category : #loading }
 FOMVoyageExampleLoader >> loadFarms [
-	User selectAll
+	FOMUser selectAll
 		do: [ :each | 
 			| farm |
 			farm := Farm name: 'Granja de ' , each firstName.
@@ -118,17 +118,9 @@ FOMVoyageExampleLoader >> loadSubstances [
 
 { #category : #loading }
 FOMVoyageExampleLoader >> loadUsers [
-	jgomez := User
-		username: 'jgomez'
-		firstName: 'Juan'
-		lastName: 'Gomez'
-		password: 'jgtr765'.
+	jgomez := FOMUser email: 'jgomez@gmail.com' fullname: 'Juan Gomez'.
 	jgomez save.
-	mlopez := User
-		username: 'mlopez'
-		firstName: 'María'
-		lastName: 'Lopez'
-		password: 'lkjdsf75'.
+	mlopez := FOMUser email: 'mlopez@gmail.com' fullname: 'María Lopez'.
 	mlopez save
 ]
 

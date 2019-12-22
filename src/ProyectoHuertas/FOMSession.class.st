@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMSession,
-	#superclass : #WASession,
+	#superclass : #WAOpenIdConnectSession,
 	#instVars : [
 		'user',
 		'farm'
@@ -22,6 +22,7 @@ FOMSession >> farm [
 
 { #category : #accessing }
 FOMSession >> farms [
+	user ifNil: [ ^ Set new ].
 	^ user farms
 ]
 
@@ -31,10 +32,19 @@ FOMSession >> harvestings [
 ]
 
 { #category : #initialization }
-FOMSession >> initialize [ 
+FOMSession >> initialize [
 	super initialize.
-	user:= self users at: 1.
-	farm := user farms at: 1.
+	self users ifEmpty: [ ^ self ].
+	user := self users at: 1.
+	farm := user farms at: 1
+]
+
+{ #category : #testing }
+FOMSession >> loginRequired [
+	"true if loginApp prefference has been set, and the session has not been authenticated"
+
+	^ (self application preferenceAt: #loginApp) notEmpty
+		& self authenticated not
 ]
 
 { #category : #accessing }
@@ -49,6 +59,7 @@ FOMSession >> problems [
 
 { #category : #accessing }
 FOMSession >> sales [
+	user ifNil: [ ^ OrderedCollection new ].
 	^ user sales
 ]
 
@@ -59,6 +70,7 @@ FOMSession >> sowings [
 
 { #category : #accessing }
 FOMSession >> stock [
+	user ifNil: [ ^ OrderedCollection new ].
 	^ user stock
 ]
 
@@ -74,7 +86,7 @@ FOMSession >> user [
 
 { #category : #accessing }
 FOMSession >> users [
-  ^ (User selectMany: [ :each | each archived ]) asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
+  ^ (FOMUser selectMany: [ :each | each archived ]) asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
 ]
 
 { #category : #accessing }

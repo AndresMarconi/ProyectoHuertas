@@ -70,7 +70,7 @@ ListOfAllThingsComponent >> addSubstance [
 { #category : #callbacks }
 ListOfAllThingsComponent >> addUser [
 	| user |
-	user := self call: (UserEditor subject: User new).
+	user := self call: (UserEditor subject: FOMUser new).
 	user ifNotNil: [ :it | it save ]
 ]
 

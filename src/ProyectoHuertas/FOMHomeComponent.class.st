@@ -26,20 +26,48 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #accessing }
+FOMHomeComponent class >> applicationName [
+	^'huertas'
+]
+
+{ #category : #accessing }
+FOMHomeComponent class >> browseInitialize [
+	(self class compiledMethodAt: #initialize) browse
+]
+
 { #category : #initialization }
 FOMHomeComponent class >> initialize [
 	| app |
-	app := WAAdmin register: FOMHomeComponent asApplicationAt: 'huertas'.
+	
+	"A trick to make sure you remember to configure the app"
+	self browseInitialize.
+	
+	app := WAAdmin
+		register: FOMHomeComponent
+		asApplicationAt: self applicationName.
 	app
 		addLibrary: JQDeploymentLibrary;
 		addLibrary: JQUiDeploymentLibrary;
 		addLibrary: SBSDeploymentLibrary.
+	app configuration addParent: FOMConfiguration instance.
+	app preferenceAt: #loginApp put: '' .
 	app sessionClass: FOMSession
 ]
 
 { #category : #'accessing-children' }
 FOMHomeComponent >> children [
 	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
+]
+
+{ #category : #callbacks }
+FOMHomeComponent >> createUserResources [
+	| newUser newFarm |
+	newUser := FOMUser fromOIDCUser: self session authenticatedUser.
+	newFarm := Farm name: 'Granja de ' , newUser fullname.
+	newFarm save.
+	newUser addFarm: newFarm.
+	newUser save
 ]
 
 { #category : #initialization }
@@ -55,8 +83,23 @@ FOMHomeComponent >> initialize [
 	stockComponent := FOMStockComponent new
 ]
 
+{ #category : #testing }
+FOMHomeComponent >> isFirstTimeUser [
+	^ self session users
+		noneSatisfy: [ :each | each email = self session authenticatedUser email ]
+]
+
+{ #category : #'rendering-login' }
+FOMHomeComponent >> loginUrl [
+	^ self application preferenceAt: #loginApp
+]
+
 { #category : #rendering }
 FOMHomeComponent >> renderContentOn: html [
+	self session loginRequired
+		ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
+	self isFirstTimeUser
+		ifTrue: [ self createUserResources ].
 	self renderNavbarOn: html.
 	html
 		row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
@@ -84,6 +127,17 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 							item
 								callback: [ selectedComponent := ex ];
 								with: ex printString ] ] ]
+]
+
+{ #category : #'rendering-login' }
+FOMHomeComponent >> renderLoginRequiredMessageOn: html [
+	html alert
+		beWarning;
+		with: [ html
+				paragraph: [ html text: 'Su sesión ya expiro, '.
+					html anchor
+						url: self loginUrl;
+						with: ' vuelva a ingresar ' ] ]
 ]
 
 { #category : #rendering }
