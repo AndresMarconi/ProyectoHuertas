@@ -14,10 +14,27 @@ FOMSession >> aplications [
 ]
 
 { #category : #accessing }
+FOMSession >> authenticatedUser: aDictionary [
+	super authenticatedUser: aDictionary.
+	user := self findOrCreateUserFromClaims: aDictionary
+]
+
+{ #category : #'creating-users' }
+FOMSession >> createUserResources [
+	| aUser aFarm |
+	aUser := FOMUser fromOIDCUser: self session authenticatedUser.
+	aFarm := Farm name: 'Granja de ' , user fullname.
+	aFarm save.
+	aUser addFarm: aFarm.
+	aUser save.
+	^ aUser
+]
+
+{ #category : #accessing }
 FOMSession >> farm [
 	"the currently selected farm"
 
-	^ farm
+	^ farm ifNil: [ farm := self user farms first ]
 ]
 
 { #category : #accessing }
@@ -26,17 +43,16 @@ FOMSession >> farms [
 	^ user farms
 ]
 
+{ #category : #'creating-users' }
+FOMSession >> findOrCreateUserFromClaims: aDictionary [
+	user := self session users
+		detect: [ :each | each email = (self session authenticatedUser at: 'email') ]
+		ifNone: [ self createUserResources ]
+]
+
 { #category : #accessing }
 FOMSession >> harvestings [ 
 	^ self plots flatCollect: [ :each | each harvests ]
-]
-
-{ #category : #initialization }
-FOMSession >> initialize [
-	super initialize.
-	self users ifEmpty: [ ^ self ].
-	user := self users at: 1.
-	farm := user farms at: 1
 ]
 
 { #category : #testing }

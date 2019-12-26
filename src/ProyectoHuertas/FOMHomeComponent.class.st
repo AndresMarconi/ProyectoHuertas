@@ -60,16 +60,6 @@ FOMHomeComponent >> children [
 	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
 ]
 
-{ #category : #callbacks }
-FOMHomeComponent >> createUserResources [
-	| newUser newFarm |
-	newUser := FOMUser fromOIDCUser: self session authenticatedUser.
-	newFarm := Farm name: 'Granja de ' , newUser fullname.
-	newFarm save.
-	newUser addFarm: newFarm.
-	newUser save
-]
-
 { #category : #initialization }
 FOMHomeComponent >> initialize [
 	plotsComponent := FOMPlotsComponent new.
@@ -81,12 +71,6 @@ FOMHomeComponent >> initialize [
 	substancesComponent := FOMSubstancesComponent new.
 	varietiesComponent := FOMVarietiesComponent new.
 	stockComponent := FOMStockComponent new
-]
-
-{ #category : #testing }
-FOMHomeComponent >> isFirstTimeUser [
-	^ self session users
-		noneSatisfy: [ :each | each email = self session authenticatedUser email ]
 ]
 
 { #category : #'rendering-login' }
@@ -103,8 +87,6 @@ FOMHomeComponent >> logout [
 FOMHomeComponent >> renderContentOn: html [
 	self session loginRequired
 		ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
-	self isFirstTimeUser
-		ifTrue: [ self createUserResources ].
 	self renderNavbarOn: html.
 	html
 		row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
