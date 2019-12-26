@@ -6,7 +6,8 @@ Class {
 		'fullname',
 		'farms',
 		'stock',
-		'sales'
+		'sales',
+		'otherProperties'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -19,11 +20,21 @@ FOMUser class >> email: anEmail fullname: aFullName [
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
+FOMUser class >> email: anEmail fullname: aFullName otherProperties: aDictionaryOfProperties [
+	^ FOMUser new
+		email: anEmail;
+		fullname: aFullName;
+		otherProperties: aDictionaryOfProperties;
+		yourself
+]
+
+{ #category : #'instance creation' }
 FOMUser class >> fromOIDCUser: aDictionaryOfProperties [
 	^ self
 		email: (aDictionaryOfProperties at: 'email')
-		fullname: (aDictionaryOfProperties at: 'name')
+		fullname: (aDictionaryOfProperties at: 'nickname')
+		otherProperties: aDictionaryOfProperties
 ]
 
 { #category : #testing }
@@ -76,6 +87,16 @@ FOMUser >> initialize [
 	farms := OrderedCollection new.
 	stock := OrderedCollection new.
 	sales := OrderedCollection new.
+]
+
+{ #category : #accessing }
+FOMUser >> otherProperties [
+	^ otherProperties
+]
+
+{ #category : #accessing }
+FOMUser >> otherProperties: anObject [
+	otherProperties := anObject
 ]
 
 { #category : #accessing }

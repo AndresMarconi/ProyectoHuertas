@@ -17,7 +17,8 @@ BaselineOfProyectoHuertas >> baseline: spec [
 			spec
 				package: 'ProyectoHuertas'
 				with: [ spec
-						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside') ] ]
+						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside') ] ].
+	self postLoadActions
 ]
 
 { #category : #baselines }
@@ -36,6 +37,43 @@ BaselineOfProyectoHuertas >> oicdForSeaside: spec [
 	spec
 		baseline: 'OIDCForSeaside'
 		with: [ spec repository: 'github://casco/oicd-for-seaside/src' ]
+]
+
+{ #category : #baselines }
+BaselineOfProyectoHuertas >> postLoadActions [
+
+	GTPlayground
+		edit:
+
+    '	| app loginApp |
+	
+	loginApp := WAAdmin
+		register: FOMLoginComponent
+		asApplicationAt: FOMLoginComponent applicationName.
+	loginApp
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: JQUiDeploymentLibrary;
+		addLibrary: SBSDeploymentLibrary.
+	loginApp sessionClass: FOMSession.
+	loginApp configuration addParent: WAOpenIdConnectConfiguration instance.
+	loginApp preferenceAt: #clientId put: ''<your-client-id>''.
+   loginApp preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
+   loginApp preferenceAt: #clientSecret put: ''<your-client-secret>''.
+	loginApp preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''.
+	
+
+	app := WAAdmin
+		register: FOMHomeComponent
+		asApplicationAt: FOMHomeComponent applicationName.
+	app
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: JQUiDeploymentLibrary;
+		addLibrary: SBSDeploymentLibrary.
+	app configuration addParent: FOMConfiguration instance.
+	app preferenceAt: #loginApp put: FOMLoginComponent applicationName  .
+	app sessionClass: FOMSession.'
+	
+	label: 'Deployment scripts'.
 ]
 
 { #category : #baselines }

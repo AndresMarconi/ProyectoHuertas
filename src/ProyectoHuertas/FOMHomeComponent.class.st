@@ -31,30 +31,6 @@ FOMHomeComponent class >> applicationName [
 	^'huertas'
 ]
 
-{ #category : #accessing }
-FOMHomeComponent class >> browseInitialize [
-	(self class compiledMethodAt: #initialize) browse
-]
-
-{ #category : #initialization }
-FOMHomeComponent class >> initialize [
-	| app |
-	
-	"A trick to make sure you remember to configure the app"
-	self browseInitialize.
-	
-	app := WAAdmin
-		register: FOMHomeComponent
-		asApplicationAt: self applicationName.
-	app
-		addLibrary: JQDeploymentLibrary;
-		addLibrary: JQUiDeploymentLibrary;
-		addLibrary: SBSDeploymentLibrary.
-	app configuration addParent: FOMConfiguration instance.
-	app preferenceAt: #loginApp put: '' .
-	app sessionClass: FOMSession
-]
-
 { #category : #'accessing-children' }
 FOMHomeComponent >> children [
 	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
