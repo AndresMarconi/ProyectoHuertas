@@ -19,7 +19,6 @@ Problem class >> name: aName date: aDate surface: aSurface [
 		name: aName;
 		date: aDate;
 		surface: aSurface;
-		archived: true;
 		yourself
 ]
 

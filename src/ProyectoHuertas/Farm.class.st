@@ -19,7 +19,6 @@ Farm class >> isVoyageRoot [
 Farm class >> name: aName [
 	^ self new
 		name: aName;
-		archived: true;
 		yourself
 ]
 
@@ -33,6 +32,14 @@ Farm >> addPlot: anObject [
 	plots add: anObject
 ]
 
+{ #category : #archiving }
+Farm >> archive [
+	super archive.
+	plots do: #archive.
+	campaings do: #archive.
+	substanceStock do: #archive
+]
+
 { #category : #accessing }
 Farm >> campaings [
 	^ campaings
@@ -40,6 +47,7 @@ Farm >> campaings [
 
 { #category : #initialization }
 Farm >> initialize [
+	super initialize.
 	campaings := OrderedCollection new.
 	plots := OrderedCollection new.
 	substanceStock := OrderedCollection new
@@ -57,7 +65,7 @@ Farm >> name: anObject [
 
 { #category : #accessing }
 Farm >> plots [
-	^ plots select: [ :plot | plot archived ]
+	^ plots reject: [ :plot | plot archived ]
 ]
 
 { #category : #accessing }

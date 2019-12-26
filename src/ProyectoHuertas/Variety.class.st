@@ -18,7 +18,6 @@ Variety class >> vulgarName: vulgarName taxonomicName: taxonomicName [
 	^ self new
 		vulgarName: vulgarName;
 		taxonomicName: taxonomicName;
-		archived: true;
 		yourself
 ]
 

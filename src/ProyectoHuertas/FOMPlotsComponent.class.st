@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMPlotsComponent >> addPlot: farm [
 	| plot |
-	plot := self call: (PlotEditor subject: Plot newFom).
+	plot := self call: (PlotEditor subject: Plot new).
 	plot ifNotNil: [ :it | 
 		it save.
 		farm ifNotNil: [ farm addPlot: it.
@@ -32,7 +32,7 @@ FOMPlotsComponent >> printOn: aStream [
 
 { #category : #removing }
 FOMPlotsComponent >> removePlot: plot [
-	plot delete
+	plot archive.
 ]
 
 { #category : #rendering }

@@ -16,7 +16,6 @@ Employee class >> firstName: aName lastName: aSurname [
 	^ self new
 		firstName: aName;
 		lastName: aSurname;
-		archived: true;
 		yourself
 ]
 

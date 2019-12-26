@@ -20,7 +20,6 @@ SubstanceStock class >> substance: substance quantity: quantity expirationDate: 
 		substance: substance;
 		quantity: quantity;
 		expirationDate: date;
-		archived: true;
 		yourself
 ]
 

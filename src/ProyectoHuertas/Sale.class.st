@@ -14,7 +14,6 @@ Sale class >> client: aClient date: aDate [
 	^ self new
 		date: aDate;
 		client: aClient;
-		archived: true;
 		yourself
 ]
 
@@ -26,6 +25,12 @@ Sale class >> isVoyageRoot [
 { #category : #accessing }
 Sale >> addItem: anObject [
 	items add: anObject 
+]
+
+{ #category : #archiving }
+Sale >> archive [
+	super archive.
+	items do: #archive
 ]
 
 { #category : #accessing }
@@ -48,14 +53,9 @@ Sale >> date: anObject [
 	date := anObject
 ]
 
-{ #category : #'submorphs-add/remove' }
-Sale >> delete [ 
-	archived:= false.
-	items do: [ :item | item archived: false ]
-]
-
 { #category : #initialization }
 Sale >> initialize [
+   super initialize .
 	items := OrderedCollection new.
 ]
 
@@ -69,7 +69,7 @@ Sale >> removeItem: item [
 items remove: item.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Sale >> rowText [
 	^ 'Venta al cliente ', client
 ]

@@ -12,23 +12,22 @@ FOMObject class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'instance creation' }
-FOMObject class >> newFom [
-	^ self new
-		archived: true
+{ #category : #archiving }
+FOMObject >> archive [
+	archived := true
 ]
 
-{ #category : #accessing }
+{ #category : #archiving }
 FOMObject >> archived [
 	^ archived
 ]
 
-{ #category : #accessing }
-FOMObject >> archived: anObject [
-	archived := anObject
+{ #category : #initialization }
+FOMObject >> initialize [ 
+  archived := false. 
 ]
 
-{ #category : #'submorphs-add/remove' }
-FOMObject >> delete [ 
-	archived:= false.
+{ #category : #archiving }
+FOMObject >> unarchive [
+	archived := false
 ]

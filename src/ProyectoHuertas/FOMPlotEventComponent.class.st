@@ -84,19 +84,19 @@ FOMPlotEventComponent >> printOn: aStream [
 FOMPlotEventComponent >> renderButtonsOn: html [
 	html form: [ 
 		html formButton bePrimary;
-			callback: [ self addEvent: (SowingEditor subject: Sowing newFom) ];
+			callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
 			with: 'Agregar Siembra'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (HarvestingEditor subject: Harvesting newFom) ];
+			callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
 			with: 'Agregar Cosecha'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (AplicationEditor subject: Application newFom) ];
+			callback: [ self addEvent: (AplicationEditor subject: Application new) ];
 			with: 'Agregar Aplicacion'.
 		html space.
 		html formButton bePrimary;
-			callback: [ self addEvent: (ProblemEditor subject: Problem newFom) ];
+			callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
 			with: 'Agregar Problema'.
 		html space.
 		html formButton beDanger;

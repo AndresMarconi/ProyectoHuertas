@@ -76,7 +76,7 @@ FOMSession >> stock [
 
 { #category : #accessing }
 FOMSession >> substances [
-	^ Substance selectMany: [ :each | each archived ]
+	^ Substance selectMany: [ :each | each archived not]
 ]
 
 { #category : #accessing }
@@ -86,10 +86,11 @@ FOMSession >> user [
 
 { #category : #accessing }
 FOMSession >> users [
-  ^ (FOMUser selectMany: [ :each | each archived ]) asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
+	^ (FOMUser selectMany: [ :each | each archived not ])
+		asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
 ]
 
 { #category : #accessing }
 FOMSession >> varieties [
-	^ Variety selectMany: [ :each | each archived ]
+	^ Variety selectMany: [ :each | each archived not ]
 ]

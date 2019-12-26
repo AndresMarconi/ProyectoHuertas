@@ -18,9 +18,8 @@ SaleItem class >> isVoyageRoot [
 SaleItem class >> product: aProduct kilograms: kg fromPlot: aPlot [
 	^ self new
 		product: aProduct;
-		kg: kg;
+		kilograms: kg;
 		plot: aPlot;
-		archived: true;
 		yourself
 ]
 

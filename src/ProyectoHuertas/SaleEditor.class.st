@@ -11,7 +11,7 @@ Class {
 { #category : #adding }
 SaleEditor >> addItem: sale [
 	| item |
-	item := self call: (SaleItemEditor subject: SaleItem newFom).
+	item := self call: (SaleItemEditor subject: SaleItem new).
 	item ifNotNil: [ :it | sale addItem: item ].
 ]
 

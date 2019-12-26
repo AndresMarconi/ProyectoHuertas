@@ -16,7 +16,6 @@ FOMUser class >> email: anEmail fullname: aFullName [
 	^ FOMUser new
 		email: anEmail;
 		fullname: aFullName;
-		archived: false;
 		yourself
 ]
 
@@ -59,7 +58,7 @@ FOMUser >> email: anObject [
 
 { #category : #accessing }
 FOMUser >> farms [
-	^ farms select: [ :farm | farm archived ]
+	^ farms reject: [ :farm | farm archived ]
 ]
 
 { #category : #accessing }
@@ -81,10 +80,10 @@ FOMUser >> initialize [
 
 { #category : #accessing }
 FOMUser >> sales [
-	^ sales select: [ :sale | sale archived ]
+	^ sales reject: [ :sale | sale archived ]
 ]
 
 { #category : #accessing }
 FOMUser >> stock [
-	^ stock select: [ :substance | substance archived ]
+	^ stock reject: [ :substance | substance archived ]
 ]

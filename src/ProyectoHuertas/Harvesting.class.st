@@ -19,7 +19,6 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 		quantity: aQuantity;
 		variety: aVariety;
 		date: aDate;
-		archived: true;
 		yourself
 ]
 

@@ -15,7 +15,6 @@ Purchase class >> input: anInput distribution: aDist date: aDate [
 		date: aDate;
 		inputs: anInput;
 		distribution: aDist;
-		archived: true;
 		yourself
 ]
 

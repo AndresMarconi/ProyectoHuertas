@@ -14,7 +14,6 @@ Plot class >> id: anId surface: aSurface [
 	^ self new
 		id: anId;
 		surface: aSurface;
-		archived: true;
 		yourself
 ]
 
@@ -33,16 +32,16 @@ Plot >> aplications [
 	^ self events select: [ :event | event class = Application ]
 ]
 
-{ #category : #'submorphs-add/remove' }
-Plot >> delete [ 
-	archived:= false.
-	events do: [ :event | event delete ]
-	
+{ #category : #archiving }
+Plot >> archive [
+	super archive.
+	events do: #archive
 ]
 
 { #category : #accessing }
 Plot >> events [
-	^ (events select: [ :each | each archived ]) asSortedCollection: [ :a :b | a date > b date ]
+	^ (events reject: [ :each | each archived ])
+		asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #accessing }
@@ -62,7 +61,8 @@ Plot >> id: anObject [
 
 { #category : #initialization }
 Plot >> initialize [
-	events := OrderedCollection new.
+	super initialize.
+	events := OrderedCollection new
 ]
 
 { #category : #accessing }

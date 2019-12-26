@@ -17,7 +17,6 @@ Substance class >> comercialName: comercialName brand: brand activeIngredients: 
 		brand: brand;
 		activeIngredients: activeIngredients;
 		waitingPeriodAfterApplication: waitingPeriodAfterApplication;
-		archived: true;
 		yourself
 ]
 

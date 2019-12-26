@@ -7,7 +7,7 @@ Class {
 { #category : #adding }
 FOMSubstancesComponent >> addSubstance [
 	| substance |
-	substance := self call: (SubstanceEditor subject: Substance newFom).
+	substance := self call: (SubstanceEditor subject: Substance new).
 	substance ifNotNil: [ :it | it save ]
 ]
 

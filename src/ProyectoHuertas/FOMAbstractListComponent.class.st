@@ -70,7 +70,7 @@ FOMAbstractListComponent >> parent: anObject [
 
 { #category : #removing }
 FOMAbstractListComponent >> removeElement: element [
-	element delete
+	element archive
 ]
 
 { #category : #rendering }

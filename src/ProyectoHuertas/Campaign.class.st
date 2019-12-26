@@ -28,7 +28,6 @@ Campaign class >> startDate: sDate endDate: eDate [
 	^ self new
 		startDate: sDate;
 		endDate: eDate;
-		archived: true;
 		yourself
 ]
 

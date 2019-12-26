@@ -22,7 +22,6 @@ Application class >> substance: aSubstance dose: aDose machine: aMachine date: a
 		date: aDate;
 		surface: aSurface;
 		substance: aSubstance;
-		archived: true;
 		yourself
 ]
 
