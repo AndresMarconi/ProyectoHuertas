@@ -46,37 +46,33 @@ BaselineOfProyectoHuertas >> postLoadActions [
 		edit:
 
     '| app loginApp |	
-	loginApp := WAAdmin
-		register: FOMLoginComponent
-		asApplicationAt: FOMLoginComponent applicationName.
-	loginApp
-		addLibrary: JQDeploymentLibrary;
-		addLibrary: JQUiDeploymentLibrary;
-		addLibrary: SBSDeploymentLibrary.
-	loginApp sessionClass: FOMSession.
-	loginApp configuration addParent: WAOpenIdConnectConfiguration instance.
-	loginApp preferenceAt: #clientId put: ''<your-client-id>''.
-   loginApp preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
-   loginApp preferenceAt: #clientSecret put: ''<your-client-secret>''.
-	loginApp preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''.
-	
 
-	app := WAAdmin
-		register: FOMHomeComponent
-		asApplicationAt: FOMHomeComponent applicationName.
-	app
-		addLibrary: JQDeploymentLibrary;
-		addLibrary: JQUiDeploymentLibrary;
-		addLibrary: SBSDeploymentLibrary.
-	app configuration addParent: FOMConfiguration instance.
-	app preferenceAt: #loginApp put: FOMLoginComponent applicationName  .
-	app sessionClass: FOMSession.
-	app configuration addParent: WAOpenIdConnectConfiguration instance.
-	app preferenceAt: #clientId put: ''<your-client-id>''.
-   app preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
-   app preferenceAt: #clientSecret put: ''<your-client-secret>''.
-	app preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''.
-	'
+app := WAAdmin
+ register: FOMHomeComponent
+ asApplicationAt: FOMHomeComponent applicationName.
+app
+ addLibrary: JQDeploymentLibrary;
+ addLibrary: JQUiDeploymentLibrary;
+ addLibrary: SBSDeploymentLibrary.	
+app configuration addParent: FOMConfiguration instance.
+app preferenceAt: #loginApp put: FOMLoginComponent applicationName  .
+app sessionClass: FOMSession.
+
+loginApp := WAAdmin
+ register: FOMLoginComponent
+ asApplicationAt: FOMLoginComponent applicationName.
+loginApp
+ addLibrary: JQDeploymentLibrary;
+ addLibrary: JQUiDeploymentLibrary;
+ addLibrary: SBSDeploymentLibrary.
+loginApp sessionClass: FOMSession.
+	
+{ app. loginApp } do: [ :each |  	each configuration addParent: WAOpenIdConnectConfiguration instance.
+    each preferenceAt: #clientId put: ''<your-client-id>''.
+    each preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
+    each preferenceAt: #clientSecret put: ''<your-client-secret>''.
+	 each preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''. ]
+'
 	
 	label: 'Deployment scripts'.
 ]
