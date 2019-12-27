@@ -23,7 +23,7 @@ FOMSession >> authenticatedUser: aDictionary [
 FOMSession >> createUserResources [
 	| aUser aFarm |
 	aUser := FOMUser fromOIDCUser: self session authenticatedUser.
-	aFarm := Farm name: 'Granja de ' , user fullname.
+	aFarm := Farm name: 'Granja de ' , aUser fullname.
 	aFarm save.
 	aUser addFarm: aFarm.
 	aUser save.

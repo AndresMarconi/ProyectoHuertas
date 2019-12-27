@@ -45,8 +45,7 @@ BaselineOfProyectoHuertas >> postLoadActions [
 	GTPlayground
 		edit:
 
-    '	| app loginApp |
-	
+    '| app loginApp |	
 	loginApp := WAAdmin
 		register: FOMLoginComponent
 		asApplicationAt: FOMLoginComponent applicationName.
@@ -71,7 +70,13 @@ BaselineOfProyectoHuertas >> postLoadActions [
 		addLibrary: SBSDeploymentLibrary.
 	app configuration addParent: FOMConfiguration instance.
 	app preferenceAt: #loginApp put: FOMLoginComponent applicationName  .
-	app sessionClass: FOMSession.'
+	app sessionClass: FOMSession.
+	app configuration addParent: WAOpenIdConnectConfiguration instance.
+	app preferenceAt: #clientId put: ''<your-client-id>''.
+   app preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
+   app preferenceAt: #clientSecret put: ''<your-client-secret>''.
+	app preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''.
+	'
 	
 	label: 'Deployment scripts'.
 ]
