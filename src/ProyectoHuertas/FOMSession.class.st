@@ -45,7 +45,7 @@ FOMSession >> farms [
 
 { #category : #'creating-users' }
 FOMSession >> findOrCreateUserFromClaims: aDictionary [
-	user := self session users
+	^ self session users
 		detect: [ :each | each email = (self session authenticatedUser at: 'email') ]
 		ifNone: [ self createUserResources ]
 ]
@@ -102,7 +102,7 @@ FOMSession >> user [
 
 { #category : #accessing }
 FOMSession >> users [
-	^ (FOMUser selectMany: [ :each | each archived not ])
+	^ (FOMUser selectAll select: [ :each | each archived not ])
 		asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
 ]
 

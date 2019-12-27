@@ -24,7 +24,7 @@ FOMObject >> archived [
 
 { #category : #initialization }
 FOMObject >> initialize [ 
-  archived := false. 
+  archived := false.  
 ]
 
 { #category : #archiving }

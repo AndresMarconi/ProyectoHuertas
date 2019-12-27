@@ -84,6 +84,7 @@ FOMUser >> fullname: anObject [
 
 { #category : #initialization }
 FOMUser >> initialize [ 
+   super initialize. 
 	farms := OrderedCollection new.
 	stock := OrderedCollection new.
 	sales := OrderedCollection new.
