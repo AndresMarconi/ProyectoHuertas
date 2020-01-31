@@ -45,7 +45,6 @@ FOMAbstractListComponent >> listElement: element On: html [
 FOMAbstractListComponent >> listTempleteOn: html [
 	html row class:'container'; with: [ 
 		html column class:'col-md-12'; with:[
-			html heading level2 with: (self heading).
 			self elements isEmpty ifTrue: [ html text: 'No hay elementos para mostrar' ]
 				ifFalse: [ html listGroup flush with: 
 					[ (paginator showElementsOf: (self elements)) do: [ :element | 
@@ -105,8 +104,8 @@ FOMAbstractListComponent >> renderTableOn: html usingStyle: aStyle [
 
 { #category : #'as yet unclassified' }
 FOMAbstractListComponent >> tableTempleteOn: html [
-	html  horizontalRule;
-			heading: self heading.
-	self renderTableOn: html usingStyle: 'table table-hover'.	
-	html row class: 'd-flex justify-content-center'; with: [ paginator paginationOn: html ]
+	self renderTableOn: html usingStyle: 'table table-hover'.
+	html row
+		class: 'd-flex justify-content-center';
+		with: [ paginator paginationOn: html ]
 ]

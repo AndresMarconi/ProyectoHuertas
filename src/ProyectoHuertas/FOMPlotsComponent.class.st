@@ -1,74 +1,170 @@
 Class {
 	#name : #FOMPlotsComponent,
 	#superclass : #FOMAbstractListComponent,
+	#instVars : [
+		'plot'
+	],
 	#category : #'ProyectoHuertas-ui-core'
 }
 
-{ #category : #adding }
-FOMPlotsComponent >> addPlot: farm [
-	| plot |
-	plot := self call: (PlotEditor subject: Plot new).
-	plot ifNotNil: [ :it | 
-		it save.
-		farm ifNotNil: [ farm addPlot: it.
-							  farm save ] ]
+{ #category : #accessing }
+FOMPlotsComponent class >> plot: aPlot [
+	| component |
+	component:= self new.
+	component
+		plot: aPlot;
+		paginator: (Paginator newTotalElements: component elements perPage: 10).
+	^ component
 ]
 
-{ #category : #'as yet unclassified' }
-FOMPlotsComponent >> detailsPlot: plot [
-	(self call: (FOMPlotEventComponent plot: plot))
+{ #category : #adding }
+FOMPlotsComponent >> addEvent: editor [
+	| event |
+	event  := (self call: (editor)).
+	event ifNotNil: [ :it | 
+		it save.
+		plot addEvent: it.
+		plot save ]
 ]
 
 { #category : #callbacks }
-FOMPlotsComponent >> editPlot: plot [
-	(self call: (PlotEditor subject: plot))
-		ifNotNil: [ :it | it save ]
+FOMPlotsComponent >> addPlot [
+	| farm newPlot |
+	farm := self session farm.
+	newPlot := self call: (PlotEditor subject: Plot new).
+	newPlot
+		ifNotNil: [ :it | 
+			it save.
+			farm
+				ifNotNil: [ farm addPlot: it.
+					farm save ].
+			plot := newPlot ]
+]
+
+{ #category : #callbacks }
+FOMPlotsComponent >> editEvent: editor [ 
+	(self call: (editor))
+		ifNotNil: [ :it | it save. self plot save ]
+]
+
+{ #category : #accessing }
+FOMPlotsComponent >> elements [ 
+	^ plot ifNil: [ Array new ] ifNotNil: [ super elements ]
+]
+
+{ #category : #'t-rotating' }
+FOMPlotsComponent >> heading [
+	^ 'Eventos del ' , plot printString
+]
+
+{ #category : #callbacks }
+FOMPlotsComponent >> listElement: event On: html [
+	| item |
+	item:= html listGroupItem class: (event classRow). 
+	item with: [ 
+		html row class:'d-flex justify-content-between'; with: [ 
+		html paragraph: [ html text: event rowText ].
+		html form: [ 
+			html formButton bePrimary;
+				callback: [ self editEvent: (event editor) ];
+				with: 'Modificar' ] ] ]. 
+]
+
+{ #category : #accessing }
+FOMPlotsComponent >> plot [
+	^ plot
+]
+
+{ #category : #accessing }
+FOMPlotsComponent >> plot: anObject [
+	plot := anObject
 ]
 
 { #category : #printing }
 FOMPlotsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Lotes'
-]
-
-{ #category : #removing }
-FOMPlotsComponent >> removePlot: plot [
-	plot archive.
+	aStream nextPutAll: 'Lote'
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> render: plot on: html [
-	html card
-		style: 'width: 18rem;';
-		class: 'm-1';
-		with: [ html
-				cardBody: [ html cardTitle level5 with: [ 
-						html anchor
-							callback: [ self editPlot: plot  ];
-							with: [ html text: 'Lote N°'. html text: plot id ] ].
-					html
-						cardText: [ html
-								text: plot lastSowing ;
-								break;
-								text: plot lastEvent ].
-					html form: [
-						html formButton bePrimary;
-							callback: [ self detailsPlot: plot ];
-							with: 'Datalles'.
-						html space.
-						html formButton
-							beDanger;
-							callback: [ self removePlot: plot ];
-							with: 'Eliminar' ] ] ]
-]
-
-{ #category : #rendering }
-FOMPlotsComponent >> renderContentOn: html [
+FOMPlotsComponent >> renderButtonsOn: html [
 	html
-		row: [ self session plots do: [ :plot | self render: plot on: html ] ];
-		break.
-	html anchor
-		callback: [ self addPlot: (self session farm) ];
-		with: [ html formButton bePrimary;
-						with: 'Agregar lote' ]
-			
+		form: [ html formButton
+				bePrimary;
+				callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
+				with: 'Registrar siembra'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
+				with: 'Registrar Cosecha'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
+				with: 'Registrar Problema'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (AplicationEditor subject: Application new) ];
+				with: 'Registrar Aplicacion' ]
+]
+
+{ #category : #hooks }
+FOMPlotsComponent >> renderContentOn: html [
+	self renderPlotSelectorOn: html.
+	plot ifNil: [ ^ self ].
+	self tableTempleteOn: html.
+	self renderButtonsOn: html
+]
+
+{ #category : #renderning }
+FOMPlotsComponent >> renderPlotSelectorOn: html [
+	"This is horrible! "
+
+	html dropdown
+	   style: 'padding-bottom: 15px;';
+		with: [ html formButton
+				id: 'dropdownMenuButton';
+				beSecondary;
+				dropdown;
+				dataToggle: 'dropdown';
+				with: (plot ifNil: [ 'Seleccione un lote' ] ifNotNil: [ plot printString ]).
+			html div
+				class: 'dropdown-menu';
+				attributeAt: 'aria-labelledby' put: 'dropdownMenuButton';
+				with: [ self session plots
+						do: [ :each | 
+							html anchor
+								class: 'dropdown-item';
+								callback: [ plot := each ];
+								with: each printString ].
+					html anchor
+						class: 'dropdown-item';
+						callback: [ self addPlot ];
+						with: 'Agregar lote' ] ]
+]
+
+{ #category : #rendering }
+FOMPlotsComponent >> renderTableOn: html usingStyle: aStyle [
+	html table
+		class: aStyle;
+		with: [ 
+			html tableHead: [ 
+				html tableRow: [ 	
+					html tableHeading: 'Fecha'.	
+					html tableHeading: 'Descripcion'.
+					html tableHeading: 'Opciones' ] ].
+			html tableBody: [ (paginator showElementsOf: (self elements)) do: [ :element | 
+				html tableRow: 	[ 
+					html tableData: element date asString.	
+					html tableData: element rowText.
+					html tableData: [ 
+						html form: [ 
+							html formButton bePrimary;
+								callback: [ self editEvent: (element editor) ];
+								with: 'Modificar'.
+							html space.
+							html formButton beDanger;
+								callback: [ self removeElement: element ];
+								with: 'Eliminar' ] ] ] ] ] ]
 ]

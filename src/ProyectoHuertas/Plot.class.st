@@ -80,7 +80,7 @@ Plot >> lastSowing [
 { #category : #printing }
 Plot >> printOn: aStream [
 	^ aStream
-		nextPutAll: ('Lote N° ');
+		nextPutAll: ('Lote ');
 		nextPutAll: (self id asString)
 ]
 

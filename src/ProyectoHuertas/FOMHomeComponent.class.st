@@ -83,13 +83,13 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 					varietiesComponent.
 					substancesComponent.
 					stockComponent}
-						do: [ :ex | 
+						do: [ :component | 
 							item := html listGroupLinkedItem.
-							selectedComponent = ex
+							selectedComponent = component
 								ifTrue: [ item beActive ].
 							item
-								callback: [ selectedComponent := ex ];
-								with: ex printString ] ] ]
+								callback: [ selectedComponent := component ];
+								with: component printString ] ] ]
 ]
 
 { #category : #'rendering-login' }
