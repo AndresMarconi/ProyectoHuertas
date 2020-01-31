@@ -42,5 +42,5 @@ FOMSalesComponent >> renderContentOn: html [
 	html anchor
 		callback: [ self addSale ];
 		with: [ html formButton bePrimary;
-						with: 'Agregar venta' ]
+						with: 'Registrar venta' ]
 ]

@@ -20,10 +20,10 @@ PlotEditor >> children [
 PlotEditor >> initializeComponents [
 	"Initialize all property components"
 
-	idPEditorComponent := NumberPropertyEditorComponent
+	idPEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #id
-		label: 'Numero de lote'
+		label: 'Identificador del lote'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject

@@ -29,7 +29,7 @@ Variety >> printOn: aStream [
 
 { #category : #'as yet unclassified' }
 Variety >> rowText [
-	^ 'variadad ', vulgarName 
+	^ self vulgarName 
 ]
 
 { #category : #accessing }

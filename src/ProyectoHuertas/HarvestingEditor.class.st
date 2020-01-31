@@ -32,12 +32,12 @@ HarvestingEditor >> initializeComponents [
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 Cosechados'
+		label: 'm2 cosechados'
 		required: true.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
-		label: 'Cantidad'
+		label: 'Kg cosechados'
 		required: true.
 	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject

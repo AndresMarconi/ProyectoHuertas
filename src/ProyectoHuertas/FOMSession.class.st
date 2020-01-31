@@ -90,9 +90,9 @@ FOMSession >> stock [
 	^ user stock
 ]
 
-{ #category : #accessing }
+{ #category : #'raw queries' }
 FOMSession >> substances [
-	^ Substance selectMany: [ :each | each archived not]
+	^ Substance selectMany: [ :each | each archived = false]
 ]
 
 { #category : #accessing }
@@ -100,13 +100,13 @@ FOMSession >> user [
 	^ user
 ]
 
-{ #category : #accessing }
+{ #category : #'raw queries' }
 FOMSession >> users [
-	^ (FOMUser selectAll select: [ :each | each archived not ])
+	^ (FOMUser selectMany: [ :each | each archived = false ])
 		asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
 ]
 
-{ #category : #accessing }
+{ #category : #'raw queries' }
 FOMSession >> varieties [
-	^ Variety selectMany: [ :each | each archived not ]
+	^ Variety selectMany: [ :each | each archived = false ]
 ]

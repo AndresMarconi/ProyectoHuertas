@@ -82,26 +82,31 @@ FOMPlotEventComponent >> printOn: aStream [
 
 { #category : #'as yet unclassified' }
 FOMPlotEventComponent >> renderButtonsOn: html [
-	html form: [ 
-		html formButton bePrimary;
-			callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
-			with: 'Agregar Siembra'.
-		html space.
-		html formButton bePrimary;
-			callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
-			with: 'Agregar Cosecha'.
-		html space.
-		html formButton bePrimary;
-			callback: [ self addEvent: (AplicationEditor subject: Application new) ];
-			with: 'Agregar Aplicacion'.
-		html space.
-		html formButton bePrimary;
-			callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
-			with: 'Agregar Problema'.
-		html space.
-		html formButton beDanger;
-			callback: [ self backToPlots ];
-			with: 'volver' ]
+	html
+		form: [ html formButton
+				bePrimary;
+				callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
+				with: 'Registrar siembra'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
+				with: 'Registrar Cosecha'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
+				with: 'Registrar Problema'.
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self addEvent: (AplicationEditor subject: Application new) ];
+				with: 'Registrar Aplicacion'.
+			html space.
+			html formButton
+				beDanger;
+				callback: [ self backToPlots ];
+				with: 'Volver' ]
 ]
 
 { #category : #hooks }

@@ -39,6 +39,7 @@ Problem >> editor [
 
 { #category : #initialization }
 Problem >> initialize [
+   super initialize.
 	solutions := OrderedCollection new.
 ]
 
