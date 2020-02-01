@@ -48,8 +48,8 @@ FOMPlotsComponent >> editEvent: editor [
 ]
 
 { #category : #accessing }
-FOMPlotsComponent >> elements [ 
-	^ plot ifNil: [ Array new ] ifNotNil: [ super elements ]
+FOMPlotsComponent >> elements [
+	^ plot ifNil: [ Array new ] ifNotNil: [ plot events ]
 ]
 
 { #category : #'t-rotating' }

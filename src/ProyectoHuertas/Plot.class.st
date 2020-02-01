@@ -40,7 +40,7 @@ Plot >> archive [
 
 { #category : #accessing }
 Plot >> events [
-	^ (events reject: [ :each | each archived ])
+	^ (events reject: [ :each | each archived])
 		asSortedCollection: [ :a :b | a date > b date ]
 ]
 
