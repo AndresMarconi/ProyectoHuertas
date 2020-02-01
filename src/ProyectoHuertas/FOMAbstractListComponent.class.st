@@ -44,21 +44,6 @@ FOMAbstractListComponent >> listElement: element On: html [
 								with: [ html span class: 'fa fa-trash' ] ] ] ]
 ]
 
-{ #category : #rendering }
-FOMAbstractListComponent >> listTempleteOn: html [
-	html row
-		class: 'container';
-		with: [ html column
-				class: 'col-md-12';
-				with: [ self elements isEmpty
-						ifFalse: [ html listGroup flush
-								with: [ (paginator showElementsOf: self elements)
-										do: [ :element | self listElement: element On: html ] ] ] ] ].
-	html row
-		class: 'd-flex justify-content-center';
-		with: [ paginator renderPaginationOn: html ]
-]
-
 { #category : #accessing }
 FOMAbstractListComponent >> paginator: anObject [
 	paginator := anObject
@@ -77,6 +62,29 @@ FOMAbstractListComponent >> parent: anObject [
 { #category : #removing }
 FOMAbstractListComponent >> removeElement: element [
 	element archive
+]
+
+{ #category : #rendering }
+FOMAbstractListComponent >> renderAsListOn: html [
+	html row
+		class: 'container';
+		with: [ html column
+				class: 'col-md-12';
+				with: [ self elements isEmpty
+						ifFalse: [ html listGroup flush
+								with: [ (paginator showElementsOf: self elements)
+										do: [ :element | self listElement: element On: html ] ] ] ] ].
+	html row
+		class: 'd-flex justify-content-center';
+		with: [ paginator renderPaginationOn: html ]
+]
+
+{ #category : #rendering }
+FOMAbstractListComponent >> renderAsTableOn: html [
+	self renderTableOn: html usingStyle: 'table table-hover'.
+	html row
+		class: 'd-flex justify-content-center';
+		with: [ paginator renderPaginationOn: html ]
 ]
 
 { #category : #rendering }
@@ -107,12 +115,4 @@ FOMAbstractListComponent >> renderTableOn: html usingStyle: aStyle [
 				html formButton beDanger;
 					callback: [ self removeElement: element ];
 					with: [ html span class: 'fa fa-trash' ] ] ] ] ] ] ]
-]
-
-{ #category : #rendering }
-FOMAbstractListComponent >> tableTempleteOn: html [
-	self renderTableOn: html usingStyle: 'table table-hover'.
-	html row
-		class: 'd-flex justify-content-center';
-		with: [ paginator renderPaginationOn: html ]
 ]

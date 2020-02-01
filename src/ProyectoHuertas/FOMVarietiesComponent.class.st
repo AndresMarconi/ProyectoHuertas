@@ -34,7 +34,7 @@ FOMVarietiesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMVarietiesComponent >> renderContentOn: html [
-	self listTempleteOn: html.
+	self renderAsListOn: html.
 	html anchor
 		callback: [ self addVariety  ];
 		with: [ html formButton bePrimary;

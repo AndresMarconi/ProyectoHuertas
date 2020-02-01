@@ -37,7 +37,7 @@ FOMStockComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMStockComponent >> renderContentOn: html [
-	self listTempleteOn: html.
+	self renderAsListOn: html.
 	html anchor
 		callback: [ self addSubstanceStock ];
 		with: [ html formButton bePrimary;

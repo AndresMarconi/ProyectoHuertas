@@ -34,7 +34,7 @@ FOMSubstancesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSubstancesComponent >> renderContentOn: html [
-	self listTempleteOn: html.
+	self renderAsListOn: html.
 	html anchor
 		callback: [ self addSubstance ];
 		with: [ html formButton bePrimary;

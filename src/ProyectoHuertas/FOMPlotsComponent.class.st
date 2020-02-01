@@ -113,7 +113,7 @@ FOMPlotsComponent >> renderButtonsOn: html [
 FOMPlotsComponent >> renderContentOn: html [
 	self renderPlotSelectorOn: html.
 	plot ifNil: [ ^ self ].
-	self tableTempleteOn: html.
+	self renderAsTableOn: html.
 	self renderButtonsOn: html
 ]
 
