@@ -82,6 +82,11 @@ FOMSession >> sales [
 	^ user sales
 ]
 
+{ #category : #testing }
+FOMSession >> showArchived [
+	^ false
+]
+
 { #category : #'indirect queries' }
 FOMSession >> sowings [  
 	^ self plots flatCollect: [ :each | each sowings ]

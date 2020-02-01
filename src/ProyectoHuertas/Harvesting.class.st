@@ -13,6 +13,11 @@ Harvesting class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #accessing }
+Harvesting class >> typeDescriptor [
+	^ 'Cosecha'
+]
+
 { #category : #'instance creation' }
 Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 	^ self new
@@ -20,11 +25,6 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 		variety: aVariety;
 		date: aDate;
 		yourself
-]
-
-{ #category : #'as yet unclassified' }
-Harvesting >> classRow [
-	^ 'list-group-item-warning'
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,9 +47,9 @@ Harvesting >> quantity: anObject [
 	quantity := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Harvesting >> rowText [
-	^ 'Cosecha de ',(self variety vulgarName)
+{ #category : #printing }
+Harvesting >> summaryFor: aSummaryRequestor [
+	^ aSummaryRequestor summaryForHarvesting: self
 ]
 
 { #category : #accessing }

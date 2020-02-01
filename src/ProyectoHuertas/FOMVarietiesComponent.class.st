@@ -11,6 +11,17 @@ FOMVarietiesComponent >> addVariety [
 	variety ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #rendering }
+FOMVarietiesComponent >> columnHeadings [
+	^ {'Nombre vulgar' . 'Nombre taxonómico'}
+]
+
+{ #category : #rendering }
+FOMVarietiesComponent >> columnValuesFor: element [
+	^ {element vulgarName.
+	element taxonomicName}
+]
+
 { #category : #callbacks }
 FOMVarietiesComponent >> editElement: element [
 	(self call: (VarietyEditor subject: element))
@@ -22,11 +33,6 @@ FOMVarietiesComponent >> elements [
 	^ (self session varieties) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
-{ #category : #callbacks }
-FOMVarietiesComponent >> heading [ 
-	^ 'Variedades'
-]
-
 { #category : #printing }
 FOMVarietiesComponent >> printOn: aStream [
 	aStream nextPutAll: 'Variedades'
@@ -34,7 +40,8 @@ FOMVarietiesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMVarietiesComponent >> renderContentOn: html [
-	self renderAsListOn: html.
+	super renderContentOn: html.
+	html anchor. 
 	html anchor
 		callback: [ self addVariety  ];
 		with: [ html formButton bePrimary;

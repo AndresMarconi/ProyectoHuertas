@@ -41,11 +41,6 @@ Campaign >> endDate: anObject [
 	endDate := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Campaign >> rowText [
-	^ 'Campaña desde ', startDate asString , ' hasta ', endDate asString.
-]
-
 { #category : #accessing }
 Campaign >> startDate [
 	^ startDate

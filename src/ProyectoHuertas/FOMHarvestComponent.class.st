@@ -4,6 +4,22 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #rendering }
+FOMHarvestComponent >> columnHeadings [
+	^ {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. 'Superficie (m2)'. }
+]
+
+{ #category : #rendering }
+FOMHarvestComponent >> columnValuesFor: element [
+	" {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. 'Superficie (m2)'. }}"
+
+	^ {element date asDate ddmmyyyy.
+	element plot id.
+	element variety vulgarName.
+	element surface.
+	element quantity}
+]
+
 { #category : #'as yet unclassified' }
 FOMHarvestComponent >> editElement: element [
 	(self call: (HarvestingEditor subject: element))
@@ -16,16 +32,6 @@ FOMHarvestComponent >> elements [
 ]
 
 { #category : #printing }
-FOMHarvestComponent >> heading [ 	
-	^ 'Cosechas'
-]
-
-{ #category : #printing }
 FOMHarvestComponent >> printOn: aStream [
 	aStream nextPutAll: 'Cosechas'
-]
-
-{ #category : #printing }
-FOMHarvestComponent >> renderContentOn: html [
-	self renderAsTableOn: html.
 ]

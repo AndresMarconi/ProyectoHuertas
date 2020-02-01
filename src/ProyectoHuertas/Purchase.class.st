@@ -52,8 +52,3 @@ Purchase >> inputs [
 Purchase >> inputs: anObject [
 	inputs := anObject
 ]
-
-{ #category : #'as yet unclassified' }
-Purchase >> rowText [
-	^ 'Compra de ', inputs, ' a ', distributor 
-]

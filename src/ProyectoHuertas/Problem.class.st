@@ -23,13 +23,13 @@ Problem class >> name: aName date: aDate surface: aSurface [
 ]
 
 { #category : #accessing }
-Problem >> addSolutions: anObject [
-	solutions add: anObject
+Problem class >> typeDescriptor [
+	^ 'Problema'
 ]
 
-{ #category : #'as yet unclassified' }
-Problem >> classRow [
-	^ 'list-group-item-danger'
+{ #category : #accessing }
+Problem >> addSolutions: anObject [
+	solutions add: anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -53,12 +53,12 @@ Problem >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Problem >> rowText [
-	^ 'Problema de ',(self name)
-]
-
 { #category : #accessing }
 Problem >> solutions [
 	^ solutions
+]
+
+{ #category : #printing }
+Problem >> summaryFor: aSummaryRequestor [
+	^ aSummaryRequestor summaryForProblem: self
 ]

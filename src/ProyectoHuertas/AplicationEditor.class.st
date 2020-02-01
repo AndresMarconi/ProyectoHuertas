@@ -35,7 +35,7 @@ AplicationEditor >> initializeComponents [
 		selector: #surface
 		label: 'm2 de Aplicacion'
 		required: true.
-	doseEditorComponent := NumberPropertyEditorComponent
+	doseEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #dose
 		label: 'Dosis'

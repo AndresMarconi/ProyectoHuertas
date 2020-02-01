@@ -27,9 +27,9 @@ Sowing class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
-Sowing >> classRow [
-	^ 'list-group-item-primary'
+{ #category : #accessing }
+Sowing class >> typeDescriptor [
+	^ 'Siembra'
 ]
 
 { #category : #accessing }
@@ -67,9 +67,9 @@ Sowing >> quantity: anObject [
 	quantity := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Sowing >> rowText [
-	^ 'Siembra de ',(self variety vulgarName)
+{ #category : #printing }
+Sowing >> summaryFor: aSummaryRequestor [
+	^ aSummaryRequestor summaryForSowing: self
 ]
 
 { #category : #accessing }

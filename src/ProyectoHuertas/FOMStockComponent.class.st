@@ -15,19 +15,28 @@ FOMStockComponent >> addSubstanceStock [
 ]
 
 { #category : #rendering }
+FOMStockComponent >> columnHeadings [
+	^ {'Nombre comercial' . 'Marca' . 'Cantidad disponible'.
+	'Fecha de expiración'}
+]
+
+{ #category : #rendering }
+FOMStockComponent >> columnValuesFor: element [
+	^ {element substance comercialName.
+	element substance brand.
+	element quantity.
+	element expirationDate ddmmyyyy}
+]
+
+{ #category : #callbacks }
 FOMStockComponent >> editElement: element [
 	(self call: (PurchaseEditor subject: element))
 		ifNotNil: [ :it | it save ]
 ]
 
-{ #category : #rendering }
+{ #category : #accessing }
 FOMStockComponent >> elements [
 	^ (self session stock) asSortedCollection: [ :a :b | a expirationDate > b expirationDate ]
-]
-
-{ #category : #rendering }
-FOMStockComponent >> heading [ 
-	^ 'Stock'
 ]
 
 { #category : #printing }
@@ -37,9 +46,11 @@ FOMStockComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMStockComponent >> renderContentOn: html [
-	self renderAsListOn: html.
+	super renderContentOn: html.
+	html break.
 	html anchor
 		callback: [ self addSubstanceStock ];
-		with: [ html formButton bePrimary;
-						with: 'Agregar Substancia al deposito' ]
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar Substancia al deposito' ]
 ]

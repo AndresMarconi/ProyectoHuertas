@@ -11,6 +11,21 @@ FOMSubstancesComponent >> addSubstance [
 	substance ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #rendering }
+FOMSubstancesComponent >> columnHeadings [
+	^ {'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}
+]
+
+{ #category : #rendering }
+FOMSubstancesComponent >> columnValuesFor: element [
+	"{'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}"
+
+	^ {element comercialName.
+	element brand.
+	element activeIngredients.
+	element waitingPeriodAfterApplication}
+]
+
 { #category : #callbacks }
 FOMSubstancesComponent >> editElement: element [
 	(self call: (SubstanceEditor subject: element))
@@ -34,9 +49,11 @@ FOMSubstancesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSubstancesComponent >> renderContentOn: html [
-	self renderAsListOn: html.
+	super renderContentOn: html.
+	html break.
 	html anchor
 		callback: [ self addSubstance ];
-		with: [ html formButton bePrimary;
-						with: 'Agregar Substancia' ]
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar Substancia' ]
 ]

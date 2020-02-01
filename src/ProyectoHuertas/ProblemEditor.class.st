@@ -30,7 +30,7 @@ ProblemEditor >> initializeComponents [
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
-		label: 'm2 con Problemas'
+		label: 'Superficie afectada (m2)'
 		required: true.
 	nameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject

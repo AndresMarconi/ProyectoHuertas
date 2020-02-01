@@ -25,9 +25,9 @@ Application class >> substance: aSubstance dose: aDose machine: aMachine date: a
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-Application >> classRow [
-	^ 'list-group-item-secondary'
+{ #category : #accessing }
+Application class >> typeDescriptor [
+	^ 'Aplicación'
 ]
 
 { #category : #accessing }
@@ -55,11 +55,6 @@ Application >> machine: anObject [
 	machine := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Application >> rowText [
-	^ 'Aplicacion de ',(self substance comercialName), date asString.
-]
-
 { #category : #accessing }
 Application >> substance [
 	^ substance
@@ -68,4 +63,9 @@ Application >> substance [
 { #category : #accessing }
 Application >> substance: anObject [
 	substance := anObject
+]
+
+{ #category : #printing }
+Application >> summaryFor: aSummaryRequestor [
+	^ aSummaryRequestor summaryForApplication: self
 ]

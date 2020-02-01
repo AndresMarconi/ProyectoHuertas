@@ -63,11 +63,6 @@ Substance >> printOn: aStream [
 		nextPutAll: (self brand).
 ]
 
-{ #category : #'as yet unclassified' }
-Substance >> rowText [
-	^ comercialName, ' de ', brand
-]
-
 { #category : #accessing }
 Substance >> waitingPeriodAfterApplication [
 	^ waitingPeriodAfterApplication

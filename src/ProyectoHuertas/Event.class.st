@@ -14,11 +14,6 @@ Event class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
-Event >> classRow [
-	^ self subclassResponsibility 
-]
-
 { #category : #accessing }
 Event >> date [
 	^ date
@@ -44,9 +39,9 @@ Event >> plot: anObject [
 	plot := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Event >> rowText [
-	^ self subclassResponsibility 
+{ #category : #printing }
+Event >> summaryFor: aSummaryRequestor [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }

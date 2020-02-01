@@ -81,8 +81,7 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 					problemsComponent.
 					applicationsComponent.
 					varietiesComponent.
-					substancesComponent.
-					stockComponent}
+					substancesComponent}
 						do: [ :component | 
 							item := html listGroupLinkedItem.
 							selectedComponent = component

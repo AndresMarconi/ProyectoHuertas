@@ -43,11 +43,6 @@ SubstanceStock >> quantity: anObject [
 	quantity := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-SubstanceStock >> rowText [
-	^ 'Stock de ', substance comercialName, ': ', quantity asString
-]
-
 { #category : #accessing }
 SubstanceStock >> substance [
 	^ substance

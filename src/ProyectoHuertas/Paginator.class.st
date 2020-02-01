@@ -119,7 +119,7 @@ Paginator >> renderPreviousButtonOn: html [
 ]
 
 { #category : #initialization }
-Paginator >> showElementsOf: collection [
+Paginator >> selectElementsIn: collection [
 	| total col |
 	(elements < totalElements)
 	ifTrue: [ 

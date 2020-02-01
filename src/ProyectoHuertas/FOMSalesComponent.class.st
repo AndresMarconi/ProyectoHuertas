@@ -14,6 +14,17 @@ FOMSalesComponent >> addSale [
 		self session user save ]
 ]
 
+{ #category : #rendering }
+FOMSalesComponent >> columnHeadings [
+	^ { 'Fecha'. 'Cliente'. }
+]
+
+{ #category : #rendering }
+FOMSalesComponent >> columnValuesFor: element [
+	^ {element date asDate ddmmyyyy.
+	element client}
+]
+
 { #category : #callbacks }
 FOMSalesComponent >> editElement: element [
 	| sale |
@@ -38,9 +49,11 @@ FOMSalesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMSalesComponent >> renderContentOn: html [
-	self renderAsListOn: html.
+	super renderContentOn: html.
+	html break.
 	html anchor
 		callback: [ self addSale ];
-		with: [ html formButton bePrimary;
-						with: 'Registrar venta' ]
+		with: [ html formButton
+				bePrimary;
+				with: 'Registrar venta' ]
 ]

@@ -4,6 +4,22 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #rendering }
+FOMSowingComponent >> columnHeadings [
+	^ {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad' . 'Superficie (m2)'}
+]
+
+{ #category : #rendering }
+FOMSowingComponent >> columnValuesFor: element [
+	" {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. 'Superficie (m2)'. }}"
+
+	^ {element date asDate ddmmyyyy.
+	element plot id.
+	element variety vulgarName.
+	element surface.
+	element quantity}
+]
+
 { #category : #callbacks }
 FOMSowingComponent >> editElement: element [
 	(self call: (SowingEditor subject: element))
@@ -15,17 +31,7 @@ FOMSowingComponent >> elements [
 	^ (self session sowings) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
-{ #category : #'t-rotating' }
-FOMSowingComponent >> heading [ 
-	^ 'Siembras'
-]
-
 { #category : #printing }
 FOMSowingComponent >> printOn: aStream [
 	aStream nextPutAll: 'Siembras'
-]
-
-{ #category : #rendering }
-FOMSowingComponent >> renderContentOn: html [
-	self renderAsTableOn: html.
 ]

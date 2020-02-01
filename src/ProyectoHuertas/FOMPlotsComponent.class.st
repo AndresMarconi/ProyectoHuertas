@@ -17,14 +17,15 @@ FOMPlotsComponent class >> plot: aPlot [
 	^ component
 ]
 
-{ #category : #adding }
-FOMPlotsComponent >> addEvent: editor [
-	| event |
-	event  := (self call: (editor)).
-	event ifNotNil: [ :it | 
-		it save.
-		plot addEvent: it.
-		plot save ]
+{ #category : #callbacks }
+FOMPlotsComponent >> addEvent: event [
+	| editedEvent |
+	editedEvent := self call: event editor.
+	editedEvent
+		ifNotNil: [ :it | 
+			it save.
+			plot addEvent: it.
+			plot save ]
 ]
 
 { #category : #callbacks }
@@ -41,33 +42,29 @@ FOMPlotsComponent >> addPlot [
 			plot := newPlot ]
 ]
 
+{ #category : #rendering }
+FOMPlotsComponent >> columnHeadings [
+	^ {'Fecha' . 'Tipo de evento' . 'Resumen'}
+]
+
+{ #category : #rendering }
+FOMPlotsComponent >> columnValuesFor: element [
+	^ {element date asDate ddmmyyyy.
+	(self typeDescriptorFor: element).
+	(element summaryFor: self)}
+]
+
 { #category : #callbacks }
-FOMPlotsComponent >> editEvent: editor [ 
-	(self call: (editor))
-		ifNotNil: [ :it | it save. self plot save ]
+FOMPlotsComponent >> editElement: element [
+	(self call: element editor)
+		ifNotNil: [ :it | 
+			it save.
+			self plot save ]
 ]
 
 { #category : #accessing }
 FOMPlotsComponent >> elements [
 	^ plot ifNil: [ Array new ] ifNotNil: [ plot events ]
-]
-
-{ #category : #'t-rotating' }
-FOMPlotsComponent >> heading [
-	^ 'Eventos del ' , plot printString
-]
-
-{ #category : #callbacks }
-FOMPlotsComponent >> listElement: event On: html [
-	| item |
-	item:= html listGroupItem class: (event classRow). 
-	item with: [ 
-		html row class:'d-flex justify-content-between'; with: [ 
-		html paragraph: [ html text: event rowText ].
-		html form: [ 
-			html formButton bePrimary;
-				callback: [ self editEvent: (event editor) ];
-				with: 'Modificar' ] ] ]. 
 ]
 
 { #category : #accessing }
@@ -90,34 +87,35 @@ FOMPlotsComponent >> renderButtonsOn: html [
 	html
 		form: [ html formButton
 				bePrimary;
-				callback: [ self addEvent: (SowingEditor subject: Sowing new) ];
+				callback: [ self addEvent: Sowing new ];
 				with: 'Registrar siembra'.
 			html space.
 			html formButton
 				bePrimary;
-				callback: [ self addEvent: (HarvestingEditor subject: Harvesting new) ];
+				callback: [ self addEvent: Harvesting new ];
 				with: 'Registrar Cosecha'.
 			html space.
 			html formButton
 				bePrimary;
-				callback: [ self addEvent: (ProblemEditor subject: Problem new) ];
+				callback: [ self addEvent: Problem new ];
 				with: 'Registrar Problema'.
 			html space.
 			html formButton
 				bePrimary;
-				callback: [ self addEvent: (AplicationEditor subject: Application new) ];
+				callback: [ self addEvent: Application new ];
 				with: 'Registrar Aplicacion' ]
 ]
 
-{ #category : #hooks }
+{ #category : #rendering }
 FOMPlotsComponent >> renderContentOn: html [
 	self renderPlotSelectorOn: html.
 	plot ifNil: [ ^ self ].
-	self renderAsTableOn: html.
+	super renderContentOn: html.
+	html break.
 	self renderButtonsOn: html
 ]
 
-{ #category : #renderning }
+{ #category : #rendering }
 FOMPlotsComponent >> renderPlotSelectorOn: html [
 	"This is horrible! "
 
@@ -133,30 +131,31 @@ FOMPlotsComponent >> renderPlotSelectorOn: html [
 				with: 'Agregar lote' ]
 ]
 
+{ #category : #summaries }
+FOMPlotsComponent >> summaryForApplication: anApplication [
+	^ anApplication substance comercialName , ' ('
+		, anApplication dose , ' sobre '
+		, anApplication surface printString , 'm2)'
+]
+
+{ #category : #summaries }
+FOMPlotsComponent >> summaryForHarvesting: aHarvesting [
+	^ aHarvesting quantity printString , 'Kg de '
+		, aHarvesting variety vulgarName
+]
+
+{ #category : #summaries }
+FOMPlotsComponent >> summaryForProblem: aProblem [
+	^ aProblem name
+]
+
+{ #category : #summaries }
+FOMPlotsComponent >> summaryForSowing: aSowing [
+	^ aSowing variety vulgarName , ' (' , aSowing quantity printString
+		, '/' , aSowing distribution , '/' , aSowing conductionSystem , ')'
+]
+
 { #category : #rendering }
-FOMPlotsComponent >> renderTableOn: html usingStyle: aStyle [
-	html table
-		class: aStyle;
-		with: [ html
-				tableHead: [ html
-						tableRow: [ html tableHeading: 'Fecha'.
-							html tableHeading: 'Descripcion'.
-							html tableHeading: 'Opciones' ] ].
-			html
-				tableBody: [ (paginator showElementsOf: self elements)
-						do: [ :element | 
-							html
-								tableRow: [ html tableData: element date asDate ddmmyyyy.
-									html tableData: element rowText.
-									html
-										tableData: [ html
-												form: [ html formButton
-														bePrimary;
-														callback: [ self editEvent: element editor ];
-														with: [ html span class: 'fa fa-pencil' ].
-													html space.
-													html formButton
-														beDanger;
-														callback: [ self removeElement: element ];
-														with: [ html span class: 'fa fa-trash' ] ] ] ] ] ] ]
+FOMPlotsComponent >> typeDescriptorFor: element [
+	^ element class typeDescriptor
 ]
