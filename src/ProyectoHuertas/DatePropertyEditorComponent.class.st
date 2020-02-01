@@ -14,7 +14,7 @@ DatePropertyEditorComponent >> obtainValueFromString: aString [
 		do: [ problems
 				add: label , ' debe ser una fecha valida en formato dd/mm/aaaa.'.
 			^ bufferedValue ].
-	^ newDate
+	^ newDate asDate
 ]
 
 { #category : #hooks }
@@ -23,7 +23,7 @@ DatePropertyEditorComponent >> renderInputOn: html [
 	   attributeAt: 'autocomplete' put: 'off'; 
 		formControl;
 		placeholder: 'dd/mm/aaaa';
-		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it ddmmyyyy ]);
+		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it asDate ddmmyyyy ]);
 		callback: [ :value | self handleCallbackWith: value ];
 		id: selector;
 		script:
