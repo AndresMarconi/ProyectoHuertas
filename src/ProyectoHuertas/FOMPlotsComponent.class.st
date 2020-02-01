@@ -82,7 +82,7 @@ FOMPlotsComponent >> plot: anObject [
 
 { #category : #printing }
 FOMPlotsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Lote'
+	aStream nextPutAll: 'Lotes'
 ]
 
 { #category : #rendering }
@@ -121,50 +121,42 @@ FOMPlotsComponent >> renderContentOn: html [
 FOMPlotsComponent >> renderPlotSelectorOn: html [
 	"This is horrible! "
 
-	html dropdown
-	   style: 'padding-bottom: 15px;';
-		with: [ html formButton
-				id: 'dropdownMenuButton';
-				beSecondary;
-				dropdown;
-				dataToggle: 'dropdown';
-				with: (plot ifNil: [ 'Seleccione un lote' ] ifNotNil: [ plot printString ]).
-			html div
-				class: 'dropdown-menu';
-				attributeAt: 'aria-labelledby' put: 'dropdownMenuButton';
-				with: [ self session plots
-						do: [ :each | 
-							html anchor
-								class: 'dropdown-item';
-								callback: [ plot := each ];
-								with: each printString ].
-					html anchor
-						class: 'dropdown-item';
-						callback: [ self addPlot ];
-						with: 'Agregar lote' ] ]
+	html
+		navigation: [ self session plots
+				do: [ :each | 
+					html navigationLink
+						beDisabledIf: [ plot = each ];
+						callback: [ plot := each ];
+						with: each printString ].
+			html navigationLink
+				callback: [ self addPlot ];
+				with: 'Agregar lote' ]
 ]
 
 { #category : #rendering }
 FOMPlotsComponent >> renderTableOn: html usingStyle: aStyle [
 	html table
 		class: aStyle;
-		with: [ 
-			html tableHead: [ 
-				html tableRow: [ 	
-					html tableHeading: 'Fecha'.	
-					html tableHeading: 'Descripcion'.
-					html tableHeading: 'Opciones' ] ].
-			html tableBody: [ (paginator showElementsOf: (self elements)) do: [ :element | 
-				html tableRow: 	[ 
-					html tableData: element date asString.	
-					html tableData: element rowText.
-					html tableData: [ 
-						html form: [ 
-							html formButton bePrimary;
-								callback: [ self editEvent: (element editor) ];
-								with: 'Modificar'.
-							html space.
-							html formButton beDanger;
-								callback: [ self removeElement: element ];
-								with: 'Eliminar' ] ] ] ] ] ]
+		with: [ html
+				tableHead: [ html
+						tableRow: [ html tableHeading: 'Fecha'.
+							html tableHeading: 'Descripcion'.
+							html tableHeading: 'Opciones' ] ].
+			html
+				tableBody: [ (paginator showElementsOf: self elements)
+						do: [ :element | 
+							html
+								tableRow: [ html tableData: element date asDate ddmmyyyy.
+									html tableData: element rowText.
+									html
+										tableData: [ html
+												form: [ html formButton
+														bePrimary;
+														callback: [ self editEvent: element editor ];
+														with: [ html span class: 'fa fa-pencil' ].
+													html space.
+													html formButton
+														beDanger;
+														callback: [ self removeElement: element ];
+														with: [ html span class: 'fa fa-trash' ] ] ] ] ] ] ]
 ]

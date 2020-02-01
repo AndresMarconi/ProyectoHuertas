@@ -89,7 +89,7 @@ FOMAbstractListComponent >> renderTableOn: html usingStyle: aStyle [
 					html tableHeading: 'Opciones' ] ].
 			html tableBody: [ (paginator showElementsOf: (self elements)) do: [ :element | 
 				html tableRow: 	[ 
-					html tableData: element date asString.	
+					html tableData: element date asDate ddmmyyyy.	
 					html tableData: element rowText.
 					html tableData: [ 
 						html form: [ 

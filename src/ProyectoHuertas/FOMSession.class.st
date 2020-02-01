@@ -8,18 +8,18 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> aplications [
 	^ self plots flatCollect: [ :each | each aplications ]
 ]
 
-{ #category : #accessing }
+{ #category : #user }
 FOMSession >> authenticatedUser: aDictionary [
 	super authenticatedUser: aDictionary.
 	user := self findOrCreateUserFromClaims: aDictionary
 ]
 
-{ #category : #'creating-users' }
+{ #category : #user }
 FOMSession >> createUserResources [
 	| aUser aFarm |
 	aUser := FOMUser fromOIDCUser: self session authenticatedUser.
@@ -34,23 +34,26 @@ FOMSession >> createUserResources [
 FOMSession >> farm [
 	"the currently selected farm"
 
-	^ farm ifNil: [ farm := self user farms first ]
+	^ farm
+		ifNil: [ farm := user
+				ifNotNil: [ user farms ifNotEmpty: [ :farms | farms first ] ifEmpty: [ nil ] ] ]
+		ifNotNil: [ farm ]
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> farms [
 	user ifNil: [ ^ Set new ].
 	^ user farms
 ]
 
-{ #category : #'creating-users' }
+{ #category : #user }
 FOMSession >> findOrCreateUserFromClaims: aDictionary [
 	^ self session users
 		detect: [ :each | each email = (self session authenticatedUser at: 'email') ]
 		ifNone: [ self createUserResources ]
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> harvestings [ 
 	^ self plots flatCollect: [ :each | each harvests ]
 ]
@@ -63,34 +66,34 @@ FOMSession >> loginRequired [
 		& self authenticated not
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> plots [
-	^ farm ifNil: [ self farms flatCollect: [ :each | each plots ] ] ifNotNil: [ farm plots ]
+	^ self farm ifNotNil: [ :it | it plots ] ifNil: [ Set new ]
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> problems [
 	^ self plots flatCollect: [ :each | each problems ]
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> sales [
 	user ifNil: [ ^ OrderedCollection new ].
 	^ user sales
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> sowings [  
 	^ self plots flatCollect: [ :each | each sowings ]
 ]
 
-{ #category : #accessing }
+{ #category : #'indirect queries' }
 FOMSession >> stock [
 	user ifNil: [ ^ OrderedCollection new ].
 	^ user stock
 ]
 
-{ #category : #'raw queries' }
+{ #category : #'db queries' }
 FOMSession >> substances [
 	^ Substance selectMany: [ :each | each archived = false]
 ]
@@ -100,13 +103,12 @@ FOMSession >> user [
 	^ user
 ]
 
-{ #category : #'raw queries' }
+{ #category : #'db queries' }
 FOMSession >> users [
-	^ (FOMUser selectMany: [ :each | each archived = false ])
-		asSortedCollection: [ :u1 :u2 | u1 firstName > u2 firstName ]
+	^ FOMUser selectMany: [ :each | each archived = false ]
 ]
 
-{ #category : #'raw queries' }
+{ #category : #'db queries' }
 FOMSession >> varieties [
 	^ Variety selectMany: [ :each | each archived = false ]
 ]
