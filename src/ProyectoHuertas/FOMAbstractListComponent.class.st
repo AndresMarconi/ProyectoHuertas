@@ -26,22 +26,25 @@ FOMAbstractListComponent >> initialize [
 	paginator := Paginator newTotalElements: self elements perPage: 10.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 FOMAbstractListComponent >> listElement: element On: html [
-	html listGroupItem with: [ 
-		html row class:'d-flex justify-content-between'; with: [ 
-			html paragraph: [ html text: (element rowText) ].
-			html form: [ 
-				html formButton bePrimary;
-					callback: [ self editElement: element ];
-					with: 'Modificar'.
-				html space.
-				html formButton beDanger;
-					callback: [ self removeElement: element ];
-					with: 'Eliminar' ] ] ].
+	html listGroupItem
+		with: [ html row
+				class: 'd-flex justify-content-between';
+				with: [ html paragraph: [ html text: element rowText ].
+					html
+						form: [ html formButton
+								bePrimary;
+								callback: [ self editElement: element ];
+								with: [ html span class: 'fa fa-pencil' ].
+							html space.
+							html formButton
+								beDanger;
+								callback: [ self removeElement: element ];
+								with: [ html span class: 'fa fa-trash' ] ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 FOMAbstractListComponent >> listTempleteOn: html [
 	html row class:'container'; with: [ 
 		html column class:'col-md-12'; with:[
@@ -95,14 +98,14 @@ FOMAbstractListComponent >> renderTableOn: html usingStyle: aStyle [
 						html form: [ 
 				html formButton bePrimary;
 					callback: [ self editElement: element ];
-					with: 'Modificar'.
+					with: [ html span class: 'fa fa-pencil' ].
 				html space.
 				html formButton beDanger;
 					callback: [ self removeElement: element ];
-					with: 'Eliminar' ] ] ] ] ] ]
+					with: [ html span class: 'fa fa-trash' ] ] ] ] ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 FOMAbstractListComponent >> tableTempleteOn: html [
 	self renderTableOn: html usingStyle: 'table table-hover'.
 	html row

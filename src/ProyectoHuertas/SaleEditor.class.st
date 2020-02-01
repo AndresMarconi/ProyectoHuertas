@@ -57,31 +57,34 @@ SaleEditor >> removeElement: element From: sale [
 
 { #category : #rendering }
 SaleEditor >> renderChildrenOn: html [
-	self children do: [ :each | html render: each ].
+	super renderChildrenOn: html.
 	html table
 		class: 'table table-hover';
-		with: [ 
-			html tableHead: [ 
-				html tableRow: [ 	
-					html tableHeading: 'Producto'.	
-					html tableHeading: 'Lote'.
-					html tableHeading: 'Kilo Gramos'.
-					html tableHeading: 'Opciones' ] ].
-			html tableBody: [ self elements do: [ :element | 
-				html tableRow: 	[ 
-					html tableData: element product.	
-					html tableData: element plot id.
-					html tableData: element kilograms.
-					html tableData: [
-						html formButton bePrimary;
-							callback: [ self editElement: element ];
-							with: 'Modificar'.
-					html space.
-					html formButton beDanger;
-						callback: [ self removeElement: element From: subject ];
-						with: 'Eliminar' ] ] ] ] ].
+		with: [ html
+				tableHead: [ html
+						tableRow: [ html tableHeading: 'Producto'.
+							html tableHeading: 'Lote'.
+							html tableHeading: 'Kilo Gramos'.
+							html tableHeading: 'Opciones' ] ].
+			html
+				tableBody: [ self elements
+						do: [ :element | 
+							html
+								tableRow: [ html tableData: element product.
+									html tableData: element plot id.
+									html tableData: element kilograms.
+									html
+										tableData: [ html formButton
+												bePrimary;
+												callback: [ self editElement: element ];
+												with: 'Modificar'.
+											html space.
+											html formButton
+												beDanger;
+												callback: [ self removeElement: element From: subject ];
+												with: 'Eliminar' ] ] ] ] ].
 	html formButton
-				bePrimary;
-				callback: [ self addItem: subject ];
-				with: 'Agregar Item'.
+		bePrimary;
+		callback: [ self addItem: subject ];
+		with: 'Agregar Item'
 ]
