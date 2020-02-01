@@ -22,7 +22,7 @@ FOMSowingComponent >> heading [
 
 { #category : #printing }
 FOMSowingComponent >> printOn: aStream [
-	aStream nextPutAll: 'Siembra'
+	aStream nextPutAll: 'Siembras'
 ]
 
 { #category : #rendering }

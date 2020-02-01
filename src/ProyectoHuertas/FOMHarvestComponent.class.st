@@ -22,7 +22,7 @@ FOMHarvestComponent >> heading [
 
 { #category : #printing }
 FOMHarvestComponent >> printOn: aStream [
-	aStream nextPutAll: 'Cosecha'
+	aStream nextPutAll: 'Cosechas'
 ]
 
 { #category : #printing }

@@ -46,13 +46,17 @@ FOMAbstractListComponent >> listElement: element On: html [
 
 { #category : #rendering }
 FOMAbstractListComponent >> listTempleteOn: html [
-	html row class:'container'; with: [ 
-		html column class:'col-md-12'; with:[
-			self elements isEmpty ifTrue: [ html text: 'No hay elementos para mostrar' ]
-				ifFalse: [ html listGroup flush with: 
-					[ (paginator showElementsOf: (self elements)) do: [ :element | 
-						self listElement: element On: html ] ]  ] ] ].
-	html row class: 'd-flex justify-content-center'; with: [ paginator renderPaginationOn: html ]
+	html row
+		class: 'container';
+		with: [ html column
+				class: 'col-md-12';
+				with: [ self elements isEmpty
+						ifFalse: [ html listGroup flush
+								with: [ (paginator showElementsOf: self elements)
+										do: [ :element | self listElement: element On: html ] ] ] ] ].
+	html row
+		class: 'd-flex justify-content-center';
+		with: [ paginator renderPaginationOn: html ]
 ]
 
 { #category : #accessing }

@@ -77,14 +77,16 @@ SaleEditor >> renderChildrenOn: html [
 										tableData: [ html formButton
 												bePrimary;
 												callback: [ self editElement: element ];
-												with: 'Modificar'.
+												with: [ html span class: 'fa fa-pencil' ].
 											html space.
 											html formButton
 												beDanger;
 												callback: [ self removeElement: element From: subject ];
-												with: 'Eliminar' ] ] ] ] ].
-	html formButton
-		bePrimary;
-		callback: [ self addItem: subject ];
-		with: 'Agregar Item'
+												with: [ html span class: 'fa fa-trash' ] ] ] ] ] ].
+	html div
+		style: 'padding-bottom: 15px;';
+		with: [ html formButton
+				bePrimary;
+				callback: [ self addItem: subject ];
+				with: 'Agregar Item' ]
 ]
