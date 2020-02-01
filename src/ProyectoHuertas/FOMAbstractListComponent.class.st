@@ -100,11 +100,13 @@ FOMAbstractListComponent >> renderTableOn: html usingStyle: aStyle [
 			html tableHead: [ 
 				html tableRow: [ 	
 					html tableHeading: 'Fecha'.	
-					html tableHeading: 'Descripcion'.
-					html tableHeading: 'Opciones' ] ].
+					html tableHeading: 'Lote'.		
+					html tableHeading: 'Detalle'.
+					html tableHeading: 'Acciones' ] ].
 			html tableBody: [ (paginator showElementsOf: (self elements)) do: [ :element | 
 				html tableRow: 	[ 
 					html tableData: element date asDate ddmmyyyy.	
+					html tableData: element plot id.	
 					html tableData: element rowText.
 					html tableData: [ 
 						html form: [ 
