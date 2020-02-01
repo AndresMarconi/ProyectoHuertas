@@ -23,8 +23,17 @@ Plot class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
-Plot >> addEvent: anObject [
-	events add: anObject
+Plot >> addEvent: anEvent [
+	events add: anEvent.
+	anEvent plot: self.
+	
+]
+
+{ #category : #'utilities-migration' }
+Plot >> adoptEvents [
+	"make sure all my events point to me"
+
+	events do: [ :each | each plot: self ]
 ]
 
 { #category : #accessing }

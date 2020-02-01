@@ -88,6 +88,11 @@ FOMSession >> sowings [
 ]
 
 { #category : #'indirect queries' }
+FOMSession >> sowingsAtPlots [  
+	^ self plots flatCollect: [ :each | each sowings ]
+]
+
+{ #category : #'indirect queries' }
 FOMSession >> stock [
 	user ifNil: [ ^ OrderedCollection new ].
 	^ user stock

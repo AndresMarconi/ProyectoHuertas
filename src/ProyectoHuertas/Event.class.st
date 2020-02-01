@@ -2,6 +2,7 @@ Class {
 	#name : #Event,
 	#superclass : #FOMObject,
 	#instVars : [
+		'plot',
 		'date',
 		'surface'
 	],
@@ -31,6 +32,16 @@ Event >> date: anObject [
 { #category : #'as yet unclassified' }
 Event >> editor [
 	^ self subclassResponsibility 
+]
+
+{ #category : #accessing }
+Event >> plot [
+	^ plot
+]
+
+{ #category : #accessing }
+Event >> plot: anObject [
+	plot := anObject
 ]
 
 { #category : #'as yet unclassified' }
