@@ -49,7 +49,7 @@ FOMAbstractListComponent >> listTempleteOn: html [
 				ifFalse: [ html listGroup flush with: 
 					[ (paginator showElementsOf: (self elements)) do: [ :element | 
 						self listElement: element On: html ] ]  ] ] ].
-	html row class: 'd-flex justify-content-center'; with: [ paginator paginationOn: html ]
+	html row class: 'd-flex justify-content-center'; with: [ paginator renderPaginationOn: html ]
 ]
 
 { #category : #accessing }
@@ -107,5 +107,5 @@ FOMAbstractListComponent >> tableTempleteOn: html [
 	self renderTableOn: html usingStyle: 'table table-hover'.
 	html row
 		class: 'd-flex justify-content-center';
-		with: [ paginator paginationOn: html ]
+		with: [ paginator renderPaginationOn: html ]
 ]

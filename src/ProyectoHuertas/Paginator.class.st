@@ -41,21 +41,6 @@ Paginator >> initialize [
 	page := 1
 ]
 
-{ #category : #'as yet unclassified' }
-Paginator >> nextButtonOn: html [
-	(page = self pages)
-	ifTrue: [ 
-		html listItem class:'page-item disabled'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page + 1) ];
-			with:'siguiente'  ] ] 
-	ifFalse: [ 
-		html listItem class:'page-item'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page + 1) ];
-			with:'siguiente'  ] ] 
-]
-
 { #category : #accessing }
 Paginator >> page [
 	^ page
@@ -73,36 +58,53 @@ Paginator >> pages [
 	^ totalElements quo: elements 
 ]
 
-{ #category : #'as yet unclassified' }
-Paginator >> pagesOn: html [
-	1 to: (self pages) do: [ :pageNumber |
-		(page = pageNumber)
-		ifTrue: [ 
-			html listItem class:'page-item active'; with: [ 
-			html anchor 
-			class:'page-link';
-			callback: [ self page: pageNumber ];
-			with: pageNumber ] ] 
-		ifFalse: [ 
-			html listItem class:'page-item'; with: [ 
-			html anchor 
-			class:'page-link';
-			callback: [ self page: pageNumber ];
-			with: pageNumber ] ] ]
-		
+{ #category : #rendering }
+Paginator >> renderNextButtonOn: html [
+	(page = self pages)
+	ifTrue: [ 
+		html listItem class:'page-item disabled'; with: [ 
+			html anchor class:'page-link';
+			callback: [ self page: (page + 1) ];
+			with:'siguiente'  ] ] 
+	ifFalse: [ 
+		html listItem class:'page-item'; with: [ 
+			html anchor class:'page-link';
+			callback: [ self page: (page + 1) ];
+			with:'siguiente'  ] ] 
 ]
 
-{ #category : #'as yet unclassified' }
-Paginator >> paginationOn: html [
-	html navigation: [ 
-		html unorderedList class:'pagination'; with: [ 
-			self previousButtonOn: html.
-			self pagesOn: html.
-			self nextButtonOn: html ] ]
+{ #category : #rendering }
+Paginator >> renderPagesOn: html [
+	1 to: self pages do: [ :pageNumber | 
+		page = pageNumber
+			ifTrue: [ html listItem
+					class: 'page-item active';
+					with: [ html anchor
+							class: 'page-link';
+							callback: [ self page: pageNumber ];
+							with: pageNumber ] ]
+			ifFalse: [ html listItem
+					class: 'page-item';
+					with: [ html anchor
+							class: 'page-link';
+							callback: [ self page: pageNumber ];
+							with: pageNumber ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
-Paginator >> previousButtonOn: html [
+{ #category : #rendering }
+Paginator >> renderPaginationOn: html [
+	totalElements < elements
+		ifTrue: [ ^ self ].
+	html
+		navigation: [ html unorderedList
+				class: 'pagination';
+				with: [ self renderPreviousButtonOn: html.
+					self renderPagesOn: html.
+					self renderNextButtonOn: html ] ]
+]
+
+{ #category : #rendering }
+Paginator >> renderPreviousButtonOn: html [
 	(page = 1)
 	ifTrue: [ 
 		html listItem class:'page-item disabled'; with: [ 
@@ -116,7 +118,7 @@ Paginator >> previousButtonOn: html [
 			with:'anterior' ] ] 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 Paginator >> showElementsOf: collection [
 	| total col |
 	(elements < totalElements)
