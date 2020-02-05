@@ -21,11 +21,9 @@ FOMSession >> authenticatedUser: aDictionary [
 
 { #category : #user }
 FOMSession >> createUserResources [
-	| aUser aFarm |
+	| aUser  |
 	aUser := FOMUser fromOIDCUser: self session authenticatedUser.
-	aFarm := Farm name: 'Granja de ' , aUser fullname.
-	aFarm save.
-	aUser addFarm: aFarm.
+	aUser addFarm: (self findOrCreateFarmNamed: 'Serviverde').
 	aUser save.
 	^ aUser
 ]
@@ -40,10 +38,25 @@ FOMSession >> farm [
 		ifNotNil: [ farm ]
 ]
 
+{ #category : #'db queries' }
+FOMSession >> farmNamed: aName [
+	^ Farm selectOne: [ :each | each name = aName ]
+]
+
 { #category : #'indirect queries' }
 FOMSession >> farms [
 	user ifNil: [ ^ Set new ].
 	^ user farms
+]
+
+{ #category : #user }
+FOMSession >> findOrCreateFarmNamed: aName [
+	| aFarm |
+	aFarm := self session farmNamed: aName.
+	aFarm
+		ifNil: [ aFarm := Farm name: aName.
+			aFarm save ].
+	^ aFarm
 ]
 
 { #category : #user }

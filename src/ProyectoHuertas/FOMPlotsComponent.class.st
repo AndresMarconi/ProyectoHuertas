@@ -110,9 +110,22 @@ FOMPlotsComponent >> renderButtonsOn: html [
 FOMPlotsComponent >> renderContentOn: html [
 	self renderPlotSelectorOn: html.
 	plot ifNil: [ ^ self ].
+	self renderPlotDetailOn: html.
+	html heading
+		level4;
+		with: 'Eventos'.
 	super renderContentOn: html.
 	html break.
 	self renderButtonsOn: html
+]
+
+{ #category : #rendering }
+FOMPlotsComponent >> renderPlotDetailOn: html [
+	html heading
+		level4;
+		with: 'Detalles'.
+	html
+		paragraph: 'Aca ponemos un resumen de los datos y boton para editarlos'
 ]
 
 { #category : #rendering }

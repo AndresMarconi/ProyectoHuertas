@@ -7,6 +7,7 @@ Class {
 { #category : #'subclass-responsibility' }
 TextLinePropertyEditorComponent >> renderInputOn: html [
 	^ html textInput
+      attributeAt: 'autocomplete' put: 'off'; 
 		formControl;
 		callback: [ :value | self handleCallbackWith: value ];
 		with: bufferedValue;

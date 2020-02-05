@@ -20,13 +20,13 @@ FOMHarvestComponent >> columnValuesFor: element [
 	element quantity}
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 FOMHarvestComponent >> editElement: element [
 	(self call: (HarvestingEditor subject: element))
 		ifNotNil: [ :it | it save ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FOMHarvestComponent >> elements [
 	^ (self session harvestings) asSortedCollection: [ :a :b | a date > b date ]
 ]
