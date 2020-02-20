@@ -153,7 +153,7 @@ FOMPlotsComponent >> summaryForApplication: anApplication [
 
 { #category : #summaries }
 FOMPlotsComponent >> summaryForHarvesting: aHarvesting [
-	^ aHarvesting quantity printString , 'Kg de '
+	^  aHarvesting otherUnit, ' de '
 		, aHarvesting variety vulgarName
 ]
 

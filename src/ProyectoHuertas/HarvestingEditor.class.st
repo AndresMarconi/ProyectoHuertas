@@ -5,7 +5,8 @@ Class {
 		'dateEditorComponent',
 		'surfaceEditorComponent',
 		'quantityEditorComponent',
-		'varietyEditorComponent'
+		'varietyEditorComponent',
+		'otherUnitEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -17,6 +18,7 @@ HarvestingEditor >> children [
 	^ {dateEditorComponent.
 		surfaceEditorComponent.
 		quantityEditorComponent.
+		otherUnitEditorComponent.
 		varietyEditorComponent}
 ]
 
@@ -49,6 +51,11 @@ HarvestingEditor >> initializeComponents [
 		subject: subject
 		selector: #quantity
 		label: 'Kg cosechados'
+		required: true.
+	otherUnitEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #otherUnit
+		label: 'unidad adicional de medida'
 		required: true.
 	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject

@@ -3,7 +3,8 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'quantity',
-		'variety'
+		'variety',
+		'otherUnit'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -27,6 +28,16 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+Harvesting class >> variety: aVariety quantity: aQuantity date: aDate otherUnit: aUnit [
+	^ self new
+		quantity: aQuantity;
+		variety: aVariety;
+		date: aDate;
+		otherUnit: aUnit;
+		yourself
+]
+
 { #category : #'as yet unclassified' }
 Harvesting >> editor [ 
 	^ HarvestingEditor subject: self
@@ -35,6 +46,16 @@ Harvesting >> editor [
 { #category : #testing }
 Harvesting >> isEvent: aName [
 	^ aName = 'harvest'
+]
+
+{ #category : #accessing }
+Harvesting >> otherUnit [
+	^ otherUnit
+]
+
+{ #category : #accessing }
+Harvesting >> otherUnit: anObject [
+	otherUnit := anObject
 ]
 
 { #category : #accessing }
