@@ -137,7 +137,7 @@ FOMPlotsComponent >> renderPlotSelectorOn: html [
 				do: [ :each | 
 					html navigationLink
 						beDisabledIf: [ plot = each ];
-						callback: [ plot := each ];
+						callback: [ plot := each. self session selectPlot: each ];
 						with: each printString ].
 			html navigationLink
 				callback: [ self addPlot ];

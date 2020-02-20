@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAOpenIdConnectSession,
 	#instVars : [
 		'user',
-		'farm'
+		'farm',
+		'plot'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -93,6 +94,16 @@ FOMSession >> problems [
 FOMSession >> sales [
 	user ifNil: [ ^ OrderedCollection new ].
 	^ user sales
+]
+
+{ #category : #'as yet unclassified' }
+FOMSession >> selectPlot: aPlot [
+	plot := aPlot.
+]
+
+{ #category : #'as yet unclassified' }
+FOMSession >> selectedPlot [
+	^plot
 ]
 
 { #category : #testing }

@@ -85,6 +85,11 @@ PropertyEditorComponent >> rendererClass [
 ]
 
 { #category : #initialization }
+PropertyEditorComponent >> setDefault: aValue [
+	bufferedValue := aValue
+]
+
+{ #category : #initialization }
 PropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
 	subject := anObject.
 	selector := aMessageSelector.

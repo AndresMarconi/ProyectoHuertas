@@ -20,6 +20,16 @@ HarvestingEditor >> children [
 		varietyEditorComponent}
 ]
 
+{ #category : #'as yet unclassified' }
+HarvestingEditor >> defaultProduct [
+	^ ((self session selectedPlot) sowings last ) variety
+]
+
+{ #category : #'as yet unclassified' }
+HarvestingEditor >> defaultSurface [
+	^ (self session selectedPlot) surface
+]
+
 { #category : #'subclass-responsibility' }
 HarvestingEditor >> initializeComponents [
 	"Initialize all property components"
@@ -34,6 +44,7 @@ HarvestingEditor >> initializeComponents [
 		selector: #surface
 		label: 'm2 cosechados'
 		required: true.
+	surfaceEditorComponent setDefault: (self defaultSurface).
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -45,7 +56,8 @@ HarvestingEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	varietyEditorComponent
-		possibleValues: {nil} , (self varieties).
+		possibleValues: {nil} , (self varieties);
+		setDefault: self defaultProduct
 ]
 
 { #category : #accessing }
