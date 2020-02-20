@@ -14,6 +14,7 @@ Class {
 	#instVars : [
 		'selectedComponent',
 		'plotsComponent',
+		'plotsManagementComponent',
 		'sowingComponent',
 		'harvestComponent',
 		'salesComponent',
@@ -21,7 +22,9 @@ Class {
 		'applicationsComponent',
 		'varietiesComponent',
 		'substancesComponent',
-		'stockComponent'
+		'stockComponent',
+		'dashboardComponent',
+		'inventoryComponent'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -46,7 +49,11 @@ FOMHomeComponent >> initialize [
 	applicationsComponent := FOMApplicationsComponent new.
 	substancesComponent := FOMSubstancesComponent new.
 	varietiesComponent := FOMVarietiesComponent new.
-	stockComponent := FOMStockComponent new
+	stockComponent := FOMStockComponent new.
+	dashboardComponent := FOMDashboardComponent new.
+	inventoryComponent := FOMInventoryComponent new.
+	plotsManagementComponent := FOMPlotsManagementComponent new.
+	selectedComponent := dashboardComponent.
 ]
 
 { #category : #'rendering-login' }
@@ -71,24 +78,15 @@ FOMHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FOMHomeComponent >> renderLeftMenuOn: html [
-	| item |
-	html
-		form: [ html
-				listGroup: [ {plotsComponent.
-					sowingComponent.
-					harvestComponent.
-					salesComponent.
-					problemsComponent.
-					applicationsComponent.
-					varietiesComponent.
-					substancesComponent}
-						do: [ :component | 
-							item := html listGroupLinkedItem.
-							selectedComponent = component
-								ifTrue: [ item beActive ].
-							item
-								callback: [ selectedComponent := component ];
-								with: component printString ] ] ]
+	html form: 
+		[ html	listGroup: [ 
+			self renderMenuPart: 			{dashboardComponent.sowingComponent.harvestComponent.problemsComponent.applicationsComponent.plotsComponent} 			
+			heading: 'eventos'  On: html.
+			self renderMenuPart: { plotsManagementComponent.inventoryComponent.salesComponent.  } 
+			heading: 'administracion' On: html.
+			self renderMenuPart: { varietiesComponent.substancesComponent } 
+			heading: 'catalogos' On: html.
+						 ] ]
 ]
 
 { #category : #'rendering-login' }
@@ -100,6 +98,19 @@ FOMHomeComponent >> renderLoginRequiredMessageOn: html [
 					html anchor
 						url: self loginUrl;
 						with: ' vuelva a ingresar ' ] ]
+]
+
+{ #category : #rendering }
+FOMHomeComponent >> renderMenuPart: elements heading: head On: html [
+	| item |
+	html text: head.
+	elements do: [ :component | 
+		item := html listGroupLinkedItem.
+		selectedComponent = component
+			ifTrue: [ item beActive ].
+				item
+					callback: [ selectedComponent := component ];
+					with: component printString ]
 ]
 
 { #category : #rendering }

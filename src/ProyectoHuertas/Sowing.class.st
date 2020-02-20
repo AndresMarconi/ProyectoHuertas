@@ -5,7 +5,8 @@ Class {
 		'conductionSystem',
 		'quantity',
 		'distribution',
-		'variety'
+		'variety',
+		'timeToHarvest'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -70,6 +71,16 @@ Sowing >> quantity: anObject [
 { #category : #printing }
 Sowing >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForSowing: self
+]
+
+{ #category : #accessing }
+Sowing >> timeToHarvest [
+	^ timeToHarvest
+]
+
+{ #category : #accessing }
+Sowing >> timeToHarvest: anObject [
+	timeToHarvest := anObject
 ]
 
 { #category : #accessing }

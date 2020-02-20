@@ -79,7 +79,7 @@ FOMPlotsComponent >> plot: anObject [
 
 { #category : #printing }
 FOMPlotsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Lotes'
+	aStream nextPutAll: 'Eventos ordenados por Lotes'
 ]
 
 { #category : #rendering }

@@ -7,6 +7,7 @@ Class {
 		'farms',
 		'stock',
 		'sales',
+		'inventory',
 		'otherProperties'
 	],
 	#category : #'ProyectoHuertas-ui-core'
@@ -45,6 +46,11 @@ FOMUser class >> isVoyageRoot [
 { #category : #accessing }
 FOMUser >> addFarm: aFarm [
 	farms add: aFarm 
+]
+
+{ #category : #accessing }
+FOMUser >> addInventory: aInventoryItem [
+	inventory add: aInventoryItem 
 ]
 
 { #category : #accessing }
@@ -88,6 +94,12 @@ FOMUser >> initialize [
 	farms := OrderedCollection new.
 	stock := OrderedCollection new.
 	sales := OrderedCollection new.
+	inventory := OrderedCollection new
+]
+
+{ #category : #accessing }
+FOMUser >> inventory [
+	^ stock reject: [ :inventoryItem | inventoryItem archived ]
 ]
 
 { #category : #accessing }

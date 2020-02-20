@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'name',
 		'plots',
-		'campaings',
 		'substanceStock'
 	],
 	#category : #'ProyectoHuertas-model'
@@ -23,11 +22,6 @@ Farm class >> name: aName [
 ]
 
 { #category : #accessing }
-Farm >> addCampaings: anObject [
-	campaings add: anObject
-]
-
-{ #category : #accessing }
 Farm >> addPlot: anObject [
 	plots add: anObject
 ]
@@ -36,19 +30,12 @@ Farm >> addPlot: anObject [
 Farm >> archive [
 	super archive.
 	plots do: #archive.
-	campaings do: #archive.
 	substanceStock do: #archive
-]
-
-{ #category : #accessing }
-Farm >> campaings [
-	^ campaings
 ]
 
 { #category : #initialization }
 Farm >> initialize [
 	super initialize.
-	campaings := OrderedCollection new.
 	plots := OrderedCollection new.
 	substanceStock := OrderedCollection new
 ]
