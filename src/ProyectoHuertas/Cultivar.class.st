@@ -9,6 +9,19 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #testing }
+Cultivar class >> isVoyageRoot [
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
+Cultivar class >> name: aName yield: aYield [
+	^ self new
+		vulgarName: aName;
+		yield: 0;
+		yourself
+]
+
 { #category : #adding }
 Cultivar >> addIngredient: anIngredient [
 	whiteList add: anIngredient
@@ -16,13 +29,14 @@ Cultivar >> addIngredient: anIngredient [
 
 { #category : #initialization }
 Cultivar >> initialize [ 
+	super initialize.
 	whiteList := OrderedCollection new
 ]
 
 { #category : #printing }
 Cultivar >> printOn: aStream [
 	^ aStream
-		nextPutAll: (self name).
+		nextPutAll: (self vulgarName).
 ]
 
 { #category : #accessing }

@@ -10,6 +10,21 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'as yet unclassified' }
+WhiteListItem class >> activeIngredient: anActiveIngredient aptitud: anAptitud waste: aWaste waitingPeriod: aWaitingperiod [
+	^ self new 
+		activeIngredient: anActiveIngredient;
+		aptitud: anAptitud;
+		waste: aWaste;
+		waitingPeriod: aWaitingperiod;
+		yourself
+]
+
+{ #category : #testing }
+WhiteListItem class >> isVoyageRoot [
+	^ true
+]
+
 { #category : #accessing }
 WhiteListItem >> activeIngredient [
 	^ activeIngredient

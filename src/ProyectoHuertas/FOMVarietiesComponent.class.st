@@ -13,13 +13,13 @@ FOMVarietiesComponent >> addVariety [
 
 { #category : #rendering }
 FOMVarietiesComponent >> columnHeadings [
-	^ {'Nombre vulgar' . 'Nombre taxonómico'}
+	^ {'Nombre vulgar' . 'expected yield'}
 ]
 
 { #category : #rendering }
 FOMVarietiesComponent >> columnValuesFor: element [
 	^ {element vulgarName.
-	element taxonomicName}
+	element yield}
 ]
 
 { #category : #callbacks }
@@ -30,7 +30,7 @@ FOMVarietiesComponent >> editElement: element [
 
 { #category : #callbacks }
 FOMVarietiesComponent >> elements [
-	^ (self session varieties) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ (self session cultivars) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #printing }

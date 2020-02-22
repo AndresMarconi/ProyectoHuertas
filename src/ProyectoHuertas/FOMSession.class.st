@@ -29,6 +29,11 @@ FOMSession >> createUserResources [
 	^ aUser
 ]
 
+{ #category : #'db queries' }
+FOMSession >> cultivars [
+	^ Cultivar selectMany: [ :each | each archived = false ]
+]
+
 { #category : #accessing }
 FOMSession >> farm [
 	"the currently selected farm"
