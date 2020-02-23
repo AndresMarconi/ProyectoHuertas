@@ -1,3 +1,12 @@
+"
+To load the information of SENASA Excel sheet evaluate the next expresion on a playground
+
+| loader |
+	loader:= FOMActiveIngredientLoader.
+	loader loadActiveIngredients.
+	loader loadCultivars.
+	loader loadWhiteListToCultivars.
+"
 Class {
 	#name : #FOMActiveIngredientLoader,
 	#superclass : #Object,
