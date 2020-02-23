@@ -88,5 +88,6 @@ FOMAbstractListComponent >> renderContentOn: html [
 										do: [ :value | html tableData: value ].
 									html
 										tableData:
-											[ self renderActionButtonsFor: element on: html ] ] ] ] ]
+											[ self renderActionButtonsFor: element on: html ] ] ] ] ].
+			paginator renderPaginationOn: html.
 ]

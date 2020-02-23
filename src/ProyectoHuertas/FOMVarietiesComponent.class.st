@@ -40,10 +40,35 @@ FOMVarietiesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMVarietiesComponent >> renderContentOn: html [
-	super renderContentOn: html.
+	html table
+		class: 'table table-hover';
+		with: [ html
+				tableHead: [ html
+						tableRow: [ self columnHeadings , {'Acciones'}
+								do: [ :heading | html tableHeading: heading ] ] ].
+			html
+				tableBody: [ (paginator selectElementsIn: self elementsToList)
+						do: [ :element | 
+							html
+								tableRow: [ 
+									html tableData with: [ 
+										html anchor
+											callback: [ self showVariety: element ];
+											with: element vulgarName.
+										 ].
+									html tableData: element yield.
+									html
+										tableData:
+											[ self renderActionButtonsFor: element on: html ] ] ] ] ].
+			paginator renderPaginationOn: html.
 	html anchor. 
 	html anchor
 		callback: [ self addVariety  ];
 		with: [ html formButton bePrimary;
 						with: 'Agregar variedad' ]
+]
+
+{ #category : #'as yet unclassified' }
+FOMVarietiesComponent >> showVariety: aCultivar [
+	self call: (FOMCultivarComponent cultivar: aCultivar).
 ]
