@@ -7,7 +7,8 @@ Class {
 		'varietyEditorComponent',
 		'distributionEditorComponent',
 		'quantityEditorComponent',
-		'conductionSystemEditorComponent'
+		'conductionSystemEditorComponent',
+		'timeToHarvestEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -22,7 +23,8 @@ SowingEditor >> children [
 		quantityEditorComponent.
 		distributionEditorComponent.
 		conductionSystemEditorComponent.
-		commentEditorComponent}
+		timeToHarvestEditorComponent}, 
+		super children 
 ]
 
 { #category : #'subclass-responsibility' }
@@ -60,6 +62,11 @@ SowingEditor >> initializeComponents [
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad'
+		required: true.
+	timeToHarvestEditorComponent := NumberPropertyEditorComponent
+		subject: subject
+		selector: #timeToHarvest
+		label: 'Tiempo estimado para cosechar(en dias)'
 		required: true.
 	super initializeComponents.
 ]

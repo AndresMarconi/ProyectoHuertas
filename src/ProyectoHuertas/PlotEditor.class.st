@@ -13,8 +13,8 @@ PlotEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {idPEditorComponent.
-		surfaceEditorComponent.
-		commentEditorComponent}
+		surfaceEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

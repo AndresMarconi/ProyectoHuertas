@@ -19,8 +19,8 @@ HarvestingEditor >> children [
 		surfaceEditorComponent.
 		quantityEditorComponent.
 		otherUnitEditorComponent.
-		varietyEditorComponent.
-		commentEditorComponent}
+		varietyEditorComponent}, 
+		super children
 ]
 
 { #category : #'as yet unclassified' }

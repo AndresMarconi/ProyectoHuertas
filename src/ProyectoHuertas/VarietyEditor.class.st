@@ -13,8 +13,8 @@ VarietyEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {vulgarNameEditorComponent.
-		taxonomicNameEditorComponent.
-		commentEditorComponent}
+		taxonomicNameEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

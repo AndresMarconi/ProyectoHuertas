@@ -15,8 +15,8 @@ ProblemEditor >> children [
 
 	^ {dateEditorComponent.
 		surfaceEditorComponent.
-		nameEditorComponent.
-		commentEditorComponent}
+		nameEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

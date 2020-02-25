@@ -15,10 +15,10 @@ SubstanceEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {comercialNameEditorComponent.
-	brandEditorComponent.
-	activeIngredientsEditorComponent.
-	waitingPeriodAfterApplicationEditorComponent.
-		commentEditorComponent}
+		brandEditorComponent.
+		activeIngredientsEditorComponent.
+		waitingPeriodAfterApplicationEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

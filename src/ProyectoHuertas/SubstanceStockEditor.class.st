@@ -15,8 +15,8 @@ SubstanceStockEditor >> children [
 
 	^ {substanceEditorComponent.
 		expirationDateEditorComponent.
-		quantityEditorComponent.
-		commentEditorComponent}
+		quantityEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

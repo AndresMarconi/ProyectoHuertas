@@ -11,8 +11,8 @@ Class {
 FarmEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
-	^ {nameEditorComponent.
-		commentEditorComponent}
+	^ {nameEditorComponent.}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

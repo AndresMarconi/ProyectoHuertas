@@ -15,8 +15,8 @@ PurchaseEditor >> children [
 
 	^ {dateEditorComponent.
 		distributorEditorComponent.
-		inputEditorComponent.
-		commentEditorComponent}
+		inputEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

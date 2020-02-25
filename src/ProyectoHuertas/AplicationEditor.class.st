@@ -19,8 +19,8 @@ AplicationEditor >> children [
 		surfaceEditorComponent.
 		doseEditorComponent.
 		machineEditorComponent.
-		substanceEditorComponent.
-		commentEditorComponent}
+		substanceEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }

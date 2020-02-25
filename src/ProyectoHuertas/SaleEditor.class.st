@@ -20,8 +20,8 @@ SaleEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		clientEditorComponent.
-		commentEditorComponent}
+		clientEditorComponent}, 
+		super children
 ]
 
 { #category : #callbacks }

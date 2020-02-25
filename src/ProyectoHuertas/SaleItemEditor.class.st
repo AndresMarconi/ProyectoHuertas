@@ -15,8 +15,8 @@ SaleItemEditor >> children [
 
 	^ {productEditorComponent.
 		kilogramsEditorComponent.
-		plotEditorComponent.
-		commentEditorComponent}
+		plotEditorComponent}, 
+		super children
 ]
 
 { #category : #'subclass-responsibility' }
