@@ -101,12 +101,12 @@ FOMSession >> sales [
 	^ user sales
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FOMSession >> selectPlot: aPlot [
 	plot := aPlot.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FOMSession >> selectedPlot [
 	^plot
 ]
