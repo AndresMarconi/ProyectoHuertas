@@ -1,6 +1,6 @@
 Class {
 	#name : #AplicationEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'surfaceEditorComponent',
@@ -19,7 +19,8 @@ AplicationEditor >> children [
 		surfaceEditorComponent.
 		doseEditorComponent.
 		machineEditorComponent.
-		substanceEditorComponent}
+		substanceEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -52,6 +53,7 @@ AplicationEditor >> initializeComponents [
 		required: true.
 	substanceEditorComponent
 		possibleValues: {nil} , (self substances).
+	super initializeComponents.
 ]
 
 { #category : #accessing }

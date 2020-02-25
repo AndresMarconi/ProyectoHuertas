@@ -1,6 +1,6 @@
 Class {
 	#name : #HarvestingEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'surfaceEditorComponent',
@@ -19,7 +19,8 @@ HarvestingEditor >> children [
 		surfaceEditorComponent.
 		quantityEditorComponent.
 		otherUnitEditorComponent.
-		varietyEditorComponent}
+		varietyEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,7 +65,8 @@ HarvestingEditor >> initializeComponents [
 		required: true.
 	varietyEditorComponent
 		possibleValues: {nil} , (self varieties);
-		setDefault: self defaultProduct
+		setDefault: self defaultProduct.
+	super initializeComponents.
 ]
 
 { #category : #accessing }

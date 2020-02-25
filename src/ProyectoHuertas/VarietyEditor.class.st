@@ -1,6 +1,6 @@
 Class {
 	#name : #VarietyEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'taxonomicNameEditorComponent',
 		'vulgarNameEditorComponent'
@@ -13,7 +13,8 @@ VarietyEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {vulgarNameEditorComponent.
-		taxonomicNameEditorComponent}
+		taxonomicNameEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -30,4 +31,5 @@ VarietyEditor >> initializeComponents [
 		selector: #vulgarName
 		label: 'Nombre Común'
 		required: true.
+	super initializeComponents.
 ]

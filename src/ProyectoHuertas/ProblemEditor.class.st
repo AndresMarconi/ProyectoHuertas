@@ -1,6 +1,6 @@
 Class {
 	#name : #ProblemEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'surfaceEditorComponent',
@@ -15,7 +15,8 @@ ProblemEditor >> children [
 
 	^ {dateEditorComponent.
 		surfaceEditorComponent.
-		nameEditorComponent}
+		nameEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -36,5 +37,6 @@ ProblemEditor >> initializeComponents [
 		subject: subject
 		selector: #name
 		label: 'Problema'
-		required: true
+		required: true.
+	super initializeComponents.
 ]

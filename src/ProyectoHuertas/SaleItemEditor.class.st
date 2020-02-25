@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleItemEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'productEditorComponent',
 		'kilogramsEditorComponent',
@@ -15,7 +15,8 @@ SaleItemEditor >> children [
 
 	^ {productEditorComponent.
 		kilogramsEditorComponent.
-		plotEditorComponent}
+		plotEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -40,6 +41,7 @@ SaleItemEditor >> initializeComponents [
 		required: true.
 	plotEditorComponent
 		possibleValues: {nil} , (self plots).
+	super initializeComponents.
 ]
 
 { #category : #accessing }

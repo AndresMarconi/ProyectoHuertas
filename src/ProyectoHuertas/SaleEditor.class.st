@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'clientEditorComponent'
@@ -20,7 +20,8 @@ SaleEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		clientEditorComponent}
+		clientEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #callbacks }
@@ -46,7 +47,8 @@ SaleEditor >> initializeComponents [
 		subject: subject
 		selector: #client
 		label: 'Cliente'
-		required: true
+		required: true.
+	super initializeComponents.
 ]
 
 { #category : #removing }

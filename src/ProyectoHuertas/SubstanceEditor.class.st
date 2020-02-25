@@ -1,6 +1,6 @@
 Class {
 	#name : #SubstanceEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'comercialNameEditorComponent',
 		'brandEditorComponent',
@@ -17,7 +17,8 @@ SubstanceEditor >> children [
 	^ {comercialNameEditorComponent.
 	brandEditorComponent.
 	activeIngredientsEditorComponent.
-	waitingPeriodAfterApplicationEditorComponent}
+	waitingPeriodAfterApplicationEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -43,5 +44,6 @@ SubstanceEditor >> initializeComponents [
 		subject: subject
 		selector: #waitingPeriodAfterApplication
 		label: 'Tiempo de carencia (en días)'
-		required: true
+		required: true.
+	super initializeComponents.
 ]

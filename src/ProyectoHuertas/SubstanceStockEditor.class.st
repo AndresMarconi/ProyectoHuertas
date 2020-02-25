@@ -1,6 +1,6 @@
 Class {
 	#name : #SubstanceStockEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'substanceEditorComponent',
 		'quantityEditorComponent',
@@ -15,7 +15,8 @@ SubstanceStockEditor >> children [
 
 	^ {substanceEditorComponent.
 		expirationDateEditorComponent.
-		quantityEditorComponent}
+		quantityEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -37,7 +38,8 @@ SubstanceStockEditor >> initializeComponents [
 		subject: subject
 		selector: #expirationDate
 		label: 'Fecha de Vencimiento'
-		required: true
+		required: true.
+	super initializeComponents.
 ]
 
 { #category : #accessing }

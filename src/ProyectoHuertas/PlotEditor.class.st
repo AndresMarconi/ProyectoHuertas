@@ -1,6 +1,6 @@
 Class {
 	#name : #PlotEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'idPEditorComponent',
 		'surfaceEditorComponent'
@@ -13,7 +13,8 @@ PlotEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {idPEditorComponent.
-		surfaceEditorComponent}
+		surfaceEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -29,5 +30,6 @@ PlotEditor >> initializeComponents [
 		subject: subject
 		selector: #surface
 		label: 'Superficie del Lote (m2)'
-		required: true
+		required: true.
+	super initializeComponents.
 ]

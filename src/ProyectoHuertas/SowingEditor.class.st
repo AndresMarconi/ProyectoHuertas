@@ -1,6 +1,6 @@
 Class {
 	#name : #SowingEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'surfaceEditorComponent',
@@ -21,7 +21,8 @@ SowingEditor >> children [
 		varietyEditorComponent.
 		quantityEditorComponent.
 		distributionEditorComponent.
-		conductionSystemEditorComponent}
+		conductionSystemEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -60,9 +61,10 @@ SowingEditor >> initializeComponents [
 		selector: #quantity
 		label: 'Cantidad'
 		required: true.
+	super initializeComponents.
 ]
 
 { #category : #accessing }
 SowingEditor >> varieties [
-	^ (self session varieties) asOrderedCollection
+	^ (self session cultivars) asOrderedCollection
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #PurchaseEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'distributorEditorComponent',
@@ -15,7 +15,8 @@ PurchaseEditor >> children [
 
 	^ {dateEditorComponent.
 		distributorEditorComponent.
-		inputEditorComponent}
+		inputEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -39,6 +40,7 @@ PurchaseEditor >> initializeComponents [
 		required: true.
 	inputEditorComponent
 		possibleValues: {nil} , (self substances).
+	super initializeComponents.
 ]
 
 { #category : #accessing }

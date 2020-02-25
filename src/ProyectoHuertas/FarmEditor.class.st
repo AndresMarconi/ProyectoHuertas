@@ -1,6 +1,6 @@
 Class {
 	#name : #FarmEditor,
-	#superclass : #WAPluggableEditor,
+	#superclass : #FOMEditor,
 	#instVars : [
 		'nameEditorComponent'
 	],
@@ -11,7 +11,8 @@ Class {
 FarmEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
-	^ {nameEditorComponent}
+	^ {nameEditorComponent.
+		commentEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
@@ -22,5 +23,6 @@ FarmEditor >> initializeComponents [
 		subject: subject
 		selector: #name
 		label: 'Nombre de Granja'
-		required: true
+		required: true.
+	super initializeComponents.
 ]
