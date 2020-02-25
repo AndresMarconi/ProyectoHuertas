@@ -13,6 +13,7 @@ BaselineOfProyectoHuertas >> baseline: spec [
 				seaside: spec;
 				bootstrap4: spec;
 				voyage: spec;
+				gettext: spec;
 				oicdForSeaside: spec.
 			spec
 				package: 'ProyectoHuertas'
@@ -30,6 +31,13 @@ BaselineOfProyectoHuertas >> bootstrap4: spec [
 		package: 'Bootstrap4-Examples'
 		with: [ spec repository: 'github://astares/Seaside-Bootstrap4:master/src' ].
 
+]
+
+{ #category : #baselines }
+BaselineOfProyectoHuertas >> gettext: spec [
+	spec
+		baseline: 'Gettext'
+		with: [ spec repository: 'github://pharo-contributions/Gettext/source' ]
 ]
 
 { #category : #baselines }

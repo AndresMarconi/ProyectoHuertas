@@ -132,6 +132,16 @@ FOMSession >> substances [
 	^ Substance selectMany: [ :each | each archived = false]
 ]
 
+{ #category : #translation }
+FOMSession >> translationDomain [
+	^ 'fom'
+]
+
+{ #category : #translation }
+FOMSession >> translationLocale [
+	^ LocaleID isoString: 'es-AR'.
+]
+
 { #category : #accessing }
 FOMSession >> user [ 
 	^ user
