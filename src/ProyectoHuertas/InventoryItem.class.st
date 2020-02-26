@@ -5,7 +5,8 @@ Class {
 		'substance',
 		'activeIngredient',
 		'quantity',
-		'expiration'
+		'expiration',
+		'substanceType'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -63,4 +64,14 @@ InventoryItem >> substance [
 { #category : #accessing }
 InventoryItem >> substance: anObject [
 	substance := anObject
+]
+
+{ #category : #accessing }
+InventoryItem >> substanceType [
+	^ substanceType
+]
+
+{ #category : #accessing }
+InventoryItem >> substanceType: anObject [
+	substanceType := anObject
 ]

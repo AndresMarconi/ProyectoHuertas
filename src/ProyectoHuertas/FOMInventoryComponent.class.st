@@ -1,6 +1,11 @@
 Class {
 	#name : #FOMInventoryComponent,
 	#superclass : #FOMAbstractListComponent,
+	#instVars : [
+		'selectedList',
+		'fertilizerList',
+		'pesticidesList'
+	],
 	#category : #'ProyectoHuertas-ui-core'
 }
 
@@ -26,7 +31,15 @@ FOMInventoryComponent >> editElement: element [
 
 { #category : #accessing }
 FOMInventoryComponent >> elements [
-	^ (self session user) inventory
+	^ selectedList
+]
+
+{ #category : #initialization }
+FOMInventoryComponent >> initialize [
+	selectedList:= {}.
+	fertilizerList:= ((self session user) inventory) select: [ :each| each substanceType = 'fertilize' ].
+	pesticidesList:= ((self session user) inventory) select: [ :each| each substanceType = 'pesticide' ].
+	super initialize.
 ]
 
 { #category : #printing }
@@ -36,5 +49,22 @@ FOMInventoryComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMInventoryComponent >> renderContentOn: html [
-	html text: 'inventario'
+	html text: 'inventario'.
+	self renderListSelectorOn: html.
+	selectedList ifNil: [ html text: 'seleccione un tipo de susbtacia' ]
+	ifNotNil: [ super renderContentOn: html ]
+	
+]
+
+{ #category : #rendering }
+FOMInventoryComponent >> renderListSelectorOn: html [
+	html navigation: [
+		html navigationLink
+			beDisabledIf: [ selectedList == fertilizerList ];
+			callback: [ selectedList := fertilizerList];
+			with: 'Fertilizante'. 
+		html navigationLink
+			beDisabledIf: [ selectedList == pesticidesList ];
+			callback: [ selectedList := pesticidesList ];
+			with: 'pesticidas'. ]
 ]
