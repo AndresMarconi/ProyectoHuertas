@@ -49,7 +49,6 @@ FOMInventoryComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMInventoryComponent >> renderContentOn: html [
-	html text: 'inventario'.
 	self renderListSelectorOn: html.
 	selectedList ifNil: [ html text: 'seleccione un tipo de susbtacia' ]
 	ifNotNil: [ super renderContentOn: html ]
