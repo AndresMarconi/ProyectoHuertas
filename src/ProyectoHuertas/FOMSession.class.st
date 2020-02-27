@@ -22,9 +22,10 @@ FOMSession >> authenticatedUser: aDictionary [
 
 { #category : #user }
 FOMSession >> createUserResources [
-	| aUser  |
+	| aUser |
 	aUser := FOMUser fromOIDCUser: self session authenticatedUser.
-	aUser addFarm: (self findOrCreateFarmNamed: 'Serviverde').
+	aUser
+		addFarm: (self findOrCreateFarmNamed: 'Granja de ' , aUser email).
 	aUser save.
 	^ aUser
 ]

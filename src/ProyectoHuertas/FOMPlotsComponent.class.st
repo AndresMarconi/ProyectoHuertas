@@ -28,20 +28,6 @@ FOMPlotsComponent >> addEvent: event [
 			plot save ]
 ]
 
-{ #category : #callbacks }
-FOMPlotsComponent >> addPlot [
-	| farm newPlot |
-	farm := self session farm.
-	newPlot := self call: (PlotEditor subject: Plot new).
-	newPlot
-		ifNotNil: [ :it | 
-			it save.
-			farm
-				ifNotNil: [ farm addPlot: it.
-					farm save ].
-			plot := newPlot ]
-]
-
 { #category : #rendering }
 FOMPlotsComponent >> columnHeadings [
 	^ {'Fecha' . 'Tipo de evento' . 'Resumen'}
@@ -52,14 +38,6 @@ FOMPlotsComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
 	(self typeDescriptorFor: element).
 	(element summaryFor: self)}
-]
-
-{ #category : #callbacks }
-FOMPlotsComponent >> editElement: element [
-	(self call: element editor)
-		ifNotNil: [ :it | 
-			it save.
-			self plot save ]
 ]
 
 { #category : #accessing }
@@ -79,7 +57,7 @@ FOMPlotsComponent >> plot: anObject [
 
 { #category : #printing }
 FOMPlotsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Eventos ordenados por Lotes'
+	aStream nextPutAll: 'Historia por lotes'
 ]
 
 { #category : #rendering }
@@ -137,11 +115,9 @@ FOMPlotsComponent >> renderPlotSelectorOn: html [
 				do: [ :each | 
 					html navigationLink
 						beDisabledIf: [ plot = each ];
-						callback: [ plot := each. self session selectPlot: each ];
-						with: each printString ].
-			html navigationLink
-				callback: [ self addPlot ];
-				with: 'Agregar lote' ]
+						callback: [ plot := each.
+							self session selectPlot: each ];
+						with: each printString ] ]
 ]
 
 { #category : #summaries }

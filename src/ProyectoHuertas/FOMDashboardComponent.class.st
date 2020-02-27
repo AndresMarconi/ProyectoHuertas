@@ -6,7 +6,7 @@ Class {
 
 { #category : #printing }
 FOMDashboardComponent >> printOn: aStream [
-	aStream nextPutAll: 'Panel de Control'
+	aStream nextPutAll: 'Tablero de Control'
 ]
 
 { #category : #rendering }

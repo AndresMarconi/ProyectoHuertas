@@ -61,9 +61,9 @@ FOMInventoryComponent >> renderListSelectorOn: html [
 		html navigationLink
 			beDisabledIf: [ selectedList == fertilizerList ];
 			callback: [ selectedList := fertilizerList];
-			with: 'Fertilizante'. 
+			with: 'Fertilizantes'. 
 		html navigationLink
 			beDisabledIf: [ selectedList == pesticidesList ];
 			callback: [ selectedList := pesticidesList ];
-			with: 'pesticidas'. ]
+			with: 'Pesticidas'. ]
 ]
