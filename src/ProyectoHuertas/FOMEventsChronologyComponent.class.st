@@ -1,5 +1,5 @@
 Class {
-	#name : #FOMPlotsComponent,
+	#name : #FOMEventsChronologyComponent,
 	#superclass : #FOMAbstractListComponent,
 	#instVars : [
 		'plot'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-FOMPlotsComponent class >> plot: aPlot [
+FOMEventsChronologyComponent class >> plot: aPlot [
 	| component |
 	component:= self new.
 	component
@@ -18,7 +18,7 @@ FOMPlotsComponent class >> plot: aPlot [
 ]
 
 { #category : #callbacks }
-FOMPlotsComponent >> addEvent: event [
+FOMEventsChronologyComponent >> addEvent: event [
 	| editedEvent |
 	editedEvent := self call: event editor.
 	editedEvent
@@ -29,39 +29,39 @@ FOMPlotsComponent >> addEvent: event [
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> columnHeadings [
+FOMEventsChronologyComponent >> columnHeadings [
 	^ {'Fecha' . 'Tipo de evento' . 'Resumen'}
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> columnValuesFor: element [
+FOMEventsChronologyComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
 	(self typeDescriptorFor: element).
 	(element summaryFor: self)}
 ]
 
 { #category : #accessing }
-FOMPlotsComponent >> elements [
+FOMEventsChronologyComponent >> elements [
 	^ plot ifNil: [ Array new ] ifNotNil: [ plot events ]
 ]
 
 { #category : #accessing }
-FOMPlotsComponent >> plot [
+FOMEventsChronologyComponent >> plot [
 	^ plot
 ]
 
 { #category : #accessing }
-FOMPlotsComponent >> plot: anObject [
+FOMEventsChronologyComponent >> plot: anObject [
 	plot := anObject
 ]
 
 { #category : #printing }
-FOMPlotsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Historia por lotes'
+FOMEventsChronologyComponent >> printOn: aStream [
+	aStream nextPutAll: 'Cronología'
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> renderButtonsOn: html [
+FOMEventsChronologyComponent >> renderButtonsOn: html [
 	html
 		form: [ html formButton
 				bePrimary;
@@ -85,7 +85,7 @@ FOMPlotsComponent >> renderButtonsOn: html [
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> renderContentOn: html [
+FOMEventsChronologyComponent >> renderContentOn: html [
 	self renderPlotSelectorOn: html.
 	plot ifNil: [ ^ self ].
 	self renderPlotDetailOn: html.
@@ -98,7 +98,7 @@ FOMPlotsComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> renderPlotDetailOn: html [
+FOMEventsChronologyComponent >> renderPlotDetailOn: html [
 	html heading
 		level4;
 		with: 'Detalles'.
@@ -107,7 +107,7 @@ FOMPlotsComponent >> renderPlotDetailOn: html [
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> renderPlotSelectorOn: html [
+FOMEventsChronologyComponent >> renderPlotSelectorOn: html [
 	"This is horrible! "
 
 	html
@@ -121,30 +121,30 @@ FOMPlotsComponent >> renderPlotSelectorOn: html [
 ]
 
 { #category : #summaries }
-FOMPlotsComponent >> summaryForApplication: anApplication [
+FOMEventsChronologyComponent >> summaryForApplication: anApplication [
 	^ anApplication substance comercialName , ' ('
 		, anApplication dose , ' sobre '
 		, anApplication surface printString , 'm2)'
 ]
 
 { #category : #summaries }
-FOMPlotsComponent >> summaryForHarvesting: aHarvesting [
+FOMEventsChronologyComponent >> summaryForHarvesting: aHarvesting [
 	^  aHarvesting otherUnit, ' de '
 		, aHarvesting variety vulgarName
 ]
 
 { #category : #summaries }
-FOMPlotsComponent >> summaryForProblem: aProblem [
+FOMEventsChronologyComponent >> summaryForProblem: aProblem [
 	^ aProblem name
 ]
 
 { #category : #summaries }
-FOMPlotsComponent >> summaryForSowing: aSowing [
+FOMEventsChronologyComponent >> summaryForSowing: aSowing [
 	^ aSowing variety vulgarName , ' (' , aSowing quantity printString
 		, '/' , aSowing distribution , '/' , aSowing conductionSystem , ')'
 ]
 
 { #category : #rendering }
-FOMPlotsComponent >> typeDescriptorFor: element [
+FOMEventsChronologyComponent >> typeDescriptorFor: element [
 	^ element class typeDescriptor
 ]

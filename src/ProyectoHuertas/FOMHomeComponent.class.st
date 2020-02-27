@@ -41,7 +41,7 @@ FOMHomeComponent >> children [
 
 { #category : #initialization }
 FOMHomeComponent >> initialize [
-	plotsComponent := FOMPlotsComponent new.
+	plotsComponent := FOMEventsChronologyComponent new.
 	sowingComponent := FOMSowingComponent new.
 	harvestComponent := FOMHarvestComponent new.
 	salesComponent := FOMSalesComponent new.
@@ -84,9 +84,9 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 						renderMenuBlock:
 							{dashboardComponent.
 							sowingComponent.
-							harvestComponent.
 							problemsComponent.
 							applicationsComponent.
+							harvestComponent.
 							plotsComponent}
 						heading: 'Eventos'
 						on: html.

@@ -3,12 +3,12 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
-		'surfaceEditorComponent',
 		'varietyEditorComponent',
-		'distributionEditorComponent',
 		'quantityEditorComponent',
-		'conductionSystemEditorComponent',
-		'timeToHarvestEditorComponent'
+		'timeToHarvestEditorComponent',
+		'harvestDurationEditorComponent',
+		'expectedYieldEditorComponent',
+		'plotEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -18,57 +18,61 @@ SowingEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		surfaceEditorComponent.
-		varietyEditorComponent.
-		quantityEditorComponent.
-		distributionEditorComponent.
-		conductionSystemEditorComponent.
-		timeToHarvestEditorComponent}, 
-		super children 
+	plotEditorComponent.
+	varietyEditorComponent.
+	quantityEditorComponent.
+	timeToHarvestEditorComponent.
+	harvestDurationEditorComponent. 
+	expectedYieldEditorComponent} , super children
 ]
 
 { #category : #'subclass-responsibility' }
 SowingEditor >> initializeComponents [
-	"Initialize all property components"
-	
+	"Initialize all property components" 
+
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
 		label: 'Fecha de Siembra'
 		required: true.
-	surfaceEditorComponent := NumberPropertyEditorComponent
+	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #surface
-		label: 'm2 Sembrados'
+		selector: #plot
+		label: 'Lote'
 		required: true.
+	plotEditorComponent possibleValues: self plots.
 	varietyEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #variety
-		label: 'Producto'
+		label: 'Cultivo'
 		required: true.
-	varietyEditorComponent
-		possibleValues: {nil} , (self varieties).
-	conductionSystemEditorComponent := TextLinePropertyEditorComponent
-		subject: subject
-		selector: #conductionSystem
-		label: 'Sistema de Conduccion'
-		required: true.
-	distributionEditorComponent := TextLinePropertyEditorComponent
-		subject: subject
-		selector: #distribution
-		label: 'Distribucion'
-		required: true.
+	varietyEditorComponent possibleValues: {nil} , self varieties.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad'
-		required: true.
+		required: false.
 	timeToHarvestEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #timeToHarvest
-		label: 'Tiempo estimado para cosechar(en dias)'
+		label: 'Tiempo estimado para cosechar (en días)'
 		required: true.
-	super initializeComponents.
+	harvestDurationEditorComponent := NumberPropertyEditorComponent
+		subject: subject
+		selector: #harvestDuration
+		label: 'Duración estimada de la cosecha (en días)'
+		required: true.
+	expectedYieldEditorComponent := NumberPropertyEditorComponent
+		subject: subject
+		selector: #expectedYield
+		label: 'Rendimiento total esperado (en Kg)'
+		required: true.
+	super initializeComponents
+]
+
+{ #category : #accessing }
+SowingEditor >> plots [
+	^ self session plots asOrderedCollection
 ]
 
 { #category : #accessing }

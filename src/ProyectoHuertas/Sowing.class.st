@@ -6,7 +6,9 @@ Class {
 		'quantity',
 		'distribution',
 		'variety',
-		'timeToHarvest'
+		'timeToHarvest',
+		'harvestDuration',
+		'expectedYield'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -51,6 +53,26 @@ Sowing >> distribution [
 { #category : #accessing }
 Sowing >> distribution: anObject [
 	distribution := anObject
+]
+
+{ #category : #accessing }
+Sowing >> expectedYield [
+	^ expectedYield
+]
+
+{ #category : #accessing }
+Sowing >> expectedYield: anObject [
+	expectedYield := anObject
+]
+
+{ #category : #accessing }
+Sowing >> harvestDuration [
+	^ harvestDuration
+]
+
+{ #category : #accessing }
+Sowing >> harvestDuration: anObject [
+	harvestDuration := anObject
 ]
 
 { #category : #accessing }

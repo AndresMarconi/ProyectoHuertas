@@ -33,5 +33,5 @@ FOMHarvestComponent >> elements [
 
 { #category : #printing }
 FOMHarvestComponent >> printOn: aStream [
-	aStream nextPutAll: 'Cosechas'
+	aStream nextPutAll: 'Cosecha'
 ]

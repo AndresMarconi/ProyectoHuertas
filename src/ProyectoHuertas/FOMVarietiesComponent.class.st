@@ -35,7 +35,7 @@ FOMVarietiesComponent >> elements [
 
 { #category : #printing }
 FOMVarietiesComponent >> printOn: aStream [
-	aStream nextPutAll: 'Variedades'
+	aStream nextPutAll: 'Cultivos'
 ]
 
 { #category : #rendering }
@@ -50,22 +50,20 @@ FOMVarietiesComponent >> renderContentOn: html [
 				tableBody: [ (paginator selectElementsIn: self elementsToList)
 						do: [ :element | 
 							html
-								tableRow: [ 
-									html tableData with: [ 
-										html anchor
-											callback: [ self showVariety: element ];
-											with: element vulgarName.
-										 ].
+								tableRow: [ html tableData
+										with: [ html anchor
+												callback: [ self showVariety: element ];
+												with: element vulgarName ].
 									html tableData: element yield.
 									html
-										tableData:
-											[ self renderActionButtonsFor: element on: html ] ] ] ] ].
-			paginator renderPaginationOn: html.
-	html anchor. 
+										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ].
+	paginator renderPaginationOn: html.
+	html break.
 	html anchor
-		callback: [ self addVariety  ];
-		with: [ html formButton bePrimary;
-						with: 'Agregar variedad' ]
+		callback: [ self addVariety ];
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar variedad' ]
 ]
 
 { #category : #'as yet unclassified' }
