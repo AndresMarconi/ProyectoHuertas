@@ -25,7 +25,7 @@ HarvestingEditor >> children [
 
 { #category : #'as yet unclassified' }
 HarvestingEditor >> defaultProduct [
-	^ ((self session selectedPlot) sowings last ) variety
+	^ self session selectedPlot sowings last variety
 ]
 
 { #category : #'as yet unclassified' }
@@ -71,5 +71,5 @@ HarvestingEditor >> initializeComponents [
 
 { #category : #accessing }
 HarvestingEditor >> varieties [
-	^ (self session varieties) asOrderedCollection.
+	^ (self session cultivars) asOrderedCollection.
 ]
