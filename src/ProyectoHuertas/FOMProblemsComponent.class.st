@@ -32,5 +32,5 @@ FOMProblemsComponent >> elements [
 
 { #category : #printing }
 FOMProblemsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Problemas'
+	aStream nextPutAll: 'Adversidades'
 ]

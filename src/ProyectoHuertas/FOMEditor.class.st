@@ -16,9 +16,9 @@ FOMEditor >> children [
 
 { #category : #'subclass-responsibility' }
 FOMEditor >> initializeComponents [
-	commentEditorComponent := TextLinePropertyEditorComponent
+	commentEditorComponent := TextAreaPropertyEditorComponent 
 		subject: subject
 		selector: #comment
-		label: 'comentario'
+		label: 'Notas'
 		required: false.
 ]

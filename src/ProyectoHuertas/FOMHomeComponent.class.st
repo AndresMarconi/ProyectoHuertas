@@ -78,15 +78,31 @@ FOMHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FOMHomeComponent >> renderLeftMenuOn: html [
-	html form: 
-		[ html	listGroup: [ 
-			self renderMenuPart: 			{dashboardComponent.sowingComponent.harvestComponent.problemsComponent.applicationsComponent.plotsComponent} 			
-			heading: 'eventos'  On: html.
-			self renderMenuPart: { plotsManagementComponent.inventoryComponent.salesComponent.  } 
-			heading: 'administracion' On: html.
-			self renderMenuPart: { varietiesComponent.substancesComponent } 
-			heading: 'catalogos' On: html.
-						 ] ]
+	html
+		form: [ html
+				listGroup: [ self
+						renderMenuBlock:
+							{dashboardComponent.
+							sowingComponent.
+							harvestComponent.
+							problemsComponent.
+							applicationsComponent.
+							plotsComponent}
+						heading: 'Eventos'
+						on: html.
+					self
+						renderMenuBlock:
+							{plotsManagementComponent.
+							inventoryComponent.
+							salesComponent}
+						heading: 'Administración'
+						on: html.
+					self
+						renderMenuBlock:
+							{varietiesComponent.
+							substancesComponent}
+						heading: 'Catálogos'
+						on: html ] ]
 ]
 
 { #category : #'rendering-login' }
@@ -101,16 +117,19 @@ FOMHomeComponent >> renderLoginRequiredMessageOn: html [
 ]
 
 { #category : #rendering }
-FOMHomeComponent >> renderMenuPart: elements heading: head On: html [
+FOMHomeComponent >> renderMenuBlock: elements heading: head on: html [
 	| item |
-	html text: head.
-	elements do: [ :component | 
-		item := html listGroupLinkedItem.
-		selectedComponent = component
-			ifTrue: [ item beActive ].
-				item
-					callback: [ selectedComponent := component ];
-					with: component printString ]
+	html div
+		class: 'left-menu-heading';
+		with: head.
+	elements
+		do: [ :component | 
+			item := html listGroupLinkedItem.
+			selectedComponent = component
+				ifTrue: [ item beActive ].
+			item
+				callback: [ selectedComponent := component ];
+				with: component printString ]
 ]
 
 { #category : #rendering }
@@ -124,4 +143,16 @@ FOMHomeComponent >> renderNavbarOn: html [
 				form: [ html outlineButton bePrimary  beSmall
 						callback: [ self logout ];
 						with: 'Salir' ] ]
+]
+
+{ #category : #style }
+FOMHomeComponent >> style [
+	^ '.left-menu-heading {
+         position: relative;
+         display: block;
+         padding: .75rem 1.25rem;
+         margin-bottom: -1px;
+         background-color: #eae6e6;
+         border: 1px solid rgba(0,0,0,.125);
+      }'
 ]

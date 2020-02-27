@@ -78,7 +78,7 @@ FOMAbstractListComponent >> renderContentOn: html [
 		class: 'table table-hover';
 		with: [ html
 				tableHead: [ html
-						tableRow: [ self columnHeadings , {'Comentario'.'Acciones'}
+						tableRow: [ self columnHeadings , {'Notas' . 'Acciones'}
 								do: [ :heading | html tableHeading: heading ] ] ].
 			html
 				tableBody: [ (paginator selectElementsIn: self elementsToList)
@@ -86,9 +86,8 @@ FOMAbstractListComponent >> renderContentOn: html [
 							html
 								tableRow: [ (self columnValuesFor: element)
 										do: [ :value | html tableData: value ].
-										html tableData: element comment.
+									html tableData: element comment.
 									html
-										tableData:
-											[ self renderActionButtonsFor: element on: html ] ] ] ] ].
-			paginator renderPaginationOn: html.
+										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ].
+	paginator renderPaginationOn: html
 ]

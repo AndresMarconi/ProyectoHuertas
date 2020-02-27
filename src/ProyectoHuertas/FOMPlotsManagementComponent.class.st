@@ -7,29 +7,40 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #callbacks }
+FOMPlotsManagementComponent >> addPlot [
+	| farm newPlot |
+	farm := self session farm.
+	newPlot := self call: (PlotEditor subject: Plot new).
+	newPlot
+		ifNotNil: [ :it | 
+			it save.
+			farm
+				ifNotNil: [ farm addPlot: it.
+					farm save ].
+			plot := newPlot ]
+]
+
 { #category : #rendering }
 FOMPlotsManagementComponent >> columnHeadings [
-	^ {'Fecha' . 'Tipo de evento' . 'Resumen'}
+	^ {'ID' . 'Superficie (m2)' }
 ]
 
 { #category : #rendering }
 FOMPlotsManagementComponent >> columnValuesFor: element [
-	^ {element date asDate ddmmyyyy.
-	(self typeDescriptorFor: element).
-	(element summaryFor: self)}
+	^ {element id.
+	element surface}
 ]
 
 { #category : #callbacks }
 FOMPlotsManagementComponent >> editElement: element [
-	(self call: element editor)
-		ifNotNil: [ :it | 
-			it save.
-			self plot save ]
+	(self call: (PlotEditor subject: element))
+		ifNotNil: [ :it | it save ]
 ]
 
 { #category : #accessing }
 FOMPlotsManagementComponent >> elements [
-	^ plot ifNil: [ Array new ] ifNotNil: [ plot events ]
+	^ self session plots
 ]
 
 { #category : #printing }
@@ -39,5 +50,10 @@ FOMPlotsManagementComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMPlotsManagementComponent >> renderContentOn: html [
-	html text: 'informacion de lotes / opciones'
+	super renderContentOn: html.
+	html anchor
+		callback: [ self addPlot ];
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar lote' ]
 ]
