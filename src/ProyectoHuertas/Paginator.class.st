@@ -55,7 +55,7 @@ Paginator >> page: number [
 
 { #category : #accessing }
 Paginator >> pages [ 
-	^ totalElements quo: elements 
+	^ (totalElements quo: elements) + 1 
 ]
 
 { #category : #rendering }
@@ -123,10 +123,10 @@ Paginator >> selectElementsIn: collection [
 	| total col |
 	(elements < totalElements)
 	ifTrue: [ 
-		total := (totalElements - (elements * page)).
+		total := (totalElements - (elements * (page - 1))).
 		col := collection last: total.
 		(total > elements) 
-		ifTrue: [ col := col first: elements ] ]
+		ifTrue: [ col := col first: elements ]. ]
 	ifFalse: [ col:= collection ].
 	^ col
 ]
