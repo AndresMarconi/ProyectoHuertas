@@ -38,11 +38,6 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate otherUnit:
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-Harvesting >> editor [ 
-	^ HarvestingEditor subject: self
-]
-
 { #category : #testing }
 Harvesting >> isEvent: aName [
 	^ aName = 'harvest'

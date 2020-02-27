@@ -24,11 +24,6 @@ Event >> date: anObject [
 	date := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Event >> editor [
-	^ self subclassResponsibility 
-]
-
 { #category : #accessing }
 Event >> plot [
 	^ plot

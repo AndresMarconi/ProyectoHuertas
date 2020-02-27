@@ -40,11 +40,6 @@ Application >> dose: anObject [
 	dose := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Application >> editor [ 
-	^ AplicationEditor subject: self
-]
-
 { #category : #accessing }
 Application >> machine [
 	^ machine

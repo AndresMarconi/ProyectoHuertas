@@ -32,11 +32,6 @@ Problem >> addSolutions: anObject [
 	solutions add: anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Problem >> editor [ 
-	^ ProblemEditor subject: self
-]
-
 { #category : #initialization }
 Problem >> initialize [
    super initialize.

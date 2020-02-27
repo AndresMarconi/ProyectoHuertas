@@ -53,11 +53,6 @@ Sowing >> distribution: anObject [
 	distribution := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-Sowing >> editor [ 
-	^ SowingEditor subject: self
-]
-
 { #category : #accessing }
 Sowing >> quantity [
 	^ quantity
