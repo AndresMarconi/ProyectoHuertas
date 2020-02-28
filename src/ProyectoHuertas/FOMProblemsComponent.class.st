@@ -4,6 +4,17 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #adding }
+FOMProblemsComponent >> addEvent [
+	| editedEvent |
+	editedEvent := self call: (ProblemEditor subject: Problem new).
+	editedEvent
+		ifNotNil: [ :it | 
+			it save.
+			it plot addEvent: it.
+			it plot save ]
+]
+
 { #category : #rendering }
 FOMProblemsComponent >> columnHeadings [
 	^ {'Fecha' . 'Lote' . 'Problema'. 'Superficie afectada(m2)'. }
@@ -33,4 +44,15 @@ FOMProblemsComponent >> elements [
 { #category : #printing }
 FOMProblemsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Adversidades'
+]
+
+{ #category : #rendering }
+FOMProblemsComponent >> renderContentOn: html [
+	super renderContentOn: html.
+	html break.
+	html anchor
+		callback: [ self addEvent ];
+		with: [ html formButton
+				bePrimary;
+				with: 'Registrar problema' ]
 ]

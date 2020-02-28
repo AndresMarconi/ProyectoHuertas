@@ -5,10 +5,10 @@ Class {
 }
 
 { #category : #adding }
-FOMVarietiesComponent >> addVariety [
-	| variety |
-	variety := self call: (VarietyEditor subject: Variety new).
-	variety ifNotNil: [ :it | it save ]
+FOMVarietiesComponent >> addCultivar [
+	| cultivar |
+	cultivar := self call: (CultivarEditor subject: Cultivar new).
+	cultivar ifNotNil: [ :it | it save ]
 ]
 
 { #category : #rendering }
@@ -24,7 +24,7 @@ FOMVarietiesComponent >> columnValuesFor: element [
 
 { #category : #callbacks }
 FOMVarietiesComponent >> editElement: element [
-	(self call: (VarietyEditor subject: element))
+	(self call: (CultivarEditor subject: element))
 		ifNotNil: [ :it | it save ]
 ]
 
@@ -40,6 +40,12 @@ FOMVarietiesComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMVarietiesComponent >> renderContentOn: html [
+	html anchor
+		callback: [ self addCultivar ];
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar cultivo' ].
+	html break; break.
 	html table
 		class: 'table table-hover';
 		with: [ html
@@ -57,13 +63,7 @@ FOMVarietiesComponent >> renderContentOn: html [
 									html tableData: element yield.
 									html
 										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ].
-	paginator renderPaginationOn: html.
-	html break.
-	html anchor
-		callback: [ self addVariety ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Agregar variedad' ]
+	paginator renderPaginationOn: html
 ]
 
 { #category : #'as yet unclassified' }

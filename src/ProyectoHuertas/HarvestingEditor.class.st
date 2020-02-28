@@ -6,7 +6,8 @@ Class {
 		'surfaceEditorComponent',
 		'quantityEditorComponent',
 		'varietyEditorComponent',
-		'otherUnitEditorComponent'
+		'otherUnitEditorComponent',
+		'plotEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -16,7 +17,7 @@ HarvestingEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		surfaceEditorComponent.
+		plotEditorComponent.
 		quantityEditorComponent.
 		otherUnitEditorComponent.
 		varietyEditorComponent}, 
@@ -42,12 +43,12 @@ HarvestingEditor >> initializeComponents [
 		selector: #date
 		label: 'Fecha de Cosecha'
 		required: true.
-	surfaceEditorComponent := NumberPropertyEditorComponent
+	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #surface
-		label: 'm2 cosechados'
+		selector: #plot
+		label: 'Lote'
 		required: true.
-	surfaceEditorComponent setDefault: (self defaultSurface).
+	plotEditorComponent possibleValues: self plots.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -64,9 +65,13 @@ HarvestingEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	varietyEditorComponent
-		possibleValues: {nil} , (self varieties);
-		setDefault: self defaultProduct.
+		possibleValues: {nil} , (self varieties).
 	super initializeComponents.
+]
+
+{ #category : #accessing }
+HarvestingEditor >> plots [
+	^ self session plots asOrderedCollection
 ]
 
 { #category : #accessing }

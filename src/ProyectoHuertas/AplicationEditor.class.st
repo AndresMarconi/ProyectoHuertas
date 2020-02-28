@@ -6,7 +6,8 @@ Class {
 		'surfaceEditorComponent',
 		'doseEditorComponent',
 		'machineEditorComponent',
-		'substanceEditorComponent'
+		'substanceEditorComponent',
+		'plotEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -16,7 +17,7 @@ AplicationEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		surfaceEditorComponent.
+		plotEditorComponent.
 		doseEditorComponent.
 		machineEditorComponent.
 		substanceEditorComponent}, 
@@ -31,11 +32,12 @@ AplicationEditor >> initializeComponents [
 		selector: #date
 		label: 'Fecha de Aplicacion'
 		required: true.
-	surfaceEditorComponent := NumberPropertyEditorComponent
+	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #surface
-		label: 'm2 de Aplicacion'
+		selector: #plot
+		label: 'Lote'
 		required: true.
+	plotEditorComponent possibleValues: self plots.
 	doseEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #dose
@@ -54,6 +56,11 @@ AplicationEditor >> initializeComponents [
 	substanceEditorComponent
 		possibleValues: {nil} , (self substances).
 	super initializeComponents.
+]
+
+{ #category : #accessing }
+AplicationEditor >> plots [
+	^ self session plots asOrderedCollection
 ]
 
 { #category : #accessing }

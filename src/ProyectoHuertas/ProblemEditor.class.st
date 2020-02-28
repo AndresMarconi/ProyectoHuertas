@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'dateEditorComponent',
 		'surfaceEditorComponent',
-		'nameEditorComponent'
+		'nameEditorComponent',
+		'plotEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -14,6 +15,7 @@ ProblemEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
+		plotEditorComponent.
 		surfaceEditorComponent.
 		nameEditorComponent}, 
 		super children
@@ -28,6 +30,12 @@ ProblemEditor >> initializeComponents [
 		selector: #date
 		label: 'Fecha del Problema'
 		required: true.
+	plotEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #plot
+		label: 'Lote'
+		required: true.
+	plotEditorComponent possibleValues: self plots.
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #surface
@@ -39,4 +47,9 @@ ProblemEditor >> initializeComponents [
 		label: 'Problema'
 		required: true.
 	super initializeComponents.
+]
+
+{ #category : #accessing }
+ProblemEditor >> plots [
+	^ self session plots asOrderedCollection
 ]

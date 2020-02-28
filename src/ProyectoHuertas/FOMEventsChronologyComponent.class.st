@@ -2,7 +2,8 @@ Class {
 	#name : #FOMEventsChronologyComponent,
 	#superclass : #FOMAbstractListComponent,
 	#instVars : [
-		'plot'
+		'plot',
+		'buffer'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -42,7 +43,7 @@ FOMEventsChronologyComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 FOMEventsChronologyComponent >> elements [
-	^ plot ifNil: [ Array new ] ifNotNil: [ plot events ]
+	^ (plot) ifNil: [ self session farm events ] ifNotNil: [ plot events ]
 ]
 
 { #category : #accessing }
@@ -86,15 +87,11 @@ FOMEventsChronologyComponent >> renderButtonsOn: html [
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> renderContentOn: html [
-	self renderPlotSelectorOn: html.
-	plot ifNil: [ ^ self ].
-	self renderPlotDetailOn: html.
+	self renderPlotFilterOn: html.
 	html heading
 		level4;
 		with: 'Eventos'.
 	super renderContentOn: html.
-	html break.
-	self renderButtonsOn: html
 ]
 
 { #category : #rendering }
@@ -104,6 +101,26 @@ FOMEventsChronologyComponent >> renderPlotDetailOn: html [
 		with: 'Detalles'.
 	html
 		paragraph: 'Aca ponemos un resumen de los datos y boton para editarlos'
+]
+
+{ #category : #rendering }
+FOMEventsChronologyComponent >> renderPlotFilterOn: html [
+	html row: [ 
+		html column: [ 
+			html select
+				formControl;
+				list: {nil}, self session plots;
+				selected: buffer;
+				id: 'plot' ] mediumSize: 3;
+			column: [ 
+				html anchor
+					callback: [ plot:= buffer ];
+					with: [ 
+						html formButton
+						bePrimary;
+						with: 'Filtrar' ]
+				 ] mediumSize: 3
+		 ] 
 ]
 
 { #category : #rendering }
@@ -140,8 +157,7 @@ FOMEventsChronologyComponent >> summaryForProblem: aProblem [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForSowing: aSowing [
-	^ aSowing variety vulgarName , ' (' , aSowing quantity printString
-		, '/' , aSowing distribution , '/' , aSowing conductionSystem , ')'
+	^ aSowing variety vulgarName , ' (' , aSowing quantity printString, ')'
 ]
 
 { #category : #rendering }

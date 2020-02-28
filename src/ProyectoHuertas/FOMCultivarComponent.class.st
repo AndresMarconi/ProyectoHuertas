@@ -17,6 +17,16 @@ FOMCultivarComponent class >> cultivar: aCultivar [
 	^ component
 ]
 
+{ #category : #adding }
+FOMCultivarComponent >> addWhiteListItem [
+	| whiteListItem |
+	whiteListItem := self call: (WhiteListItemEditor subject: WhiteListItem new).
+	whiteListItem ifNotNil: [ :it | 
+		it save. 
+		cultivar addIngredient: it.
+		cultivar save ]
+]
+
 { #category : #'as yet unclassified' }
 FOMCultivarComponent >> backToVarieties [
 	self answer.
@@ -48,7 +58,7 @@ FOMCultivarComponent >> cultivar: anObject [
 
 { #category : #callbacks }
 FOMCultivarComponent >> editElement: element [
-	(self call: (AplicationEditor subject: element))
+	(self call: (WhiteListItemEditor subject: element))
 		ifNotNil: [ :it | it save ]
 ]
 
@@ -64,6 +74,11 @@ FOMCultivarComponent >> initialize [
 { #category : #rendering }
 FOMCultivarComponent >> renderContentOn: html [
 	html heading level: 2; with: cultivar vulgarName.
+	html anchor
+		callback: [ self addWhiteListItem ];
+		with: [ html formButton
+				bePrimary;
+				with: 'Agregar principio activo al cultivo' ].
 	super renderContentOn: html.
 	html anchor 
 		callback: [ self backToVarieties ];

@@ -33,6 +33,11 @@ Farm >> archive [
 	substanceStock do: #archive
 ]
 
+{ #category : #accessing }
+Farm >> events [ 
+	^ ((self plots) flatCollect: [ :plot | plot events ]) asSortedCollection: [ :a :b | a date > b date ]
+]
+
 { #category : #initialization }
 Farm >> initialize [
 	super initialize.

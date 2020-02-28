@@ -28,3 +28,9 @@ ActiveIngredient >> ingredient [
 ActiveIngredient >> ingredient: anObject [
 	ingredient := anObject
 ]
+
+{ #category : #printing }
+ActiveIngredient >> printOn: aStream [
+	^ aStream
+		nextPutAll: (self ingredient).
+]
