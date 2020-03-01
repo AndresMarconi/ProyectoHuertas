@@ -17,17 +17,16 @@ FOMApplicationsComponent >> addEvent [
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Producto' . 'Superficie (m2)' . 'Dosis'}
+	^ {'Fecha' . 'Lote' . 'Producto' . 'Dosis'}
 ]
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnValuesFor: element [
-	" {'Fecha' . 'Lote' . 'Producto' . 'Superficie (m2)' . 'Dosis'}"
+	" {'Fecha' . 'Lote' . 'Producto' . 'Dosis'}"
 
 	^ {element date asDate ddmmyyyy.
 	element plot id.
 	element substance comercialName.
-	element surface.
 	element dose}
 ]
 

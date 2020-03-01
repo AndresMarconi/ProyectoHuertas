@@ -3,7 +3,6 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
-		'surfaceEditorComponent',
 		'nameEditorComponent',
 		'plotEditorComponent'
 	],
@@ -16,7 +15,6 @@ ProblemEditor >> children [
 
 	^ {dateEditorComponent.
 		plotEditorComponent.
-		surfaceEditorComponent.
 		nameEditorComponent}, 
 		super children
 ]
@@ -36,11 +34,6 @@ ProblemEditor >> initializeComponents [
 		label: 'Lote'
 		required: true.
 	plotEditorComponent possibleValues: self plots.
-	surfaceEditorComponent := NumberPropertyEditorComponent
-		subject: subject
-		selector: #surface
-		label: 'Superficie afectada (m2)'
-		required: true.
 	nameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #name

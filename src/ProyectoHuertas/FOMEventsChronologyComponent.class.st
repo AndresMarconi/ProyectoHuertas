@@ -2,8 +2,7 @@ Class {
 	#name : #FOMEventsChronologyComponent,
 	#superclass : #FOMAbstractListComponent,
 	#instVars : [
-		'plot',
-		'buffer'
+		'plot'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -16,17 +15,6 @@ FOMEventsChronologyComponent class >> plot: aPlot [
 		plot: aPlot;
 		paginator: (Paginator newTotalElements: component elements perPage: 10).
 	^ component
-]
-
-{ #category : #callbacks }
-FOMEventsChronologyComponent >> addEvent: event [
-	| editedEvent |
-	editedEvent := self call: event editor.
-	editedEvent
-		ifNotNil: [ :it | 
-			it save.
-			plot addEvent: it.
-			plot save ]
 ]
 
 { #category : #rendering }
@@ -43,7 +31,7 @@ FOMEventsChronologyComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 FOMEventsChronologyComponent >> elements [
-	^ (plot) ifNil: [ self session farm events ] ifNotNil: [ plot events ]
+	^ plot ifNil: [ self session farm events ] ifNotNil: [ plot events ]
 ]
 
 { #category : #accessing }
@@ -62,30 +50,6 @@ FOMEventsChronologyComponent >> printOn: aStream [
 ]
 
 { #category : #rendering }
-FOMEventsChronologyComponent >> renderButtonsOn: html [
-	html
-		form: [ html formButton
-				bePrimary;
-				callback: [ self addEvent: Sowing new ];
-				with: 'Registrar siembra'.
-			html space.
-			html formButton
-				bePrimary;
-				callback: [ self addEvent: Harvesting new ];
-				with: 'Registrar Cosecha'.
-			html space.
-			html formButton
-				bePrimary;
-				callback: [ self addEvent: Problem new ];
-				with: 'Registrar Problema'.
-			html space.
-			html formButton
-				bePrimary;
-				callback: [ self addEvent: Application new ];
-				with: 'Registrar Aplicacion' ]
-]
-
-{ #category : #rendering }
 FOMEventsChronologyComponent >> renderContentOn: html [
 	self renderPlotFilterOn: html.
 	html heading
@@ -95,32 +59,19 @@ FOMEventsChronologyComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-FOMEventsChronologyComponent >> renderPlotDetailOn: html [
-	html heading
-		level4;
-		with: 'Detalles'.
-	html
-		paragraph: 'Aca ponemos un resumen de los datos y boton para editarlos'
-]
-
-{ #category : #rendering }
 FOMEventsChronologyComponent >> renderPlotFilterOn: html [
-	html row: [ 
-		html column: [ 
-			html select
-				formControl;
-				list: {nil}, self session plots;
-				selected: buffer;
-				id: 'plot' ] mediumSize: 3;
-			column: [ 
-				html anchor
-					callback: [ plot:= buffer ];
-					with: [ 
-						html formButton
-						bePrimary;
-						with: 'Filtrar' ]
-				 ] mediumSize: 3
-		 ] 
+	html form: [
+		html row:[ 
+			html column: [
+				html select
+					formControl;
+					selected: plot;
+       			callback: [ :value | plot:= value. 
+						paginator:= Paginator newTotalElements: self elements perPage: 10 ];
+					id: 'plot';
+					list: {nil}, self session plots. ] mediumSize: 3;
+			column:[  
+		html submitButton class: 'btn btn-primary'; with: 'Filtrar' ] mediumSize: 6 ] ] 
 ]
 
 { #category : #rendering }

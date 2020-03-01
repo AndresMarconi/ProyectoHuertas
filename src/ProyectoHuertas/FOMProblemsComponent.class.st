@@ -17,17 +17,16 @@ FOMProblemsComponent >> addEvent [
 
 { #category : #rendering }
 FOMProblemsComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Problema'. 'Superficie afectada(m2)'. }
+	^ {'Fecha' . 'Lote' . 'Superficie afectada(m2)'. }
 ]
 
 { #category : #rendering }
 FOMProblemsComponent >> columnValuesFor: element [
-	" {'Fecha' . 'Lote' . 'Problema'. 'Superficie afectada(m2)'. }"
+	" {'Fecha' . 'Lote' . 'Problema'. }"
 
 	^ {element date asDate ddmmyyyy.
 	element plot id.
-	element name.
-	element surface}
+	element name}
 ]
 
 { #category : #rendering }
