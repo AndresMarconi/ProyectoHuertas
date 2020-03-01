@@ -34,16 +34,15 @@ FOMCultivarComponent >> backToVarieties [
 
 { #category : #rendering }
 FOMCultivarComponent >> columnHeadings [
-	^ {'Principio activo' . 'Aptitud' . 'Residuos'}
+	^ {'Principio activo' . 'Aptitud' . 'Residuos'. 'Carencia (dias)'}
 ]
 
 { #category : #rendering }
 FOMCultivarComponent >> columnValuesFor: element [
-	" {'Fecha' . 'Lote' . 'Producto' . 'Superficie (m2)' . 'Dosis'}"
-
 	^ {element activeIngredient.
-	element aptitud.
-	element waste.}
+		element aptitud.
+		element waste.
+		element waitingPeriod}
 ]
 
 { #category : #accessing }
