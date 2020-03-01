@@ -51,10 +51,11 @@ FOMEventsChronologyComponent >> printOn: aStream [
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> renderContentOn: html [
-	self renderPlotFilterOn: html.
 	html heading
 		level4;
 		with: 'Eventos'.
+	self renderPlotFilterOn: html.
+	html break.
 	super renderContentOn: html.
 ]
 
