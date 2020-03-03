@@ -29,14 +29,3 @@ FOMActiveIngredienteComponent >> elementEditorClass [
 FOMActiveIngredienteComponent >> elements [
 	^ self session activeIngredients
 ]
-
-{ #category : #accessing }
-FOMActiveIngredienteComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addEvent ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Agregar' ] ]
-]

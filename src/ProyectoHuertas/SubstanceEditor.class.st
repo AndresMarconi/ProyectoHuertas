@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 SubstanceEditor >> activeIngredients [ 
-	^ ActiveIngredient selectAll asSortedCollection: [ :a :b | a ingredient < b ingredient ]
+	^ ActiveIngredient selectAll asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -33,13 +33,13 @@ SubstanceEditor >> initializeComponents [
 		selector: #comercialName
 		label: 'Nombre Comercial'
 		required: true.
-	activeIngredientsEditorComponent := DropdownSelectPropertyEditorComponent
+	activeIngredientsEditorComponent := MultipleSelectPropertyEditorComponent
 		subject: subject
 		selector: #activeIngredients
 		label: 'Principios activos'
-		required: true.
+		required: false.
 	activeIngredientsEditorComponent
-		possibleValues: {nil} , (self activeIngredients).
+		possibleValues: self activeIngredients.
 	typeEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #usage

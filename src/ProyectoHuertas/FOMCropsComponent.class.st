@@ -50,7 +50,7 @@ FOMCropsComponent >> renderActionButtonsFor: element on: html [
 			html formButton
 				bePrimary;
 				callback: [ self browseDetailsOf: element ];
-				with: [ html span class: 'fa fa-list' ].
+				with: [ html span class: 'fa fa-flask' ].
 			html space.
 			html formButton
 				beDanger;

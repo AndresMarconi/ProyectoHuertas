@@ -23,7 +23,7 @@ ActiveIngredient class >> isVoyageRoot [
 { #category : #printing }
 ActiveIngredient >> printOn: aStream [
 	^ aStream
-		nextPutAll: (self ingredient).
+		nextPutAll: (self tradeName).
 ]
 
 { #category : #accessing }
