@@ -21,10 +21,12 @@ Class {
 		'problemsComponent',
 		'applicationsComponent',
 		'varietiesComponent',
-		'substancesComponent',
 		'stockComponent',
 		'dashboardComponent',
-		'inventoryComponent'
+		'inventoryComponent',
+		'activeIngredientsComponent',
+		'fertilizerComponent',
+		'pesticideComponent'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -47,12 +49,14 @@ FOMHomeComponent >> initialize [
 	salesComponent := FOMSalesComponent new.
 	problemsComponent := FOMProblemsComponent new.
 	applicationsComponent := FOMApplicationsComponent new.
-	substancesComponent := FOMSubstancesComponent new.
+	fertilizerComponent := FOMFertilizerComponent new.
+	pesticideComponent := FOMPesticideComponent new.
 	varietiesComponent := FOMCropsComponent new.
 	dashboardComponent := FOMDashboardComponent new.
 	inventoryComponent := FOMInventoryComponent new.
 	plotsManagementComponent := FOMPlotsManagementComponent new.
-	selectedComponent := dashboardComponent.
+	activeIngredientsComponent := FOMActiveIngredienteComponent new.
+	selectedComponent := dashboardComponent
 ]
 
 { #category : #'rendering-login' }
@@ -99,7 +103,9 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 					self
 						renderMenuBlock:
 							{varietiesComponent.
-							substancesComponent}
+							fertilizerComponent.
+							pesticideComponent.
+							activeIngredientsComponent}
 						heading: 'Catálogos'
 						on: html ] ]
 ]

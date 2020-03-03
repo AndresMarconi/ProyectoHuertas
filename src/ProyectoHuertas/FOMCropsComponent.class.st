@@ -11,6 +11,11 @@ FOMCropsComponent >> addCultivar [
 	cultivar ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #callbacks }
+FOMCropsComponent >> browseDetailsOf: element [
+	
+]
+
 { #category : #rendering }
 FOMCropsComponent >> columnHeadings [
 	^ {'Nombre vulgar' . 'Rinde óptimo (kg/hectárea)'}
@@ -36,6 +41,25 @@ FOMCropsComponent >> elements [
 { #category : #printing }
 FOMCropsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Cultivos'
+]
+
+{ #category : #rendering }
+FOMCropsComponent >> renderActionButtonsFor: element on: html [
+	html
+		form: [ html formButton
+				bePrimary;
+				callback: [ self editElement: element ];
+				with: [ html span class: 'fa fa-pencil' ].
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self browseDetailsOf: element ];
+				with: [ html span class: 'fa fa-list' ].
+			html space.
+			html formButton
+				beDanger;
+				callback: [ self removeElement: element ];
+				with: [ html span class: 'fa fa-trash' ] ]
 ]
 
 { #category : #rendering }

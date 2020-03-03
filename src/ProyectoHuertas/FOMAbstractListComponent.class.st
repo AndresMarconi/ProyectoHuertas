@@ -60,7 +60,7 @@ FOMAbstractListComponent >> removeElement: element [
 
 { #category : #rendering }
 FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
-	^ html
+	html
 		form: [ html formButton
 				bePrimary;
 				callback: [ self editElement: element ];
