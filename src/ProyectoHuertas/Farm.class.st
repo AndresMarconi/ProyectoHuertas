@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'name',
 		'plots',
-		'substanceStock'
+		'inventory'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -22,6 +22,11 @@ Farm class >> name: aName [
 ]
 
 { #category : #accessing }
+Farm >> addInventory: anObject [
+	inventory add: anObject
+]
+
+{ #category : #accessing }
 Farm >> addPlot: anObject [
 	plots add: anObject
 ]
@@ -30,7 +35,12 @@ Farm >> addPlot: anObject [
 Farm >> archive [
 	super archive.
 	plots do: #archive.
-	substanceStock do: #archive
+	inventory do: #archive
+]
+
+{ #category : #'as yet unclassified' }
+Farm >> emptyInventory [
+	inventory := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -42,7 +52,12 @@ Farm >> events [
 Farm >> initialize [
 	super initialize.
 	plots := OrderedCollection new.
-	substanceStock := OrderedCollection new
+	inventory := OrderedCollection new
+]
+
+{ #category : #accessing }
+Farm >> inventory [
+	^ inventory reject: [ :inventoryItem | inventoryItem archived ]
 ]
 
 { #category : #accessing }
@@ -62,7 +77,7 @@ Farm >> plots [
 
 { #category : #accessing }
 Farm >> updateStockOf: substance with: quantity expiringOn: aDate [
-	substanceStock
+	inventory
 		add:
 			(SubstanceStock
 				substance: substance

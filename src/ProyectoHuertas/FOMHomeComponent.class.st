@@ -49,7 +49,6 @@ FOMHomeComponent >> initialize [
 	applicationsComponent := FOMApplicationsComponent new.
 	substancesComponent := FOMSubstancesComponent new.
 	varietiesComponent := FOMVarietiesComponent new.
-	stockComponent := FOMStockComponent new.
 	dashboardComponent := FOMDashboardComponent new.
 	inventoryComponent := FOMInventoryComponent new.
 	plotsManagementComponent := FOMPlotsManagementComponent new.

@@ -12,7 +12,7 @@ Class {
 
 { #category : #accessing }
 WhiteListItemEditor >> activeIngredients [ 
-	^ ActiveIngredient selectAll asOrderedCollection.
+	^ ActiveIngredient selectAll asSortedCollection: [ :a :b | a ingredient < b ingredient ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -37,7 +37,8 @@ WhiteListItemEditor >> initializeComponents [
 		label: 'Principio activo'
 		required: true.
 	activeIngredientsEditorComponent
-		possibleValues: {nil} , (self activeIngredients).
+		possibleValues: {nil} , (self activeIngredients);
+		setDefault: subject activeIngredient.
 	aptitudEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #aptitud

@@ -3,21 +3,24 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'comercialNameEditorComponent',
-		'brandEditorComponent',
 		'activeIngredientsEditorComponent',
-		'waitingPeriodAfterApplicationEditorComponent'
+		'typeEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #accessing }
+SubstanceEditor >> activeIngredients [ 
+	^ ActiveIngredient selectAll asSortedCollection: [ :a :b | a ingredient < b ingredient ]
+]
 
 { #category : #'subclass-responsibility' }
 SubstanceEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {comercialNameEditorComponent.
-		brandEditorComponent.
 		activeIngredientsEditorComponent.
-		waitingPeriodAfterApplicationEditorComponent}, 
+		typeEditorComponent}, 
 		super children
 ]
 
@@ -30,20 +33,18 @@ SubstanceEditor >> initializeComponents [
 		selector: #comercialName
 		label: 'Nombre Comercial'
 		required: true.
-	brandEditorComponent := TextLinePropertyEditorComponent
-		subject: subject
-		selector: #brand
-		label: 'Marca'
-		required: false.
-	activeIngredientsEditorComponent := TextLinePropertyEditorComponent
+	activeIngredientsEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #activeIngredients
-		label: 'Componentes activos'
-		required: false.
-	waitingPeriodAfterApplicationEditorComponent := NumberPropertyEditorComponent
-		subject: subject
-		selector: #waitingPeriodAfterApplication
-		label: 'Tiempo de carencia (en días)'
+		label: 'Principio activo'
 		required: true.
+	activeIngredientsEditorComponent
+		possibleValues: {nil} , (self activeIngredients).
+	typeEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #type
+		label: 'Tipo de substacia'
+		required: true.
+	typeEditorComponent possibleValues: { 'Fertilizante'. 'Pesticida' }.
 	super initializeComponents.
 ]

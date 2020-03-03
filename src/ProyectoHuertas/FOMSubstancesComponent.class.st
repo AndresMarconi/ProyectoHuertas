@@ -13,7 +13,7 @@ FOMSubstancesComponent >> addSubstance [
 
 { #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
-	^ {'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}
+	^ {'Nombre comercial'. 'Componentes activos'. 'tipo'}
 ]
 
 { #category : #rendering }
@@ -21,9 +21,8 @@ FOMSubstancesComponent >> columnValuesFor: element [
 	"{'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}"
 
 	^ {element comercialName.
-	element brand.
 	element activeIngredients.
-	element waitingPeriodAfterApplication}
+	element type}
 ]
 
 { #category : #callbacks }

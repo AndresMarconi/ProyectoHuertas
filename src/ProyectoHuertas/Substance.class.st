@@ -3,9 +3,8 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'comercialName',
-		'brand',
 		'activeIngredients',
-		'waitingPeriodAfterApplication'
+		'type'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -36,16 +35,6 @@ Substance >> activeIngredients: anObject [
 ]
 
 { #category : #accessing }
-Substance >> brand [
-	^ brand
-]
-
-{ #category : #accessing }
-Substance >> brand: anObject [
-	brand := anObject
-]
-
-{ #category : #accessing }
 Substance >> comercialName [
 	^ comercialName
 ]
@@ -58,17 +47,15 @@ Substance >> comercialName: anObject [
 { #category : #printing }
 Substance >> printOn: aStream [
 	^ aStream
-		nextPutAll: (self comercialName);
-		nextPutAll: (' - ');
-		nextPutAll: (self brand).
+		nextPutAll: (self comercialName).
 ]
 
 { #category : #accessing }
-Substance >> waitingPeriodAfterApplication [
-	^ waitingPeriodAfterApplication
+Substance >> type [
+	^ type
 ]
 
 { #category : #accessing }
-Substance >> waitingPeriodAfterApplication: anObject [
-	waitingPeriodAfterApplication := anObject
+Substance >> type: anObject [
+	type := anObject
 ]
