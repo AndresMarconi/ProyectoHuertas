@@ -12,21 +12,7 @@ Class {
 	#name : #FOMHomeComponent,
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
-		'selectedComponent',
-		'plotsComponent',
-		'plotsManagementComponent',
-		'sowingComponent',
-		'harvestComponent',
-		'salesComponent',
-		'problemsComponent',
-		'applicationsComponent',
-		'varietiesComponent',
-		'stockComponent',
-		'dashboardComponent',
-		'inventoryComponent',
-		'activeIngredientsComponent',
-		'fertilizerComponent',
-		'pesticideComponent'
+		'selectedComponent'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -43,20 +29,7 @@ FOMHomeComponent >> children [
 
 { #category : #initialization }
 FOMHomeComponent >> initialize [
-	plotsComponent := FOMEventsChronologyComponent new.
-	sowingComponent := FOMSowingComponent new.
-	harvestComponent := FOMHarvestComponent new.
-	salesComponent := FOMSalesComponent new.
-	problemsComponent := FOMProblemsComponent new.
-	applicationsComponent := FOMApplicationsComponent new.
-	fertilizerComponent := FOMFertilizerComponent new.
-	pesticideComponent := FOMPesticideComponent new.
-	varietiesComponent := FOMCropsComponent new.
-	dashboardComponent := FOMDashboardComponent new.
-	inventoryComponent := FOMInventoryComponent new.
-	plotsManagementComponent := FOMPlotsManagementComponent new.
-	activeIngredientsComponent := FOMActiveIngredienteComponent new.
-	selectedComponent := dashboardComponent
+	selectedComponent := FOMDashboardComponent new
 ]
 
 { #category : #'rendering-login' }
@@ -76,7 +49,7 @@ FOMHomeComponent >> renderContentOn: html [
 	self renderNavbarOn: html.
 	html
 		row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
-			html column: [ html render: selectedComponent ] mediumSize: 10 ]
+			html column: [ html render: selectedComponent ] mediumSize: 10 ] 
 ]
 
 { #category : #rendering }
@@ -85,27 +58,27 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 		form: [ html
 				listGroup: [ self
 						renderMenuBlock:
-							{dashboardComponent.
-							sowingComponent.
-							problemsComponent.
-							applicationsComponent.
-							harvestComponent.
-							plotsComponent}
+							{('Tablero de control' -> FOMDashboardComponent).
+							('Plantación y siembra' -> FOMSowingComponent).
+							('Adversidades' -> FOMProblemsComponent).
+							('Aplicaciones' -> FOMApplicationsComponent).
+							('Cosecha' -> FOMHarvestComponent).
+							('Cronología' -> FOMEventsChronologyComponent)}
 						heading: 'Eventos'
 						on: html.
 					self
 						renderMenuBlock:
-							{plotsManagementComponent.
-							inventoryComponent.
-							salesComponent}
+							{('Lotes' -> FOMPlotsManagementComponent).
+							('Inventario' -> FOMInventoryComponent).
+							('Ventas' -> FOMSalesComponent)}
 						heading: 'Administración'
 						on: html.
 					self
 						renderMenuBlock:
-							{varietiesComponent.
-							fertilizerComponent.
-							pesticideComponent.
-							activeIngredientsComponent}
+							{('Cultivos' -> FOMCropsComponent).
+							('Fertilizantes' -> FOMFertilizerComponent).
+							('Pesticidas' -> FOMPesticideComponent).
+							('Principios activos' -> FOMActiveIngredienteComponent)}
 						heading: 'Catálogos'
 						on: html ] ]
 ]
@@ -122,19 +95,19 @@ FOMHomeComponent >> renderLoginRequiredMessageOn: html [
 ]
 
 { #category : #rendering }
-FOMHomeComponent >> renderMenuBlock: elements heading: head on: html [
+FOMHomeComponent >> renderMenuBlock: associations heading: head on: html [
 	| item |
 	html div
 		class: 'left-menu-heading';
 		with: head.
-	elements
-		do: [ :component | 
+	associations
+		do: [ :ass | 
 			item := html listGroupLinkedItem.
-			selectedComponent = component
+			selectedComponent species = ass value
 				ifTrue: [ item beActive ].
 			item
-				callback: [ selectedComponent := component ];
-				with: component printString ]
+				callback: [ selectedComponent := ass value new ];
+				with: ass key ]
 ]
 
 { #category : #rendering }
