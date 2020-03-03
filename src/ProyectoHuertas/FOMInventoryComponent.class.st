@@ -52,10 +52,11 @@ FOMInventoryComponent >> initialize [
 
 { #category : #initialization }
 FOMInventoryComponent >> initializeLists [
-	
-	fertilizerList:= ((self session farm) inventory) select: [ :each| (each substance) type = 'Fertilizante' ].
-	pesticidesList:= ((self session farm) inventory) select: [ :each| (each substance) type = 'Pesticida' ].
-
+	self session farm ifNil: [ ^ self ].
+	fertilizerList := self session farm inventory
+		select: [ :each | each substance type = 'Fertilizante' ].
+	pesticidesList := self session farm inventory
+		select: [ :each | each substance type = 'Pesticida' ]
 ]
 
 { #category : #printing }

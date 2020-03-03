@@ -32,7 +32,7 @@ FOMSession >> createUserResources [
 
 { #category : #'db queries' }
 FOMSession >> cultivars [
-	^ Cultivar selectMany: [ :each | each archived = false ]
+	^ Crop selectMany: [ :each | each archived = false ]
 ]
 
 { #category : #accessing }

@@ -1,21 +1,21 @@
 Class {
-	#name : #Cultivar,
+	#name : #Crop,
 	#superclass : #FOMObject,
 	#instVars : [
 		'vulgarName',
-		'yield',
+		'optimalYield',
 		'whiteList'
 	],
 	#category : #'ProyectoHuertas-model'
 }
 
 { #category : #testing }
-Cultivar class >> isVoyageRoot [
+Crop class >> isVoyageRoot [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-Cultivar class >> name: aName yield: aYield [
+Crop class >> name: aName yield: aYield [
 	^ self new
 		vulgarName: aName;
 		yield: 0;
@@ -23,43 +23,44 @@ Cultivar class >> name: aName yield: aYield [
 ]
 
 { #category : #adding }
-Cultivar >> addIngredient: anIngredient [
+Crop >> addIngredient: anIngredient [
 	whiteList add: anIngredient
 ]
 
 { #category : #initialization }
-Cultivar >> initialize [ 
+Crop >> initialize [
 	super initialize.
-	whiteList := OrderedCollection new
+	whiteList := OrderedCollection new.
+	optimalYield := 0
+]
+
+{ #category : #accessing }
+Crop >> optimalYield [
+	^ optimalYield
+]
+
+{ #category : #accessing }
+Crop >> optimalYield: anObject [
+	optimalYield := anObject
 ]
 
 { #category : #printing }
-Cultivar >> printOn: aStream [
+Crop >> printOn: aStream [
 	^ aStream
 		nextPutAll: (self vulgarName).
 ]
 
 { #category : #accessing }
-Cultivar >> vulgarName [
+Crop >> vulgarName [
 	^ vulgarName
 ]
 
 { #category : #accessing }
-Cultivar >> vulgarName: anObject [
+Crop >> vulgarName: anObject [
 	vulgarName := anObject
 ]
 
 { #category : #adding }
-Cultivar >> whiteList [
+Crop >> whiteList [
 	^ whiteList
-]
-
-{ #category : #accessing }
-Cultivar >> yield [
-	^ yield
-]
-
-{ #category : #accessing }
-Cultivar >> yield: anObject [
-	yield := anObject
 ]

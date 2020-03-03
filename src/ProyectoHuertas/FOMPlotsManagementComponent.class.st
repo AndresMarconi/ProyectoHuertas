@@ -51,9 +51,10 @@ FOMPlotsManagementComponent >> printOn: aStream [
 { #category : #rendering }
 FOMPlotsManagementComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html anchor
-		callback: [ self addPlot ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Agregar lote' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addPlot ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Agregar lote' ] ]
 ]

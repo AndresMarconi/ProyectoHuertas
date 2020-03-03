@@ -49,10 +49,10 @@ FOMApplicationsComponent >> printOn: aStream [
 { #category : #rendering }
 FOMApplicationsComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addEvent ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Registrar aplicacion' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addEvent ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Registrar aplicacion' ] ]
 ]

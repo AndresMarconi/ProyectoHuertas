@@ -49,10 +49,10 @@ FOMSowingComponent >> printOn: aStream [
 { #category : #printing }
 FOMSowingComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addEvent ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Registrar siembra' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addEvent ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Registrar plantación o siembra' ] ]
 ]

@@ -48,10 +48,10 @@ FOMProblemsComponent >> printOn: aStream [
 { #category : #rendering }
 FOMProblemsComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addEvent ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Registrar problema' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addEvent ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Registrar adversidad' ] ]
 ]

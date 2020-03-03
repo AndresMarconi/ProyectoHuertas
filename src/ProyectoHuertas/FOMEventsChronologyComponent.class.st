@@ -31,7 +31,11 @@ FOMEventsChronologyComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 FOMEventsChronologyComponent >> elements [
-	^ plot ifNil: [ self session farm events ] ifNotNil: [ plot events ]
+	^ plot
+		ifNotNil: [ plot events ]
+		ifNil: [ self session farm
+				ifNotNil: [ :farm | farm events ]
+				ifNil: [ Array new ] ]
 ]
 
 { #category : #accessing }

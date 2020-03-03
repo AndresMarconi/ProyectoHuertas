@@ -21716,14 +21716,14 @@ FOMActiveIngredientLoader >> loadActiveIngredients [
 { #category : #'as yet unclassified' }
 FOMActiveIngredientLoader >> loadCultivars [
 	| cultivar |
-	cultivars do: [ :each | cultivar := Cultivar name: each yield: 0. cultivar save ]
+	cultivars do: [ :each | cultivar := Crop name: each yield: 0. cultivar save ]
 	
 ]
 
 { #category : #'as yet unclassified' }
 FOMActiveIngredientLoader >> loadWhiteListToCultivars [
 	|cultiv|
-	cultiv:= Cultivar selectAll.
+	cultiv:= Crop selectAll.
 	cultiv do: [ :each | self makeWhiteListOf: each with: (self whiteListItemsOf: each) ]
 	
 ]

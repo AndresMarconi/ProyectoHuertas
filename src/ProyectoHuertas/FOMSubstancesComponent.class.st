@@ -49,10 +49,10 @@ FOMSubstancesComponent >> printOn: aStream [
 { #category : #rendering }
 FOMSubstancesComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addSubstance ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Agregar Substancia' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addSubstance ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Agregar producto' ] ]
 ]

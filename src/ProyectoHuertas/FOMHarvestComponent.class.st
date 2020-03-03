@@ -50,10 +50,10 @@ FOMHarvestComponent >> printOn: aStream [
 { #category : #rendering }
 FOMHarvestComponent >> renderContentOn: html [
 	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addEvent ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Registrar cosecha' ]
+	html
+		paragraph: [ html anchor
+				callback: [ self addEvent ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Registrar cosecha' ] ]
 ]

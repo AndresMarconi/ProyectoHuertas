@@ -1,5 +1,5 @@
 Class {
-	#name : #CultivarEditor,
+	#name : #CropEditor,
 	#superclass : #FOMEditor,
 	#instVars : [
 		'yieldEditorComponent',
@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'subclass-responsibility' }
-CultivarEditor >> children [
+CropEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {vulgarNameEditorComponent.
@@ -18,7 +18,7 @@ CultivarEditor >> children [
 ]
 
 { #category : #'subclass-responsibility' }
-CultivarEditor >> initializeComponents [
+CropEditor >> initializeComponents [
 	"Initialize all property components"
 	
 	vulgarNameEditorComponent := TextLinePropertyEditorComponent
@@ -28,8 +28,8 @@ CultivarEditor >> initializeComponents [
 		required: true.
 	yieldEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
-		selector: #yield
-		label: 'Rinde'
+		selector: #optimalYield
+		label: 'Rinde óptimo (kg/hectárea)'
 		required: true.
 	super initializeComponents.
 ]
