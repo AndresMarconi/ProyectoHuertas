@@ -1,19 +1,8 @@
 Class {
 	#name : #FOMApplicationsComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMEventsListComponent,
 	#category : #'ProyectoHuertas-ui-core'
 }
-
-{ #category : #adding }
-FOMApplicationsComponent >> addEvent [
-	| editedEvent |
-	editedEvent := self call: (AplicationEditor subject: Application new).
-	editedEvent
-		ifNotNil: [ :it | 
-			it save.
-			it plot addEvent: it.
-			it plot save ]
-]
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnHeadings [
@@ -30,10 +19,18 @@ FOMApplicationsComponent >> columnValuesFor: element [
 	element dose}
 ]
 
-{ #category : #callbacks }
-FOMApplicationsComponent >> editElement: element [
-	(self call: (AplicationEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMApplicationsComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Application
+]
+
+{ #category : #hooks }
+FOMApplicationsComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ ApplicationEditor
 ]
 
 { #category : #callbacks }
@@ -44,15 +41,4 @@ FOMApplicationsComponent >> elements [
 { #category : #printing }
 FOMApplicationsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Aplicaciones'
-]
-
-{ #category : #rendering }
-FOMApplicationsComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addEvent ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Registrar aplicacion' ] ]
 ]

@@ -2,10 +2,19 @@ Class {
 	#name : #FOMAbstractListComponent,
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
-		'paginator'
+		'paginator',
+		'editEnabled',
+		'removeEnabled',
+		'addEnabled'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
+
+{ #category : #callbacks }
+FOMAbstractListComponent >> addElement [
+	(self call: (self elementEditorClass subject: self elementClass new))
+		ifNotNil: [ :it | it save ]
+]
 
 { #category : #rendering }
 FOMAbstractListComponent >> columnHeadings [
@@ -19,6 +28,21 @@ FOMAbstractListComponent >> columnValuesFor: element [
 
 { #category : #callbacks }
 FOMAbstractListComponent >> editElement: element [
+	(self call: (self elementEditorClass subject: element))
+		ifNotNil: [ :it | it save ]
+]
+
+{ #category : #hooks }
+FOMAbstractListComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ self subclassResponsibility
+]
+
+{ #category : #hooks }
+FOMAbstractListComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
 	^ self subclassResponsibility
 ]
 
@@ -34,8 +58,11 @@ FOMAbstractListComponent >> elementsToList [
 ]
 
 { #category : #initialization }
-FOMAbstractListComponent >> initialize [ 
+FOMAbstractListComponent >> initialize [
 	paginator := Paginator newTotalElements: self elements perPage: 10.
+	editEnabled := true.
+	removeEnabled := true.
+	addEnabled := true
 ]
 
 { #category : #accessing }
@@ -61,19 +88,39 @@ FOMAbstractListComponent >> removeElement: element [
 { #category : #rendering }
 FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
 	html
-		form: [ html formButton
-				bePrimary;
-				callback: [ self editElement: element ];
-				with: [ html span class: 'fa fa-pencil' ].
-			html space.
-			html formButton
-				beDanger;
-				callback: [ self removeElement: element ];
-				with: [ html span class: 'fa fa-trash' ] ]
+		form: [ editEnabled
+				ifTrue: [ html formButton
+						bePrimary;
+						callback: [ self editElement: element ];
+						with: [ html span class: 'fa fa-pencil' ] ].
+			removeEnabled
+				ifTrue: [ html space.
+					html formButton
+						beDanger;
+						callback: [ self removeElement: element ];
+						with: [ html span class: 'fa fa-trash' ] ] ]
+]
+
+{ #category : #rendering }
+FOMAbstractListComponent >> renderAddButtonOn: html [
+	addEnabled
+		ifTrue: [ html
+				paragraph: [ html anchor
+						callback: [ self addElement ];
+						with: [ html formButton
+								bePrimary;
+								with: 'Agregar' ] ] ]
 ]
 
 { #category : #rendering }
 FOMAbstractListComponent >> renderContentOn: html [
+	self renderElementsTableOn: html.
+	paginator renderPaginationOn: html.
+	self renderAddButtonOn: html
+]
+
+{ #category : #rendering }
+FOMAbstractListComponent >> renderElementsTableOn: html [
 	html table
 		class: 'table table-hover';
 		with: [ html
@@ -88,6 +135,5 @@ FOMAbstractListComponent >> renderContentOn: html [
 										do: [ :value | html tableData: value ].
 									html tableData: element comment.
 									html
-										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ].
-	paginator renderPaginationOn: html
+										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ]
 ]

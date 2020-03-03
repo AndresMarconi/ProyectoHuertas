@@ -1,5 +1,5 @@
 Class {
-	#name : #AplicationEditor,
+	#name : #ApplicationEditor,
 	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'subclass-responsibility' }
-AplicationEditor >> children [
+ApplicationEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
@@ -25,7 +25,7 @@ AplicationEditor >> children [
 ]
 
 { #category : #'subclass-responsibility' }
-AplicationEditor >> initializeComponents [
+ApplicationEditor >> initializeComponents [
 	"Initialize all property components"
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
@@ -59,11 +59,11 @@ AplicationEditor >> initializeComponents [
 ]
 
 { #category : #accessing }
-AplicationEditor >> plots [
+ApplicationEditor >> plots [
 	^ self session plots asOrderedCollection
 ]
 
 { #category : #accessing }
-AplicationEditor >> substances [
+ApplicationEditor >> substances [
 	^ (self session substances) asOrderedCollection.
 ]

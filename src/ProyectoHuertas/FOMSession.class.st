@@ -9,6 +9,11 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #'db queries' }
+FOMSession >> activeIngredients [
+	^ ActiveIngredient selectMany: [ :each | each archived = false ]
+]
+
 { #category : #'indirect queries' }
 FOMSession >> aplications [
 	^ self plots flatCollect: [ :each | each aplications ]
@@ -31,7 +36,7 @@ FOMSession >> createUserResources [
 ]
 
 { #category : #'db queries' }
-FOMSession >> cultivars [
+FOMSession >> crops [
 	^ Crop selectMany: [ :each | each archived = false ]
 ]
 

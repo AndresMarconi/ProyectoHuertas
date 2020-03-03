@@ -8,10 +8,10 @@ Class {
 }
 
 { #category : #callbacks }
-FOMPlotsManagementComponent >> addPlot [
+FOMPlotsManagementComponent >> addElement [
 	| farm newPlot |
 	farm := self session farm.
-	newPlot := self call: (PlotEditor subject: Plot new).
+	newPlot := self call: (self elementEditorClass subject: Plot new).
 	newPlot
 		ifNotNil: [ :it | 
 			it save.
@@ -32,29 +32,21 @@ FOMPlotsManagementComponent >> columnValuesFor: element [
 	element surface}
 ]
 
-{ #category : #callbacks }
-FOMPlotsManagementComponent >> editElement: element [
-	(self call: (PlotEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMPlotsManagementComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Plot
+]
+
+{ #category : #hooks }
+FOMPlotsManagementComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ PlotEditor
 ]
 
 { #category : #accessing }
 FOMPlotsManagementComponent >> elements [
 	^ self session plots
-]
-
-{ #category : #printing }
-FOMPlotsManagementComponent >> printOn: aStream [
-	aStream nextPutAll: 'Lotes'
-]
-
-{ #category : #rendering }
-FOMPlotsManagementComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addPlot ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Agregar lote' ] ]
 ]

@@ -1,19 +1,8 @@
 Class {
 	#name : #FOMSowingComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMEventsListComponent,
 	#category : #'ProyectoHuertas-ui-core'
 }
-
-{ #category : #callbacks }
-FOMSowingComponent >> addEvent [
-	| editedEvent |
-	editedEvent := self call: (SowingEditor subject: Sowing new).
-	editedEvent
-		ifNotNil: [ :it | 
-			it save.
-			it plot addEvent: it.
-			it plot save ]
-]
 
 { #category : #rendering }
 FOMSowingComponent >> columnHeadings [
@@ -30,29 +19,21 @@ FOMSowingComponent >> columnValuesFor: element [
 	element quantity}
 ]
 
-{ #category : #callbacks }
-FOMSowingComponent >> editElement: element [
-	(self call: (SowingEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMSowingComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Sowing
+]
+
+{ #category : #hooks }
+FOMSowingComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ SowingEditor
 ]
 
 { #category : #accessing }
 FOMSowingComponent >> elements [
 	^ (self session sowings) asSortedCollection: [ :a :b | a date > b date ]
-]
-
-{ #category : #printing }
-FOMSowingComponent >> printOn: aStream [
-	aStream nextPutAll: 'Plantación y siembra'
-]
-
-{ #category : #printing }
-FOMSowingComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addEvent ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Registrar plantación o siembra' ] ]
 ]

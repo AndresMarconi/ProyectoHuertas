@@ -4,16 +4,9 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
-{ #category : #adding }
-FOMSubstancesComponent >> addSubstance [
-	| substance |
-	substance := self call: (SubstanceEditor subject: Substance new).
-	substance ifNotNil: [ :it | it save ]
-]
-
 { #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
-	^ {'Nombre comercial'. 'Componentes activos'. 'tipo'}
+	^ {'Nombre comercial'. 'Componente activos'. 'Uso'}
 ]
 
 { #category : #rendering }
@@ -22,13 +15,21 @@ FOMSubstancesComponent >> columnValuesFor: element [
 
 	^ {element comercialName.
 	element activeIngredients.
-	element type}
+	element usage}
 ]
 
-{ #category : #callbacks }
-FOMSubstancesComponent >> editElement: element [
-	(self call: (SubstanceEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMSubstancesComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Substance 
+]
+
+{ #category : #hooks }
+FOMSubstancesComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ SubstanceEditor
 ]
 
 { #category : #callbacks }
@@ -39,20 +40,4 @@ FOMSubstancesComponent >> elements [
 { #category : #callbacks }
 FOMSubstancesComponent >> heading [ 
 	^ 'Substancias'
-]
-
-{ #category : #printing }
-FOMSubstancesComponent >> printOn: aStream [
-	aStream nextPutAll: 'Substancias'
-]
-
-{ #category : #rendering }
-FOMSubstancesComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addSubstance ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Agregar producto' ] ]
 ]

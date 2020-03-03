@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'comercialName',
 		'activeIngredients',
-		'type'
+		'usage'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -51,11 +51,11 @@ Substance >> printOn: aStream [
 ]
 
 { #category : #accessing }
-Substance >> type [
-	^ type
+Substance >> usage [
+	^ usage
 ]
 
 { #category : #accessing }
-Substance >> type: anObject [
-	type := anObject
+Substance >> usage: anObject [
+	usage := anObject
 ]

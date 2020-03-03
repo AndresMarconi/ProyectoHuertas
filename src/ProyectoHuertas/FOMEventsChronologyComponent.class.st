@@ -38,6 +38,13 @@ FOMEventsChronologyComponent >> elements [
 				ifNil: [ Array new ] ]
 ]
 
+{ #category : #initialization }
+FOMEventsChronologyComponent >> initialize [
+	super initialize.
+	addEnabled := false.
+	editEnabled := false
+]
+
 { #category : #accessing }
 FOMEventsChronologyComponent >> plot [
 	^ plot
@@ -46,11 +53,6 @@ FOMEventsChronologyComponent >> plot [
 { #category : #accessing }
 FOMEventsChronologyComponent >> plot: anObject [
 	plot := anObject
-]
-
-{ #category : #printing }
-FOMEventsChronologyComponent >> printOn: aStream [
-	aStream nextPutAll: 'Cronología'
 ]
 
 { #category : #rendering }

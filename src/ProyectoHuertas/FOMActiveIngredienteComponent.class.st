@@ -15,17 +15,28 @@ FOMActiveIngredienteComponent >> columnValuesFor: element [
 	element referenceUrl}
 ]
 
-{ #category : #callbacks }
-FOMActiveIngredienteComponent >> editElement: element [
-	^ self
+{ #category : #hooks }
+FOMActiveIngredienteComponent >> elementClass [
+	^ ActiveIngredient
+]
+
+{ #category : #hooks }
+FOMActiveIngredienteComponent >> elementEditorClass [
+	^ ActiveIngredientEditor
 ]
 
 { #category : #accessing }
 FOMActiveIngredienteComponent >> elements [
-	^ Array new
+	^ self session activeIngredients
 ]
 
-{ #category : #printing }
-FOMActiveIngredienteComponent >> printOn: aStream [
-	aStream nextPutAll: 'Principios activos'
+{ #category : #accessing }
+FOMActiveIngredienteComponent >> renderContentOn: html [
+	super renderContentOn: html.
+	html
+		paragraph: [ html anchor
+				callback: [ self addEvent ];
+				with: [ html formButton
+						bePrimary;
+						with: 'Agregar' ] ]
 ]

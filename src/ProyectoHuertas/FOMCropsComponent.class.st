@@ -4,13 +4,6 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
-{ #category : #adding }
-FOMCropsComponent >> addCultivar [
-	| cultivar |
-	cultivar := self call: (CropEditor subject: Crop new).
-	cultivar ifNotNil: [ :it | it save ]
-]
-
 { #category : #callbacks }
 FOMCropsComponent >> browseDetailsOf: element [
 	
@@ -27,20 +20,23 @@ FOMCropsComponent >> columnValuesFor: element [
 	element optimalYield}
 ]
 
-{ #category : #callbacks }
-FOMCropsComponent >> editElement: element [
-	(self call: (CropEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMCropsComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Crop
+]
+
+{ #category : #hooks }
+FOMCropsComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ CropEditor
 ]
 
 { #category : #callbacks }
 FOMCropsComponent >> elements [
-	^ (self session cultivars) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
-]
-
-{ #category : #printing }
-FOMCropsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Cultivos'
+	^ (self session crops) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #rendering }
@@ -60,20 +56,4 @@ FOMCropsComponent >> renderActionButtonsFor: element on: html [
 				beDanger;
 				callback: [ self removeElement: element ];
 				with: [ html span class: 'fa fa-trash' ] ]
-]
-
-{ #category : #rendering }
-FOMCropsComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html
-		paragraph: [ html anchor
-				callback: [ self addCultivar ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Agregar cultivo' ] ]
-]
-
-{ #category : #'as yet unclassified' }
-FOMCropsComponent >> showVariety: aCultivar [
-	self call: (FOMCultivarComponent cultivar: aCultivar).
 ]

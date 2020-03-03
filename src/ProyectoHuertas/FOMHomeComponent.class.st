@@ -76,8 +76,7 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 					self
 						renderMenuBlock:
 							{('Cultivos' -> FOMCropsComponent).
-							('Fertilizantes' -> FOMFertilizerComponent).
-							('Pesticidas' -> FOMPesticideComponent).
+							('Fertilizantes y pesticidas' -> FOMSubstancesComponent).
 							('Principios activos' -> FOMActiveIngredienteComponent)}
 						heading: 'Catálogos'
 						on: html ] ]

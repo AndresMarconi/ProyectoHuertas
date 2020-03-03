@@ -77,5 +77,5 @@ SowingEditor >> plots [
 
 { #category : #accessing }
 SowingEditor >> varieties [
-	^ (self session cultivars) asOrderedCollection
+	^ (self session crops) asOrderedCollection
 ]

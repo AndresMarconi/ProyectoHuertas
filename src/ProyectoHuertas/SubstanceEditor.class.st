@@ -36,14 +36,14 @@ SubstanceEditor >> initializeComponents [
 	activeIngredientsEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #activeIngredients
-		label: 'Principio activo'
+		label: 'Principios activos'
 		required: true.
 	activeIngredientsEditorComponent
 		possibleValues: {nil} , (self activeIngredients).
 	typeEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #type
-		label: 'Tipo de substacia'
+		selector: #usage
+		label: 'Uso'
 		required: true.
 	typeEditorComponent possibleValues: { 'Fertilizante'. 'Pesticida' }.
 	super initializeComponents.

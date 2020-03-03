@@ -37,7 +37,7 @@ HarvestingEditor >> defaultSurface [
 { #category : #'subclass-responsibility' }
 HarvestingEditor >> initializeComponents [
 	"Initialize all property components"
-	
+
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
@@ -49,6 +49,11 @@ HarvestingEditor >> initializeComponents [
 		label: 'Lote'
 		required: true.
 	plotEditorComponent possibleValues: self plots.
+	varietyEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #variety
+		label: 'Producto'
+		required: true.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -57,16 +62,10 @@ HarvestingEditor >> initializeComponents [
 	otherUnitEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #otherUnit
-		label: 'unidad adicional de medida'
-		required: true.
-	varietyEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #variety
-		label: 'Producto'
-		required: true.
-	varietyEditorComponent
-		possibleValues: {nil} , (self varieties).
-	super initializeComponents.
+		label: 'Unidad adicional de medida'
+		required: false.
+	varietyEditorComponent possibleValues: {nil} , self varieties.
+	super initializeComponents
 ]
 
 { #category : #accessing }
@@ -76,5 +75,5 @@ HarvestingEditor >> plots [
 
 { #category : #accessing }
 HarvestingEditor >> varieties [
-	^ (self session cultivars) asOrderedCollection.
+	^ (self session crops) asOrderedCollection.
 ]
