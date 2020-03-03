@@ -2,7 +2,8 @@ Class {
 	#name : #ActiveIngredient,
 	#superclass : #FOMObject,
 	#instVars : [
-		'ingredient'
+		'tradeName',
+		'referenceUrl'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -19,18 +20,28 @@ ActiveIngredient class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #accessing }
-ActiveIngredient >> ingredient [
-	^ ingredient
-]
-
-{ #category : #accessing }
-ActiveIngredient >> ingredient: anObject [
-	ingredient := anObject
-]
-
 { #category : #printing }
 ActiveIngredient >> printOn: aStream [
 	^ aStream
 		nextPutAll: (self ingredient).
+]
+
+{ #category : #accessing }
+ActiveIngredient >> referenceUrl [
+	^ referenceUrl
+]
+
+{ #category : #accessing }
+ActiveIngredient >> referenceUrl: anObject [
+	referenceUrl := anObject
+]
+
+{ #category : #accessing }
+ActiveIngredient >> tradeName [
+	^ tradeName
+]
+
+{ #category : #accessing }
+ActiveIngredient >> tradeName: anObject [
+	tradeName := anObject
 ]
