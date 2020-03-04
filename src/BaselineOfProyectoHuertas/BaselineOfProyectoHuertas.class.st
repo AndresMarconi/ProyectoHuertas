@@ -63,7 +63,7 @@ FOMDeployer new
      clientId: ''<your-client-id>'';
      oidcHost: ''<your-oidc-authentication-domain>'';
      clientSecret: ''<your-client-secret>'';    
-     baseUrl: ''<uri-base-for-your-apps>'';
+     baseUrl: ''<uri-base-for-your-apps>/'';
      adminEmail: ''<email-of-the-first-admin>'';
      deploy.'
 	
