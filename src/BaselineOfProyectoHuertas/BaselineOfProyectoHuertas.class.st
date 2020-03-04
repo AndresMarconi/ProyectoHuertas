@@ -51,36 +51,21 @@ BaselineOfProyectoHuertas >> oicdForSeaside: spec [
 BaselineOfProyectoHuertas >> postLoadActions [
 
 	GTPlayground
-		edit:
-
-    '| app loginApp |	
-
-app := WAAdmin
- register: FOMHomeComponent
- asApplicationAt: FOMHomeComponent applicationName.
-app
- addLibrary: JQDeploymentLibrary;
- addLibrary: JQUiDeploymentLibrary;
- addLibrary: SBSDeploymentLibrary.	
-app configuration addParent: FOMConfiguration instance.
-app preferenceAt: #loginApp put: FOMLoginComponent applicationName  .
-app sessionClass: FOMSession.
-
-loginApp := WAAdmin
- register: FOMLoginComponent
- asApplicationAt: FOMLoginComponent applicationName.
-loginApp
- addLibrary: JQDeploymentLibrary;
- addLibrary: JQUiDeploymentLibrary;
- addLibrary: SBSDeploymentLibrary.
-loginApp sessionClass: FOMSession.
-	
-{ app. loginApp } do: [ :each |  	each configuration addParent: WAOpenIdConnectConfiguration instance.
-    each preferenceAt: #clientId put: ''<your-client-id>''.
-    each preferenceAt: #host put: ''<your-oidc-authentication-domain>''.
-    each preferenceAt: #clientSecret put: ''<your-client-secret>''.
-	 each preferenceAt: #redirectUri put: ''<uri-of-your-secured-app>''. ]
-'
+		edit: '"Edit and valuate the following expresion to deploy your apps. 
+Applications will be available at:
+		
+		<uri-base-for-your-apps>/farmer-login
+		<uri-base-for-your-apps>/farmer
+		<uri-base-for-your-apps>/expert-login
+		<uri-base-for-your-apps>/expert"
+		
+FOMDeployer new 
+     clientId: ''<your-client-id>'';
+     oidcHost: ''<your-oidc-authentication-domain>'';
+     clientSecret: ''<your-client-secret>'';    
+     baseUrl: ''<uri-base-for-your-apps>'';
+     adminEmail: ''<email-of-the-first-admin>'';
+     deploy.'
 	
 	label: 'Deployment scripts'.
 ]
