@@ -78,7 +78,7 @@ FOMHomeComponent >> renderLeftMenuOn: html [
 							{('Cultivos' -> FOMCropsComponent).
 							('Fertilizantes y pesticidas' -> FOMSubstancesComponent).
 							('Principios activos' -> FOMActiveIngredienteComponent)}
-						heading: 'Catálogos'
+						heading: 'Catálogos (experto)'
 						on: html ] ]
 ]
 
