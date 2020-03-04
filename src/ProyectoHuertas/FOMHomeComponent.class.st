@@ -22,6 +22,13 @@ FOMHomeComponent class >> applicationName [
 	^'huertas'
 ]
 
+{ #category : #rendering }
+FOMHomeComponent >> barBrand [
+	"return a string for the Bar brand"
+
+	^ self subclassResponsibility
+]
+
 { #category : #'accessing-children' }
 FOMHomeComponent >> children [
 	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
@@ -54,32 +61,7 @@ FOMHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FOMHomeComponent >> renderLeftMenuOn: html [
-	html
-		form: [ html
-				listGroup: [ self
-						renderMenuBlock:
-							{('Tablero de control' -> FOMDashboardComponent).
-							('Plantación y siembra' -> FOMSowingComponent).
-							('Adversidades' -> FOMProblemsComponent).
-							('Aplicaciones' -> FOMApplicationsComponent).
-							('Cosecha' -> FOMHarvestComponent).
-							('Cronología' -> FOMEventsChronologyComponent)}
-						heading: 'Eventos'
-						on: html.
-					self
-						renderMenuBlock:
-							{('Lotes' -> FOMPlotsManagementComponent).
-							('Inventario' -> FOMInventoryComponent).
-							('Ventas' -> FOMSalesComponent)}
-						heading: 'Administración'
-						on: html.
-					self
-						renderMenuBlock:
-							{('Cultivos' -> FOMCropsComponent).
-							('Fertilizantes y pesticidas' -> FOMSubstancesComponent).
-							('Principios activos' -> FOMActiveIngredienteComponent)}
-						heading: 'Catálogos (experto)'
-						on: html ] ]
+	self subclassResponsibility
 ]
 
 { #category : #'rendering-login' }
@@ -115,9 +97,9 @@ FOMHomeComponent >> renderNavbarOn: html [
 	bar := html navigationBar.
 	bar beLight.
 	bar
-		with: [ html navigationBarBrand with: 'GAP-a-Farm'.
+		with: [ html navigationBarBrand with: self barBrand.
 			html
-				form: [ html outlineButton bePrimary  beSmall
+				form: [ html outlineButton bePrimary beSmall
 						callback: [ self logout ];
 						with: 'Salir' ] ]
 ]
