@@ -1,5 +1,5 @@
 Class {
-	#name : #SubstanceStock,
+	#name : #InventoryItem,
 	#superclass : #FOMObject,
 	#instVars : [
 		'substance',
@@ -10,12 +10,12 @@ Class {
 }
 
 { #category : #testing }
-SubstanceStock class >> isVoyageRoot [
+InventoryItem class >> isVoyageRoot [
 	^ true
 ]
 
 { #category : #'instance creation' }
-SubstanceStock class >> substance: substance quantity: quantity expirationDate: date [
+InventoryItem class >> substance: substance quantity: quantity expirationDate: date [
 	^ self new
 		substance: substance;
 		quantity: quantity;
@@ -24,31 +24,31 @@ SubstanceStock class >> substance: substance quantity: quantity expirationDate: 
 ]
 
 { #category : #accessing }
-SubstanceStock >> expirationDate [
+InventoryItem >> expirationDate [
 	^ expirationDate
 ]
 
 { #category : #accessing }
-SubstanceStock >> expirationDate: anObject [
+InventoryItem >> expirationDate: anObject [
 	expirationDate := anObject
 ]
 
 { #category : #accessing }
-SubstanceStock >> quantity [
+InventoryItem >> quantity [
 	^ quantity
 ]
 
 { #category : #accessing }
-SubstanceStock >> quantity: anObject [
+InventoryItem >> quantity: anObject [
 	quantity := anObject
 ]
 
 { #category : #accessing }
-SubstanceStock >> substance [
+InventoryItem >> substance [
 	^ substance
 ]
 
 { #category : #accessing }
-SubstanceStock >> substance: anObject [
+InventoryItem >> substance: anObject [
 	substance := anObject
 ]

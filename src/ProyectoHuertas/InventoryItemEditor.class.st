@@ -1,5 +1,5 @@
 Class {
-	#name : #SubstanceStockEditor,
+	#name : #InventoryItemEditor,
 	#superclass : #FOMEditor,
 	#instVars : [
 		'substanceEditorComponent',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'subclass-responsibility' }
-SubstanceStockEditor >> children [
+InventoryItemEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {substanceEditorComponent.
@@ -20,7 +20,7 @@ SubstanceStockEditor >> children [
 ]
 
 { #category : #'subclass-responsibility' }
-SubstanceStockEditor >> initializeComponents [
+InventoryItemEditor >> initializeComponents [
 	"Initialize all property components"
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
@@ -43,6 +43,6 @@ SubstanceStockEditor >> initializeComponents [
 ]
 
 { #category : #accessing }
-SubstanceStockEditor >> substances [
+InventoryItemEditor >> substances [
 	^ (self session substances) asOrderedCollection.
 ]

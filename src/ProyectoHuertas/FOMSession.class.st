@@ -83,6 +83,11 @@ FOMSession >> harvestings [
 	^ self plots flatCollect: [ :each | each harvests ]
 ]
 
+{ #category : #'indirect queries' }
+FOMSession >> inventoryItems [
+	^ self farm ifNotNil: [ :it | it inventoryItems ] ifNil: [ Set new ]
+]
+
 { #category : #testing }
 FOMSession >> loginRequired [
 	"true if loginApp prefference has been set, and the session has not been authenticated"
@@ -125,12 +130,6 @@ FOMSession >> showArchived [
 { #category : #'indirect queries' }
 FOMSession >> sowings [  
 	^ self plots flatCollect: [ :each | each sowings ]
-]
-
-{ #category : #'indirect queries' }
-FOMSession >> stock [
-	user ifNil: [ ^ OrderedCollection new ].
-	^ user stock
 ]
 
 { #category : #'db queries' }

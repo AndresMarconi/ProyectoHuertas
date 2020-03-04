@@ -1,18 +1,25 @@
 Class {
 	#name : #FOMInventoryComponent,
 	#superclass : #FOMAbstractListComponent,
-	#instVars : [
-		'selectedList',
-		'fertilizerList',
-		'pesticidesList'
-	],
 	#category : #'ProyectoHuertas-ui-core'
 }
 
 { #category : #adding }
+FOMInventoryComponent >> addElement [
+	| substanceStock |
+	substanceStock := self
+		call: (self elementEditorClass subject: self elementClass new).
+	substanceStock
+		ifNotNil: [ :it | 
+			it save.
+			self session farm addInventoryItem: it. 
+			self session farm save ]
+]
+
+{ #category : #adding }
 FOMInventoryComponent >> addSubstanceStock [
 	| substanceStock |
-	substanceStock := self call: (SubstanceStockEditor subject: SubstanceStock new).
+	substanceStock := self call: (InventoryItemEditor subject: InventoryItem new).
 	substanceStock ifNotNil: [ :it | 
 		it save.
 		self session farm addInventory: it.
@@ -32,60 +39,21 @@ FOMInventoryComponent >> columnValuesFor: element [
 	element quantity}
 ]
 
-{ #category : #callbacks }
-FOMInventoryComponent >> editElement: element [
-	(self call: (SubstanceStockEditor subject: element))
-		ifNotNil: [ :it | it save ]
+{ #category : #hooks }
+FOMInventoryComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ InventoryItem 
+]
+
+{ #category : #hooks }
+FOMInventoryComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ InventoryItemEditor
 ]
 
 { #category : #accessing }
 FOMInventoryComponent >> elements [
-	^ selectedList
-]
-
-{ #category : #initialization }
-FOMInventoryComponent >> initialize [
-	selectedList:= {}.
-	self initializeLists.
-	super initialize.
-]
-
-{ #category : #initialization }
-FOMInventoryComponent >> initializeLists [
-	self session farm ifNil: [ ^ self ].
-	fertilizerList := self session farm inventory
-		select: [ :each | each substance type = 'Fertilizante' ].
-	pesticidesList := self session farm inventory
-		select: [ :each | each substance type = 'Pesticida' ]
-]
-
-{ #category : #printing }
-FOMInventoryComponent >> printOn: aStream [
-	aStream nextPutAll: 'Inventario'
-]
-
-{ #category : #rendering }
-FOMInventoryComponent >> renderContentOn: html [
-	self renderListSelectorOn: html.
-	selectedList ifEmpty: [ html text: 'seleccione un tipo de susbtacia'. html break ]
-	ifNotEmpty: [ super renderContentOn: html ].
-	html anchor
-		callback: [ self addSubstanceStock ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Agregar Substancia al deposito' ]
-	
-]
-
-{ #category : #rendering }
-FOMInventoryComponent >> renderListSelectorOn: html [
-	html navigation: [
-		html navigationLink
-			beDisabledIf: [ selectedList == fertilizerList ];
-			callback: [ selectedList := fertilizerList];
-			with: 'Fertilizantes'. 
-		html navigationLink
-			beDisabledIf: [ selectedList == pesticidesList ];
-			callback: [ selectedList := pesticidesList ];
-			with: 'Pesticidas'. ]
+	^ self session inventoryItems
 ]
