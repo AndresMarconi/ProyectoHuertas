@@ -11,7 +11,7 @@ FOMLoginComponent class >> applicationName [
 
 { #category : #rendering }
 FOMLoginComponent >> appDescription [
-	^ 'Farm-o-matic es una aplicación minimalista, experimental, para gestionar',
+	^ 'GAP-a-Farm es una aplicación minimalista, experimental, para gestionar',
 	' los eventos de la granja de producción hortícola, ofreciendo',
    ' recomendaciones para a aplicación de buenas prácticas de agricultura'
 ]
@@ -22,7 +22,7 @@ FOMLoginComponent >> renderContentOn: html [
 	html
 		container: [ html break.
 			html
-				jumbotron: [ html heading: 'Farm-o-matic'.
+				jumbotron: [ html heading: 'GAP-a-Farm'.
 					html image url: FOMLibrary / #farmomaticJpeg.
 					html
 						break;

@@ -115,7 +115,7 @@ FOMHomeComponent >> renderNavbarOn: html [
 	bar := html navigationBar.
 	bar beLight.
 	bar
-		with: [ html navigationBarBrand with: 'Farm-O-Matic'.
+		with: [ html navigationBarBrand with: 'GAP-a-Farm'.
 			html
 				form: [ html outlineButton bePrimary  beSmall
 						callback: [ self logout ];
