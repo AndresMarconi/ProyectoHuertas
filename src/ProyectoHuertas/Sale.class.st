@@ -27,12 +27,6 @@ Sale >> addItem: anObject [
 	items add: anObject 
 ]
 
-{ #category : #archiving }
-Sale >> archive [
-	super archive.
-	items do: #archive
-]
-
 { #category : #accessing }
 Sale >> client [
 	^ client
@@ -66,5 +60,5 @@ Sale >> items [
 
 { #category : #removing }
 Sale >> removeItem: item [
-items remove: item.
+	items remove: item
 ]

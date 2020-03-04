@@ -108,8 +108,7 @@ FOMSession >> problems [
 
 { #category : #'indirect queries' }
 FOMSession >> sales [
-	user ifNil: [ ^ OrderedCollection new ].
-	^ user sales
+	^ self farm ifNil: [ Array new ] ifNotNil: [ :it | it sales ]
 ]
 
 { #category : #accessing }

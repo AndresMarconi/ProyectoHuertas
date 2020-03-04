@@ -3,41 +3,25 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
-		'clientEditorComponent'
+		'clientEditorComponent',
+		'saleItemsListComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
-
-{ #category : #adding }
-SaleEditor >> addItem: sale [
-	| item |
-	item := self call: (SaleItemEditor subject: SaleItem new).
-	item ifNotNil: [ :it | sale addItem: item ].
-]
 
 { #category : #'subclass-responsibility' }
 SaleEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		clientEditorComponent}, 
-		super children
-]
-
-{ #category : #callbacks }
-SaleEditor >> editElement: element [
-	(self call: (SaleItemEditor subject: element))
-]
-
-{ #category : #accessing }
-SaleEditor >> elements [ 
-	^ subject items
+	clientEditorComponent} , super children , {saleItemsListComponent}
 ]
 
 { #category : #'subclass-responsibility' }
 SaleEditor >> initializeComponents [
 	"Initialize all property components"
-	
+
+	super initializeComponents.
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
@@ -48,47 +32,5 @@ SaleEditor >> initializeComponents [
 		selector: #client
 		label: 'Cliente'
 		required: true.
-	super initializeComponents.
-]
-
-{ #category : #removing }
-SaleEditor >> removeElement: element From: sale [
-	sale removeItem: element.
-	
-]
-
-{ #category : #rendering }
-SaleEditor >> renderChildrenOn: html [
-	super renderChildrenOn: html.
-	html table
-		class: 'table table-hover';
-		with: [ html
-				tableHead: [ html
-						tableRow: [ html tableHeading: 'Producto'.
-							html tableHeading: 'Lote'.
-							html tableHeading: 'Kilo Gramos'.
-							html tableHeading: 'Opciones' ] ].
-			html
-				tableBody: [ self elements
-						do: [ :element | 
-							html
-								tableRow: [ html tableData: element product.
-									html tableData: element plot id.
-									html tableData: element kilograms.
-									html
-										tableData: [ html formButton
-												bePrimary;
-												callback: [ self editElement: element ];
-												with: [ html span class: 'fa fa-pencil' ].
-											html space.
-											html formButton
-												beDanger;
-												callback: [ self removeElement: element From: subject ];
-												with: [ html span class: 'fa fa-trash' ] ] ] ] ] ].
-	html div
-		style: 'padding-bottom: 15px;';
-		with: [ html formButton
-				bePrimary;
-				callback: [ self addItem: subject ];
-				with: 'Agregar Item' ]
+	saleItemsListComponent := FOMSaleItemsListComponent parent: self
 ]

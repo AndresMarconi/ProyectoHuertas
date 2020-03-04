@@ -9,11 +9,6 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #testing }
-SaleItem class >> isVoyageRoot [
-	^ true
-]
-
 { #category : #'instance creation' }
 SaleItem class >> product: aProduct kilograms: kg fromPlot: aPlot [
 	^ self new

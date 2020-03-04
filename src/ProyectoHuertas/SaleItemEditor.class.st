@@ -19,29 +19,33 @@ SaleItemEditor >> children [
 		super children
 ]
 
+{ #category : #accessing }
+SaleItemEditor >> crops [
+	^ self session crops
+]
+
 { #category : #'subclass-responsibility' }
 SaleItemEditor >> initializeComponents [
 	"Initialize all property components"
+
 	productEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #product
 		label: 'Producto'
 		required: true.
-	productEditorComponent
-		possibleValues: {nil} , (self varieties).
+	productEditorComponent possibleValues: self crops.
 	kilogramsEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #kilograms
-		label: 'kilogramos'
+		label: 'Cantidad (Kg)'
 		required: true.
 	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #plot
-		label: 'Lote'
+		label: 'Lote de origen'
 		required: true.
-	plotEditorComponent
-		possibleValues: {nil} , (self plots).
-	super initializeComponents.
+	plotEditorComponent possibleValues: {nil} , self plots.
+	super initializeComponents
 ]
 
 { #category : #accessing }

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'plots',
-		'inventoryItems'
+		'inventoryItems',
+		'sales'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -31,6 +32,11 @@ Farm >> addPlot: anObject [
 	plots add: anObject
 ]
 
+{ #category : #accessing }
+Farm >> addSale: anObject [
+	plots add: anObject
+]
+
 { #category : #archiving }
 Farm >> archive [
 	super archive.
@@ -52,7 +58,8 @@ Farm >> events [
 Farm >> initialize [
 	super initialize.
 	plots := OrderedCollection new.
-	inventoryItems := OrderedCollection new
+	inventoryItems := OrderedCollection new.
+	sales := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -78,6 +85,11 @@ Farm >> name: anObject [
 { #category : #accessing }
 Farm >> plots [
 	^ plots reject: [ :plot | plot archived ]
+]
+
+{ #category : #accessing }
+Farm >> sales [
+	^ sales
 ]
 
 { #category : #accessing }

@@ -13,6 +13,13 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #'instance creation' }
+FOMAbstractComponent class >> parent: aComponent [
+	^ self new
+		parent: aComponent;
+		yourself
+]
+
 { #category : #initialization }
 FOMAbstractComponent >> initialize [
 	super initialize.

@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #adding }
+FOMSalesComponent >> addElement [
+	| sale |
+	sale := self
+		call: (self elementEditorClass subject: self elementClass new).
+	sale
+		ifNotNil: [ :it | 
+			it save.
+			self session farm addSale: it.
+			self session farm save ]
+]
+
+{ #category : #adding }
 FOMSalesComponent >> addSale [
 	| sale |
 	sale := self call: (SaleEditor subject: Sale new).
@@ -32,28 +44,21 @@ FOMSalesComponent >> editElement: element [
 	sale ifNotNil: [ :it | it save ]
 ]
 
+{ #category : #hooks }
+FOMSalesComponent >> elementClass [
+	"Returns the class of elements to edit and add"
+
+	^ Sale
+]
+
+{ #category : #hooks }
+FOMSalesComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ SaleEditor 
+]
+
 { #category : #callbacks }
 FOMSalesComponent >> elements [
 	^ (self session sales) asSortedCollection: [ :a :b | a date > b date ]
-]
-
-{ #category : #callbacks }
-FOMSalesComponent >> heading [ 
-	^ 'Ventas'
-]
-
-{ #category : #printing }
-FOMSalesComponent >> printOn: aStream [
-	aStream nextPutAll: 'Ventas'
-]
-
-{ #category : #rendering }
-FOMSalesComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html break.
-	html anchor
-		callback: [ self addSale ];
-		with: [ html formButton
-				bePrimary;
-				with: 'Registrar venta' ]
 ]

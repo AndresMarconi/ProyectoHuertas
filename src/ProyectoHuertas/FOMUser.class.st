@@ -5,9 +5,6 @@ Class {
 		'email',
 		'fullname',
 		'farms',
-		'stock',
-		'sales',
-		'inventory',
 		'otherProperties'
 	],
 	#category : #'ProyectoHuertas-ui-core'
@@ -49,21 +46,6 @@ FOMUser >> addFarm: aFarm [
 ]
 
 { #category : #accessing }
-FOMUser >> addInventory: aInventoryItem [
-	inventory add: aInventoryItem 
-]
-
-{ #category : #accessing }
-FOMUser >> addSale: aSale [
-	sales add: aSale 
-]
-
-{ #category : #accessing }
-FOMUser >> addStock: aSubstance [
-	stock add: aSubstance  
-]
-
-{ #category : #accessing }
 FOMUser >> email [
 	^ email
 ]
@@ -89,17 +71,9 @@ FOMUser >> fullname: anObject [
 ]
 
 { #category : #initialization }
-FOMUser >> initialize [ 
-   super initialize. 
-	farms := OrderedCollection new.
-	stock := OrderedCollection new.
-	sales := OrderedCollection new.
-	inventory := OrderedCollection new
-]
-
-{ #category : #accessing }
-FOMUser >> inventory [
-	^ stock reject: [ :inventoryItem | inventoryItem archived ]
+FOMUser >> initialize [
+	super initialize.
+	farms := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -110,14 +84,4 @@ FOMUser >> otherProperties [
 { #category : #accessing }
 FOMUser >> otherProperties: anObject [
 	otherProperties := anObject
-]
-
-{ #category : #accessing }
-FOMUser >> sales [
-	^ sales reject: [ :sale | sale archived ]
-]
-
-{ #category : #accessing }
-FOMUser >> stock [
-	^ stock reject: [ :substance | substance archived ]
 ]
