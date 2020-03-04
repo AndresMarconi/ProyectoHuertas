@@ -27,5 +27,5 @@ FOMActiveIngredienteComponent >> elementEditorClass [
 
 { #category : #accessing }
 FOMActiveIngredienteComponent >> elements [
-	^ self session activeIngredients
+	^ (self session activeIngredients) asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]

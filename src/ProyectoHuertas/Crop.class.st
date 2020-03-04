@@ -18,7 +18,7 @@ Crop class >> isVoyageRoot [
 Crop class >> name: aName yield: aYield [
 	^ self new
 		vulgarName: aName;
-		yield: 0;
+		optimalYield: 0;
 		yourself
 ]
 

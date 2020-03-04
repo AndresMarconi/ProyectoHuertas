@@ -11,7 +11,7 @@ Class {
 
 { #category : #'db queries' }
 FOMSession >> activeIngredients [
-	^ ActiveIngredient selectMany: [ :each | each archived = false ]
+	^ (ActiveIngredient selectMany: [ :each | each archived = false ]) asOrderedCollection
 ]
 
 { #category : #'indirect queries' }
