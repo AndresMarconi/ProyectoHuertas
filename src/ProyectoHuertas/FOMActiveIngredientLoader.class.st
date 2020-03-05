@@ -1392,7 +1392,7 @@ FOMActiveIngredientLoader >> makeWhiteList2Of: cultivar with: whiteListItemsAsDi
 	whiteListItemsAsDic do: [ :each | 
 		actIng:= self findActiveIngredient: (each at: 'principio activo').
 		actIng ifNotNil: [ 
-			whiteListItem:= WhiteListItem new.
+			whiteListItem:= Object new.
 			whiteListItem 
 				activeIngredient: actIng;
 				aptitud: '-';
@@ -1407,7 +1407,7 @@ FOMActiveIngredientLoader >> makeWhiteList2Of: cultivar with: whiteListItemsAsDi
 FOMActiveIngredientLoader >> makeWhiteListOf: cultivar with: whiteListItemsAsDic [
 	| whiteListItem |
 	whiteListItemsAsDic do: [ :each | 
-		whiteListItem:= WhiteListItem new.
+		whiteListItem:= Object new.
 		whiteListItem 
 			activeIngredient: (each at: 'Principio activo' ifAbsent: [ ' ' ]);
 			aptitud: (each at: 'Aptitud' ifAbsent: [ ' ' ]);
