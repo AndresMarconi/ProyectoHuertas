@@ -77,3 +77,8 @@ Substance >> usage [
 Substance >> usage: anObject [
 	usage := anObject
 ]
+
+{ #category : #accessing }
+Substance >> withdrawalPeriodRecommendations [
+	^ withdrawalPeriodRecommendations
+]

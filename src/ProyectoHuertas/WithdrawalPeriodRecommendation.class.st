@@ -3,20 +3,29 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'daysToWait',
-		'cropsAffected',
+		'crop',
 		'referenceUrl'
 	],
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #accessing }
-WithdrawalPeriodRecommendation >> cropsAffected [
-	^ cropsAffected
+{ #category : #'instance-creation' }
+WithdrawalPeriodRecommendation class >> daysToWait: days crop: crop referenceUrl: url [
+	^ self new
+		daysToWait: days;
+		crop: crop;
+		referenceUrl: url;
+		yourself
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> cropsAffected: anObject [
-	cropsAffected := anObject
+WithdrawalPeriodRecommendation >> crop [
+	^ crop
+]
+
+{ #category : #accessing }
+WithdrawalPeriodRecommendation >> crop: anObject [
+	crop := anObject
 ]
 
 { #category : #accessing }
@@ -27,11 +36,6 @@ WithdrawalPeriodRecommendation >> daysToWait [
 { #category : #accessing }
 WithdrawalPeriodRecommendation >> daysToWait: anObject [
 	daysToWait := anObject
-]
-
-{ #category : #initialization }
-WithdrawalPeriodRecommendation >> initialize [
-	cropsAffected := OrderedCollection new
 ]
 
 { #category : #accessing }
