@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'comercialName',
 		'activeIngredients',
-		'usage'
+		'usage',
+		'withdrawalPeriodRecommendations'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -35,6 +36,11 @@ Substance >> activeIngredients: anObject [
 ]
 
 { #category : #accessing }
+Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
+	withdrawalPeriodRecommendations add: withdrawalPeriodRecommendation
+]
+
+{ #category : #accessing }
 Substance >> comercialName [
 	^ comercialName
 ]
@@ -44,10 +50,22 @@ Substance >> comercialName: anObject [
 	comercialName := anObject
 ]
 
+{ #category : #initialization }
+Substance >> initialize [
+	super initialize.
+	withdrawalPeriodRecommendations := OrderedCollection new
+]
+
 { #category : #printing }
 Substance >> printOn: aStream [
 	^ aStream
 		nextPutAll: (self comercialName).
+]
+
+{ #category : #accessing }
+Substance >> removeWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
+	withdrawalPeriodRecommendations
+		remove: withdrawalPeriodRecommendation
 ]
 
 { #category : #accessing }

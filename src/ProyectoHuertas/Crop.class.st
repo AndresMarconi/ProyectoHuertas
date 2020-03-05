@@ -3,8 +3,7 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'vulgarName',
-		'optimalYield',
-		'whiteList'
+		'optimalYield'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -22,15 +21,9 @@ Crop class >> name: aName yield: aYield [
 		yourself
 ]
 
-{ #category : #adding }
-Crop >> addIngredient: anIngredient [
-	whiteList add: anIngredient
-]
-
 { #category : #initialization }
 Crop >> initialize [
 	super initialize.
-	whiteList := OrderedCollection new.
 	optimalYield := 0
 ]
 
@@ -58,9 +51,4 @@ Crop >> vulgarName [
 { #category : #accessing }
 Crop >> vulgarName: anObject [
 	vulgarName := anObject
-]
-
-{ #category : #adding }
-Crop >> whiteList [
-	^ whiteList
 ]

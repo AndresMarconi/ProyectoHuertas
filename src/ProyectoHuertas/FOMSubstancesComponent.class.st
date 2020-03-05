@@ -25,6 +25,12 @@ FOMSubstancesComponent >> columnValuesFor: element [
 	(self asCommaSeparatedList: element activeIngredients)}
 ]
 
+{ #category : #callbacks }
+FOMSubstancesComponent >> editWithdrawalPeriodRecommendations: aSubstance [
+	self
+		call: (FOMWithdrawalTimeRecommendationsEditor substance: aSubstance)
+]
+
 { #category : #hooks }
 FOMSubstancesComponent >> elementClass [
 	"Returns the class of elements to edit and add"
@@ -39,12 +45,26 @@ FOMSubstancesComponent >> elementEditorClass [
 	^ SubstanceEditor
 ]
 
-{ #category : #callbacks }
+{ #category : #accessing }
 FOMSubstancesComponent >> elements [
 	^ (self session substances) asSortedCollection: [ :a :b | a comercialName < b comercialName ]
 ]
 
-{ #category : #callbacks }
-FOMSubstancesComponent >> heading [ 
-	^ 'Substancias'
+{ #category : #rendering }
+FOMSubstancesComponent >> renderActionButtonsFor: element on: html [
+	html
+		form: [ html formButton
+				bePrimary;
+				callback: [ self editElement: element ];
+				with: [ html span class: 'fa fa-pencil' ].
+			html space.
+			html formButton
+				bePrimary;
+				callback: [ self editWithdrawalPeriodRecommendations: element ];
+				with: [ html span class: 'fa fa-calendar-times-o' ].
+			html space.
+			html formButton
+				beDanger;
+				callback: [ self removeElement: element ];
+				with: [ html span class: 'fa fa-trash' ] ]
 ]

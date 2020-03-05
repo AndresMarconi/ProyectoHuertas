@@ -20,11 +20,6 @@ WhiteListItem class >> activeIngredient: anActiveIngredient aptitud: anAptitud w
 		yourself
 ]
 
-{ #category : #testing }
-WhiteListItem class >> isVoyageRoot [
-	^ true
-]
-
 { #category : #accessing }
 WhiteListItem >> activeIngredient [
 	^ activeIngredient

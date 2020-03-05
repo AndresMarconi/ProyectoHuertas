@@ -87,7 +87,7 @@ FOMHomeComponent >> renderMenuBlock: associations heading: head on: html [
 			selectedComponent species = ass value
 				ifTrue: [ item beActive ].
 			item
-				callback: [ selectedComponent := ass value new ];
+				callback: [ selectedComponent := ass value parent: self ];
 				with: ass key ]
 ]
 
