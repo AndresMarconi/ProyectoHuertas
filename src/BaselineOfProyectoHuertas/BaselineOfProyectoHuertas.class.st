@@ -18,8 +18,8 @@ BaselineOfProyectoHuertas >> baseline: spec [
 			spec
 				package: 'ProyectoHuertas'
 				with: [ spec
-						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside') ] ].
-	self postLoadActions
+						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside') ].
+			spec postLoadDoIt: #postLoadActions ]
 ]
 
 { #category : #baselines }
