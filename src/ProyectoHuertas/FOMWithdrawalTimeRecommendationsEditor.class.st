@@ -42,12 +42,12 @@ FOMWithdrawalTimeRecommendationsEditor >> crops [
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> days [
-	^ days
+	^ days asString
 ]
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> days: anObject [
-	days := anObject
+	days := anObject asNumber
 ]
 
 { #category : #initialization }
@@ -119,7 +119,7 @@ FOMWithdrawalTimeRecommendationsEditor >> renderWithdrawalRecommendationPeriodsO
 					html
 						listItem: [ html
 								text:
-									each crop vulgarName , ' (' , each daysToWait , ' días) - '
+									each crop vulgarName , ' (' , each daysToWait asString, ' días) - '
 										, each referenceUrl.
 							html space.
 							html anchor

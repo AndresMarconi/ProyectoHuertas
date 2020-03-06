@@ -82,3 +82,15 @@ Substance >> usage: anObject [
 Substance >> withdrawalPeriodRecommendations [
 	^ withdrawalPeriodRecommendations
 ]
+
+{ #category : #accessing }
+Substance >> withdrawalPeriodRecommendationsByDays [
+	| simplifiedWithdrawalPeriodRecommendations |
+	simplifiedWithdrawalPeriodRecommendations := Dictionary new.
+	withdrawalPeriodRecommendations
+		do: [ :recommendation | 
+			(simplifiedWithdrawalPeriodRecommendations
+				at: recommendation daysToWait 
+				ifAbsentPut: OrderedCollection new) add: recommendation ].
+	^ simplifiedWithdrawalPeriodRecommendations
+]

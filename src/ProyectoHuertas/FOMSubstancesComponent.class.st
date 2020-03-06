@@ -13,7 +13,7 @@ FOMSubstancesComponent >> asCommaSeparatedList: activeIngredients [
 
 { #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
-	^ {'Nombre comercial'. 'Uso'. 'Principios activos'. }
+	^ {'Nombre comercial'. 'Uso'. 'Principios activos'. 'Períodos de carencia' }
 ]
 
 { #category : #rendering }
@@ -22,7 +22,8 @@ FOMSubstancesComponent >> columnValuesFor: element [
 
 	^ {element comercialName.
 	element usage.
-	(self asCommaSeparatedList: element activeIngredients)}
+	(self asCommaSeparatedList: element activeIngredients).
+	(self withdrawalStringFor: element)}
 ]
 
 { #category : #callbacks }
@@ -67,4 +68,22 @@ FOMSubstancesComponent >> renderActionButtonsFor: element on: html [
 				beDanger;
 				callback: [ self removeElement: element ];
 				with: [ html span class: 'fa fa-trash' ] ]
+]
+
+{ #category : #rendering }
+FOMSubstancesComponent >> withdrawalStringFor: aSubstance [
+	| stream |
+	stream := String new writeStream.
+	(aSubstance withdrawalPeriodRecommendationsByDays associations
+		asSortedCollection: [ :a :b | a key < b key ])
+		do: [ :association | 
+			association value
+				do: [ :recommendation| stream nextPutAll:  recommendation crop vulgarName ]
+				separatedBy: [ stream nextPutAll: ', ' ].
+			stream nextPutAll: ': '.
+			stream
+				nextPutAll: association key asString;
+				nextPutAll: ' días' ]
+		separatedBy: [ stream nextPutAll: ' - ' ].
+	^ stream contents
 ]
