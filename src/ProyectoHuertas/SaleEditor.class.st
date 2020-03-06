@@ -4,17 +4,28 @@ Class {
 	#instVars : [
 		'dateEditorComponent',
 		'clientEditorComponent',
-		'saleItemsListComponent'
+		'listComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #callbacks }
+SaleEditor >> accept [
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
+	listComponent accept.
+	parent
+		ifNil: [ self answer: subject ]
+		ifNotNil: [ :it | it answer: subject ]
+]
 
 { #category : #'subclass-responsibility' }
 SaleEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-	clientEditorComponent} , super children , {saleItemsListComponent}
+	clientEditorComponent } , super children
 ]
 
 { #category : #'subclass-responsibility' }
@@ -32,5 +43,14 @@ SaleEditor >> initializeComponents [
 		selector: #client
 		label: 'Cliente'
 		required: true.
-	saleItemsListComponent := FOMSaleItemsListComponent parent: self
+]
+
+{ #category : #rendering }
+SaleEditor >> renderContentOn: html [
+	html
+		form: [ self renderChildrenOn: html.
+			self renderProblemsOn: html.
+			self renderButtonsOn: html ].
+	listComponent := SaleListItemEditor subject: subject.
+	html render: (listComponent ). 
 ]

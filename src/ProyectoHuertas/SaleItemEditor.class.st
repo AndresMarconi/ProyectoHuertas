@@ -15,8 +15,7 @@ SaleItemEditor >> children [
 
 	^ {productEditorComponent.
 		kilogramsEditorComponent.
-		plotEditorComponent}, 
-		super children
+		plotEditorComponent}
 ]
 
 { #category : #accessing }
@@ -45,7 +44,6 @@ SaleItemEditor >> initializeComponents [
 		label: 'Lote de origen'
 		required: true.
 	plotEditorComponent possibleValues: {nil} , self plots.
-	super initializeComponents
 ]
 
 { #category : #accessing }
@@ -53,7 +51,8 @@ SaleItemEditor >> plots [
 	^ (self session plots) asOrderedCollection.
 ]
 
-{ #category : #accessing }
-SaleItemEditor >> varieties [
-	^ (self session varieties) asOrderedCollection.
+{ #category : #rendering }
+SaleItemEditor >> renderContentOn: html [
+	self children do: [ :each | html tableData: [each renderInputOn: html] ]
+	
 ]
