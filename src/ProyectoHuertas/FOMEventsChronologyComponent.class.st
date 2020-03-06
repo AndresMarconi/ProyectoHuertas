@@ -13,7 +13,7 @@ FOMEventsChronologyComponent class >> plot: aPlot [
 	component:= self new.
 	component
 		plot: aPlot;
-		paginator: (Paginator newTotalElements: component elements perPage: 10).
+		paginator: (Paginator newTotalElements: (component elements size) perPage: 10).
 	^ component
 ]
 
@@ -74,7 +74,7 @@ FOMEventsChronologyComponent >> renderPlotFilterOn: html [
 					formControl;
 					selected: plot;
        			callback: [ :value | plot:= value. 
-						paginator:= Paginator newTotalElements: self elements perPage: 10 ];
+						paginator:= Paginator newTotalElements: (self elements size) perPage: 10 ];
 					id: 'plot';
 					list: {nil}, self session plots. ] mediumSize: 3;
 			column:[  

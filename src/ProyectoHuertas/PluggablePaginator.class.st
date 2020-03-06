@@ -60,6 +60,16 @@ PluggablePaginator >> pageCount [
 ]
 
 { #category : #rendering }
+PluggablePaginator >> renderItem: simbol Number: aNumber Active: boolean on: html [
+	html listItem
+		class: 'page-item ', (boolean ifTrue: [ 'active' ]);
+		with: [ html anchor
+			class: 'page-link';
+			callback: [ currentPage := aNumber ];
+			with: simbol ]
+]
+
+{ #category : #rendering }
 PluggablePaginator >> renderNextButtonOn: html [
 	currentPage = self pageCount
 		ifTrue: [ html listItem
@@ -78,20 +88,11 @@ PluggablePaginator >> renderNextButtonOn: html [
 
 { #category : #rendering }
 PluggablePaginator >> renderPagesOn: html [
+	
 	1 to: self pageCount do: [ :pageNumber | 
 		currentPage = pageNumber
-			ifTrue: [ html listItem
-					class: 'page-item active';
-					with: [ html anchor
-							class: 'page-link';
-							callback: [ currentPage := pageNumber ];
-							with: pageNumber ] ]
-			ifFalse: [ html listItem
-					class: 'page-item';
-					with: [ html anchor
-							class: 'page-link';
-							callback: [ currentPage := pageNumber ];
-							with: pageNumber ] ] ]
+			ifTrue: [ self renderItem: pageNumber Number: pageNumber Active: true on: html ]
+			ifFalse: [ self renderItem: pageNumber Number: pageNumber Active: false on: html ] ]
 ]
 
 { #category : #rendering }

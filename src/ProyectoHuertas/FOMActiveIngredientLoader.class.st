@@ -1338,7 +1338,6 @@ FOMActiveIngredientLoader >> getJsonOf: stringJson [
 FOMActiveIngredientLoader >> initialize [
 	self createCollectionOfActiveIngredients.
 	self createCollectionOfCultivar.
-	self createCollectionOfWhiteListItems.
 ]
 
 { #category : #'as yet unclassified' }

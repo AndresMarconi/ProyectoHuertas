@@ -62,7 +62,7 @@ FOMAbstractListComponent >> initialize [
 	editEnabled := true.
 	removeEnabled := true.
 	addEnabled := true.
-	paginator := Paginator newTotalElements: self elements perPage: 10
+	paginator := Paginator newTotalElements: (self elements size) perPage: 10
 ]
 
 { #category : #accessing }
