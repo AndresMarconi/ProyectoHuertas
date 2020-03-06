@@ -77,7 +77,7 @@ Plot >> initialize [
 { #category : #accessing }
 Plot >> lastSowing [
 	self sowings ifEmpty: [ ^ 'sin siembras' ] 
-		ifNotEmpty:[ ^ self sowings first variety ]
+		ifNotEmpty:[ ^ self sowings first crop ]
 ]
 
 { #category : #printing }

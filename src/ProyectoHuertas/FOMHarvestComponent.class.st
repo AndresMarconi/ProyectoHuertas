@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 FOMHarvestComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. 'Superficie (m2)'. }
+	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad (Kg)' . 'Superficie (m2)'}
 ]
 
 { #category : #rendering }
@@ -15,7 +15,8 @@ FOMHarvestComponent >> columnValuesFor: element [
 
 	^ {element date asDate ddmmyyyy.
 	element plot id.
-	element variety vulgarName.
+	element crop vulgarName.
+	element cultivarName.
 	element surface.
 	element quantity}
 ]

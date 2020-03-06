@@ -19,12 +19,13 @@ FOMEventsChronologyComponent class >> plot: aPlot [
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> columnHeadings [
-	^ {'Fecha' . 'Tipo de evento' . 'Resumen'}
+	^ {'Fecha' . 'Lote'. 'Tipo de evento' . 'Resumen'}
 ]
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
+	element plot id.
 	(self typeDescriptorFor: element).
 	(element summaryFor: self)}
 ]
@@ -105,7 +106,7 @@ FOMEventsChronologyComponent >> summaryForApplication: anApplication [
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForHarvesting: aHarvesting [
 	^  aHarvesting otherUnit, ' de '
-		, aHarvesting variety vulgarName
+		, aHarvesting crop vulgarName
 ]
 
 { #category : #summaries }
@@ -115,7 +116,7 @@ FOMEventsChronologyComponent >> summaryForProblem: aProblem [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForSowing: aSowing [
-	^ aSowing variety vulgarName , ' (' , aSowing quantity printString, ')'
+	^ aSowing crop vulgarName , ' (' , aSowing quantity printString, ')'
 ]
 
 { #category : #rendering }

@@ -3,12 +3,13 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'dateEditorComponent',
-		'varietyEditorComponent',
 		'quantityEditorComponent',
 		'timeToHarvestEditorComponent',
 		'harvestDurationEditorComponent',
 		'expectedYieldEditorComponent',
-		'plotEditorComponent'
+		'plotEditorComponent',
+		'cropEditorComponent',
+		'cultivarEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -19,16 +20,22 @@ SowingEditor >> children [
 
 	^ {dateEditorComponent.
 	plotEditorComponent.
-	varietyEditorComponent.
+	cropEditorComponent.
+	cultivarEditorComponent.
 	quantityEditorComponent.
 	timeToHarvestEditorComponent.
-	harvestDurationEditorComponent. 
+	harvestDurationEditorComponent.
 	expectedYieldEditorComponent} , super children
+]
+
+{ #category : #accessing }
+SowingEditor >> crops [
+	^ (self session crops) asOrderedCollection
 ]
 
 { #category : #'subclass-responsibility' }
 SowingEditor >> initializeComponents [
-	"Initialize all property components" 
+	"Initialize all property components"
 
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
@@ -41,12 +48,17 @@ SowingEditor >> initializeComponents [
 		label: 'Lote'
 		required: true.
 	plotEditorComponent possibleValues: self plots.
-	varietyEditorComponent := DropdownSelectPropertyEditorComponent
+	cropEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #variety
+		selector: #crop
 		label: 'Cultivo'
 		required: true.
-	varietyEditorComponent possibleValues: {nil} , self varieties.
+	cropEditorComponent possibleValues: {nil} , self crops.
+	cultivarEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #cultivarName
+		label: 'Variedad (cultivar)'
+		required: false.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -73,9 +85,4 @@ SowingEditor >> initializeComponents [
 { #category : #accessing }
 SowingEditor >> plots [
 	^ self session plots asOrderedCollection
-]
-
-{ #category : #accessing }
-SowingEditor >> varieties [
-	^ (self session crops) asOrderedCollection
 ]

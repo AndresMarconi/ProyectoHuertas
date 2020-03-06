@@ -5,9 +5,10 @@ Class {
 		'dateEditorComponent',
 		'surfaceEditorComponent',
 		'quantityEditorComponent',
-		'varietyEditorComponent',
 		'otherUnitEditorComponent',
-		'plotEditorComponent'
+		'plotEditorComponent',
+		'cultivarEditorComponent',
+		'cropEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -17,16 +18,21 @@ HarvestingEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		plotEditorComponent.
-		quantityEditorComponent.
-		otherUnitEditorComponent.
-		varietyEditorComponent}, 
-		super children
+	plotEditorComponent.
+	quantityEditorComponent.
+	otherUnitEditorComponent.
+	cropEditorComponent.
+	cultivarEditorComponent} , super children
+]
+
+{ #category : #accessing }
+HarvestingEditor >> crops [
+	^ (self session crops) asOrderedCollection.
 ]
 
 { #category : #'as yet unclassified' }
 HarvestingEditor >> defaultProduct [
-	^ self session selectedPlot sowings last variety
+	^ self session selectedPlot sowings last crop
 ]
 
 { #category : #'as yet unclassified' }
@@ -49,11 +55,16 @@ HarvestingEditor >> initializeComponents [
 		label: 'Lote'
 		required: true.
 	plotEditorComponent possibleValues: self plots.
-	varietyEditorComponent := DropdownSelectPropertyEditorComponent
+	cropEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #variety
-		label: 'Producto'
+		selector: #crop
+		label: 'Cultivo'
 		required: true.
+	cultivarEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #cultivarName
+		label: 'Variedad (cultivar)'
+		required: false.
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -64,16 +75,11 @@ HarvestingEditor >> initializeComponents [
 		selector: #otherUnit
 		label: 'Unidad adicional de medida'
 		required: false.
-	varietyEditorComponent possibleValues: {nil} , self varieties.
+	cropEditorComponent possibleValues: {nil} , self crops.
 	super initializeComponents
 ]
 
 { #category : #accessing }
 HarvestingEditor >> plots [
 	^ self session plots asOrderedCollection
-]
-
-{ #category : #accessing }
-HarvestingEditor >> varieties [
-	^ (self session crops) asOrderedCollection.
 ]

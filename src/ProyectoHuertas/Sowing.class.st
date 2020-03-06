@@ -5,7 +5,8 @@ Class {
 		'conductionSystem',
 		'quantity',
 		'distribution',
-		'variety',
+		'crop',
+		'cultivarName',
 		'timeToHarvest',
 		'harvestDuration',
 		'expectedYield'
@@ -43,6 +44,26 @@ Sowing >> conductionSystem [
 { #category : #accessing }
 Sowing >> conductionSystem: anObject [
 	conductionSystem := anObject
+]
+
+{ #category : #accessing }
+Sowing >> crop [
+	^ crop
+]
+
+{ #category : #accessing }
+Sowing >> crop: anObject [
+	crop := anObject
+]
+
+{ #category : #accessing }
+Sowing >> cultivarName [
+	^ cultivarName
+]
+
+{ #category : #accessing }
+Sowing >> cultivarName: anObject [
+	cultivarName := anObject
 ]
 
 { #category : #accessing }
@@ -98,14 +119,4 @@ Sowing >> timeToHarvest [
 { #category : #accessing }
 Sowing >> timeToHarvest: anObject [
 	timeToHarvest := anObject
-]
-
-{ #category : #accessing }
-Sowing >> variety [
-	^ variety
-]
-
-{ #category : #accessing }
-Sowing >> variety: anObject [
-	variety := anObject
 ]

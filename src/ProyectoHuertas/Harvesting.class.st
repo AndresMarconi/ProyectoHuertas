@@ -3,7 +3,8 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'quantity',
-		'variety',
+		'crop',
+		'cultivarName',
 		'otherUnit'
 	],
 	#category : #'ProyectoHuertas-model'
@@ -38,6 +39,26 @@ Harvesting class >> variety: aVariety quantity: aQuantity date: aDate otherUnit:
 		yourself
 ]
 
+{ #category : #accessing }
+Harvesting >> crop [
+	^ crop
+]
+
+{ #category : #accessing }
+Harvesting >> crop: anObject [
+	crop := anObject
+]
+
+{ #category : #accessing }
+Harvesting >> cultivarName [
+	^ cultivarName
+]
+
+{ #category : #accessing }
+Harvesting >> cultivarName: anObject [
+	cultivarName := anObject
+]
+
 { #category : #testing }
 Harvesting >> isEvent: aName [
 	^ aName = 'harvest'
@@ -66,14 +87,4 @@ Harvesting >> quantity: anObject [
 { #category : #printing }
 Harvesting >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForHarvesting: self
-]
-
-{ #category : #accessing }
-Harvesting >> variety [
-	^ variety
-]
-
-{ #category : #accessing }
-Harvesting >> variety: anObject [
-	variety := anObject
 ]
