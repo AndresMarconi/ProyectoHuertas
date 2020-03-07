@@ -7,7 +7,8 @@ Class {
 		'doseEditorComponent',
 		'machineEditorComponent',
 		'substanceEditorComponent',
-		'plotEditorComponent'
+		'plotEditorComponent',
+		'reasonEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -17,16 +18,17 @@ ApplicationEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		plotEditorComponent.
-		doseEditorComponent.
-		machineEditorComponent.
-		substanceEditorComponent}, 
-		super children
+	plotEditorComponent.
+	reasonEditorComponent.
+	substanceEditorComponent.
+	doseEditorComponent.
+	machineEditorComponent} , super children
 ]
 
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> initializeComponents [
 	"Initialize all property components"
+
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
@@ -38,6 +40,12 @@ ApplicationEditor >> initializeComponents [
 		label: 'Lote'
 		required: true.
 	plotEditorComponent possibleValues: self plots.
+	reasonEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #reason
+		label: 'Razón'
+		required: true.
+	reasonEditorComponent possibleValues: self possibleReasons.
 	doseEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #dose
@@ -53,14 +61,19 @@ ApplicationEditor >> initializeComponents [
 		selector: #substance
 		label: 'Producto'
 		required: true.
-	substanceEditorComponent
-		possibleValues: {nil} , (self substances).
-	super initializeComponents.
+	substanceEditorComponent possibleValues: {nil} , self substances.
+	super initializeComponents
 ]
 
 { #category : #accessing }
 ApplicationEditor >> plots [
 	^ self session plots asOrderedCollection
+]
+
+{ #category : #'subclass-responsibility' }
+ApplicationEditor >> possibleReasons [
+	^ {'Control de peste' . 'Tratamiento de enfermedad'.
+	'Prevención' . 'Preparación de suelo' . 'Otro (aclarar en notas)'}
 ]
 
 { #category : #accessing }

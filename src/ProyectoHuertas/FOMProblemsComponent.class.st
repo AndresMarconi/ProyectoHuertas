@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 FOMProblemsComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Superficie afectada(m2)'. }
+	^ {'Fecha' . 'Lote' . 'Adversidad'. }
 ]
 
 { #category : #rendering }
@@ -15,7 +15,7 @@ FOMProblemsComponent >> columnValuesFor: element [
 
 	^ {element date asDate ddmmyyyy.
 	element plot id.
-	element name}
+	(element name , ' (' , element type , ')')}
 ]
 
 { #category : #hooks }

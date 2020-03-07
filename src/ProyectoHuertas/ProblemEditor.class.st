@@ -4,25 +4,31 @@ Class {
 	#instVars : [
 		'dateEditorComponent',
 		'nameEditorComponent',
-		'plotEditorComponent'
+		'plotEditorComponent',
+		'problemTypeEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #'subclass-responsibility' }
+ProblemEditor >> allowedProblemTypes [
+	^ {'Peste' . 'Enfermedad' . 'Otro'}
+]
 
 { #category : #'subclass-responsibility' }
 ProblemEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-		plotEditorComponent.
-		nameEditorComponent}, 
-		super children
+	plotEditorComponent.
+	problemTypeEditorComponent.
+	nameEditorComponent} , super children
 ]
 
 { #category : #'subclass-responsibility' }
 ProblemEditor >> initializeComponents [
 	"Initialize all property components"
-	
+
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
 		selector: #date
@@ -39,7 +45,13 @@ ProblemEditor >> initializeComponents [
 		selector: #name
 		label: 'Problema'
 		required: true.
-	super initializeComponents.
+	problemTypeEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #type
+		label: 'Tipo de problema'
+		required: true.
+	problemTypeEditorComponent possibleValues: self allowedProblemTypes.
+	super initializeComponents
 ]
 
 { #category : #accessing }

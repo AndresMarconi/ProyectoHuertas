@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'substance',
 		'machine',
-		'dose'
+		'dose',
+		'reason'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -48,6 +49,16 @@ Application >> machine [
 { #category : #accessing }
 Application >> machine: anObject [
 	machine := anObject
+]
+
+{ #category : #accessing }
+Application >> reason [
+	^ reason
+]
+
+{ #category : #accessing }
+Application >> reason: anObject [
+	reason := anObject
 ]
 
 { #category : #accessing }
