@@ -6,16 +6,15 @@ Class {
 
 { #category : #rendering }
 FOMProblemsComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Adversidad'. }
+	^ super columnHeadings , { 'Adversidad'. }
 ]
 
 { #category : #rendering }
 FOMProblemsComponent >> columnValuesFor: element [
 	" {'Fecha' . 'Lote' . 'Problema'. }"
 
-	^ {element date asDate ddmmyyyy.
-	element plot id.
-	(element name , ' (' , element type , ')')}
+	^ (super columnValuesFor: element)
+		, {(element name , ' (' , element type , ')')}
 ]
 
 { #category : #hooks }

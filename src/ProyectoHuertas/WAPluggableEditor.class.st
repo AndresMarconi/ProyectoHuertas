@@ -59,14 +59,14 @@ WAPluggableEditor >> parent: anObject [
 WAPluggableEditor >> renderButtonsOn: html [
 	html
 		paragraph: [ html formButton
-				beSecondary;
-				callback: [ self cancel ];
-				with: 'Cancel'.
-			html space.
-			html formButton
 				bePrimary;
 				callback: [ self accept ];
-				with: 'Accept' ]
+				with: 'Accept'.
+			html space.
+			html formButton
+				beSecondary;
+				callback: [ self cancel ];
+				with: 'Cancel' ]
 ]
 
 { #category : #rendering }

@@ -6,17 +6,18 @@ Class {
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Producto' . 'Dosis'}
+	^ super columnHeadings , {'Razón'. 'Producto' . 'Dosis'}
 ]
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnValuesFor: element [
 	" {'Fecha' . 'Lote' . 'Producto' . 'Dosis'}"
 
-	^ {element date asDate ddmmyyyy.
-	element plot id.
-	element substance comercialName.
-	element dose}
+	^ (super columnValuesFor: element)
+		,
+			{element reason.
+			element substance comercialName.
+			element dose}
 ]
 
 { #category : #hooks }

@@ -6,18 +6,18 @@ Class {
 
 { #category : #rendering }
 FOMHarvestComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
+	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
 ]
 
 { #category : #rendering }
 FOMHarvestComponent >> columnValuesFor: element [
 	" {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. 'Superficie (m2)'. }}"
 
-	^ {element date asDate ddmmyyyy.
-	element plot id.
-	element crop vulgarName.
-	element cultivarName.
-	(self quantityStringFor: element)}
+	^ (super columnValuesFor: element)
+		,
+			{element crop vulgarName.
+			element cultivarName.
+			(self quantityStringFor: element)}
 ]
 
 { #category : #hooks }

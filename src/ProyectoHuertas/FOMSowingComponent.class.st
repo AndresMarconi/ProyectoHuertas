@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 FOMSowingComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)'.
+	^ super columnHeadings , {'Cultivo' . 'Variedad (cultivar)'.
 	'Cantidad'}
 ]
 
@@ -14,11 +14,11 @@ FOMSowingComponent >> columnHeadings [
 FOMSowingComponent >> columnValuesFor: element [
 	" {'Fecha' . 'Lote' . 'Variedad' . 'Cantidad'. . }}"
 
-	^ {element date asDate ddmmyyyy.
-	element plot id.
-	element crop vulgarName.
-	element cultivarName.
-	(element quantity magnitude asString , ' ' , element quantity unit)}
+	^ (super columnValuesFor: element)
+		,
+			{element crop vulgarName.
+			element cultivarName.
+			(element quantity magnitude asString , ' ' , element quantity unit)}
 ]
 
 { #category : #hooks }
