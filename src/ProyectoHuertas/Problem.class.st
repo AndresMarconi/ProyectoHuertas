@@ -24,7 +24,7 @@ Problem class >> name: aName date: aDate surface: aSurface [
 
 { #category : #accessing }
 Problem class >> typeDescriptor [
-	^ 'Problema'
+	^ 'Adversidad'
 ]
 
 { #category : #accessing }

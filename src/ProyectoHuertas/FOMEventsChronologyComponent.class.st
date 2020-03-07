@@ -100,9 +100,8 @@ FOMEventsChronologyComponent >> renderPlotSelectorOn: html [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForApplication: anApplication [
-	^ anApplication substance comercialName , ' ('
-		, anApplication dose , ' sobre '
-		, anApplication surface printString , 'm2)'
+	^ anApplication substance comercialName , ': ' , anApplication dose
+		, ' (' , anApplication reason , ')'
 ]
 
 { #category : #summaries }
@@ -124,12 +123,23 @@ FOMEventsChronologyComponent >> summaryForHarvesting: aHarvesting [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForProblem: aProblem [
-	^ aProblem name
+	^ aProblem name , ' (' , aProblem type , ')'
 ]
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForSowing: aSowing [
-	^ aSowing crop vulgarName , ' - ' , aSowing quantity printString
+	| stream |
+	stream := String new writeStream.
+	stream nextPutAll: aSowing crop vulgarName.
+	aSowing cultivarName
+		ifNotNil: [ :it | 
+			stream
+				nextPutAll: ' (';
+				nextPutAll: it;
+				nextPutAll: ')' ].
+	stream nextPutAll: ' - '.
+	stream nextPutAll: aSowing quantity printString.
+	^stream contents
 ]
 
 { #category : #rendering }
