@@ -3,7 +3,7 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'name',
-		'solutions'
+		'type'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -28,17 +28,6 @@ Problem class >> typeDescriptor [
 ]
 
 { #category : #accessing }
-Problem >> addSolutions: anObject [
-	solutions add: anObject
-]
-
-{ #category : #initialization }
-Problem >> initialize [
-   super initialize.
-	solutions := OrderedCollection new.
-]
-
-{ #category : #accessing }
 Problem >> name [
 	^ name
 ]
@@ -48,12 +37,17 @@ Problem >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #accessing }
-Problem >> solutions [
-	^ solutions
-]
-
 { #category : #printing }
 Problem >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForProblem: self
+]
+
+{ #category : #accessing }
+Problem >> type [
+	^ type
+]
+
+{ #category : #accessing }
+Problem >> type: anObject [
+	type := anObject
 ]

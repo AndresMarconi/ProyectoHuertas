@@ -7,7 +7,7 @@ Class {
 { #category : #rendering }
 FOMSowingComponent >> columnHeadings [
 	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)'.
-	'Cantidad (Kg)'}
+	'Cantidad'}
 ]
 
 { #category : #rendering }
@@ -18,7 +18,7 @@ FOMSowingComponent >> columnValuesFor: element [
 	element plot id.
 	element crop vulgarName.
 	element cultivarName.
-	element quantity}
+	(element quantity magnitude asString , ' ' , element quantity unit)}
 ]
 
 { #category : #hooks }

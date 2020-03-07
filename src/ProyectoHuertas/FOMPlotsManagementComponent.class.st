@@ -1,25 +1,8 @@
 Class {
 	#name : #FOMPlotsManagementComponent,
 	#superclass : #FOMAbstractListComponent,
-	#instVars : [
-		'plot'
-	],
 	#category : #'ProyectoHuertas-ui-core'
 }
-
-{ #category : #callbacks }
-FOMPlotsManagementComponent >> addElement [
-	| farm newPlot |
-	farm := self session farm.
-	newPlot := self call: (self elementEditorClass subject: Plot new).
-	newPlot
-		ifNotNil: [ :it | 
-			it save.
-			farm
-				ifNotNil: [ farm addPlot: it.
-					farm save ].
-			plot := newPlot ]
-]
 
 { #category : #rendering }
 FOMPlotsManagementComponent >> columnHeadings [
@@ -49,4 +32,11 @@ FOMPlotsManagementComponent >> elementEditorClass [
 { #category : #accessing }
 FOMPlotsManagementComponent >> elements [
 	^ self session plots
+]
+
+{ #category : #callbacks }
+FOMPlotsManagementComponent >> saveAddedElement: aPlot [
+	super saveAddedElement: aPlot.
+	self session farm addPlot: aPlot.
+	self session farm save
 ]

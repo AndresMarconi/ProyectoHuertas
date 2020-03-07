@@ -68,13 +68,14 @@ HarvestingEditor >> initializeComponents [
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
-		label: 'Kg cosechados'
+		label: 'Cantidad (Kg)'
 		required: true.
-	otherUnitEditorComponent := TextLinePropertyEditorComponent
+	otherUnitEditorComponent := MeasurementPropertyEditorComponent
 		subject: subject
 		selector: #otherUnit
-		label: 'Unidad adicional de medida'
-		required: false.
+		label: 'Cantidad (otra unidad)'
+		required: false
+		units: self units.
 	cropEditorComponent possibleValues: {nil} , self crops.
 	super initializeComponents
 ]
@@ -82,4 +83,9 @@ HarvestingEditor >> initializeComponents [
 { #category : #accessing }
 HarvestingEditor >> plots [
 	^ self session plots asOrderedCollection
+]
+
+{ #category : #accessing }
+HarvestingEditor >> units [
+	^ self session farm harvestingUnits
 ]

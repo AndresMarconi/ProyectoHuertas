@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 FOMHarvestComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad (Kg)' . 'Superficie (m2)'}
+	^ {'Fecha' . 'Lote' . 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
 ]
 
 { #category : #rendering }
@@ -17,8 +17,7 @@ FOMHarvestComponent >> columnValuesFor: element [
 	element plot id.
 	element crop vulgarName.
 	element cultivarName.
-	element surface.
-	element quantity}
+	(self quantityStringFor: element)}
 ]
 
 { #category : #hooks }
@@ -38,4 +37,19 @@ FOMHarvestComponent >> elementEditorClass [
 { #category : #accessing }
 FOMHarvestComponent >> elements [
 	^ (self session harvestings) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #rendering }
+FOMHarvestComponent >> quantityStringFor: aHarvesing [
+	| stream |
+	stream := String new writeStream.
+	stream
+		nextPutAll: aHarvesing quantity printString;
+		nextPutAll: ' Kg'.
+	aHarvesing otherUnit
+		ifNotNil: [ :it | 
+			stream
+				nextPutAll: ' / ';
+				nextPutAll: it printString ].
+	^ stream contents
 ]

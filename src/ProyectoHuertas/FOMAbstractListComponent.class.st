@@ -13,7 +13,7 @@ Class {
 { #category : #callbacks }
 FOMAbstractListComponent >> addElement [
 	(self call: (self elementEditorClass subject: self elementClass new))
-		ifNotNil: [ :it | it save ]
+		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 
 { #category : #rendering }
@@ -29,7 +29,7 @@ FOMAbstractListComponent >> columnValuesFor: element [
 { #category : #callbacks }
 FOMAbstractListComponent >> editElement: element [
 	(self call: (self elementEditorClass subject: element))
-		ifNotNil: [ :it | it save ]
+		ifNotNil: [ :it | self saveEditedElement: it ]
 ]
 
 { #category : #hooks }
@@ -136,4 +136,14 @@ FOMAbstractListComponent >> renderElementsTableOn: html [
 									html tableData: element comment.
 									html
 										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ]
+]
+
+{ #category : #hooks }
+FOMAbstractListComponent >> saveAddedElement: anElement [
+	anElement save
+]
+
+{ #category : #hooks }
+FOMAbstractListComponent >> saveEditedElement: anElement [
+	anElement save
 ]

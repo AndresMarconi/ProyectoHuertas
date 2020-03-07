@@ -5,18 +5,6 @@ Class {
 }
 
 { #category : #adding }
-FOMInventoryComponent >> addElement [
-	| substanceStock |
-	substanceStock := self
-		call: (self elementEditorClass subject: self elementClass new).
-	substanceStock
-		ifNotNil: [ :it | 
-			it save.
-			self session farm addInventoryItem: it. 
-			self session farm save ]
-]
-
-{ #category : #adding }
 FOMInventoryComponent >> addSubstanceStock [
 	| substanceStock |
 	substanceStock := self call: (InventoryItemEditor subject: InventoryItem new).
@@ -56,4 +44,11 @@ FOMInventoryComponent >> elementEditorClass [
 { #category : #accessing }
 FOMInventoryComponent >> elements [
 	^ self session inventoryItems
+]
+
+{ #category : #adding }
+FOMInventoryComponent >> saveAddedElement: anInventoryItem [
+	super saveAddedElement: anInventoryItem.
+	self session farm addInventoryItem: anInventoryItem.
+	self session farm save
 ]

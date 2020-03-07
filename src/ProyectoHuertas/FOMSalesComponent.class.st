@@ -5,18 +5,6 @@ Class {
 }
 
 { #category : #adding }
-FOMSalesComponent >> addElement [
-	| sale |
-	sale := self
-		call: (self elementEditorClass subject: self elementClass new).
-	sale
-		ifNotNil: [ :it | 
-			it save.
-			self session farm addSale: it.
-			self session farm save ]
-]
-
-{ #category : #adding }
 FOMSalesComponent >> addSale [
 	| sale |
 	sale := self call: (SaleEditor subject: Sale new).
@@ -37,13 +25,6 @@ FOMSalesComponent >> columnValuesFor: element [
 	element client}
 ]
 
-{ #category : #callbacks }
-FOMSalesComponent >> editElement: element [
-	| sale |
-	sale := self call: (SaleEditor subject: element).
-	sale ifNotNil: [ :it | it save ]
-]
-
 { #category : #hooks }
 FOMSalesComponent >> elementClass [
 	"Returns the class of elements to edit and add"
@@ -61,4 +42,11 @@ FOMSalesComponent >> elementEditorClass [
 { #category : #callbacks }
 FOMSalesComponent >> elements [
 	^ (self session sales) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #adding }
+FOMSalesComponent >> saveAddedElement: aSale [
+	super saveAddedElement: aSale.
+	self session farm addSale: aSale.
+	self session farm save
 ]

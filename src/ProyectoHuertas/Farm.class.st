@@ -5,7 +5,8 @@ Class {
 		'name',
 		'plots',
 		'inventoryItems',
-		'sales'
+		'sales',
+		'harvestingUnits'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -54,12 +55,27 @@ Farm >> events [
 	^ ((self plots) flatCollect: [ :plot | plot events ]) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
+{ #category : #accessing }
+Farm >> harvestingUnits [
+	^ harvestingUnits
+]
+
+{ #category : #accessing }
+Farm >> harvestingUnits: anObject [
+	harvestingUnits := anObject
+]
+
 { #category : #initialization }
 Farm >> initialize [
 	super initialize.
 	plots := OrderedCollection new.
 	inventoryItems := OrderedCollection new.
-	sales := OrderedCollection new
+	sales := OrderedCollection new.
+	harvestingUnits := OrderedCollection
+		with: 'Cajones'
+		with: 'Paquetes'
+		with: 'Canastos'
+		with: 'Razos'
 ]
 
 { #category : #accessing }

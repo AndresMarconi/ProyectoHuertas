@@ -105,8 +105,19 @@ FOMEventsChronologyComponent >> summaryForApplication: anApplication [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForHarvesting: aHarvesting [
-	^  aHarvesting otherUnit, ' de '
-		, aHarvesting crop vulgarName
+	| stream |
+	stream := String new writeStream.
+	stream
+		nextPutAll: aHarvesting crop vulgarName;
+		nextPutAll: ' - ';
+		nextPutAll: aHarvesting quantity printString;
+		nextPutAll: ' Kg'.
+	aHarvesting otherUnit
+		ifNotNil: [ :it | 
+			stream
+				nextPutAll: ' / ';
+				nextPutAll: it printString ].
+	^ stream contents
 ]
 
 { #category : #summaries }
@@ -116,7 +127,7 @@ FOMEventsChronologyComponent >> summaryForProblem: aProblem [
 
 { #category : #summaries }
 FOMEventsChronologyComponent >> summaryForSowing: aSowing [
-	^ aSowing crop vulgarName , ' (' , aSowing quantity printString, ')'
+	^ aSowing crop vulgarName , ' - ' , aSowing quantity printString
 ]
 
 { #category : #rendering }

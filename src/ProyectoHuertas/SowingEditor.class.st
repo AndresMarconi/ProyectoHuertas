@@ -59,11 +59,12 @@ SowingEditor >> initializeComponents [
 		selector: #cultivarName
 		label: 'Variedad (cultivar)'
 		required: false.
-	quantityEditorComponent := NumberPropertyEditorComponent
+	quantityEditorComponent := MeasurementPropertyEditorComponent
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad'
-		required: false.
+		required: true
+		units: {'Plantas' . 'Kg de semilla'}.
 	timeToHarvestEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #timeToHarvest
