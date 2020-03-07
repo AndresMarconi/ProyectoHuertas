@@ -14,18 +14,6 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #'instance creation' }
-Sowing class >> conductionSystem: conductionSystem quantity: quantity distribution: distribution variety: variety date: date surface: surface [
-	^ self new
-		conductionSystem: conductionSystem;
-		quantity: quantity;
-		distribution: distribution;
-		variety: variety;
-		date: date;
-		surface: surface;
-		yourself
-]
-
 { #category : #testing }
 Sowing class >> isVoyageRoot [
 	^ true

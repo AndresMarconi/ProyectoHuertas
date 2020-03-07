@@ -2,7 +2,8 @@ Class {
 	#name : #TestDataLoader,
 	#superclass : #Object,
 	#instVars : [
-		'session'
+		'session',
+		'lastDay'
 	],
 	#category : #'ProyectoHuertas-example-data'
 }
@@ -15,6 +16,118 @@ TestDataLoader >> activeIngredients [
 			ActiveIngredient new
 				tradeName: tradeName ;
 				yourself ]
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoApplicationToPlot: aPlot [
+	| application time type substance |
+	lastDay := lastDay addDays: (1 to: 10) atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	type := {'Peste' . 'Enfermedad'} atRandom.
+	substance := session substances atRandom. 
+	application := Application new
+		reason: 'Una ' , type , ' muy grave';
+		substance: substance;
+		dose: '200mg/ha';
+		machine: 'Dosificador 1';
+		date: lastDay;
+		time: time;
+		plot: aPlot;
+		yourself.
+	aPlot addEvent: application.
+	application save.
+	aPlot save
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoEventsToPlot: aPlot [
+	lastDay := '1/1/1980' asDate.
+	100
+		timesRepeat: [ self addDemoSowingToPlot: aPlot.
+			self addDemoProblemToPlot: aPlot.
+			self addDemoApplicationToPlot: aPlot.
+			self addDemoHarvestingToPlot: aPlot ]
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoHarvestingToPlot: aPlot [
+	| harvesting time  |
+	lastDay := lastDay addDays: (1 to: 10) atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	harvesting := Harvesting new
+		crop: aPlot lastestSowing crop;
+		date: lastDay;
+		time: time;
+		plot: aPlot;
+		quantity: 3000 atRandom;
+		otherUnit:
+			(Measurement
+				magnitude: 300 atRandom
+				unit: {'Canastos' . 'Razos' . 'Paquetes'} atRandom);
+		yourself.
+	aPlot addEvent: harvesting.
+	harvesting save.
+	aPlot save
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoPlots [
+	^ self plots
+		do: [ :plot | 
+			plot save.
+			session farm addPlot: plot.
+			session farm save ]
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoProblemToPlot: aPlot [
+	| problem time type |
+	lastDay := lastDay addDays: (1 to: 10) atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	type := {'Peste' . 'Enfermedad'} atRandom.
+	problem := Problem new
+		name: 'Una ' , type , ' muy grave';
+		type: type;
+		date: lastDay;
+		time: time;
+		plot: aPlot;
+		yourself.
+	aPlot addEvent: problem.
+	problem save.
+	aPlot save
+]
+
+{ #category : #loading }
+TestDataLoader >> addDemoSowingToPlot: aPlot [
+	| sowing time crop |
+	lastDay := lastDay addDays: (1 to: 10) atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	crop := session crops atRandom.
+	sowing := Sowing new
+		crop: crop;
+		date: lastDay;
+		time: time;
+		plot: aPlot;
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas');
+		yourself.
+	aPlot addEvent: sowing.
+	sowing save.
+	aPlot save. 
+]
+
+{ #category : #loading }
+TestDataLoader >> addExpertDemoData [
+	session crops ifEmpty: [ self crops do: #save ].
+	session activeIngredients
+		ifEmpty: [ self activeIngredients do: #save ].
+	session substances ifEmpty: [ self substances do: #save ]
+]
+
+{ #category : #loading }
+TestDataLoader >> addFarmerDemoData [
+	session farm plots
+		ifEmpty: [ self addDemoPlots.
+			session farm plots do: [ :aPlot | self addDemoEventsToPlot: aPlot ] ]
 ]
 
 { #category : #constants }
@@ -35,15 +148,13 @@ TestDataLoader >> crops [
 				yourself ]
 ]
 
-{ #category : #loading }
-TestDataLoader >> loadExpertDemoData [
-	session crops ifEmpty: [ self crops do: #save ].
-	session activeIngredients
-		ifEmpty: [ self activeIngredients do: #save ].
-	session substances ifEmpty: [ self substances do: #save ]
+{ #category : #constants }
+TestDataLoader >> plots [
+	^ (1 to: 20)
+		collect: [ :each | Plot id: 'A' , each asString surface: 1000 ]
 ]
 
-{ #category : #constants }
+{ #category : #utility }
 TestDataLoader >> randomCrops: aNumber [
 	| allCrops selectedCrops |
 	allCrops := session crops.

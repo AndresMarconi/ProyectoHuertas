@@ -15,7 +15,7 @@ FOMExpertHomeComponent >> barBrand [
 FOMExpertHomeComponent >> loadDemoData [
 	TestDataLoader new
 		session: self session;
-		loadExpertDemoData
+		addExpertDemoData
 ]
 
 { #category : #rendering }

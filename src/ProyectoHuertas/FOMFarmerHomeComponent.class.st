@@ -12,6 +12,13 @@ FOMFarmerHomeComponent >> barBrand [
 ]
 
 { #category : #rendering }
+FOMFarmerHomeComponent >> loadDemoData [
+	TestDataLoader new
+		session: self session;
+		addFarmerDemoData
+]
+
+{ #category : #rendering }
 FOMFarmerHomeComponent >> renderLeftMenuOn: html [
 	html
 		form: [ html

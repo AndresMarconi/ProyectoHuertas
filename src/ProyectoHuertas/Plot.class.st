@@ -80,6 +80,15 @@ Plot >> lastSowing [
 		ifNotEmpty:[ ^ self sowings first crop ]
 ]
 
+{ #category : #accessing }
+Plot >> lastestSowing [
+	^ self sowings
+		ifEmpty: [ nil ]
+		ifNotEmpty: [ :sowings | 
+			(sowings
+				asSortedCollection: [ :earlier :later | earlier date < later date ] )last ]
+]
+
 { #category : #printing }
 Plot >> printOn: aStream [
 	^ aStream
