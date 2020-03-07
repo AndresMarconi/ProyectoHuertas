@@ -1,45 +1,30 @@
 Class {
 	#name : #ApplicationEditor,
-	#superclass : #FOMEditor,
+	#superclass : #EventEditor,
 	#instVars : [
-		'dateEditorComponent',
 		'surfaceEditorComponent',
 		'doseEditorComponent',
 		'machineEditorComponent',
 		'substanceEditorComponent',
-		'plotEditorComponent',
 		'reasonEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #'subclass-responsibility' }
-ApplicationEditor >> children [
-	"Return all property editors in this editor, in the order you want them to be rendered"
+ApplicationEditor >> eventSpecificChildren [
 
-	^ {dateEditorComponent.
-	plotEditorComponent.
-	reasonEditorComponent.
+	^ {reasonEditorComponent.
 	substanceEditorComponent.
 	doseEditorComponent.
-	machineEditorComponent} , super children
+	machineEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> initializeComponents [
 	"Initialize all property components"
 
-	dateEditorComponent := DatePropertyEditorComponent
-		subject: subject
-		selector: #date
-		label: 'Fecha de Aplicacion'
-		required: true.
-	plotEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #plot
-		label: 'Lote'
-		required: true.
-	plotEditorComponent possibleValues: self plots.
+	super initializeComponents.
 	reasonEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #reason
@@ -62,7 +47,7 @@ ApplicationEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent possibleValues: {nil} , self substances.
-	super initializeComponents
+
 ]
 
 { #category : #accessing }

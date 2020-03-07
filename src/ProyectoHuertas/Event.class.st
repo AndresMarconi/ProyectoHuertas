@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'plot',
 		'date',
-		'surface'
+		'surface',
+		'time'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -47,4 +48,14 @@ Event >> surface [
 { #category : #accessing }
 Event >> surface: anObject [
 	surface := anObject
+]
+
+{ #category : #accessing }
+Event >> time [
+	^ time
+]
+
+{ #category : #accessing }
+Event >> time: anObject [
+	time := anObject
 ]

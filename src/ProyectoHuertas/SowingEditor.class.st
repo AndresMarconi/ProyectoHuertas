@@ -1,32 +1,16 @@
 Class {
 	#name : #SowingEditor,
-	#superclass : #FOMEditor,
+	#superclass : #EventEditor,
 	#instVars : [
-		'dateEditorComponent',
 		'quantityEditorComponent',
 		'timeToHarvestEditorComponent',
 		'harvestDurationEditorComponent',
 		'expectedYieldEditorComponent',
-		'plotEditorComponent',
 		'cropEditorComponent',
 		'cultivarEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
-
-{ #category : #'subclass-responsibility' }
-SowingEditor >> children [
-	"Return all property editors in this editor, in the order you want them to be rendered"
-
-	^ {dateEditorComponent.
-	plotEditorComponent.
-	cropEditorComponent.
-	cultivarEditorComponent.
-	quantityEditorComponent.
-	timeToHarvestEditorComponent.
-	harvestDurationEditorComponent.
-	expectedYieldEditorComponent} , super children
-]
 
 { #category : #accessing }
 SowingEditor >> crops [
@@ -34,20 +18,20 @@ SowingEditor >> crops [
 ]
 
 { #category : #'subclass-responsibility' }
+SowingEditor >> eventSpecificChildren [
+	^ {cropEditorComponent.
+	cultivarEditorComponent.
+	quantityEditorComponent.
+	timeToHarvestEditorComponent.
+	harvestDurationEditorComponent.
+	expectedYieldEditorComponent}
+]
+
+{ #category : #'subclass-responsibility' }
 SowingEditor >> initializeComponents [
 	"Initialize all property components"
 
-	dateEditorComponent := DatePropertyEditorComponent
-		subject: subject
-		selector: #date
-		label: 'Fecha de Siembra'
-		required: true.
-	plotEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #plot
-		label: 'Lote'
-		required: true.
-	plotEditorComponent possibleValues: self plots.
+	super initializeComponents.
 	cropEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #crop
@@ -79,8 +63,7 @@ SowingEditor >> initializeComponents [
 		subject: subject
 		selector: #expectedYield
 		label: 'Rendimiento total esperado (en Kg)'
-		required: true.
-	super initializeComponents
+		required: true
 ]
 
 { #category : #accessing }

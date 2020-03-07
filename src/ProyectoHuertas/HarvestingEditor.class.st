@@ -1,60 +1,44 @@
 Class {
 	#name : #HarvestingEditor,
-	#superclass : #FOMEditor,
+	#superclass : #EventEditor,
 	#instVars : [
-		'dateEditorComponent',
 		'surfaceEditorComponent',
 		'quantityEditorComponent',
 		'otherUnitEditorComponent',
-		'plotEditorComponent',
 		'cultivarEditorComponent',
 		'cropEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
-{ #category : #'subclass-responsibility' }
-HarvestingEditor >> children [
-	"Return all property editors in this editor, in the order you want them to be rendered"
-
-	^ {dateEditorComponent.
-	plotEditorComponent.
-	quantityEditorComponent.
-	otherUnitEditorComponent.
-	cropEditorComponent.
-	cultivarEditorComponent} , super children
-]
-
 { #category : #accessing }
 HarvestingEditor >> crops [
 	^ (self session crops) asOrderedCollection.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingEditor >> defaultProduct [
 	^ self session selectedPlot sowings last crop
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingEditor >> defaultSurface [
 	^ (self session selectedPlot) surface
+]
+
+{ #category : #'subclass-responsibility' }
+HarvestingEditor >> eventSpecificChildren [
+	^ {quantityEditorComponent.
+	otherUnitEditorComponent.
+	cropEditorComponent.
+	cultivarEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
 HarvestingEditor >> initializeComponents [
 	"Initialize all property components"
 
-	dateEditorComponent := DatePropertyEditorComponent
-		subject: subject
-		selector: #date
-		label: 'Fecha de Cosecha'
-		required: true.
-	plotEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #plot
-		label: 'Lote'
-		required: true.
-	plotEditorComponent possibleValues: self plots.
+	super initializeComponents.
 	cropEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #crop
@@ -77,7 +61,7 @@ HarvestingEditor >> initializeComponents [
 		required: false
 		units: self units.
 	cropEditorComponent possibleValues: {nil} , self crops.
-	super initializeComponents
+
 ]
 
 { #category : #accessing }

@@ -1,10 +1,8 @@
 Class {
 	#name : #ProblemEditor,
-	#superclass : #FOMEditor,
+	#superclass : #EventEditor,
 	#instVars : [
-		'dateEditorComponent',
 		'nameEditorComponent',
-		'plotEditorComponent',
 		'problemTypeEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
@@ -16,30 +14,16 @@ ProblemEditor >> allowedProblemTypes [
 ]
 
 { #category : #'subclass-responsibility' }
-ProblemEditor >> children [
-	"Return all property editors in this editor, in the order you want them to be rendered"
-
-	^ {dateEditorComponent.
-	plotEditorComponent.
-	problemTypeEditorComponent.
-	nameEditorComponent} , super children
+ProblemEditor >> eventSpecificChildren [
+	^ {problemTypeEditorComponent.
+	nameEditorComponent}
 ]
 
 { #category : #'subclass-responsibility' }
 ProblemEditor >> initializeComponents [
 	"Initialize all property components"
 
-	dateEditorComponent := DatePropertyEditorComponent
-		subject: subject
-		selector: #date
-		label: 'Fecha del Problema'
-		required: true.
-	plotEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #plot
-		label: 'Lote'
-		required: true.
-	plotEditorComponent possibleValues: self plots.
+	super initializeComponents.
 	nameEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #name
@@ -51,7 +35,7 @@ ProblemEditor >> initializeComponents [
 		label: 'Tipo de problema'
 		required: true.
 	problemTypeEditorComponent possibleValues: self allowedProblemTypes.
-	super initializeComponents
+
 ]
 
 { #category : #accessing }
