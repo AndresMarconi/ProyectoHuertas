@@ -4,16 +4,6 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
-{ #category : #adding }
-FOMSalesComponent >> addSale [
-	| sale |
-	sale := self call: (SaleEditor subject: Sale new).
-	sale ifNotNil: [ :it | 
-		it save. 
-		self session user addSale: it.
-		self session user save ]
-]
-
 { #category : #rendering }
 FOMSalesComponent >> columnHeadings [
 	^ { 'Fecha'. 'Cliente'. }

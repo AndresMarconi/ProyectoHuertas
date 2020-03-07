@@ -35,7 +35,7 @@ Farm >> addPlot: anObject [
 
 { #category : #accessing }
 Farm >> addSale: anObject [
-	plots add: anObject
+	sales add: anObject
 ]
 
 { #category : #archiving }
