@@ -39,6 +39,11 @@ FOMHomeComponent >> initialize [
 	selectedComponent := FOMDashboardComponent new
 ]
 
+{ #category : #rendering }
+FOMHomeComponent >> loadDemoData [
+	^self subclassResponsibility 
+]
+
 { #category : #'rendering-login' }
 FOMHomeComponent >> loginUrl [
 	^ self application preferenceAt: #loginApp
@@ -60,6 +65,15 @@ FOMHomeComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
+FOMHomeComponent >> renderDemoDataButtonOn: html [
+	('localhost*' match: self requestContext request host)
+		ifTrue: [ html outlineButton beDanger beSmall
+				callback: [ self loadDemoData ];
+				with: 'Load demo data'.
+			html space ]
+]
+
+{ #category : #rendering }
 FOMHomeComponent >> renderLeftMenuOn: html [
 	self subclassResponsibility
 ]
@@ -73,6 +87,13 @@ FOMHomeComponent >> renderLoginRequiredMessageOn: html [
 					html anchor
 						url: self loginUrl;
 						with: ' vuelva a ingresar ' ] ]
+]
+
+{ #category : #rendering }
+FOMHomeComponent >> renderLogoutButtonOn: html [
+	^ html outlineButton bePrimary beSmall
+		callback: [ self logout ];
+		with: 'Salir'
 ]
 
 { #category : #rendering }
@@ -99,9 +120,8 @@ FOMHomeComponent >> renderNavbarOn: html [
 	bar
 		with: [ html navigationBarBrand with: self barBrand.
 			html
-				form: [ html outlineButton bePrimary beSmall
-						callback: [ self logout ];
-						with: 'Salir' ] ]
+				form: [ self renderDemoDataButtonOn: html.
+					self renderLogoutButtonOn: html ] ]
 ]
 
 { #category : #style }

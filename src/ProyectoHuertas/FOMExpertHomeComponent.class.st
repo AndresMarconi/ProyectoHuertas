@@ -12,6 +12,13 @@ FOMExpertHomeComponent >> barBrand [
 ]
 
 { #category : #rendering }
+FOMExpertHomeComponent >> loadDemoData [
+	TestDataLoader new
+		session: self session;
+		loadExpertDemoData
+]
+
+{ #category : #rendering }
 FOMExpertHomeComponent >> renderLeftMenuOn: html [
 	html
 		form: [ html

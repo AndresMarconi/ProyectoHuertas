@@ -8,21 +8,6 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #'as yet unclassified' }
-ActiveIngredient class >> ingredient: aIngredient [
-	^ self new
-		ingredient: aIngredient;
-		yourself    
-]
-
-{ #category : #'as yet unclassified' }
-ActiveIngredient class >> ingredient: aIngredient URL: anUrl [
-	^ self new
-		tradeName: aIngredient;
-		referenceUrl: anUrl;
-		yourself    
-]
-
 { #category : #testing }
 ActiveIngredient class >> isVoyageRoot [
 	^ true

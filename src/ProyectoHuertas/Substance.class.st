@@ -11,16 +11,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Substance class >> comercialName: comercialName brand: brand activeIngredients: activeIngredients waitingPeriodAfterApplication: waitingPeriodAfterApplication [
-	^ self new
-		comercialName: comercialName;
-		brand: brand;
-		activeIngredients: activeIngredients;
-		waitingPeriodAfterApplication: waitingPeriodAfterApplication;
-		yourself
-]
-
-{ #category : #'instance creation' }
 Substance class >> isVoyageRoot [
 	^ true
 ]
