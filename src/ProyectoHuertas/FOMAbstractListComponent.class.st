@@ -13,7 +13,7 @@ Class {
 { #category : #callbacks }
 FOMAbstractListComponent >> addElement [
 	(self call: (self elementEditorClass subject: self elementClass new))
-		ifNotNil: [ :it | self saveAddedElement: it ]
+		ifNotNil: [ :it | self saveAddedElement: it. self loadPaginator]
 ]
 
 { #category : #rendering }
@@ -62,7 +62,12 @@ FOMAbstractListComponent >> initialize [
 	editEnabled := true.
 	removeEnabled := true.
 	addEnabled := true.
-	paginator := Paginator newTotalElements: (self elements size) perPage: 10
+	self loadPaginator.
+]
+
+{ #category : #'as yet unclassified' }
+FOMAbstractListComponent >> loadPaginator [
+	paginator:= Paginator newTotalElements: (self elements size) perPage: 10.
 ]
 
 { #category : #accessing }
@@ -82,7 +87,8 @@ FOMAbstractListComponent >> parent: anObject [
 
 { #category : #callbacks }
 FOMAbstractListComponent >> removeElement: element [
-	element archive
+	element archive.
+	self loadPaginator
 ]
 
 { #category : #rendering }

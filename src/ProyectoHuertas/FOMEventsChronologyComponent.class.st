@@ -13,7 +13,7 @@ FOMEventsChronologyComponent class >> plot: aPlot [
 	component:= self new.
 	component
 		plot: aPlot;
-		paginator: (Paginator newTotalElements: (component elements size) perPage: 10).
+		loadPaginator.
 	^ component
 ]
 

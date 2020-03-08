@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'page',
-		'totalElements',
-		'elements'
+		'elementsPerPage',
+		'totalElements'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
@@ -14,18 +14,18 @@ Paginator class >> newTotalElements: total perPage: quantity [
 	| paginate |
 	paginate := self new.
 	paginate totalElements: total.
-	paginate elements: quantity.
+	paginate elementsPerPage: quantity.
 	^ paginate 
 ]
 
 { #category : #accessing }
-Paginator >> elements [
-	^ elements
+Paginator >> elementsPerPage [
+	^ elementsPerPage
 ]
 
 { #category : #accessing }
-Paginator >> elements: anObject [
-	elements := anObject
+Paginator >> elementsPerPage: anObject [
+	elementsPerPage:= anObject
 ]
 
 { #category : #initialization }
@@ -33,7 +33,7 @@ Paginator >> initialize [
 	page := 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 Paginator >> leftItemsQuantity [
 	| first last|
 	first:= page - 5.
@@ -58,7 +58,7 @@ Paginator >> page: number [
 
 { #category : #accessing }
 Paginator >> pages [ 
-	^ (totalElements quo: elements) + 1 
+	^ (self totalElements quo: elementsPerPage) + 1 
 ]
 
 { #category : #rendering }
@@ -100,7 +100,7 @@ Paginator >> renderPagesOn: html [
 
 { #category : #rendering }
 Paginator >> renderPaginationOn: html [
-	totalElements < elements
+	self totalElements < elementsPerPage
 		ifTrue: [ ^ self ].
 	html
 		navigation: [ html unorderedList
@@ -121,7 +121,7 @@ Paginator >> renderPreviousButtonOn: html [
 		self renderItem: '<' Number: (page - 1) Class: '' on: html ] 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 Paginator >> rigthItemsQuantity [
 	| first last|
 	first:= page - 5.
@@ -135,12 +135,12 @@ Paginator >> rigthItemsQuantity [
 { #category : #initialization }
 Paginator >> selectElementsIn: collection [
 	| total col |
-	(elements < totalElements)
+	(elementsPerPage < self totalElements)
 	ifTrue: [ 
-		total := (totalElements - (elements * (page - 1))).
+		total := (self totalElements - (elementsPerPage * (page - 1))).
 		col := collection last: total.
-		(total > elements) 
-		ifTrue: [ col := col first: elements ]. ]
+		(total > elementsPerPage) 
+		ifTrue: [ col := col first: elementsPerPage ]. ]
 	ifFalse: [ col:= collection ].
 	^ col
 ]
@@ -151,6 +151,6 @@ Paginator >> totalElements [
 ]
 
 { #category : #accessing }
-Paginator >> totalElements: anObject [
-	totalElements := anObject
+Paginator >> totalElements: aTot [
+	totalElements:= aTot
 ]
