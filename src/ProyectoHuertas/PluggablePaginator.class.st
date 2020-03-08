@@ -91,8 +91,8 @@ PluggablePaginator >> renderPagesOn: html [
 	
 	1 to: self pageCount do: [ :pageNumber | 
 		currentPage = pageNumber
-			ifTrue: [ self renderItem: pageNumber Number: pageNumber Active: true on: html ]
-			ifFalse: [ self renderItem: pageNumber Number: pageNumber Active: false on: html ] ]
+			ifTrue: [ self renderItem: pageNumber Number: pageNumber Class: 'active' on: html ]
+			ifFalse: [ self renderItem: pageNumber Number: pageNumber Class: '' on: html ] ]
 ]
 
 { #category : #rendering }

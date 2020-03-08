@@ -62,9 +62,9 @@ Paginator >> pages [
 ]
 
 { #category : #rendering }
-Paginator >> renderItem: simbol Number: aNumber Active: boolean on: html [
+Paginator >> renderItem: simbol Number: aNumber Class: aClass on: html [
 	html listItem
-		class: (boolean ifTrue: [ 'page-item active' ] ifFalse: [ 'page-item' ] );
+		class: 'page-item ',aClass ;
 		with: [ html anchor
 			class: 'page-link';
 			callback: [ page := aNumber ];
@@ -75,15 +75,11 @@ Paginator >> renderItem: simbol Number: aNumber Active: boolean on: html [
 Paginator >> renderNextButtonOn: html [
 	(page = self pages)
 	ifTrue: [ 
-		html listItem class:'page-item disabled'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page + 1) ];
-			with:'siguiente'  ] ] 
+		self renderItem: '>' Number: (page) Class: ' disabled' on: html.
+		self renderItem: '>>' Number: (page) Class: ' disabled' on: html. ] 
 	ifFalse: [ 
-		html listItem class:'page-item'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page + 1) ];
-			with:'siguiente'  ] ] 
+		self renderItem: '>' Number: (page + 1) Class: '' on: html. 
+		self renderItem: '>>' Number: (self pages) Class: '' on: html.  ] 
 ]
 
 { #category : #rendering }
@@ -92,13 +88,13 @@ Paginator >> renderPagesOn: html [
 	ifTrue: [ 
 		1 to: self pages do: [ :pageNumber | 
 		page = pageNumber
-			ifTrue: [ self renderItem: pageNumber Number: pageNumber Active: true on: html ]
-			ifFalse: [ self renderItem: pageNumber Number: pageNumber Active: false on: html] ] ] 
+			ifTrue: [ self renderItem: pageNumber Number: pageNumber Class: 'active' on: html ]
+			ifFalse: [ self renderItem: pageNumber Number: pageNumber Class: '' on: html] ] ] 
 	ifFalse: [ 
 		self leftItemsQuantity to: (self rigthItemsQuantity) do: [ :pageNumber | 
 		page = pageNumber
-			ifTrue: [ self renderItem: pageNumber Number: pageNumber Active: true on: html ]
-			ifFalse: [ self renderItem: pageNumber Number: pageNumber Active: false on: html ] ] ] 
+			ifTrue: [ self renderItem: pageNumber Number: pageNumber Class: 'active' on: html ]
+			ifFalse: [ self renderItem: pageNumber Number: pageNumber Class: '' on: html ] ] ] 
 	
 ]
 
@@ -118,15 +114,11 @@ Paginator >> renderPaginationOn: html [
 Paginator >> renderPreviousButtonOn: html [
 	(page = 1)
 	ifTrue: [ 
-		html listItem class:'page-item disabled'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page - 1) ];
-			with:'anterior' ] ]
-	ifFalse: [ 
-		html listItem class:'page-item'; with: [ 
-			html anchor class:'page-link';
-			callback: [ self page: (page - 1) ];
-			with:'anterior' ] ] 
+		self renderItem: '<<' Number: (page) Class: ' disabled' on: html.
+		self renderItem: '<' Number: (page) Class: ' disabled' on: html ]
+	ifFalse: [
+		self renderItem: '<<' Number: 1 Class: '' on: html. 
+		self renderItem: '<' Number: (page - 1) Class: '' on: html ] 
 ]
 
 { #category : #'as yet unclassified' }
