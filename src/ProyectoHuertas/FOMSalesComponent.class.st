@@ -4,6 +4,12 @@ Class {
 	#category : #'ProyectoHuertas-ui-core'
 }
 
+{ #category : #callbacks }
+FOMSalesComponent >> addElement [
+	(self call: (self elementEditorClass subject: self elementClass new))
+		ifNotNil: [ :it | self call: (SaleListItemEditor subject: it). self saveAddedElement: it ]
+]
+
 { #category : #rendering }
 FOMSalesComponent >> columnHeadings [
 	^ { 'Fecha'. 'Cliente'. }
@@ -13,6 +19,12 @@ FOMSalesComponent >> columnHeadings [
 FOMSalesComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
 	element client}
+]
+
+{ #category : #callbacks }
+FOMSalesComponent >> editElement: element [
+	(self call: (self elementEditorClass subject: element))
+		ifNotNil: [ :it | self call: (SaleListItemEditor subject: it). self saveEditedElement: it ]
 ]
 
 { #category : #hooks }

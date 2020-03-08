@@ -10,30 +10,45 @@ Class {
 { #category : #callbacks }
 SaleListItemEditor >> accept [ 
 	items do: #accept.
+	parent
+		ifNil: [ self answer: subject ]
+		ifNotNil: [ :it | it answer: subject ]
 ]
 
 { #category : #adding }
-SaleListItemEditor >> addRow: html [
+SaleListItemEditor >> addRow [
 	items do: #accept.
 	subject addItem: SaleItem new.
+	items:= OrderedCollection new.
+	subject items do: [ :each | items add: (SaleItemEditor subject: each) ].
 	
+]
+
+{ #category : #callbacks }
+SaleListItemEditor >> cancel [
+	parent ifNil: [ self answer: nil ] ifNotNil: [ :it | it answer: nil ]
 ]
 
 { #category : #'subclass-responsibility' }
 SaleListItemEditor >> initializeComponents [
 	items:= OrderedCollection new.
-	subject items do: [ :each | items add: (SaleItemEditor subject: each) ]
+	subject items do: [ :each | items add: (SaleItemEditor subject: each) ].
 	
 ]
 
 { #category : #rendering }
 SaleListItemEditor >> renderContentOn: html [
+	html heading level4; with: 'Fecha: ', (subject date asDate ddmmyyyy).
+	html heading level4; with: 'Cliente: ', (subject client).
+	html heading level4; with: 'Productos'.
 	html form: [ 
 		self renderElementsTableOn: html.
 		html formButton
 				bePrimary;
-				callback: [ self addRow: html ];
-				with: 'agregar item' ]
+				callback: [ self addRow ];
+				with: 'agregar item'.
+		html break; break.
+		self renderButtonsOn: html]
 ]
 
 { #category : #rendering }
