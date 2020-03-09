@@ -44,7 +44,8 @@ Event >> plot: anObject [
 
 { #category : #copying }
 Event >> postCopy [
-	plot := nil
+	plot := nil.
+	^ self
 ]
 
 { #category : #printing }

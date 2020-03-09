@@ -74,6 +74,14 @@ Harvesting >> otherUnit: anObject [
 	otherUnit := anObject
 ]
 
+{ #category : #copying }
+Harvesting >> postCopy [
+	super postCopy.
+	quantity := quantity copy.
+	otherUnit := otherUnit copy.
+	^ self
+]
+
 { #category : #accessing }
 Harvesting >> quantity [
 	^ quantity

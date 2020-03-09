@@ -84,6 +84,13 @@ Sowing >> harvestDuration: anObject [
 	harvestDuration := anObject
 ]
 
+{ #category : #copying }
+Sowing >> postCopy [
+	super postCopy.
+	quantity := quantity copy.
+	^ self
+]
+
 { #category : #accessing }
 Sowing >> quantity [
 	^ quantity
