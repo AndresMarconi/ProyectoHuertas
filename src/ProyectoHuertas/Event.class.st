@@ -25,6 +25,13 @@ Event >> date: anObject [
 	date := anObject
 ]
 
+{ #category : #copying }
+Event >> duplicated [
+	^ self copy
+		plot: nil;
+		yourself
+]
+
 { #category : #accessing }
 Event >> plot [
 	^ plot
@@ -33,6 +40,11 @@ Event >> plot [
 { #category : #accessing }
 Event >> plot: anObject [
 	plot := anObject
+]
+
+{ #category : #copying }
+Event >> postCopy [
+	plot := nil
 ]
 
 { #category : #printing }

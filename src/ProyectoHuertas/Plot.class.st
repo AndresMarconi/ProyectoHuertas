@@ -89,6 +89,12 @@ Plot >> lastestSowing [
 				asSortedCollection: [ :earlier :later | earlier date < later date ] )last ]
 ]
 
+{ #category : #copying }
+Plot >> postCopy [
+	events := OrderedCollection new.
+	id := id, ' (copia)'
+]
+
 { #category : #printing }
 Plot >> printOn: aStream [
 	^ aStream

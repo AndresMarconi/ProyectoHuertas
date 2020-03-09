@@ -41,5 +41,5 @@ EventEditor >> initializeComponents [
 		selector: #plot
 		label: 'Lote'
 		required: true.
-	plotEditorComponent possibleValues: self plots
+	plotEditorComponent possibleValues: {nil}, self plots
 ]

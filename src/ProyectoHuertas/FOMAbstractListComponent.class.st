@@ -5,7 +5,8 @@ Class {
 		'paginator',
 		'editEnabled',
 		'removeEnabled',
-		'addEnabled'
+		'addEnabled',
+		'duplicateEnabled'
 	],
 	#category : #'ProyectoHuertas-ui-core'
 }
@@ -24,6 +25,12 @@ FOMAbstractListComponent >> columnHeadings [
 { #category : #rendering }
 FOMAbstractListComponent >> columnValuesFor: element [
 	^ self subclassResponsibility
+]
+
+{ #category : #callbacks }
+FOMAbstractListComponent >> duplicateElement: element [
+	(self call: (self elementEditorClass subject: element copy))
+		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 
 { #category : #callbacks }
@@ -62,6 +69,7 @@ FOMAbstractListComponent >> initialize [
 	editEnabled := true.
 	removeEnabled := true.
 	addEnabled := true.
+	duplicateEnabled := true.
 	self loadPaginator.
 ]
 
@@ -99,6 +107,12 @@ FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
 						bePrimary;
 						callback: [ self editElement: element ];
 						with: [ html span class: 'fa fa-pencil' ] ].
+			duplicateEnabled
+				ifTrue: [ html space.
+					html formButton
+						bePrimary;
+						callback: [ self duplicateElement: element ];
+						with: [ html span class: 'fa fa-clone' ] ].
 			removeEnabled
 				ifTrue: [ html space.
 					html formButton
