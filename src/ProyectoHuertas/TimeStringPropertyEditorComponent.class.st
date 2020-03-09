@@ -12,7 +12,7 @@ TimeStringPropertyEditorComponent >> obtainValueFromString: aString [
 			^ bufferedValue ].
 	aString isEmpty
 		ifTrue: [ ^ bufferedValue ].
-	^ aString
+	^ aString asTime
 ]
 
 { #category : #hooks }
@@ -23,8 +23,8 @@ TimeStringPropertyEditorComponent >> renderInputOn: html [
 		placeholder: 'hh:mm';
 		value:
 			(bufferedValue
-				ifNil: [ Time now print24 copyFrom: 1 to: 5 ]
-				ifNotNil: [ :it | it ]);
+				ifNil: [ Time now ]
+				ifNotNil: [ :it | it ]) print24WithoutSeconds ;
 		callback: [ :value | self handleCallbackWith: value ];
 		id: selector
 ]

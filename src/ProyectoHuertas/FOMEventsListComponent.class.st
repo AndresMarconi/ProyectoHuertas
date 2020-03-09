@@ -11,7 +11,7 @@ FOMEventsListComponent >> columnHeadings [
 
 { #category : #rendering }
 FOMEventsListComponent >> columnValuesFor: element [
-	^ {(element date asDate ddmmyyyy , ' - ' , element time).
+	^ {(element date ddmmyyyy , ' - ' , element time print24WithoutSeconds ).
 	element plot id}
 ]
 

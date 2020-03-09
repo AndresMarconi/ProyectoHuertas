@@ -25,6 +25,11 @@ Event >> date: aDate [
 ]
 
 { #category : #accessing }
+Event >> dateAndTime [
+	^ dateAndTime
+]
+
+{ #category : #accessing }
 Event >> initialize [
 	super initialize.
 	dateAndTime := DateAndTime now

@@ -22,7 +22,7 @@ TestDataLoader >> activeIngredients [
 TestDataLoader >> addDemoApplicationToPlot: aPlot [
 	| application time type substance |
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
 	type := {'Peste' . 'Enfermedad'} atRandom.
 	substance := session substances atRandom. 
 	application := Application new
@@ -53,7 +53,7 @@ TestDataLoader >> addDemoEventsToPlot: aPlot [
 TestDataLoader >> addDemoHarvestingToPlot: aPlot [
 	| harvesting time  |
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
 	harvesting := Harvesting new
 		crop: aPlot lastestSowing crop;
 		date: lastDay;
@@ -83,7 +83,7 @@ TestDataLoader >> addDemoPlots [
 TestDataLoader >> addDemoProblemToPlot: aPlot [
 	| problem time type |
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
 	type := {'Peste' . 'Enfermedad'} atRandom.
 	problem := Problem new
 		name: 'Una ' , type , ' muy grave';
@@ -101,7 +101,7 @@ TestDataLoader >> addDemoProblemToPlot: aPlot [
 TestDataLoader >> addDemoSowingToPlot: aPlot [
 	| sowing time crop |
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom.
+	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
 	crop := session crops atRandom.
 	sowing := Sowing new
 		crop: crop;

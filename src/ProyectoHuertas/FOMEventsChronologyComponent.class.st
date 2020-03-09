@@ -24,7 +24,7 @@ FOMEventsChronologyComponent >> columnHeadings [
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> columnValuesFor: element [
-	^ {(element date asDate ddmmyyyy , ' - ' , element time).
+	^ {(element date ddmmyyyy , ' - ' , element time print24WithoutSeconds ).
 	element plot id.
 	(self typeDescriptorFor: element).
 	(element summaryFor: self)}
@@ -38,7 +38,8 @@ FOMEventsChronologyComponent >> elements [
 		ifNil: [ self session farm
 				ifNotNil: [ :farm | farm events ]
 				ifNil: [ Array new ] ].
-	^ events asSortedCollection: [ :a :b |  (DateAndTime date: a date time: a time asTime) > (DateAndTime date: b date time: b time asTime)  ]
+	^ events
+		asSortedCollection: [ :a :b | a dateAndTime < b dateAndTime ]
 ]
 
 { #category : #initialization }
