@@ -3,9 +3,8 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'plot',
-		'date',
 		'surface',
-		'time'
+		'dateAndTime'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -17,19 +16,18 @@ Event class >> isVoyageRoot [
 
 { #category : #accessing }
 Event >> date [
-	^ date
+	^ dateAndTime asDate
 ]
 
 { #category : #accessing }
-Event >> date: anObject [
-	date := anObject
+Event >> date: aDate [
+	dateAndTime := DateAndTime date: aDate time: dateAndTime asTime
 ]
 
-{ #category : #copying }
-Event >> duplicated [
-	^ self copy
-		plot: nil;
-		yourself
+{ #category : #accessing }
+Event >> initialize [
+	super initialize.
+	dateAndTime := DateAndTime now
 ]
 
 { #category : #accessing }
@@ -65,10 +63,10 @@ Event >> surface: anObject [
 
 { #category : #accessing }
 Event >> time [
-	^ time
+	^ dateAndTime asTime 
 ]
 
 { #category : #accessing }
-Event >> time: anObject [
-	time := anObject
+Event >> time: aTime [
+	dateAndTime := DateAndTime date: dateAndTime asDate time: aTime
 ]
