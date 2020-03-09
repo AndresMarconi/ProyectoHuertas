@@ -9,6 +9,7 @@ TextAreaPropertyEditorComponent >> renderInputOn: html [
 	^ html textArea
 		rows: 3;
 		formControl;
+		attributeAt: 'autocomplete' put: 'off';
 		callback: [ :value | self handleCallbackWith: value ];
 		with: bufferedValue;
 		id: selector

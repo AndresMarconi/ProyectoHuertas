@@ -24,8 +24,9 @@ NumberPropertyEditorComponent >> obtainValueFromString: aString [
 
 { #category : #hooks }
 NumberPropertyEditorComponent >> renderInputOn: html [
-	 html textInput
+	html textInput
 		formControl;
+		attributeAt: 'autocomplete' put: 'off';
 		callback: [ :value | self handleCallbackWith: value ];
 		with: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it printString ]);
 		id: selector

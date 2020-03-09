@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #rendering }
+FOMPlotsManagementComponent >> addManyElements [
+	(self call: (MultiplePlotsCreator subject: nil))
+		ifNotNil: [ :plots | 
+			plots do: [ :plot | self saveAddedElement: plot ].
+			self loadPaginator ]
+]
+
+{ #category : #rendering }
 FOMPlotsManagementComponent >> columnHeadings [
 	^ {'ID' . 'Superficie (m2)' }
 ]
@@ -32,6 +40,23 @@ FOMPlotsManagementComponent >> elementEditorClass [
 { #category : #accessing }
 FOMPlotsManagementComponent >> elements [
 	^ self session plots
+]
+
+{ #category : #rendering }
+FOMPlotsManagementComponent >> renderAddButtonOn: html [
+	addEnabled
+		ifTrue: [ html
+				paragraph: [ html anchor
+						callback: [ self addElement ];
+						with: [ html formButton
+								bePrimary;
+								with: 'Agregar uno' ].
+					html space.
+					html anchor
+						callback: [ self addManyElements ];
+						with: [ html formButton
+								bePrimary;
+								with: 'Agregar muchos' ] ] ]
 ]
 
 { #category : #callbacks }

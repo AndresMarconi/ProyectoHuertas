@@ -55,6 +55,7 @@ MeasurementPropertyEditorComponent >> renderInputOn: html [
 						id: selector , '-magnitude' ].
 			html textInput
 				formControl;
+				attributeAt: 'autocomplete' put: 'off';
 				callback: [ :value | self handleCallbackWith: value ];
 				with: bufferedValue magnitude printString;
 				id: selector , '-magnitude' ]
