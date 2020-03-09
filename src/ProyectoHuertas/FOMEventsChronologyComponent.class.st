@@ -45,7 +45,8 @@ FOMEventsChronologyComponent >> elements [
 FOMEventsChronologyComponent >> initialize [
 	super initialize.
 	addEnabled := false.
-	editEnabled := false
+	editEnabled := false.
+	duplicateEnabled := false
 ]
 
 { #category : #accessing }

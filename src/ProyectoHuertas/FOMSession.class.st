@@ -98,7 +98,10 @@ FOMSession >> loginRequired [
 
 { #category : #'indirect queries' }
 FOMSession >> plots [
-	^ self farm ifNotNil: [ :it | it plots ] ifNil: [ Set new ]
+	^ self farm
+		ifNotNil:
+			[ :it | it plots asSortedCollection: [ :before :after | before id < after id ] ]
+		ifNil: [ Set new ]
 ]
 
 { #category : #'indirect queries' }
