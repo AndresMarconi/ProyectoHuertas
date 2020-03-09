@@ -61,7 +61,8 @@ FOMHomeComponent >> renderContentOn: html [
 	self renderNavbarOn: html.
 	html
 		row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
-			html column: [ html render: selectedComponent ] mediumSize: 10 ] 
+			html column: [ html render: selectedComponent ] mediumSize: 10 ].
+
 ]
 
 { #category : #rendering }

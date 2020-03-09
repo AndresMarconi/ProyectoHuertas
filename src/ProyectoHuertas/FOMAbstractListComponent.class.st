@@ -136,7 +136,8 @@ FOMAbstractListComponent >> renderAddButtonOn: html [
 FOMAbstractListComponent >> renderContentOn: html [
 	self renderElementsTableOn: html.
 	paginator renderPaginationOn: html.
-	self renderAddButtonOn: html
+	self renderAddButtonOn: html.
+	
 ]
 
 { #category : #rendering }

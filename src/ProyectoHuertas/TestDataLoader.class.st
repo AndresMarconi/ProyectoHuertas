@@ -125,6 +125,7 @@ TestDataLoader >> addExpertDemoData [
 
 { #category : #loading }
 TestDataLoader >> addFarmerDemoData [
+	session crops ifEmpty: [ self addExpertDemoData ].
 	session farm plots
 		ifEmpty: [ self addDemoPlots.
 			session farm plots do: [ :aPlot | self addDemoEventsToPlot: aPlot ] ]
