@@ -25,7 +25,7 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 				listGroup: [ self
 						renderMenuBlock:
 							{('Cultivos' -> FOMCropsComponent).
-							('Fertilizantes y pesticidas' -> FOMSubstancesComponent).
+							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent).
 							('Principios activos' -> FOMActiveIngredienteComponent)}
 						heading: 'Catálogos'
 						on: html ] ]
