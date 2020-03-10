@@ -23,8 +23,15 @@ Sale class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
-Sale >> addItem: anObject [
-	items add: anObject 
+Sale >> addItem: aCropSale [
+	items add: aCropSale.
+	aCropSale sale: self
+]
+
+{ #category : #archiving }
+Sale >> archive [
+	super archive.
+	items do: #archive
 ]
 
 { #category : #accessing }

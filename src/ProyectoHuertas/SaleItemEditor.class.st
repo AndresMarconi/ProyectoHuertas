@@ -29,7 +29,7 @@ SaleItemEditor >> initializeComponents [
 
 	productEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #product
+		selector: #crop
 		label: 'Producto'
 		required: true.
 	productEditorComponent possibleValues: self crops.

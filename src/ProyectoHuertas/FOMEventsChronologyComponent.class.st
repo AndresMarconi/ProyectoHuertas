@@ -37,7 +37,7 @@ FOMEventsChronologyComponent >> elements [
 				ifNotNil: [ :farm | farm events ]
 				ifNil: [ Array new ] ].
 	^ events
-		asSortedCollection: [ :a :b | a dateAndTime < b dateAndTime ]
+		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
 
 { #category : #initialization }
@@ -112,6 +112,12 @@ FOMEventsChronologyComponent >> summaryForApplication: anApplication [
 ]
 
 { #category : #summaries }
+FOMEventsChronologyComponent >> summaryForCropSale: aCropSale [
+	^ aCropSale sale client , ': ' , aCropSale crop vulgarName , ' ('
+		, aCropSale kilograms asString , ' Kg)'
+]
+
+{ #category : #summaries }
 FOMEventsChronologyComponent >> summaryForHarvesting: aHarvesting [
 	| stream |
 	stream := String new writeStream.
@@ -139,14 +145,14 @@ FOMEventsChronologyComponent >> summaryForSowing: aSowing [
 	stream := String new writeStream.
 	stream nextPutAll: aSowing crop vulgarName.
 	aSowing cultivarName
-		ifNotNil: [ :it | 
+		ifNotNilNeitherEmpty: [ :it | 
 			stream
 				nextPutAll: ' (';
 				nextPutAll: it;
 				nextPutAll: ')' ].
 	stream nextPutAll: ' - '.
 	stream nextPutAll: aSowing quantity printString.
-	^stream contents
+	^ stream contents
 ]
 
 { #category : #rendering }

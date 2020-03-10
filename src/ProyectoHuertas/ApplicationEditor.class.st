@@ -47,6 +47,7 @@ ApplicationEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent possibleValues: {nil} , self substances.
+	substanceEditorComponent instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'
 
 ]
 
@@ -63,5 +64,7 @@ ApplicationEditor >> possibleReasons [
 
 { #category : #accessing }
 ApplicationEditor >> substances [
-	^ (self session substances) asOrderedCollection.
+	^ self session farm inventoryItems
+		ifNotEmpty: [ :inventoryItems | inventoryItems collect: #substance ]
+		ifEmpty: [ self session substances asOrderedCollection ]
 ]

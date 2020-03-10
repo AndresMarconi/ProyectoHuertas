@@ -14,7 +14,8 @@ Class {
 
 { #category : #accessing }
 SowingEditor >> crops [
-	^ (self session crops) asOrderedCollection
+	^ (self session farm mostFrequentelyHarvested: 10) , {nil}
+		, self session crops
 ]
 
 { #category : #'subclass-responsibility' }

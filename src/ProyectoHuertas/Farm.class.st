@@ -84,11 +84,6 @@ Farm >> initialize [
 ]
 
 { #category : #accessing }
-Farm >> inventory [
-	^ inventoryItems reject: [ :inventoryItem | inventoryItem archived ]
-]
-
-{ #category : #accessing }
 Farm >> inventoryItems [
 	^ inventoryItems reject: [ :inventoryItem | inventoryItem archived ]
 ]

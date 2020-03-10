@@ -18,7 +18,7 @@ SaleListItemEditor >> accept [
 { #category : #adding }
 SaleListItemEditor >> addRow [
 	items do: #accept.
-	subject addItem: SaleItem new.
+	subject addItem: CropSale new.
 	items:= OrderedCollection new.
 	subject items do: [ :each | items add: (SaleItemEditor subject: each) ].
 	

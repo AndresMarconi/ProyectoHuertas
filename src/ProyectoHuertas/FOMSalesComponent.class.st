@@ -7,7 +7,9 @@ Class {
 { #category : #callbacks }
 FOMSalesComponent >> addElement [
 	(self call: (self elementEditorClass subject: self elementClass new))
-		ifNotNil: [ :it | self call: (SaleListItemEditor subject: it). self saveAddedElement: it ]
+		ifNotNil: [ :it | 
+			self call: (SaleListItemEditor subject: it).
+			self saveAddedElement: it ]
 ]
 
 { #category : #rendering }
@@ -50,5 +52,13 @@ FOMSalesComponent >> elements [
 FOMSalesComponent >> saveAddedElement: aSale [
 	super saveAddedElement: aSale.
 	self session farm addSale: aSale.
+	aSale items
+		do: [ :aCropSale | 
+			aCropSale
+				date: aSale date;
+				time: Time now.
+			aCropSale plot
+				addEvent: aCropSale;
+				save ].
 	self session farm save
 ]

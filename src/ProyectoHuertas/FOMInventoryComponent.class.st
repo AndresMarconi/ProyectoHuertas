@@ -46,6 +46,12 @@ FOMInventoryComponent >> elements [
 	^ self session inventoryItems
 ]
 
+{ #category : #initialization }
+FOMInventoryComponent >> initialize [
+	super initialize.
+	duplicateEnabled := false
+]
+
 { #category : #adding }
 FOMInventoryComponent >> saveAddedElement: anInventoryItem [
 	super saveAddedElement: anInventoryItem.

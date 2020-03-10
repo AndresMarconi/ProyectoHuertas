@@ -7,7 +7,8 @@ Class {
 		'label',
 		'required',
 		'problems',
-		'bufferedValue'
+		'bufferedValue',
+		'instructions'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
@@ -48,6 +49,11 @@ PropertyEditorComponent >> hasProblems [
 	^ problems notEmpty
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> instructions: anObject [
+	instructions := anObject
+]
+
 { #category : #hooks }
 PropertyEditorComponent >> obtainValueFromString: value [
 	^ value
@@ -62,12 +68,21 @@ PropertyEditorComponent >> problems [
 PropertyEditorComponent >> renderContentOn: html [
 	html
 		formGroup: [ self renderLabelOn: html.
+			self renderInstructionsOn: html.
 			self renderInputOn: html ]
 ]
 
 { #category : #hooks }
 PropertyEditorComponent >> renderInputOn: html [
 	^ self subclassResponsibility
+]
+
+{ #category : #rendering }
+PropertyEditorComponent >> renderInstructionsOn: html [
+	instructions
+		ifNotNil: [ html
+				break;
+				small: instructions ]
 ]
 
 { #category : #rendering }
@@ -82,6 +97,11 @@ PropertyEditorComponent >> renderLabelOn: html [
 { #category : #rendering }
 PropertyEditorComponent >> rendererClass [
 	^ SBSHtmlCanvas
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> required [
+	^ required
 ]
 
 { #category : #initialization }
