@@ -2,20 +2,21 @@ Class {
 	#name : #Paginator,
 	#superclass : #Object,
 	#instVars : [
+		'subject',
+		'selector',
 		'page',
-		'elementsPerPage',
-		'totalElements'
+		'elementsPerPage'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
 
 { #category : #'instance creation' }
-Paginator class >> newTotalElements: total perPage: quantity [
-	| paginate |
-	paginate := self new.
-	paginate totalElements: total.
-	paginate elementsPerPage: quantity.
-	^ paginate 
+Paginator class >> subject: anObject selector: aMessageSelector pageSize: aNumber [
+	^ self new
+		subject: anObject;
+		selector: aMessageSelector;
+		elementsPerPage: aNumber;
+		yourself
 ]
 
 { #category : #accessing }
@@ -146,11 +147,26 @@ Paginator >> selectElementsIn: collection [
 ]
 
 { #category : #accessing }
-Paginator >> totalElements [
-	^ totalElements
+Paginator >> selector [
+	^ selector
 ]
 
 { #category : #accessing }
-Paginator >> totalElements: aTot [
-	totalElements:= aTot
+Paginator >> selector: anObject [
+	selector := anObject
+]
+
+{ #category : #accessing }
+Paginator >> subject [
+	^ subject
+]
+
+{ #category : #accessing }
+Paginator >> subject: anObject [
+	subject := anObject
+]
+
+{ #category : #accessing }
+Paginator >> totalElements [
+	^ (subject perform: selector) size
 ]

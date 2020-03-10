@@ -2,9 +2,7 @@ Class {
 	#name : #Sowing,
 	#superclass : #Event,
 	#instVars : [
-		'conductionSystem',
 		'quantity',
-		'distribution',
 		'crop',
 		'cultivarName',
 		'timeToHarvest',

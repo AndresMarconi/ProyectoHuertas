@@ -109,6 +109,9 @@ TestDataLoader >> addDemoSowingToPlot: aPlot [
 		time: time;
 		plot: aPlot;
 		quantity: (Measurement magnitude: 1000 unit: 'Plantas');
+		timeToHarvest: 90;
+		harvestDuration: 60;
+		expectedYield: 2000;
 		yourself.
 	aPlot addEvent: sowing.
 	sowing save.

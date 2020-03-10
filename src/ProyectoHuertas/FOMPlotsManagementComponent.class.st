@@ -7,9 +7,8 @@ Class {
 { #category : #rendering }
 FOMPlotsManagementComponent >> addManyElements [
 	(self call: (MultiplePlotsCreator subject: nil))
-		ifNotNil: [ :plots | 
-			plots do: [ :plot | self saveAddedElement: plot ].
-			self loadPaginator ]
+		ifNotNil:
+			[ :plots | plots do: [ :plot | self saveAddedElement: plot ] ]
 ]
 
 { #category : #rendering }

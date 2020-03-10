@@ -10,10 +10,8 @@ Class {
 { #category : #accessing }
 FOMEventsChronologyComponent class >> plot: aPlot [
 	| component |
-	component:= self new.
-	component
-		plot: aPlot;
-		loadPaginator.
+	component := self new.
+	component plot: aPlot.
 	^ component
 ]
 
@@ -72,18 +70,25 @@ FOMEventsChronologyComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FOMEventsChronologyComponent >> renderPlotFilterOn: html [
-	html form: [
-		html row:[ 
-			html column: [
-				html select
-					formControl;
-					selected: plot;
-       			callback: [ :value | plot:= value. 
-						paginator:= Paginator newTotalElements: (self elements size) perPage: 10 ];
-					id: 'plot';
-					list: {nil}, self session plots. ] mediumSize: 3;
-			column:[  
-		html submitButton class: 'btn btn-primary'; with: 'Filtrar' ] mediumSize: 6 ] ] 
+	html
+		form: [ html
+				row: [ html
+						column: [ html select
+								formControl;
+								selected: plot;
+								callback: [ :value | 
+									plot := value.
+									paginator := Paginator
+										subject: self
+										selector: #elements
+										pageSize: 10 ];
+								id: 'plot';
+								list: {nil} , self session plots ]
+							mediumSize: 3;
+						column: [ html submitButton
+								class: 'btn btn-primary';
+								with: 'Filtrar' ]
+							mediumSize: 6 ] ]
 ]
 
 { #category : #rendering }
