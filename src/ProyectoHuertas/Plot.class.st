@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'id',
 		'surface',
-		'events'
+		'events',
+		'currentCycle'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -24,9 +25,9 @@ Plot class >> isVoyageRoot [
 
 { #category : #accessing }
 Plot >> addEvent: anEvent [
+	currentCycle addEvent: anEvent.
 	events add: anEvent.
-	anEvent plot: self.
-	
+	anEvent plot: self
 ]
 
 { #category : #'utilities-migration' }
@@ -71,6 +72,7 @@ Plot >> id: anObject [
 { #category : #initialization }
 Plot >> initialize [
 	super initialize.
+	currentCycle := HarvestingCycle new.
 	events := OrderedCollection new
 ]
 
