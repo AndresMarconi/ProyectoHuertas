@@ -14,6 +14,11 @@ HarvestingCycle >> addEvent: anEvent [
 ]
 
 { #category : #events }
+HarvestingCycle >> initialize [
+	events := OrderedCollection new. 
+]
+
+{ #category : #events }
 HarvestingCycle >> restart [
 	events ifEmpty: [ ^ self ].
 	events last class = Application | (events last class = Problem)
