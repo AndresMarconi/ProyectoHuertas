@@ -1,8 +1,27 @@
 Class {
 	#name : #FOMDashboardComponent,
 	#superclass : #FOMAbstractComponent,
+	#instVars : [
+		'period'
+	],
 	#category : #'ProyectoHuertas-ui-core'
 }
+
+{ #category : #initialization }
+FOMDashboardComponent >> initialize [ 
+	super initialize.
+	self perWeek
+]
+
+{ #category : #'as yet unclassified' }
+FOMDashboardComponent >> perMounth [
+	period:= 30
+]
+
+{ #category : #'as yet unclassified' }
+FOMDashboardComponent >> perWeek [
+	period:= 7
+]
 
 { #category : #printing }
 FOMDashboardComponent >> printOn: aStream [
@@ -46,23 +65,37 @@ FOMDashboardComponent >> renderPlotsNotToHarvestOn: html [
 { #category : #rendering }
 FOMDashboardComponent >> renderPlotsToHarvestOn: html [
 
-	html heading
-		level5;
-		with: 'Cosecha'.
+	html row:[
+		html heading
+			level5;
+			with: 'Cosecha'.
+		html space.
+		self renderSelectionPeriodOn: html ].
 	html
 		paragraph:
 			'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.'.
 	html
-		unorderedList: [ html
-				listItem: [ html
-						strong: 'Lote 01: ';
-						text: 'hasta el 02/03/2022: continúa la cosecha de Tomate (Tomate platense)' ];
-				listItem: [ html
-						strong: 'Lote 02: ';
-						text: '12/12/21: iniciaría la cosecha del Pimiento' ];
-				listItem: [ html
-						strong: 'Lote 03: ';
-						text: '1/12/21: iniciaría la cosecha de Lechuga (Lechuga mantecosa)' ] ]
+		unorderedList: [ self toHarvestSoon do: [ :each | 
+				html listItem: [ html
+						strong: each plot;
+						text: ' La cosecha iniciara ', (each harvestDate) ddmmyyyy ,
+								' hasta el ', (each harvestPeriod) ddmmyyyy ,
+								': continúa la cosecha de ', each crop printString] ] ]
+]
+
+{ #category : #rendering }
+FOMDashboardComponent >> renderSelectionPeriodOn: html [
+		
+		html space.
+		html anchor
+			callback: [ self perWeek ];
+			with: ' esta semana '.
+		html space.
+		html text: ' | '.
+		html space.
+		html anchor
+			callback: [ self perMounth ];
+			with: ' este mes '.
 ]
 
 { #category : #rendering }
@@ -91,4 +124,14 @@ FOMDashboardComponent >> renderTrendProblemsOn: html [
 { #category : #rendering }
 FOMDashboardComponent >> renderYieldOn: html [
 	html text: 'aqui se mostrara un grafico comparando lo que se esperaba para cosechar y lo que se cosecho'
+]
+
+{ #category : #'as yet unclassified' }
+FOMDashboardComponent >> toHarvestSoon [
+ | sowings |
+	sowings:= self session sowings. 
+	sowings:= sowings select: [ :each | (each harvestDate) isAfter: (Date today) ].
+	sowings:= sowings select: [ :each | (each harvestDate) isBefore: ((Date today) addDays: period) ].
+	^sowings
+
 ]

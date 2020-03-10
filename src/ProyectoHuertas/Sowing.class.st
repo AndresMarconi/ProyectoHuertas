@@ -25,16 +25,6 @@ Sowing class >> typeDescriptor [
 ]
 
 { #category : #accessing }
-Sowing >> conductionSystem [
-	^ conductionSystem
-]
-
-{ #category : #accessing }
-Sowing >> conductionSystem: anObject [
-	conductionSystem := anObject
-]
-
-{ #category : #accessing }
 Sowing >> crop [
 	^ crop
 ]
@@ -55,16 +45,6 @@ Sowing >> cultivarName: anObject [
 ]
 
 { #category : #accessing }
-Sowing >> distribution [
-	^ distribution
-]
-
-{ #category : #accessing }
-Sowing >> distribution: anObject [
-	distribution := anObject
-]
-
-{ #category : #accessing }
 Sowing >> expectedYield [
 	^ expectedYield
 ]
@@ -72,6 +52,11 @@ Sowing >> expectedYield [
 { #category : #accessing }
 Sowing >> expectedYield: anObject [
 	expectedYield := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Sowing >> harvestDate [
+	^ self date addDays: timeToHarvest.
 ]
 
 { #category : #accessing }
@@ -82,6 +67,11 @@ Sowing >> harvestDuration [
 { #category : #accessing }
 Sowing >> harvestDuration: anObject [
 	harvestDuration := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Sowing >> harvestPeriod [
+	^ self harvestDate addDays: harvestDuration.
 ]
 
 { #category : #copying }

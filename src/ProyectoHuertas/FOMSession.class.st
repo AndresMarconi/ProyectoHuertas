@@ -158,8 +158,3 @@ FOMSession >> user [
 FOMSession >> users [
 	^ FOMUser selectMany: [ :each | each archived = false ]
 ]
-
-{ #category : #'db queries' }
-FOMSession >> varieties [
-	^ Variety selectMany: [ :each | each archived = false ]
-]
