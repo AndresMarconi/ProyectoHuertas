@@ -45,14 +45,19 @@ Farm >> archive [
 	inventoryItems do: #archive
 ]
 
-{ #category : #utility }
-Farm >> emptyInventory [
-	inventoryItems := OrderedCollection new
-]
-
 { #category : #accessing }
 Farm >> events [ 
 	^ ((self plots) flatCollect: [ :plot | plot events ]) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #utility }
+Farm >> frequentelyApplied [
+	^ plots flatCollect: #frequentelyApplied as: Bag
+]
+
+{ #category : #utility }
+Farm >> frequentelyHarvested [
+	^ plots flatCollect: #frequentelyHarvested as: Bag
 ]
 
 { #category : #accessing }
@@ -86,6 +91,14 @@ Farm >> inventory [
 { #category : #accessing }
 Farm >> inventoryItems [
 	^ inventoryItems reject: [ :inventoryItem | inventoryItem archived ]
+]
+
+{ #category : #utility }
+Farm >> mostFrequentelyHarvested: count [
+	^ ((plots flatCollect: #frequentelyHarvested as: Bag) sortedCounts
+		collect: #value)
+		ifNotEmpty: [ :it | it first: (count min: it size) ]
+		ifEmpty: [ Array new ]
 ]
 
 { #category : #accessing }

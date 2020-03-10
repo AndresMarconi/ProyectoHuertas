@@ -30,13 +30,6 @@ Plot >> addEvent: anEvent [
 	anEvent plot: self
 ]
 
-{ #category : #'utilities-migration' }
-Plot >> adoptEvents [
-	"make sure all my events point to me"
-
-	events do: [ :each | each plot: self ]
-]
-
 { #category : #accessing }
 Plot >> aplications [
 	^ self events select: [ :event | event class = Application ]
@@ -52,6 +45,18 @@ Plot >> archive [
 Plot >> events [
 	^ (events reject: [ :each | each archived])
 		asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #utility }
+Plot >> frequentelyApplied [
+	^ ((events select: [ :each | each class = Application ])
+		collect: #substance) asBag
+]
+
+{ #category : #utility }
+Plot >> frequentelyHarvested [
+	^ ((events select: [ :each | each class = Harvesting ])
+		collect: #crop) asBag
 ]
 
 { #category : #accessing }
