@@ -42,7 +42,7 @@ TestDataLoader >> addDemoApplicationToPlot: aPlot [
 { #category : #loading }
 TestDataLoader >> addDemoEventsToPlot: aPlot [
 	lastDay := '1/1/1980' asDate.
-	100
+   20
 		timesRepeat: [ self addDemoSowingToPlot: aPlot.
 			self addDemoProblemToPlot: aPlot.
 			self addDemoApplicationToPlot: aPlot.
