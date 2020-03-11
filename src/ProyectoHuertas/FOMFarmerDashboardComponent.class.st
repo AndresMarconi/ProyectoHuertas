@@ -1,5 +1,5 @@
 Class {
-	#name : #FOMDashboardComponent,
+	#name : #FOMFarmerDashboardComponent,
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
 		'period'
@@ -8,28 +8,28 @@ Class {
 }
 
 { #category : #initialization }
-FOMDashboardComponent >> initialize [ 
+FOMFarmerDashboardComponent >> initialize [ 
 	super initialize.
 	self perWeek
 ]
 
 { #category : #'as yet unclassified' }
-FOMDashboardComponent >> perMounth [
+FOMFarmerDashboardComponent >> perMounth [
 	period:= 30
 ]
 
 { #category : #'as yet unclassified' }
-FOMDashboardComponent >> perWeek [
+FOMFarmerDashboardComponent >> perWeek [
 	period:= 7
 ]
 
 { #category : #printing }
-FOMDashboardComponent >> printOn: aStream [
+FOMFarmerDashboardComponent >> printOn: aStream [
 	aStream nextPutAll: 'Tablero de Control'
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderContentOn: html [
+FOMFarmerDashboardComponent >> renderContentOn: html [
 	html heading: self session farm name;
 		 break; break;
 		 row: [ 
@@ -42,7 +42,7 @@ FOMDashboardComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderPlotsNotToHarvestOn: html [
+FOMFarmerDashboardComponent >> renderPlotsNotToHarvestOn: html [
 	html heading
 		level5;
 		with: 'Carencias'.
@@ -63,7 +63,7 @@ FOMDashboardComponent >> renderPlotsNotToHarvestOn: html [
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderPlotsToHarvestOn: html [
+FOMFarmerDashboardComponent >> renderPlotsToHarvestOn: html [
 
 	html row:[
 		html heading
@@ -84,7 +84,7 @@ FOMDashboardComponent >> renderPlotsToHarvestOn: html [
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderSelectionPeriodOn: html [
+FOMFarmerDashboardComponent >> renderSelectionPeriodOn: html [
 		
 		html space.
 		html anchor
@@ -99,7 +99,7 @@ FOMDashboardComponent >> renderSelectionPeriodOn: html [
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderTrendProblemsOn: html [
+FOMFarmerDashboardComponent >> renderTrendProblemsOn: html [
 	html heading
 		level5;
 		with: 'Ranking de adversidades'.
@@ -122,12 +122,12 @@ FOMDashboardComponent >> renderTrendProblemsOn: html [
 ]
 
 { #category : #rendering }
-FOMDashboardComponent >> renderYieldOn: html [
+FOMFarmerDashboardComponent >> renderYieldOn: html [
 	html text: 'aqui se mostrara un grafico comparando lo que se esperaba para cosechar y lo que se cosecho'
 ]
 
 { #category : #'as yet unclassified' }
-FOMDashboardComponent >> toHarvestSoon [
+FOMFarmerDashboardComponent >> toHarvestSoon [
  | sowings |
 	sowings:= self session sowings. 
 	sowings:= sowings select: [ :each | (each harvestDate) isAfter: (Date today) ].

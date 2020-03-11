@@ -34,9 +34,14 @@ FOMHomeComponent >> children [
 	^ selectedComponent ifNil: [ {} ] ifNotNil: [ {selectedComponent} ]
 ]
 
+{ #category : #rendering }
+FOMHomeComponent >> dashboardComponentClass [
+	^ self subclassResponsibility
+]
+
 { #category : #initialization }
 FOMHomeComponent >> initialize [
-	selectedComponent := FOMDashboardComponent new
+	selectedComponent := self dashboardComponentClass new
 ]
 
 { #category : #rendering }
@@ -84,10 +89,11 @@ FOMHomeComponent >> renderLoginRequiredMessageOn: html [
 	html alert
 		beWarning;
 		with: [ html
-				paragraph: [ html text: 'Su sesión ya expiro, '.
+				paragraph: [ html
+						text: 'Su sesión ya expiró. En unos segundos lo redirigiremos a la '.
 					html anchor
 						url: self loginUrl;
-						with: ' vuelva a ingresar ' ] ]
+						with: ' página de inicio. ' ] ]
 ]
 
 { #category : #rendering }
@@ -135,4 +141,13 @@ FOMHomeComponent >> style [
          background-color: #eae6e6;
          border: 1px solid rgba(0,0,0,.125);
       }'
+]
+
+{ #category : #redirecting }
+FOMHomeComponent >> updateRoot: aWARoot [
+	super updateRoot: aWARoot.
+	self session loginRequired
+		ifTrue: [ aWARoot meta
+				attributeAt: 'http-equiv' put: 'Refresh';
+				content: '5;URL=''' , (self application preferenceAt: #loginApp) , '''' ]
 ]

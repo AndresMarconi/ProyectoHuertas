@@ -12,6 +12,11 @@ FOMExpertHomeComponent >> barBrand [
 ]
 
 { #category : #rendering }
+FOMExpertHomeComponent >> dashboardComponentClass [
+	^ FOMExpertDashboardComponent
+]
+
+{ #category : #rendering }
 FOMExpertHomeComponent >> loadDemoData [
 	TestDataLoader new
 		session: self session;
@@ -24,7 +29,8 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 		form: [ html
 				listGroup: [ self
 						renderMenuBlock:
-							{('Cultivos' -> FOMCropsComponent).
+							{('Tablero de control' -> self dashboardComponentClass).
+							('Cultivos' -> FOMCropsComponent).
 							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent).
 							('Principios activos' -> FOMActiveIngredienteComponent)}
 						heading: 'Catálogos'

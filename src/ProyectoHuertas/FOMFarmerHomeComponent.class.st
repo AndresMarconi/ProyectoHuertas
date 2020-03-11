@@ -12,6 +12,11 @@ FOMFarmerHomeComponent >> barBrand [
 ]
 
 { #category : #rendering }
+FOMFarmerHomeComponent >> dashboardComponentClass [
+	^ FOMFarmerDashboardComponent
+]
+
+{ #category : #rendering }
 FOMFarmerHomeComponent >> loadDemoData [
 	TestDataLoader new
 		session: self session;
@@ -24,7 +29,7 @@ FOMFarmerHomeComponent >> renderLeftMenuOn: html [
 		form: [ html
 				listGroup: [ self
 						renderMenuBlock:
-							{('Tablero de control' -> FOMDashboardComponent).
+							{('Tablero de control' -> self dashboardComponentClass).
 							('Plantación y siembra' -> FOMSowingComponent).
 							('Adversidades' -> FOMProblemsComponent).
 							('Aplicaciones' -> FOMApplicationsComponent).

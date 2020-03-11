@@ -34,7 +34,5 @@ FOMLoginComponent >> renderContentOn: html [
 								with: [ html formButton
 										bePrimary;
 										beLarge;
-										with: 'Ingresar' ] ].
-					html
-						paragraph: 'Si utiliza ' , self requestContext request host, '  acepta las condiciones de uso.'] ]
+										with: 'Ingresar' ] ] ] ]
 ]
