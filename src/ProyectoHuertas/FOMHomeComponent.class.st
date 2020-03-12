@@ -72,11 +72,12 @@ FOMHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FOMHomeComponent >> renderDemoDataButtonOn: html [
-	('localhost*' match: self requestContext request host)
-		ifTrue: [ html outlineButton beDanger beSmall
-				callback: [ self loadDemoData ];
-				with: 'Load demo data'.
-			html space ]
+	FOMDeployer demoMode
+		ifFalse: [ ^ self ].
+	html outlineButton beDanger beSmall
+		callback: [ self loadDemoData ];
+		with: 'Load demo data'.
+	html space
 ]
 
 { #category : #rendering }

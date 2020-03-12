@@ -12,8 +12,21 @@ Class {
 		'farmerApp',
 		'farmerLoginApp'
 	],
+	#classVars : [
+		'DemoMode'
+	],
 	#category : #'ProyectoHuertas-deployment'
 }
+
+{ #category : #demo }
+FOMDeployer class >> demoMode [
+	^ DemoMode ifNil: [ DemoMode := false ]
+]
+
+{ #category : #demo }
+FOMDeployer class >> demoMode: aBoolean [
+	DemoMode := aBoolean
+]
 
 { #category : #deploying }
 FOMDeployer >> addLibrariesToApps [
