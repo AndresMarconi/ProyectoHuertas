@@ -42,6 +42,16 @@ Plot >> archive [
 ]
 
 { #category : #accessing }
+Plot >> currentCycle [
+	^ currentCycle
+]
+
+{ #category : #accessing }
+Plot >> currentCycle: anObject [
+	currentCycle := anObject
+]
+
+{ #category : #accessing }
 Plot >> events [
 	^ (events reject: [ :each | each archived])
 		asSortedCollection: [ :a :b | a date > b date ]

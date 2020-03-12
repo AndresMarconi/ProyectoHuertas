@@ -75,3 +75,8 @@ Application >> substance: anObject [
 Application >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForApplication: self
 ]
+
+{ #category : #'as yet unclassified' }
+Application >> waitingPeriodFor: aCrop [
+	^ (dateAndTime asDate) addDays: (substance withdrawalPeriodOf: aCrop)
+]

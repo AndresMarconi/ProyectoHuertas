@@ -68,6 +68,12 @@ Substance >> usage: anObject [
 	usage := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Substance >> withdrawalPeriodOf: aCrop [
+	(withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ]) 
+	ifEmpty: [ ^0 ] ifNotEmpty: [ :it | ^(it at: 1) daysToWait ]
+]
+
 { #category : #accessing }
 Substance >> withdrawalPeriodRecommendations [
 	^ withdrawalPeriodRecommendations

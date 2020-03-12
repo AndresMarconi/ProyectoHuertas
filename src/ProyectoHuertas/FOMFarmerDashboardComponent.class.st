@@ -34,6 +34,13 @@ FOMFarmerDashboardComponent >> perWeek [
 	period:= 7
 ]
 
+{ #category : #'as yet unclassified' }
+FOMFarmerDashboardComponent >> plotInWaitingPeriod [
+	^self session plots reject: [ :plot | ((plot currentCycle) inWaitingPeriod) isNil ]
+	
+
+]
+
 { #category : #printing }
 FOMFarmerDashboardComponent >> printOn: aStream [
 	aStream nextPutAll: 'Tablero de Control'
@@ -63,23 +70,13 @@ FOMFarmerDashboardComponent >> renderNextToHarvest: nextToHarvest On: html [
 
 { #category : #rendering }
 FOMFarmerDashboardComponent >> renderPlotsNotToHarvestOn: html [
-	html heading
-		level5;
-		with: 'Carencias'.
-	html
-		paragraph:
-			'Respete las carencias correspondientes a los fitosanitarios aplicados.'.
-	html
-		unorderedList: [ html
-				listItem: [ html
-						strong: 'Lote 01:';
-						text: ' hasta 12/12/21 por aplicación de Strike' ];
-				listItem: [ html
-						strong: 'Lote 02:';
-						text: ' hasta 12/12/21 por aplicación de Strike' ];
-				listItem: [ html
-						strong: 'Lote 03:';
-						text: ' hasta 12/12/21 por aplicación de Strike' ] ]
+	html heading level5; with: 'Carencias'.
+	html paragraph: 'Respete las carencias correspondientes a los fitosanitarios aplicados.'.
+	html unorderedList: [ (self plotInWaitingPeriod) do: [ :plot |  
+		html listItem: [ html 
+			strong: plot; 
+			text: ' hasta ', plot currentCycle inWaitingPeriod ddmmyyyy,' por aplicación de ', 
+			((plot currentCycle aplications) last) substance comercialName] ] ]
 ]
 
 { #category : #rendering }
