@@ -37,9 +37,9 @@ FOMSession >> createUserResources [
 
 { #category : #'db queries' }
 FOMSession >> crops [
-	^ Crop
-		selectMany: [ :each | each archived = false ]
-		sortBy: [ :a :b | a vulgarName < b vulgarName ]
+	^ (Crop
+		selectMany: [ :each | each archived = false ])
+		sort: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #accessing }
@@ -138,9 +138,8 @@ FOMSession >> sowings [
 
 { #category : #'db queries' }
 FOMSession >> substances [
-	^ Substance
-		selectMany: [ :each | each archived = false ]
-		sortBy: [ :a :b | a comercialName < b comercialName ]
+	^ (Substance selectMany: [ :each | each archived = false ])
+		sort: [ :a :b | a comercialName < b comercialName ]
 ]
 
 { #category : #translation }
