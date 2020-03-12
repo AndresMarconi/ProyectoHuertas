@@ -14,6 +14,17 @@ FOMFarmerDashboardComponent >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
+FOMFarmerDashboardComponent >> nextToHarvest [
+ | sowings |
+	sowings:= self session sowings. 
+	sowings:= sowings select: [ :each | (each harvestDate) isAfter: (Date today) ].
+	((sowings size) < 5)
+		ifTrue: [ ^sowings first: sowings size ]
+		ifFalse: [ ^sowings ]
+
+]
+
+{ #category : #'as yet unclassified' }
 FOMFarmerDashboardComponent >> perMounth [
 	period:= 30
 ]
@@ -42,6 +53,15 @@ FOMFarmerDashboardComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
+FOMFarmerDashboardComponent >> renderNextToHarvest: nextToHarvest On: html [
+	html paragraph: 'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.'.
+	html unorderedList: [ nextToHarvest do: [ :each | 
+		html listItem: [ html
+			strong: each plot;
+			text: ' La cosecha iniciara ', (each harvestDate) ddmmyyyy,' hasta el ', (each harvestPeriod) 			ddmmyyyy , ': continúa la cosecha de ', each crop printString ] ] ]
+]
+
+{ #category : #rendering }
 FOMFarmerDashboardComponent >> renderPlotsNotToHarvestOn: html [
 	html heading
 		level5;
@@ -64,23 +84,15 @@ FOMFarmerDashboardComponent >> renderPlotsNotToHarvestOn: html [
 
 { #category : #rendering }
 FOMFarmerDashboardComponent >> renderPlotsToHarvestOn: html [
-
 	html row:[
-		html heading
-			level5;
-			with: 'Cosecha'.
-		html space.
-		self renderSelectionPeriodOn: html ].
-	html
-		paragraph:
-			'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.'.
-	html
-		unorderedList: [ self toHarvestSoon do: [ :each | 
-				html listItem: [ html
-						strong: each plot;
-						text: ' La cosecha iniciara ', (each harvestDate) ddmmyyyy ,
-								' hasta el ', (each harvestPeriod) ddmmyyyy ,
-								': continúa la cosecha de ', each crop printString] ] ]
+		html heading level5; with: 'Cosecha'.
+		html space. self renderSelectionPeriodOn: html ].
+	(self toHarvestSoon) 
+		ifEmpty: [ 
+			(self nextToHarvest)
+				ifEmpty: [ html text: 'No hay ningun lote sembrado o plantado' ] 
+				ifNotEmpty: [ :it | self renderNextToHarvest: it On: html ] ] 
+		ifNotEmpty: [ :it | self renderSoonToHarvest: it On: html ]
 ]
 
 { #category : #rendering }
@@ -96,6 +108,15 @@ FOMFarmerDashboardComponent >> renderSelectionPeriodOn: html [
 		html anchor
 			callback: [ self perMounth ];
 			with: ' este mes '.
+]
+
+{ #category : #rendering }
+FOMFarmerDashboardComponent >> renderSoonToHarvest: soonToHarvest On: html [
+	html paragraph: 'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.'.
+	html unorderedList: [ soonToHarvest do: [ :each | 
+		html listItem: [ html
+			strong: each plot;
+			text: ' La cosecha iniciara ', (each harvestDate) ddmmyyyy,' hasta el ', (each harvestPeriod) 			ddmmyyyy , ': continúa la cosecha de ', each crop printString ] ] ]
 ]
 
 { #category : #rendering }

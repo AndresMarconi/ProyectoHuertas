@@ -146,7 +146,7 @@ FOMEventsChronologyComponent >> summaryForSowing: aSowing [
 	stream := String new writeStream.
 	stream nextPutAll: aSowing crop vulgarName.
 	aSowing cultivarName
-		ifNotNilNeitherEmpty: [ :it | 
+		ifNotNil: [ :it | 
 			stream
 				nextPutAll: ' (';
 				nextPutAll: it;

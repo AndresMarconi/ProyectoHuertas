@@ -8,8 +8,9 @@ Class {
 FOMSalesComponent >> addElement [
 	(self call: (self elementEditorClass subject: self elementClass new))
 		ifNotNil: [ :it | 
-			self call: (SaleListItemEditor subject: it).
-			self saveAddedElement: it ]
+			(self call: (SaleListItemEditor subject: it))
+			ifNotNil: [ :sale | 
+				self saveAddedElement: sale ] ]
 ]
 
 { #category : #rendering }
@@ -57,7 +58,7 @@ FOMSalesComponent >> saveAddedElement: aSale [
 			aCropSale
 				date: aSale date;
 				time: Time now.
-			aCropSale plot
+			(aCropSale plot)
 				addEvent: aCropSale;
 				save ].
 	self session farm save
