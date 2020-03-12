@@ -6,10 +6,21 @@ Class {
 		'doseEditorComponent',
 		'machineEditorComponent',
 		'substanceEditorComponent',
-		'reasonEditorComponent'
+		'reasonEditorComponent',
+		'notAllowed'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #callbacks }
+ApplicationEditor >> accept [
+	| substance plot |
+	substance:= substanceEditorComponent bufferedValue.
+	plot:= plotEditorComponent bufferedValue.
+	((substance allowedUsage) includes: (plot currentCrop))
+		ifFalse: [ notAllowed:= true. ^self ]. 
+	super accept
+]
 
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> eventSpecificChildren [
@@ -47,7 +58,8 @@ ApplicationEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent possibleValues: {nil} , self substances.
-	substanceEditorComponent instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'
+	substanceEditorComponent instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
+	notAllowed := false.
 
 ]
 
@@ -60,6 +72,18 @@ ApplicationEditor >> plots [
 ApplicationEditor >> possibleReasons [
 	^ {'Control de peste' . 'Tratamiento de enfermedad'.
 	'Prevención' . 'Preparación de suelo' . 'Otro (aclarar en notas)'}
+]
+
+{ #category : #rendering }
+ApplicationEditor >> renderContentOn: html [
+	self renderProblemOn: html.
+	super renderContentOn: html.
+]
+
+{ #category : #rendering }
+ApplicationEditor >> renderProblemOn: html [
+	notAllowed ifTrue: [ html alert beDanger; 
+		with: 'no puede aplicar ', substanceEditorComponent bufferedValue comercialName,' a ', plotEditorComponent bufferedValue currentCrop vulgarName ]
 ]
 
 { #category : #accessing }

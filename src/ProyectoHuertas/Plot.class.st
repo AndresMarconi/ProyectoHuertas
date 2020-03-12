@@ -41,6 +41,11 @@ Plot >> archive [
 	events do: #archive
 ]
 
+{ #category : #'as yet unclassified' }
+Plot >> currentCrop [
+	^ (self currentCycle sowing) crop
+]
+
 { #category : #accessing }
 Plot >> currentCycle [
 	^ currentCycle

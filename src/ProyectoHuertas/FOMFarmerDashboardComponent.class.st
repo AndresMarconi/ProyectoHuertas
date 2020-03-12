@@ -76,7 +76,7 @@ FOMFarmerDashboardComponent >> renderPlotsNotToHarvestOn: html [
 		html listItem: [ html 
 			strong: plot; 
 			text: ' hasta ', plot currentCycle inWaitingPeriod ddmmyyyy,' por aplicación de ', 
-			((plot currentCycle aplications) last) substance comercialName] ] ]
+			((plot currentCycle aplications) last) substance comercialName ] ] ]
 ]
 
 { #category : #rendering }

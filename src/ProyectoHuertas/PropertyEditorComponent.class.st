@@ -29,6 +29,11 @@ PropertyEditorComponent >> accept [
 	problems := OrderedCollection new
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> bufferedValue [
+	^ bufferedValue
+]
+
 { #category : #api }
 PropertyEditorComponent >> cancel [
 	bufferedValue := subject perform: selector.

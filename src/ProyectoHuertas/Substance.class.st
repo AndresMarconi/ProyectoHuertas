@@ -30,6 +30,11 @@ Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations add: withdrawalPeriodRecommendation
 ]
 
+{ #category : #'as yet unclassified' }
+Substance >> allowedUsage [
+	^ withdrawalPeriodRecommendations collect: [ :each | each crop ]
+]
+
 { #category : #accessing }
 Substance >> comercialName [
 	^ comercialName
@@ -71,7 +76,7 @@ Substance >> usage: anObject [
 { #category : #'as yet unclassified' }
 Substance >> withdrawalPeriodOf: aCrop [
 	(withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ]) 
-	ifEmpty: [ ^0 ] ifNotEmpty: [ :it | ^(it at: 1) daysToWait ]
+		ifEmpty: [ ^0 ] ifNotEmpty: [ :it | ^(it at: 1) daysToWait ]
 ]
 
 { #category : #accessing }
