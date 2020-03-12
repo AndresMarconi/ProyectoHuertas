@@ -20,7 +20,7 @@ Class {
 
 { #category : #demo }
 FOMDeployer class >> demoMode [
-	^ DemoMode ifNil: [ DemoMode := false ]
+	^ DemoMode ifNil: [ DemoMode := true ]
 ]
 
 { #category : #demo }
