@@ -22,6 +22,6 @@ FOMStorage class >> initialize [
 { #category : #configuration }
 FOMStorage class >> mongoLocal [
 	| repository |
-	repository := VOMongoRepository host: 'localhost' database: 'huertas'.
+	repository := VOMongoRepository host: 'localhost' database: 'gapafarm'.
 	repository enableSingleton
 ]
