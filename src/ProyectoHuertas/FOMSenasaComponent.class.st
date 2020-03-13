@@ -2,17 +2,36 @@ Class {
 	#name : #FOMSenasaComponent,
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
-		'wizardStep',
-		'senasaCatalog'
+		'selectedCrops',
+		'selectedCropsComponent'
 	],
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
+{ #category : #callbacks }
+FOMSenasaComponent >> importSelectedCrops [
+	| existingCropNames |
+	selectedCropsComponent accept.
+	existingCropNames := self session crops collect: #vulgarName.
+	selectedCrops
+		do: [ :each | 
+			(existingCropNames includes: each vulgarName)
+				ifFalse: [ each save ] ]
+]
+
 { #category : #initialization }
 FOMSenasaComponent >> initialize [
 	super initialize.
-	wizardStep := #start.
-	
+	selectedCropsComponent := MultipleSelectPropertyEditorComponent 
+		subject: self
+		selector: #selectedCrops
+		label: 'Seleccione los cultivos a incluir'
+		required: false.
+	selectedCropsComponent
+		possibleValues:
+			(SenasaCatalog twentyTwenty crops
+				sorted: [ :a :b | a vulgarName < b vulgarName ]);
+		rows: 20
 ]
 
 { #category : #rendering }
@@ -37,6 +56,27 @@ FOMSenasaComponent >> renderCatalogSummaryOn: html [
 
 { #category : #rendering }
 FOMSenasaComponent >> renderContentOn: html [
-	wizardStep = #start
-		ifTrue: [ ^ self renderCatalogSummaryOn: html ]
+	self renderCatalogSummaryOn: html.
+	self renderImportFormOn: html
+]
+
+{ #category : #rendering }
+FOMSenasaComponent >> renderImportFormOn: html [
+	html
+		form: [ html render: selectedCropsComponent.
+			html
+				paragraph: [ html formButton
+						bePrimary;
+						callback: [ self importSelectedCrops ];
+						with: 'Importar' ] ]
+]
+
+{ #category : #accessing }
+FOMSenasaComponent >> selectedCrops [
+	^ selectedCrops
+]
+
+{ #category : #accessing }
+FOMSenasaComponent >> selectedCrops: anObject [
+	selectedCrops := anObject
 ]

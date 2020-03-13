@@ -22,11 +22,10 @@ SenasaCatalog class >> fromTuples: aCollectionOfTuples [
 
 { #category : #accessing }
 SenasaCatalog class >> twentyTwenty [
-	^ twentyTwenty
-		ifNil: [ twentyTwenty := SenasaCatalog
-				fromTuples:
-					(NeoCSVReader on: FOMLibrary new lmrsfebrero2020Csv readStream)
-						upToEnd ]
+	^ SenasaCatalog
+		fromTuples:
+			(NeoCSVReader on: FOMLibrary new lmrsfebrero2020Csv readStream)
+				upToEnd
 ]
 
 { #category : #converting }

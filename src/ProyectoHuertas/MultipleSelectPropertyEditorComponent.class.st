@@ -2,7 +2,8 @@ Class {
 	#name : #MultipleSelectPropertyEditorComponent,
 	#superclass : #PropertyEditorComponent,
 	#instVars : [
-		'possibleValues'
+		'possibleValues',
+		'rows'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
@@ -18,7 +19,8 @@ MultipleSelectPropertyEditorComponent >> handleCallbackWith: anObject [
 
 { #category : #initialization }
 MultipleSelectPropertyEditorComponent >> initialize [
-	possibleValues := OrderedCollection new
+	possibleValues := OrderedCollection new.
+	rows := 5
 ]
 
 { #category : #accessing }
@@ -35,8 +37,19 @@ MultipleSelectPropertyEditorComponent >> possibleValues: anObject [
 MultipleSelectPropertyEditorComponent >> renderInputOn: html [
 	html multiSelect
 		formControl;
+		size: rows;
 		list: possibleValues;
 		callback: [ :value | self handleCallbackWith: value ];
 		selected: bufferedValue;
 		id: selector
+]
+
+{ #category : #accessing }
+MultipleSelectPropertyEditorComponent >> rows [
+	^ rows
+]
+
+{ #category : #accessing }
+MultipleSelectPropertyEditorComponent >> rows: anObject [
+	rows := anObject
 ]
