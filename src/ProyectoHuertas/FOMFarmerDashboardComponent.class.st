@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'period'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #initialization }

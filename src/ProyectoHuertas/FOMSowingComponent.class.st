@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMSowingComponent,
 	#superclass : #FOMEventsListComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }

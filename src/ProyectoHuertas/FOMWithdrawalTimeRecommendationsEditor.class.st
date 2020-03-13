@@ -7,7 +7,7 @@ Class {
 		'source',
 		'selectedCrop'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #'instance creation' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMPlotsManagementComponent,
 	#superclass : #FOMAbstractListComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }

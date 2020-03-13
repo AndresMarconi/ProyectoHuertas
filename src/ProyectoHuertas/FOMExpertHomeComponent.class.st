@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMExpertHomeComponent,
 	#superclass : #FOMHomeComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }
@@ -34,5 +34,9 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent).
 							('Principios activos' -> FOMActiveIngredienteComponent)}
 						heading: 'Catálogos'
+						on: html.
+					self
+						renderMenuBlock: {('SENASA' -> FOMSenasaComponent)}
+						heading: 'Administración'
 						on: html ] ]
 ]

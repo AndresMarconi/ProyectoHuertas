@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMInventoryComponent,
 	#superclass : #FOMAbstractListComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #adding }

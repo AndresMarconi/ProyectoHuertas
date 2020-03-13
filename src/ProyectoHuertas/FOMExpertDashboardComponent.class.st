@@ -1,5 +1,5 @@
 Class {
 	#name : #FOMExpertDashboardComponent,
 	#superclass : #FOMAbstractComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-expert'
 }

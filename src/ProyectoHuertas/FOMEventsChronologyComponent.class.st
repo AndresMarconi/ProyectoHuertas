@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'plot'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMFarmerHomeComponent,
 	#superclass : #FOMHomeComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }
