@@ -3,17 +3,32 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'activeIngredient',
-		'usage',
 		'crop',
 		'residue',
-		'postHarvest'
+		'postHarvest',
+		'applicabilities'
 	],
 	#category : #'ProyectoHuertas-model'
 }
 
 { #category : #constants }
-SenasaApplicabilityRecord class >> normalizedUsages [
-	^ #('Acaricida' 'Antibiótico' 'Antiescaldante' 'Coadyuvante' 'Defoliante' 'Desecante' 'Feromona' 'Fitoregulador' 'Fungicida' 'Gorgojicida' 'Herbicida' 'Insecticida' 'Molusquicida' 'Nematicida' 'Preservador de madera' 'Repelente' 'Rodenticida' 'Tratamiento de semillas' 'Tucuricida')
+SenasaApplicabilityRecord class >> normalizedApplicabilities [
+	^ {('tt' -> 'tratamiento de semillas').
+	('ah' -> 'antídoto de herbicidas').
+	('baA' -> 'bactericida').
+	('fr' -> 'fitorreguladores').
+	('he' -> 'herbicida').
+	('fu' -> 'fungicida').
+	('in' -> 'insecticida').
+	('ac' -> 'acaricida').
+	('ne' -> 'nematicida').
+	('go' -> 'gorgojicida').
+	('rd' -> 'rodenticida').
+	('mo' -> 'molusquicida').
+	('tu' -> 'tucuricida').
+	('ma' -> 'matababosas y caracoles').
+	('pm' -> 'preservador de madera').
+	('ho' -> 'hormiguicida')} asDictionary
 ]
 
 { #category : #accessing }
@@ -27,6 +42,16 @@ SenasaApplicabilityRecord >> activeIngredient: anObject [
 ]
 
 { #category : #accessing }
+SenasaApplicabilityRecord >> applicabilities [
+	^ applicabilities
+]
+
+{ #category : #accessing }
+SenasaApplicabilityRecord >> applicabilities: anObject [
+	applicabilities := anObject
+]
+
+{ #category : #accessing }
 SenasaApplicabilityRecord >> crop [
 	^ crop
 ]
@@ -34,6 +59,11 @@ SenasaApplicabilityRecord >> crop [
 { #category : #accessing }
 SenasaApplicabilityRecord >> crop: anObject [
 	crop := anObject
+]
+
+{ #category : #initialization }
+SenasaApplicabilityRecord >> initialize [
+	applicabilities := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -54,14 +84,4 @@ SenasaApplicabilityRecord >> residue [
 { #category : #accessing }
 SenasaApplicabilityRecord >> residue: anObject [
 	residue := anObject
-]
-
-{ #category : #accessing }
-SenasaApplicabilityRecord >> usage [
-	^ usage
-]
-
-{ #category : #accessing }
-SenasaApplicabilityRecord >> usage: anObject [
-	usage := anObject
 ]
