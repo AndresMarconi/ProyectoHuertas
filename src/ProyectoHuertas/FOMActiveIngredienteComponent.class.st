@@ -29,3 +29,9 @@ FOMActiveIngredienteComponent >> elementEditorClass [
 FOMActiveIngredienteComponent >> elements [
 	^ (self session activeIngredients) asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]
+
+{ #category : #initialization }
+FOMActiveIngredienteComponent >> initialize [
+	super initialize.
+	duplicateEnabled := false
+]

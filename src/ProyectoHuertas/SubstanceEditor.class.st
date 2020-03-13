@@ -3,8 +3,7 @@ Class {
 	#superclass : #FOMEditor,
 	#instVars : [
 		'comercialNameEditorComponent',
-		'activeIngredientsEditorComponent',
-		'typeEditorComponent'
+		'activeIngredientsEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -19,9 +18,7 @@ SubstanceEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {comercialNameEditorComponent.
-		activeIngredientsEditorComponent.
-		typeEditorComponent}, 
-		super children
+	activeIngredientsEditorComponent} , super children
 ]
 
 { #category : #'subclass-responsibility' }
@@ -40,11 +37,5 @@ SubstanceEditor >> initializeComponents [
 		required: false.
 	activeIngredientsEditorComponent
 		possibleValues: self activeIngredients.
-	typeEditorComponent := DropdownSelectPropertyEditorComponent
-		subject: subject
-		selector: #usage
-		label: 'Uso'
-		required: true.
-	typeEditorComponent possibleValues: { 'Fertilizante'. 'Pesticida' }.
 	super initializeComponents.
 ]

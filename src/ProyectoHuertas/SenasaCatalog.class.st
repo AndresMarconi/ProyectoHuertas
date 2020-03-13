@@ -14,27 +14,36 @@ Class {
 }
 
 { #category : #'instance creation' }
-SenasaCatalog class >> fromTuples: aCollectionOfTuples [
+SenasaCatalog class >> fromTuples: aCollectionOfTuples withExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
 	^ self new
-		fromTuples: aCollectionOfTuples;
+		fromTuples: aCollectionOfTuples
+			withExistingCrops: aCollectionOfCrops
+			andExistingActiveIngredientes: aCollectionOfActiveIngredients;
 		yourself
 ]
 
 { #category : #accessing }
-SenasaCatalog class >> twentyTwenty [
+SenasaCatalog class >> twentyTwentyWithExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
 	^ SenasaCatalog
 		fromTuples:
-			(NeoCSVReader on: FOMLibrary new lmrsfebrero2020Csv readStream)
-				upToEnd
+			((NeoCSVReader on: FOMLibrary new lmrsfebrero2020Csv readStream)
+				skip;
+				upToEnd)
+		withExistingCrops: aCollectionOfCrops
+		andExistingActiveIngredientes: aCollectionOfActiveIngredients
 ]
 
-{ #category : #converting }
-SenasaCatalog >> activeIngredientNamed: aString [
+{ #category : #private }
+SenasaCatalog >> activeIngredientNamed: aString withExistingActiveIngredientes: aCollectionOfActiveIngredients [
 	| name |
-	name := aString ifNil: [ 'N/A' ] ifNotNil: [ aString trimBoth ].
+	aString ifNil: [ ^ nil ].
+	name := aString trimBoth asLowercase.
 	^ activeIngredients
 		at: name
-		ifAbsentPut: (ActiveIngredient new tradeName: name)
+		ifAbsentPut:
+			(aCollectionOfActiveIngredients
+				detect: [ :each | each tradeName asLowercase = name ]
+				ifNone: [ ActiveIngredient new tradeName: name ])
 ]
 
 { #category : #accessing }
@@ -47,7 +56,7 @@ SenasaCatalog >> applicabilities [
 	^ applicabilities
 ]
 
-{ #category : #converting }
+{ #category : #private }
 SenasaCatalog >> applicabilityFrom: aString [
 	| applicabilitiesInString |
 	applicabilitiesInString := (aString copyWithoutAll: {$( . $)})
@@ -62,14 +71,19 @@ SenasaCatalog >> applicabilityFrom: aString [
 	^ applicabilitiesInString
 ]
 
-{ #category : #converting }
-SenasaCatalog >> cropNamed: aString [
+{ #category : #private }
+SenasaCatalog >> cropNamed: aString withExistingCrops: aCollectionOfCrops [
 	| name |
 	aString ifNil: [ ^ nil ].
 	name := aString trimBoth.
 	name ifEmpty: [ ^ nil ].
 	name := name asLowercase capitalized.
-	^ crops at: name ifAbsentPut: (Crop new vulgarName: name)
+	^ crops
+		at: name
+		ifAbsentPut:
+			(aCollectionOfCrops
+				detect: [ :each | each vulgarName asLowercase capitalized = name ]
+				ifNone: [ Crop new vulgarName: name ])
 ]
 
 { #category : #accessing }
@@ -77,14 +91,14 @@ SenasaCatalog >> crops [
 	^ crops
 ]
 
-{ #category : #converting }
+{ #category : #utility }
 SenasaCatalog >> expandAbbreviationIn: each [
 	^ SenasaApplicabilityRecord normalizedApplicabilities
 		at: each
 		ifAbsent: [ each ]
 ]
 
-{ #category : #converting }
+{ #category : #utility }
 SenasaCatalog >> fixTyposIn: each [
 	each = 'funguicida'
 		ifTrue: [ ^ 'fungicida' ].
@@ -99,12 +113,18 @@ SenasaCatalog >> fixTyposIn: each [
 	^ each
 ]
 
-{ #category : #converting }
-SenasaCatalog >> fromTuples: aCollectionOfTuples [
+{ #category : #initialization }
+SenasaCatalog >> fromTuples: aCollectionOfTuples withExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
 	"Tuple are #('Principio activo' 'Aptitud' 'Cultivos' 'Residuos (mg /Kg)' 'Post Cosecha')"
 
-	records := (aCollectionOfTuples
-		collect: [ :each | self recordFrom: each ]) copyWithout: nil.
+	records := aCollectionOfTuples
+		collect: [ :each | 
+			self
+				recordFrom: each
+				withExistingCrops: aCollectionOfCrops
+				andExistingActiveIngredientes: aCollectionOfActiveIngredients ].
+	records := records
+		select: [ :each | each notNil and: [ each crop notNil ] ]
 ]
 
 { #category : #initialization }
@@ -125,15 +145,18 @@ SenasaCatalog >> misalignedRecords [
 				includesAll: each applicabilities ]
 ]
 
-{ #category : #converting }
-SenasaCatalog >> recordFrom: aTuple [
-	aTuple first isNil
+{ #category : #private }
+SenasaCatalog >> recordFrom: aTuple withExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
+	aTuple first isEmptyOrNil 
 		ifTrue: [ ^ nil ].
 	^ SenasaApplicabilityRecord new
-		activeIngredient: (self activeIngredientNamed: aTuple first);
+		activeIngredient:
+			(self
+				activeIngredientNamed: aTuple first
+				withExistingActiveIngredientes: aCollectionOfActiveIngredients);
 		applicabilities: (self applicabilityFrom: aTuple second);
-		crop: (self cropNamed: aTuple third);
-		residue: aTuple fourth;
+		crop: (self cropNamed: aTuple third withExistingCrops: aCollectionOfCrops);
+		residue: (self residueFrom: aTuple fourth) ;
 		postHarvest: (aTuple fifth ifNil: [ 'N/A' ])
 ]
 
@@ -145,4 +168,11 @@ SenasaCatalog >> records [
 { #category : #accessing }
 SenasaCatalog >> records: anObject [
 	records := anObject
+]
+
+{ #category : #utility }
+SenasaCatalog >> residueFrom: aString [
+	^ [ aString asNumber ]
+		on: Error
+		do: [ 0 ]
 ]

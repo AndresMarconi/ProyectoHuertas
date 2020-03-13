@@ -3,7 +3,8 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'tradeName',
-		'referenceUrl'
+		'referenceUrl',
+		'senasaApplicabilityRecords'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -11,6 +12,33 @@ Class {
 { #category : #testing }
 ActiveIngredient class >> isVoyageRoot [
 	^ true
+]
+
+{ #category : #accessing }
+ActiveIngredient >> addSenasaApplicabilityRecord: aSenasaApplicabilityRecord [
+	| existingRecord |
+	existingRecord := senasaApplicabilityRecords
+		detect: [ :each | 
+			each crop = aSenasaApplicabilityRecord crop
+				& (each activeIngredient = aSenasaApplicabilityRecord activeIngredient) ]
+		ifNone: [ nil ].
+	existingRecord notNil
+		ifTrue: [ existingRecord
+				alertOfPotencialDuplicateWith: aSenasaApplicabilityRecord.
+			existingRecord mergeFrom: aSenasaApplicabilityRecord ]
+		ifFalse: [ senasaApplicabilityRecords add: aSenasaApplicabilityRecord ]
+]
+
+{ #category : #accessing }
+ActiveIngredient >> applicabilities [
+	^ (senasaApplicabilityRecords
+		flatCollect: [ :each | each applicabilities ]) asSet
+]
+
+{ #category : #initialization }
+ActiveIngredient >> initialize [
+	super initialize.
+	senasaApplicabilityRecords := OrderedCollection new
 ]
 
 { #category : #printing }
@@ -27,6 +55,11 @@ ActiveIngredient >> referenceUrl [
 { #category : #accessing }
 ActiveIngredient >> referenceUrl: anObject [
 	referenceUrl := anObject
+]
+
+{ #category : #accessing }
+ActiveIngredient >> senasaApplicabilityRecords [
+	^ senasaApplicabilityRecords
 ]
 
 { #category : #accessing }

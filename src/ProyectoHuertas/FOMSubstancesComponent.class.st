@@ -5,15 +5,15 @@ Class {
 }
 
 { #category : #rendering }
-FOMSubstancesComponent >> asCommaSeparatedList: activeIngredients [
-	^ (activeIngredients collect: #tradeName)
+FOMSubstancesComponent >> asCommaSeparatedList: strings [
+	^ strings
 		ifEmpty: [ '' ]
 		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
 ]
 
 { #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
-	^ {'Nombre comercial'. 'Uso'. 'Principios activos'. 'Períodos de carencia' }
+	^ {'Nombre comercial'. 'Aptitud'. 'Principios activos'. 'Períodos de carencia' }
 ]
 
 { #category : #rendering }
@@ -21,8 +21,9 @@ FOMSubstancesComponent >> columnValuesFor: element [
 	"{'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}"
 
 	^ {element comercialName.
-	element usage.
-	(self asCommaSeparatedList: element activeIngredients).
+	(self asCommaSeparatedList: element applicabilities).
+	(self
+		asCommaSeparatedList: (element activeIngredients collect: #tradeName)).
 	(self withdrawalStringFor: element)}
 ]
 

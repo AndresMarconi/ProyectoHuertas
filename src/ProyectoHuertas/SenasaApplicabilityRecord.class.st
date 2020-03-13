@@ -36,14 +36,6 @@ SenasaApplicabilityRecord class >> normalizedApplicabilities [
 	('ho' -> 'hormiguicida')} asDictionary
 ]
 
-{ #category : #comparing }
-SenasaApplicabilityRecord >> = anotherRecord [
-	^ (activeIngredient = anotherRecord activeIngredient
-		& (crop = anotherRecord crop)) % (residue = anotherRecord residue)
-		& (postHarvest = anotherRecord postHarvest)
-		& (applicabilities = anotherRecord applicabilities)
-]
-
 { #category : #accessing }
 SenasaApplicabilityRecord >> activeIngredient [
 	^ activeIngredient
@@ -54,6 +46,19 @@ SenasaApplicabilityRecord >> activeIngredient: anObject [
 	activeIngredient := anObject
 ]
 
+{ #category : #errors }
+SenasaApplicabilityRecord >> alertOfPotencialDuplicateWith: anotherRecord [
+	Transcript
+		show: 'Duplicados: (merging to existing)';
+		cr.
+	Transcript
+		show: self printString;
+		cr.
+	Transcript
+		show: anotherRecord printString;
+		cr
+]
+
 { #category : #accessing }
 SenasaApplicabilityRecord >> applicabilities [
 	^ applicabilities
@@ -61,6 +66,7 @@ SenasaApplicabilityRecord >> applicabilities [
 
 { #category : #accessing }
 SenasaApplicabilityRecord >> applicabilities: anObject [
+	anObject ifNil: [ self halt ].
 	applicabilities := anObject
 ]
 
@@ -76,7 +82,16 @@ SenasaApplicabilityRecord >> crop: anObject [
 
 { #category : #initialization }
 SenasaApplicabilityRecord >> initialize [
+	super initialize.
 	applicabilities := OrderedCollection new
+]
+
+{ #category : #merging }
+SenasaApplicabilityRecord >> mergeFrom: anotherRecord [
+	applicabilities addAll: anotherRecord applicabilities.
+	residue := residue max: anotherRecord residue.
+	postHarvest size < anotherRecord postHarvest size
+		ifTrue: [ postHarvest := anotherRecord postHarvest ]
 ]
 
 { #category : #accessing }
@@ -87,6 +102,14 @@ SenasaApplicabilityRecord >> postHarvest [
 { #category : #accessing }
 SenasaApplicabilityRecord >> postHarvest: anObject [
 	postHarvest := anObject
+]
+
+{ #category : #printing }
+SenasaApplicabilityRecord >> printOn: aStream [
+	aStream
+		nextPutAll:
+			crop vulgarName , ' - ' , activeIngredient tradeName , ' - '
+				, residue printString
 ]
 
 { #category : #accessing }

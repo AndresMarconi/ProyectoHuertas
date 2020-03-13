@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'comercialName',
 		'activeIngredients',
-		'usage',
 		'withdrawalPeriodRecommendations'
 	],
 	#category : #'ProyectoHuertas-model'
@@ -36,6 +35,12 @@ Substance >> allowedUsage [
 ]
 
 { #category : #accessing }
+Substance >> applicabilities [
+	^ (activeIngredients flatCollect: #applicabilities) asSet
+		asSortedCollection
+]
+
+{ #category : #accessing }
 Substance >> comercialName [
 	^ comercialName
 ]
@@ -63,20 +68,11 @@ Substance >> removeWithdrawalPeriodRecommendation: withdrawalPeriodRecommendatio
 		remove: withdrawalPeriodRecommendation
 ]
 
-{ #category : #accessing }
-Substance >> usage [
-	^ usage
-]
-
-{ #category : #accessing }
-Substance >> usage: anObject [
-	usage := anObject
-]
-
 { #category : #'as yet unclassified' }
 Substance >> withdrawalPeriodOf: aCrop [
-	(withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ]) 
-		ifEmpty: [ ^0 ] ifNotEmpty: [ :it | ^(it at: 1) daysToWait ]
+	(withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
+		ifEmpty: [ ^ 0 ]
+		ifNotEmpty: [ :it | ^ (it at: 1) daysToWait ]
 ]
 
 { #category : #accessing }

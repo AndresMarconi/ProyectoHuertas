@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'selectedCrops',
 		'selectedCropsComponent',
-		'importableCrops',
 		'missingRecords',
 		'selectedRecords'
 	],
@@ -12,73 +11,56 @@ Class {
 }
 
 { #category : #initialization }
-FOMSenasaComponent >> computeImportableCrops [
-	| newCrops |
-	newCrops := (missingRecords collect: #crop as: Set)
-		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ].
-	^ newCrops
-		reject:
-			[ :each | self session crops anySatisfy: [ :any | any vulgarName = each ] ]
+FOMSenasaComponent >> computeMissingRecords [
+	| existing missing allFromSenasa alreadyImported |
+	allFromSenasa := self currentSenasaCatalogue records.
+	alreadyImported := self session senasaApplicabilityRecords.
+	existing := allFromSenasa
+		select: [ :newRecord | 
+			alreadyImported
+				anySatisfy: [ :existingRecord | 
+					existingRecord crop = newRecord crop
+						& (existingRecord activeIngredient = newRecord activeIngredient) ] ].
+	missing := allFromSenasa
+		reject: [ :newRecord | 
+			alreadyImported
+				anySatisfy: [ :existingRecord | 
+					existingRecord crop = newRecord crop
+						& (existingRecord activeIngredient = newRecord activeIngredient) ] ].
+	^ missing
 ]
 
 { #category : #initialization }
-FOMSenasaComponent >> computeMissingRecords [
-	| existingRecords |
-	existingRecords := self session senasaApplicabilityRecords.
-	^ SenasaCatalog twentyTwenty records
-		reject: [ :newRecord | 
-			existingRecords
-				anySatisfy: [ :existingRecord | 
-					existingRecord crop vulgarName = newRecord crop vulgarName
-						&
-							(existingRecord activeIngredient tradeName
-								= newRecord activeIngredient tradeName) ] ]
-]
-
-{ #category : #callbacks }
-FOMSenasaComponent >> createMissingActiveIngredients [
-
-	| existingActiveIngredientNames  |
-	existingActiveIngredientNames := self session activeIngredients  collect: #tradeName.
-	selectedCrops
-		do: [ :each | 
-			(existingActiveIngredientNames includes: each vulgarName)
-				ifFalse: [ each save ] ]
-]
-
-{ #category : #callbacks }
-FOMSenasaComponent >> createMissingCrops [
-	| existingCropNames |
-	existingCropNames := self session crops collect: #vulgarName.
-	selectedCrops
-		do: [ :each | 
-			(existingCropNames includes: each vulgarName)
-				ifFalse: [ each save ] ]
+FOMSenasaComponent >> currentSenasaCatalogue [
+	^ SenasaCatalog
+		twentyTwentyWithExistingCrops: self session crops
+		andExistingActiveIngredientes: self session activeIngredients
 ]
 
 { #category : #callbacks }
 FOMSenasaComponent >> importRecordsForSelectedCrops [
 	selectedCropsComponent accept.
-	selectedRecords := missingRecords select: [ :each | selectedCrops includes: each crop  ].
-	self createMissingCrops.
-	self createMissingActiveIngredients.
+	selectedRecords := missingRecords
+		select: [ :each | selectedCrops includes: each crop ].
 	(missingRecords select: [ :each | selectedCrops includes: each crop ])
-		do: #save
+		do: [ :record | 
+			record save.
+			record crop save.
+			record activeIngredient addSenasaApplicabilityRecord: record. 
+			record activeIngredient save ].
+	self updateSelectableCrops
 ]
 
 { #category : #initialization }
 FOMSenasaComponent >> initialize [
 	super initialize.
-	missingRecords := self computeMissingRecords.
-	importableCrops := self computeImportableCrops.
 	selectedCropsComponent := MultipleSelectPropertyEditorComponent
 		subject: self
 		selector: #selectedCrops
 		label: 'Seleccione los cultivos a incluir'
 		required: false.
-	selectedCropsComponent
-		possibleValues: importableCrops;
-		rows: 20
+	selectedCropsComponent rows: 20.
+	self updateSelectableCrops
 ]
 
 { #category : #rendering }
@@ -126,4 +108,13 @@ FOMSenasaComponent >> selectedCrops [
 { #category : #accessing }
 FOMSenasaComponent >> selectedCrops: anObject [
 	selectedCrops := anObject
+]
+
+{ #category : #initialization }
+FOMSenasaComponent >> updateSelectableCrops [
+	missingRecords := self computeMissingRecords.
+	selectedCropsComponent
+		possibleValues:
+			(((missingRecords collect: #crop) as: Set)
+				asSortedCollection: [ :a :b | a vulgarName < b vulgarName ])
 ]
