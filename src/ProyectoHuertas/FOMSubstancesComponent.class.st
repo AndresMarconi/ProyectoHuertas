@@ -5,13 +5,6 @@ Class {
 }
 
 { #category : #rendering }
-FOMSubstancesComponent >> asCommaSeparatedList: strings [
-	^ strings
-		ifEmpty: [ '' ]
-		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
-]
-
-{ #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
 	^ {'Nombre comercial'. 'Aptitud'. 'Principios activos'. 'Períodos de carencia' }
 ]

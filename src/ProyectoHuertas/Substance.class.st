@@ -24,12 +24,12 @@ Substance >> activeIngredients: anObject [
 	activeIngredients := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #modifying }
 Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations add: withdrawalPeriodRecommendation
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Substance >> allowedUsage [
 	^ withdrawalPeriodRecommendations collect: [ :each | each crop ]
 ]
@@ -63,16 +63,21 @@ Substance >> printOn: aStream [
 ]
 
 { #category : #accessing }
+Substance >> recommendationFor: aCrop [
+	^ withdrawalPeriodRecommendations
+		detect: [ :wp | wp crop = aCrop ]
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+Substance >> registeredCrops [
+	^ (activeIngredients flatCollect: #registeredCrops) asSet asArray
+]
+
+{ #category : #modifying }
 Substance >> removeWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations
 		remove: withdrawalPeriodRecommendation
-]
-
-{ #category : #'as yet unclassified' }
-Substance >> withdrawalPeriodOf: aCrop [
-	(withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
-		ifEmpty: [ ^ 0 ]
-		ifNotEmpty: [ :it | ^ (it at: 1) daysToWait ]
 ]
 
 { #category : #accessing }
@@ -90,4 +95,12 @@ Substance >> withdrawalPeriodRecommendationsByDays [
 				at: recommendation daysToWait 
 				ifAbsentPut: OrderedCollection new) add: recommendation ].
 	^ simplifiedWithdrawalPeriodRecommendations
+]
+
+{ #category : #accessing }
+Substance >> withdrawalTimeFor: aCrop [
+	^ withdrawalPeriodRecommendations
+		detect: [ :wp | wp crop = aCrop ]
+		ifFound: [ :it | it daysToWait ]
+		ifNone: [ nil ]
 ]

@@ -20,6 +20,13 @@ FOMAbstractComponent class >> parent: aComponent [
 		yourself
 ]
 
+{ #category : #utility }
+FOMAbstractComponent >> asCommaSeparatedList: strings [
+	^ strings
+		ifEmpty: [ '' ]
+		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
+]
+
 { #category : #initialization }
 FOMAbstractComponent >> initialize [
 	super initialize.

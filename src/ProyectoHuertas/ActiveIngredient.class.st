@@ -58,6 +58,11 @@ ActiveIngredient >> referenceUrl: anObject [
 ]
 
 { #category : #accessing }
+ActiveIngredient >> registeredCrops [
+	^senasaApplicabilityRecords collect: #crop
+]
+
+{ #category : #accessing }
 ActiveIngredient >> senasaApplicabilityRecords [
 	^ senasaApplicabilityRecords
 ]

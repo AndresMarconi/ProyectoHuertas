@@ -5,7 +5,7 @@ Class {
 		'substance',
 		'days',
 		'source',
-		'selectedCrop'
+		'editing'
 	],
 	#category : #'ProyectoHuertas-ui-expert'
 }
@@ -17,27 +17,36 @@ FOMWithdrawalTimeRecommendationsEditor class >> substance: aSubstance [
 		yourself
 ]
 
-{ #category : #rendering }
-FOMWithdrawalTimeRecommendationsEditor >> addWithdrawalTimeRecord [
-	substance
-		addWithdrawalPeriodRecommendation:
-			(WithdrawalPeriodRecommendation
-				daysToWait: days
-				crop: selectedCrop
-				referenceUrl: source).
-	substance save
+{ #category : #callbacks }
+FOMWithdrawalTimeRecommendationsEditor >> accept [
+	| recommendation numberOfDays |
+	numberOfDays := [ days asNumber ]
+		on: Error
+		do: [ days := ''.
+			^ self ].
+	recommendation := substance recommendationFor: editing.
+	recommendation
+		ifNil: [ recommendation := WithdrawalPeriodRecommendation
+				daysToWait: numberOfDays
+				crop: editing
+				referenceUrl: source.
+			substance addWithdrawalPeriodRecommendation: recommendation ]
+		ifNotNil: [ recommendation
+				daysToWait: days asNumber;
+				referenceUrl: source ].
+	substance save.
+	editing := nil
 ]
 
-{ #category : #utility }
-FOMWithdrawalTimeRecommendationsEditor >> asCommaSeparatedList: aCollectionOfStrings [
-	^ aCollectionOfStrings 
-		ifEmpty: [ '' ]
-		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
+{ #category : #callbacks }
+FOMWithdrawalTimeRecommendationsEditor >> cancel [
+	editing := nil
 ]
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> crops [
-	^ self session crops
+	^ substance registeredCrops
+		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #accessing }
@@ -47,7 +56,18 @@ FOMWithdrawalTimeRecommendationsEditor >> days [
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> days: anObject [
-	days := anObject asNumber
+	days := anObject
+]
+
+{ #category : #rendering }
+FOMWithdrawalTimeRecommendationsEditor >> editRecordFor: crop [
+	editing := crop.
+	(substance recommendationFor: crop)
+		ifNil: [ days := ''.
+			source := '' ]
+		ifNotNil: [ :it | 
+			days := it daysToWait.
+			source := it referenceUrl ]
 ]
 
 { #category : #initialization }
@@ -57,74 +77,123 @@ FOMWithdrawalTimeRecommendationsEditor >> initialize [
 ]
 
 { #category : #callbacks }
-FOMWithdrawalTimeRecommendationsEditor >> removeWithdrawalRecommentationPeriod: aWithdrawalPeriodRecommendation [
+FOMWithdrawalTimeRecommendationsEditor >> removeWithdrawalRecommentationPeriodFor: aCrop [
 	substance
-		removeWithdrawalPeriodRecommendation: aWithdrawalPeriodRecommendation.
+		removeWithdrawalPeriodRecommendation: (substance recommendationFor: aCrop).
 	substance save
 ]
 
 { #category : #rendering }
-FOMWithdrawalTimeRecommendationsEditor >> renderAddWithdrawalRecommendationFormOn: html [
+FOMWithdrawalTimeRecommendationsEditor >> renderActiveIngredientsOn: html [
+	html heading
+		level5;
+		with: 'Principios activos: '.
 	html
-		form: [ html select
-				list: self crops;
-				callback: [ :value | selectedCrop := value ].
-			html space.
-			html textInput
-				on: #days of: self;
-				placeholder: 'Días de carencia'.
-			html space.
-			html textInput
-				on: #source of: self;
-				placeholder: 'Fuente consultada';
-				size: 60.
-			html space.
-			html submitButton
-				callback: [ self addWithdrawalTimeRecord ];
-				with: 'Agregar' ]
+		paragraph: [ html
+				small:
+					'Se para cada par principio activo y cultivo se indican los  residuos máximos establecidos por SENASA para el 2020' ].
+	substance activeIngredients
+		do: [ :ingredient | 
+			html
+				paragraph: [ html
+						strong: ingredient tradeName , ': ';
+						text:
+							(self
+								asCommaSeparatedList:
+									(ingredient senasaApplicabilityRecords
+										collect: [ :record | 
+											record crop vulgarName , ' (' , record residue printString
+												, ' mg/Kg )' ])) ] ]
 ]
 
 { #category : #rendering }
 FOMWithdrawalTimeRecommendationsEditor >> renderContentOn: html [
 	self renderFixedDataOn: html.
+	self renderActiveIngredientsOn: html.
 	html heading
 		level5;
 		with: 'Períodos de carencia'.
-	self renderWithdrawalRecommendationPeriodsOn: html.
-	self renderAddWithdrawalRecommendationFormOn: html
+	editing notNil
+		ifTrue: [ html form: [ self renderWithdrawalRecommendationPeriodsOn: html ] ]
+		ifFalse: [ self renderWithdrawalRecommendationPeriodsOn: html ]
+]
+
+{ #category : #rendering }
+FOMWithdrawalTimeRecommendationsEditor >> renderDisplayRowFor: crop on: html [
+	| record |
+	record := substance recommendationFor: crop.
+	^ html
+		tableData: crop vulgarName;
+		tableData: (record ifNil: [ '?' ] ifNotNil: [ record daysToWait ]);
+		tableData: (record ifNil: [ '?' ] ifNotNil: [ record referenceUrl ]);
+		tableData: [ editing
+				ifNil: [ html anchor
+						callback: [ self editRecordFor: crop ];
+						with: [ html span
+								class: 'fa fa-pencil';
+								attributeAt: 'title' put: 'Modificar' ].
+					record
+						ifNotNil: [ html space.
+							html anchor
+								callback: [ self removeWithdrawalRecommentationPeriodFor: crop ];
+								with: [ html span
+										class: 'fa fa-trash';
+										attributeAt: 'title' put: 'Borrar' ] ] ] ]
+]
+
+{ #category : #rendering }
+FOMWithdrawalTimeRecommendationsEditor >> renderEditRowFor: crop on: html [
+	| record |
+	record := substance recommendationFor: crop.
+	html
+		tableData: crop vulgarName;
+		tableData: [ html textInput
+				formControl;
+				size: 4;
+				on: #days of: self ];
+		tableData: [ html textInput
+				formControl;
+				on: #source of: self ];
+		tableData: [ html formButton
+				bePrimary;
+				callback: [ self accept ];
+				with: 'Aceptar'.
+			html space.
+			html formButton
+				beSecondary;
+				callback: [ self cancel ];
+				with: 'Cancelar' ]
 ]
 
 { #category : #rendering }
 FOMWithdrawalTimeRecommendationsEditor >> renderFixedDataOn: html [
 	html heading
-		level4;
-		with: substance comercialName.
+		level5;
+		with: 'Nombre comercial: '.
+	html paragraph: substance comercialName.
+	html heading
+		level5;
+		with: 'Aptitud:  '.
 	html
-		paragraph: [ html
-				strong: 'Uso: ';
-				text: substance usage ].
-	html
-		paragraph: [ html
-				strong: 'Principios activos: ';
-				text:
-					(self
-						asCommaSeparatedList: (substance activeIngredients collect: #tradeName)) ].
+		paragraph: (self asCommaSeparatedList: substance applicabilities).
+
 ]
 
 { #category : #rendering }
 FOMWithdrawalTimeRecommendationsEditor >> renderWithdrawalRecommendationPeriodsOn: html [
-	html
-		unorderedList: [ substance withdrawalPeriodRecommendations
-				do: [ :each | 
-					html
-						listItem: [ html
-								text:
-									each crop vulgarName , ' (' , each daysToWait asString, ' días) - '
-										, each referenceUrl.
-							html space.
-							html anchor
-								callback: [ self removeWithdrawalRecommentationPeriod: each ];
-								with: [ html span class: 'fa fa-trash' ] ] ] ]
+	html table
+		class: 'table table-hover';
+		with: [ html
+				tableHead: [ html
+						tableRow: [ {'Cultivo' . 'Carencia (días)' . 'Fuente' . 'Acciones'}
+								do: [ :heading | html tableHeading: heading ] ] ].
+			html
+				tableBody: [ self crops
+						do: [ :crop | 
+							html
+								tableRow: [ editing = crop
+										ifFalse: [ self renderDisplayRowFor: crop on: html ]
+										ifTrue: [ self renderEditRowFor: crop on: html ] ] ] ] ]
 ]
 
 { #category : #accessing }
