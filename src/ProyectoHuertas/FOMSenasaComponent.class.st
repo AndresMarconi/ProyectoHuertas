@@ -3,15 +3,52 @@ Class {
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
 		'selectedCrops',
-		'selectedCropsComponent'
+		'selectedCropsComponent',
+		'importableCrops',
+		'missingRecords',
+		'selectedRecords'
 	],
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
+{ #category : #initialization }
+FOMSenasaComponent >> computeImportableCrops [
+	| newCrops |
+	newCrops := (missingRecords collect: #crop as: Set)
+		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ].
+	^ newCrops
+		reject:
+			[ :each | self session crops anySatisfy: [ :any | any vulgarName = each ] ]
+]
+
+{ #category : #initialization }
+FOMSenasaComponent >> computeMissingRecords [
+	| existingRecords |
+	existingRecords := self session senasaApplicabilityRecords.
+	^ SenasaCatalog twentyTwenty records
+		reject: [ :newRecord | 
+			existingRecords
+				anySatisfy: [ :existingRecord | 
+					existingRecord crop vulgarName = newRecord crop vulgarName
+						&
+							(existingRecord activeIngredient tradeName
+								= newRecord activeIngredient tradeName) ] ]
+]
+
 { #category : #callbacks }
-FOMSenasaComponent >> importSelectedCrops [
+FOMSenasaComponent >> createMissingActiveIngredients [
+
+	| existingActiveIngredientNames  |
+	existingActiveIngredientNames := self session activeIngredients  collect: #tradeName.
+	selectedCrops
+		do: [ :each | 
+			(existingActiveIngredientNames includes: each vulgarName)
+				ifFalse: [ each save ] ]
+]
+
+{ #category : #callbacks }
+FOMSenasaComponent >> createMissingCrops [
 	| existingCropNames |
-	selectedCropsComponent accept.
 	existingCropNames := self session crops collect: #vulgarName.
 	selectedCrops
 		do: [ :each | 
@@ -19,18 +56,28 @@ FOMSenasaComponent >> importSelectedCrops [
 				ifFalse: [ each save ] ]
 ]
 
+{ #category : #callbacks }
+FOMSenasaComponent >> importRecordsForSelectedCrops [
+	selectedCropsComponent accept.
+	selectedRecords := missingRecords select: [ :each | selectedCrops includes: each crop  ].
+	self createMissingCrops.
+	self createMissingActiveIngredients.
+	(missingRecords select: [ :each | selectedCrops includes: each crop ])
+		do: #save
+]
+
 { #category : #initialization }
 FOMSenasaComponent >> initialize [
 	super initialize.
-	selectedCropsComponent := MultipleSelectPropertyEditorComponent 
+	missingRecords := self computeMissingRecords.
+	importableCrops := self computeImportableCrops.
+	selectedCropsComponent := MultipleSelectPropertyEditorComponent
 		subject: self
 		selector: #selectedCrops
 		label: 'Seleccione los cultivos a incluir'
 		required: false.
 	selectedCropsComponent
-		possibleValues:
-			(SenasaCatalog twentyTwenty crops
-				sorted: [ :a :b | a vulgarName < b vulgarName ]);
+		possibleValues: importableCrops;
 		rows: 20
 ]
 
@@ -67,7 +114,7 @@ FOMSenasaComponent >> renderImportFormOn: html [
 			html
 				paragraph: [ html formButton
 						bePrimary;
-						callback: [ self importSelectedCrops ];
+						callback: [ self importRecordsForSelectedCrops ];
 						with: 'Importar' ] ]
 ]
 

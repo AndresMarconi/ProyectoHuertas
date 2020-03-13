@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMLoginComponent,
 	#superclass : #FOMAbstractComponent,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #'class initialization' }

@@ -8,7 +8,7 @@ Class {
 		'addEnabled',
 		'duplicateEnabled'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #callbacks }

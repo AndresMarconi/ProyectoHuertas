@@ -7,7 +7,7 @@ Class {
 		'farms',
 		'otherProperties'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #'instance creation' }

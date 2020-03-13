@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMConfiguration,
 	#superclass : #WASystemConfiguration,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #description }

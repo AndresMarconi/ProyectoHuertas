@@ -6,7 +6,7 @@ Class {
 		'farm',
 		'plot'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #'db queries' }
@@ -123,6 +123,12 @@ FOMSession >> selectPlot: aPlot [
 { #category : #accessing }
 FOMSession >> selectedPlot [
 	^plot
+]
+
+{ #category : #'db queries' }
+FOMSession >> senasaApplicabilityRecords [
+	^ SenasaApplicabilityRecord
+		selectMany: [ :each | each archived = false ]
 ]
 
 { #category : #testing }

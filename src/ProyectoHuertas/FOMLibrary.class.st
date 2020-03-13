@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMLibrary,
 	#superclass : #WAFileLibrary,
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #uploaded }

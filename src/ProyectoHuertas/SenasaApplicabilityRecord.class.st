@@ -1,6 +1,6 @@
 Class {
 	#name : #SenasaApplicabilityRecord,
-	#superclass : #Object,
+	#superclass : #FOMObject,
 	#instVars : [
 		'activeIngredient',
 		'crop',
@@ -10,6 +10,11 @@ Class {
 	],
 	#category : #'ProyectoHuertas-model'
 }
+
+{ #category : #voyage }
+SenasaApplicabilityRecord class >> isVoyageRoot [
+	^ true
+]
 
 { #category : #constants }
 SenasaApplicabilityRecord class >> normalizedApplicabilities [
@@ -29,6 +34,14 @@ SenasaApplicabilityRecord class >> normalizedApplicabilities [
 	('ma' -> 'matababosas y caracoles').
 	('pm' -> 'preservador de madera').
 	('ho' -> 'hormiguicida')} asDictionary
+]
+
+{ #category : #comparing }
+SenasaApplicabilityRecord >> = anotherRecord [
+	^ (activeIngredient = anotherRecord activeIngredient
+		& (crop = anotherRecord crop)) % (residue = anotherRecord residue)
+		& (postHarvest = anotherRecord postHarvest)
+		& (applicabilities = anotherRecord applicabilities)
 ]
 
 { #category : #accessing }

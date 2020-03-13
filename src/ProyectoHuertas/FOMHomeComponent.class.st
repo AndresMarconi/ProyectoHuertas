@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'selectedComponent'
 	],
-	#category : #'ProyectoHuertas-ui-core'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #accessing }
