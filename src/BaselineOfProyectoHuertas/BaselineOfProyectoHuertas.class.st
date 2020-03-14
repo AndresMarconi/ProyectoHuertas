@@ -19,7 +19,7 @@ BaselineOfProyectoHuertas >> baseline: spec [
 			spec
 				package: 'ProyectoHuertas'
 				with: [ spec
-						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside' 'Neo-CSV-Core') ].
+						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside' 'NeoCSV') ].
 			spec postLoadDoIt: #postLoadActions ]
 ]
 
