@@ -127,8 +127,10 @@ FOMSession >> selectedPlot [
 
 { #category : #'db queries' }
 FOMSession >> senasaApplicabilityRecords [
-	^ SenasaApplicabilityRecord
-		selectMany: [ :each | each archived = false ]
+	^ (SenasaApplicabilityRecord
+		selectMany: [ :each | each archived = false ])
+		asSortedCollection:
+			[ :a :b | a activeIngredient tradeName <= b activeIngredient tradeName ]
 ]
 
 { #category : #testing }

@@ -36,7 +36,7 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 						heading: 'Catálogos'
 						on: html.
 					self
-						renderMenuBlock: {('SENASA' -> FOMSenasaComponent)}
+						renderMenuBlock: {('SENASA' -> FOMSenasaRecordsComponent)}
 						heading: 'Administración'
 						on: html ] ]
 ]

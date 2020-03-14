@@ -1,17 +1,16 @@
 Class {
-	#name : #FOMSenasaComponent,
+	#name : #FOMSenasaImportComponent,
 	#superclass : #FOMAbstractComponent,
 	#instVars : [
 		'selectedCrops',
 		'selectedCropsComponent',
-		'missingRecords',
-		'selectedRecords'
+		'missingRecords'
 	],
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #initialization }
-FOMSenasaComponent >> computeMissingRecords [
+FOMSenasaImportComponent >> computeMissingRecords [
 	| existing missing allFromSenasa alreadyImported |
 	allFromSenasa := self currentSenasaCatalogue records.
 	alreadyImported := self session senasaApplicabilityRecords.
@@ -31,28 +30,30 @@ FOMSenasaComponent >> computeMissingRecords [
 ]
 
 { #category : #initialization }
-FOMSenasaComponent >> currentSenasaCatalogue [
+FOMSenasaImportComponent >> currentSenasaCatalogue [
 	^ SenasaCatalog
 		twentyTwentyWithExistingCrops: self session crops
 		andExistingActiveIngredientes: self session activeIngredients
 ]
 
 { #category : #callbacks }
-FOMSenasaComponent >> importRecordsForSelectedCrops [
+FOMSenasaImportComponent >> importRecordsForSelectedCrops [
+	| selectedRecords |
 	selectedCropsComponent accept.
 	selectedRecords := missingRecords
 		select: [ :each | selectedCrops includes: each crop ].
-	(missingRecords select: [ :each | selectedCrops includes: each crop ])
+	selectedRecords
 		do: [ :record | 
-			record save.
 			record crop save.
-			record activeIngredient addSenasaApplicabilityRecord: record. 
+			record activeIngredient save.
+			record save.
+			record activeIngredient addSenasaApplicabilityRecord: record.
 			record activeIngredient save ].
-	self updateSelectableCrops
+	self answer
 ]
 
 { #category : #initialization }
-FOMSenasaComponent >> initialize [
+FOMSenasaImportComponent >> initialize [
 	super initialize.
 	selectedCropsComponent := MultipleSelectPropertyEditorComponent
 		subject: self
@@ -64,7 +65,7 @@ FOMSenasaComponent >> initialize [
 ]
 
 { #category : #rendering }
-FOMSenasaComponent >> renderCatalogSummaryOn: html [
+FOMSenasaImportComponent >> renderCatalogSummaryOn: html [
 	html heading
 		level5;
 		with: 'Tolerancias de residuos de plaguicidas'.
@@ -74,26 +75,26 @@ FOMSenasaComponent >> renderCatalogSummaryOn: html [
 				url:
 					'http://www.senasa.gob.ar/normativas/resolucion-934-2010-senasa-servicio-nacional-de-sanidad-y-calidad-agroalimentaria';
 				target: '_blank';
-				with: 'resolución 934-2010 '.
+				with: 'resoluci√≥n 934-2010 '.
 			html
 				text:
-					'del SENASA establece los límites máximos de tolerancia para la presencia de los fitosanitarios.' ].
+					'del SENASA establece los l√≠mites m√°ximos de tolerancia para la presencia de los fitosanitarios.' ].
 	html
 		paragraph:
-			'GAP-a-Farm incluye una versión actualizada (al 2020) del listado. A continuación podrá seleccionar los cultivos para los cuales desea importar la información. Solo se importan registros que no existen en el sistema (es decir, no se actualizan si ya hubiesen sido cargados)'.
+			'GAP-a-Farm incluye una versi√≥n actualizada (al 2020) del listado. A continuaci√≥n podr√° seleccionar los cultivos para los cuales desea importar la informaci√≥n. Solo se importan registros que no existen en el sistema (es decir, no se actualizan si ya hubiesen sido cargados)'.
 			html
 		paragraph:
-			'Se ignoran todos los productos de aplicación post-cosecha. El excel provisto por SENASA fue modificado levemente para corregir errores tipográficos.'
+			'Se ignoran todos los productos de aplicaci√≥n post-cosecha. El excel provisto por SENASA fue modificado levemente para corregir errores tipogr√°ficos.'
 ]
 
 { #category : #rendering }
-FOMSenasaComponent >> renderContentOn: html [
+FOMSenasaImportComponent >> renderContentOn: html [
 	self renderCatalogSummaryOn: html.
 	self renderImportFormOn: html
 ]
 
 { #category : #rendering }
-FOMSenasaComponent >> renderImportFormOn: html [
+FOMSenasaImportComponent >> renderImportFormOn: html [
 	html
 		form: [ html render: selectedCropsComponent.
 			html
@@ -104,17 +105,17 @@ FOMSenasaComponent >> renderImportFormOn: html [
 ]
 
 { #category : #accessing }
-FOMSenasaComponent >> selectedCrops [
+FOMSenasaImportComponent >> selectedCrops [
 	^ selectedCrops
 ]
 
 { #category : #accessing }
-FOMSenasaComponent >> selectedCrops: anObject [
+FOMSenasaImportComponent >> selectedCrops: anObject [
 	selectedCrops := anObject
 ]
 
 { #category : #initialization }
-FOMSenasaComponent >> updateSelectableCrops [
+FOMSenasaImportComponent >> updateSelectableCrops [
 	missingRecords := self computeMissingRecords.
 	selectedCropsComponent
 		possibleValues:
