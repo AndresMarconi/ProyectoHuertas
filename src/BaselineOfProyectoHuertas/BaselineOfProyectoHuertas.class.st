@@ -73,7 +73,17 @@ FOMDeployer new
      clientSecret: ''<your-client-secret>'';    
      baseUrl: ''<uri-base-for-your-apps>/'';
      adminEmail: ''<email-of-the-first-admin>'';
-     deploy.'
+     deploy.
+
+"Set demoMode to true to get a [Load demo data] button."
+FOMDeployer demoMode: false.
+
+"Evaluate one of the following to set the target persistency strategy"
+
+FOMStorage inMemory.
+
+FOMStorage mongoLocal .
+'
 	
 	label: 'Deployment scripts'.
 ]
