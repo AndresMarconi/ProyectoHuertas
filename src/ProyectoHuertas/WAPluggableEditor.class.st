@@ -25,6 +25,13 @@ WAPluggableEditor >> accept [
 		ifNotNil: [ :it | it answer: subject ]
 ]
 
+{ #category : #utility }
+WAPluggableEditor >> asCommaSeparatedList: strings [
+	^ strings
+		ifEmpty: [ '' ]
+		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
+]
+
 { #category : #callbacks }
 WAPluggableEditor >> cancel [
 	self children do: #cancel.

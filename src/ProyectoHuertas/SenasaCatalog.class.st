@@ -43,7 +43,12 @@ SenasaCatalog >> activeIngredientNamed: aString withExistingActiveIngredientes: 
 		ifAbsentPut:
 			(aCollectionOfActiveIngredients
 				detect: [ :each | each tradeName asLowercase = name ]
-				ifNone: [ ActiveIngredient new tradeName: name ])
+				ifNone: [ ActiveIngredient new
+						tradeName: name;
+						comment:
+							'Creada automaticamente al importar datos de SENASA el '
+								, Date today ddmmyyyy;
+						yourself ])
 ]
 
 { #category : #accessing }
@@ -83,7 +88,12 @@ SenasaCatalog >> cropNamed: aString withExistingCrops: aCollectionOfCrops [
 		ifAbsentPut:
 			(aCollectionOfCrops
 				detect: [ :each | each vulgarName asLowercase capitalized = name ]
-				ifNone: [ Crop new vulgarName: name ])
+				ifNone: [ Crop new
+						vulgarName: name;
+						comment:
+							'Creada automaticamente al importar datos de SENASA el '
+								, Date today ddmmyyyy;
+						yourself ])
 ]
 
 { #category : #accessing }
@@ -124,7 +134,8 @@ SenasaCatalog >> fromTuples: aCollectionOfTuples withExistingCrops: aCollectionO
 				withExistingCrops: aCollectionOfCrops
 				andExistingActiveIngredientes: aCollectionOfActiveIngredients ].
 	records := records
-		select: [ :each | each notNil and: [ each crop notNil ] ]
+		select:
+			[ :each | each notNil and: [ each crop notNil & each postHarvest not ] ]
 ]
 
 { #category : #initialization }
@@ -147,7 +158,7 @@ SenasaCatalog >> misalignedRecords [
 
 { #category : #private }
 SenasaCatalog >> recordFrom: aTuple withExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
-	aTuple first isEmptyOrNil 
+	aTuple first isEmptyOrNil
 		ifTrue: [ ^ nil ].
 	^ SenasaApplicabilityRecord new
 		activeIngredient:
@@ -156,8 +167,11 @@ SenasaCatalog >> recordFrom: aTuple withExistingCrops: aCollectionOfCrops andExi
 				withExistingActiveIngredientes: aCollectionOfActiveIngredients);
 		applicabilities: (self applicabilityFrom: aTuple second);
 		crop: (self cropNamed: aTuple third withExistingCrops: aCollectionOfCrops);
-		residue: (self residueFrom: aTuple fourth) ;
-		postHarvest: (aTuple fifth ifNil: [ 'N/A' ])
+		residue: (self residueFrom: aTuple fourth);
+		postHarvest:
+			(aTuple fifth
+				ifNil: [ false ]
+				ifNotNil: [ :it | it asLowercase trimBoth = 'po' ])
 ]
 
 { #category : #accessing }
@@ -170,9 +184,12 @@ SenasaCatalog >> records: anObject [
 	records := anObject
 ]
 
-{ #category : #utility }
+{ #category : #private }
 SenasaCatalog >> residueFrom: aString [
+	aString ifNil: [ ^ Float infinity ].
 	^ [ aString asNumber ]
 		on: Error
-		do: [ 0 ]
+		do: [ (aString trimBoth asLowercase includesSubstring: 'exento')
+				ifTrue: [ Float infinity ]
+				ifFalse: [ 0 ] ]
 ]

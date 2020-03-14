@@ -56,6 +56,14 @@ Substance >> initialize [
 	withdrawalPeriodRecommendations := OrderedCollection new
 ]
 
+{ #category : #copying }
+Substance >> postCopy [
+	activeIngredients := activeIngredients copy.
+	withdrawalPeriodRecommendations := withdrawalPeriodRecommendations
+		collect: #copy.
+	comercialName := nil
+]
+
 { #category : #printing }
 Substance >> printOn: aStream [
 	^ aStream

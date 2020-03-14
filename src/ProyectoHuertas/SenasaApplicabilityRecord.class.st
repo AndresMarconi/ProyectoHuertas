@@ -89,9 +89,7 @@ SenasaApplicabilityRecord >> initialize [
 { #category : #merging }
 SenasaApplicabilityRecord >> mergeFrom: anotherRecord [
 	applicabilities addAll: anotherRecord applicabilities.
-	residue := residue max: anotherRecord residue.
-	postHarvest size < anotherRecord postHarvest size
-		ifTrue: [ postHarvest := anotherRecord postHarvest ]
+	residue := residue min: anotherRecord residue.
 ]
 
 { #category : #accessing }

@@ -32,3 +32,17 @@ ActiveIngredientEditor >> initializeComponents [
 		required: false.
 	super initializeComponents
 ]
+
+{ #category : #rendering }
+ActiveIngredientEditor >> renderChildrenOn: html [
+	super renderChildrenOn: html.
+	html label: 'Registro SENASA'.
+	html
+		paragraph:
+			(self
+				asCommaSeparatedList:
+					((subject senasaApplicabilityRecords
+						asSortedCollection: [ :a :b | a crop vulgarName < b crop vulgarName ])
+						collect:
+							[ :record | record crop vulgarName , ' (' , record residue printString , ' mg/Kg)' ]))
+]

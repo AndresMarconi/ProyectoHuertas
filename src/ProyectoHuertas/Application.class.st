@@ -78,5 +78,6 @@ Application >> summaryFor: aSummaryRequestor [
 
 { #category : #'as yet unclassified' }
 Application >> waitingPeriodFor: aCrop [
-	^ (dateAndTime asDate) addDays: (substance withdrawalTimeFor: aCrop)
+	^ dateAndTime asDate
+		addDays: ((substance withdrawalTimeFor: aCrop) ifNil: [ 0 ])
 ]

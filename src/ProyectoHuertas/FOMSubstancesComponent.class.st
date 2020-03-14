@@ -45,23 +45,43 @@ FOMSubstancesComponent >> elements [
 	^ (self session substances) asSortedCollection: [ :a :b | a comercialName < b comercialName ]
 ]
 
+{ #category : #initialization }
+FOMSubstancesComponent >> initialize [
+	super initialize.
+	duplicateEnabled := true
+]
+
 { #category : #rendering }
 FOMSubstancesComponent >> renderActionButtonsFor: element on: html [
 	html
 		form: [ html formButton
+				style: 'margin: 2px;';
 				bePrimary;
 				callback: [ self editElement: element ];
-				with: [ html span class: 'fa fa-pencil' ].
-			html space.
+				with: [ html span
+						attributeAt: 'title' put: 'Modificar';
+						class: 'fa fa-pencil' ].
 			html formButton
+				style: 'margin: 2px;';
 				bePrimary;
 				callback: [ self editWithdrawalPeriodRecommendations: element ];
-				with: [ html span class: 'fa fa-calendar-times-o' ].
-			html space.
+				with: [ html span
+						attributeAt: 'title' put: 'Ajustar tiempos de carencia';
+						class: 'fa fa-calendar-times-o' ].
 			html formButton
+				style: 'margin: 2px;';
+				bePrimary;
+				callback: [ self duplicateElement: element ];
+				with: [ html span
+						attributeAt: 'title' put: 'Duplicar';
+						class: 'fa fa-clone' ].
+			html formButton
+				style: 'margin: 2px;';
 				beDanger;
 				callback: [ self removeElement: element ];
-				with: [ html span class: 'fa fa-trash' ] ]
+				with: [ html span
+						attributeAt: 'title' put: 'Eliminar';
+						class: 'fa fa-trash' ] ]
 ]
 
 { #category : #rendering }

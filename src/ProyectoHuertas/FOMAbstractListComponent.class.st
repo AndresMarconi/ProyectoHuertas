@@ -98,21 +98,28 @@ FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
 	html
 		form: [ editEnabled
 				ifTrue: [ html formButton
+						style: 'margin: 2px;';
 						bePrimary;
 						callback: [ self editElement: element ];
-						with: [ html span class: 'fa fa-pencil' ] ].
+						with: [ html span
+								attributeAt: 'title' put: 'Modificar';
+								class: 'fa fa-pencil' ] ].
 			duplicateEnabled
-				ifTrue: [ html space.
-					html formButton
+				ifTrue: [ html formButton
+						style: 'margin: 2px;';
 						bePrimary;
 						callback: [ self duplicateElement: element ];
-						with: [ html span class: 'fa fa-clone' ] ].
+						with: [ html span
+								attributeAt: 'title' put: 'Duplicar';
+								class: 'fa fa-clone' ] ].
 			removeEnabled
-				ifTrue: [ html space.
-					html formButton
+				ifTrue: [ html formButton
+						style: 'margin: 2px;';
 						beDanger;
 						callback: [ self removeElement: element ];
-						with: [ html span class: 'fa fa-trash' ] ] ]
+						with: [ html span
+								attributeAt: 'title' put: 'Eliminar';
+								class: 'fa fa-trash' ] ] ]
 ]
 
 { #category : #rendering }

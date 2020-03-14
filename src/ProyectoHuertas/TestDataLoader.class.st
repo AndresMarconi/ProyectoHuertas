@@ -185,7 +185,6 @@ TestDataLoader >> substances [
 			| substance |
 			substance := Substance new
 				comercialName: 'Preparado de ' , ingredient tradeName;
-				usage: 'Pesticida';
 				activeIngredients: (OrderedCollection with: ingredient) yourself.
 			(self randomCrops: 4)
 				do: [ :crop | 
