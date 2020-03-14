@@ -5,7 +5,11 @@ Class {
 		'records',
 		'activeIngredients',
 		'crops',
-		'applicabilities'
+		'applicabilities',
+		'importedTuplesCount',
+		'nilRecordsCount',
+		'nilCropRecordsCount',
+		'postHarvestRecordsCount'
 	],
 	#classInstVars : [
 		'twentyTwenty'
@@ -127,15 +131,22 @@ SenasaCatalog >> fixTyposIn: each [
 SenasaCatalog >> fromTuples: aCollectionOfTuples withExistingCrops: aCollectionOfCrops andExistingActiveIngredientes: aCollectionOfActiveIngredients [
 	"Tuple are #('Principio activo' 'Aptitud' 'Cultivos' 'Residuos (mg /Kg)' 'Post Cosecha')"
 
+	importedTuplesCount := aCollectionOfTuples size.
 	records := aCollectionOfTuples
 		collect: [ :each | 
 			self
 				recordFrom: each
 				withExistingCrops: aCollectionOfCrops
 				andExistingActiveIngredientes: aCollectionOfActiveIngredients ].
+	nilRecordsCount := (records select: #isNil) size.
+	nilCropRecordsCount := (records
+		select: [ :each | each notNil and: [ each crop isNil ] ]) size.
+	postHarvestRecordsCount := (records
+		select: [ :each | each notNil and: [ each postHarvest ] ]) size.
 	records := records
 		select:
-			[ :each | each notNil and: [ each crop notNil & each postHarvest not ] ]
+			[ :each | each notNil and: [ each crop notNil & each postHarvest not ] ].
+
 ]
 
 { #category : #initialization }
@@ -154,6 +165,27 @@ SenasaCatalog >> misalignedRecords [
 		reject: [ :each | 
 			SenasaApplicabilityRecord normalizedApplicabilities values
 				includesAll: each applicabilities ]
+]
+
+{ #category : #utility }
+SenasaCatalog >> printImportReportToTranscript [
+	Transcript
+		show: 'Imported ' , importedTuplesCount printString , ' tuples';
+		cr;
+		show:
+			'Discarded ' , nilRecordsCount printString
+				, ' with missing active ingredient.';
+		cr;
+		show:
+			'Discarded ' , nilCropRecordsCount printString
+				, ' non crop specific records -nil crop.';
+		cr;
+		show:
+			'Discarded ' , postHarvestRecordsCount printString
+				, ' postHarvest records)';
+		cr;
+		show: 'Created ' , records size printString , ' records.';
+		cr
 ]
 
 { #category : #private }
