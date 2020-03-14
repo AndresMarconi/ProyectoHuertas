@@ -60,6 +60,11 @@ Farm >> frequentelyHarvested [
 	^ plots flatCollect: #frequentelyHarvested as: Bag
 ]
 
+{ #category : #utility }
+Farm >> frequentelyPlanted [
+	^ plots flatCollect: #frequentelyPlanted as: Bag
+]
+
 { #category : #accessing }
 Farm >> harvestingUnits [
 	^ harvestingUnits
@@ -91,6 +96,14 @@ Farm >> inventoryItems [
 { #category : #utility }
 Farm >> mostFrequentelyHarvested: count [
 	^ ((plots flatCollect: #frequentelyHarvested as: Bag) sortedCounts
+		collect: #value)
+		ifNotEmpty: [ :it | it first: (count min: it size) ]
+		ifEmpty: [ Array new ]
+]
+
+{ #category : #utility }
+Farm >> mostFrequentelyPlanted: count [
+	^ ((plots flatCollect: #frequentelyPlanted as: Bag) sortedCounts
 		collect: #value)
 		ifNotEmpty: [ :it | it first: (count min: it size) ]
 		ifEmpty: [ Array new ]

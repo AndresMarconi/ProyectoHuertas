@@ -13,7 +13,8 @@ Class {
 
 { #category : #accessing }
 HarvestingEditor >> crops [
-	^ (self session crops) asOrderedCollection.
+	^ (self session farm mostFrequentelyHarvested: 10) , {nil}
+		, self session crops
 ]
 
 { #category : #accessing }
@@ -60,8 +61,7 @@ HarvestingEditor >> initializeComponents [
 		label: 'Cantidad (otra unidad)'
 		required: false
 		units: self units.
-	cropEditorComponent possibleValues: {nil} , self crops.
-
+	cropEditorComponent possibleValues: self crops
 ]
 
 { #category : #accessing }

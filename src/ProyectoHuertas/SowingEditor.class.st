@@ -14,7 +14,7 @@ Class {
 
 { #category : #accessing }
 SowingEditor >> crops [
-	^ (self session farm mostFrequentelyHarvested: 10) , {nil}
+	^ (self session farm mostFrequentelyPlanted: 10) , {nil}
 		, self session crops
 ]
 
@@ -29,6 +29,11 @@ SowingEditor >> eventSpecificChildren [
 ]
 
 { #category : #'subclass-responsibility' }
+SowingEditor >> frequentlyPlantedCrops [
+	^ self session farm frequentlyPlantedCrops
+]
+
+{ #category : #'subclass-responsibility' }
 SowingEditor >> initializeComponents [
 	"Initialize all property components"
 
@@ -38,7 +43,7 @@ SowingEditor >> initializeComponents [
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
-	cropEditorComponent possibleValues: {nil} , self crops.
+	cropEditorComponent possibleValues: self crops.
 	cultivarEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #cultivarName

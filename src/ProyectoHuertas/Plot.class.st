@@ -74,6 +74,12 @@ Plot >> frequentelyHarvested [
 		collect: #crop) asBag
 ]
 
+{ #category : #utility }
+Plot >> frequentelyPlanted [
+	^ ((events select: [ :each | each class = Sowing ]) collect: #crop)
+		asBag
+]
+
 { #category : #accessing }
 Plot >> harvests [
 	^ (self events) select: [ :event | event class = Harvesting ]
