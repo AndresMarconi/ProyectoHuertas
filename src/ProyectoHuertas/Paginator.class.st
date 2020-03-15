@@ -59,7 +59,7 @@ Paginator >> page: number [
 
 { #category : #accessing }
 Paginator >> pages [ 
-	^ (self totalElements quo: elementsPerPage) + 1 
+	^ (self totalElements quo: elementsPerPage) + 1
 ]
 
 { #category : #rendering }
