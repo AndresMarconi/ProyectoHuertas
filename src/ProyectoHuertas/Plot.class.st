@@ -125,9 +125,7 @@ Plot >> postCopy [
 
 { #category : #printing }
 Plot >> printOn: aStream [
-	^ aStream
-		nextPutAll: ('Lote ');
-		nextPutAll: (self id asString)
+	^ aStream nextPutAll: self id asString
 ]
 
 { #category : #accessing }
