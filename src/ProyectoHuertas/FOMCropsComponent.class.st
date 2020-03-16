@@ -31,5 +31,5 @@ FOMCropsComponent >> elementEditorClass [
 
 { #category : #callbacks }
 FOMCropsComponent >> elements [
-	^ (self session crops) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ (self session ahg crops) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
