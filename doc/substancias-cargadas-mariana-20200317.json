@@ -1,0 +1,78 @@
+[
+  {
+    "comercialName": "Voliam Flexi",
+    "activeIngredients": [
+      { "tradeName": "clorantraniliprole" },
+      { "tradeName": "tiametoxam" }
+    ],
+    "withdrawalPeriodRecommendations": [
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "Prospecto" }
+    ]
+  },
+  {
+    "comercialName": "Confidor",
+    "activeIngredients": [{ "tradeName": "imidacloprid" }],
+    "withdrawalPeriodRecommendations": [
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" }
+    ]
+  },
+  {
+    "comercialName": "Gaucho",
+    "activeIngredients": [{ "tradeName": "imidacloprid" }],
+    "withdrawalPeriodRecommendations": [
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" }
+    ]
+  },
+  {
+    "comercialName": "Adama",
+    "activeIngredients": [{ "tradeName": "imidacloprid" }],
+    "withdrawalPeriodRecommendations": [
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" }
+    ]
+  },
+  {
+    "comercialName": "Matrero",
+    "activeIngredients": [{ "tradeName": "imidacloprid" }],
+    "withdrawalPeriodRecommendations": [
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" }
+    ]
+  },
+  {
+    "comercialName": "Lannate",
+    "activeIngredients": [{ "tradeName": "metomil" }],
+    "withdrawalPeriodRecommendations": [
+      {
+        "crop": "Tomate",
+        "daysToWait": "10",
+        "referenceUrl": "SENASA, CASAFE"
+      },
+      {
+        "crop": "Pimiento",
+        "daysToWait": "10",
+        "referenceUrl": "SENASA, CASAFE"
+      }
+    ]
+  },
+  {
+    "comercialName": "Vertimec",
+    "activeIngredients": [{ "tradeName": "abamectina/avermectina" }],
+    "withdrawalPeriodRecommendations": [
+      {
+        "crop": "Pimiento",
+        "daysToWait": "3",
+        "referenceUrl": "no está en CASAFE"
+      },
+      { "crop": "Apio", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" },
+      {
+        "crop": "Frutilla",
+        "daysToWait": "3",
+        "referenceUrl": "SENASA, CASAFE"
+      },
+      { "crop": "Melón", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" },
+      { "crop": "Papa", "daysToWait": "30", "referenceUrl": "SENASA, CASAFE" },
+      { "crop": "Pepino", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" },
+      { "crop": "Sandía", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" },
+      { "crop": "Tomate", "daysToWait": "3", "referenceUrl": "SENASA, CASAFE" }
+    ]
+  }
+]
