@@ -24,6 +24,11 @@ Substance >> activeIngredients: anObject [
 	activeIngredients := anObject
 ]
 
+{ #category : #accessing }
+Substance >> addActiveIngredients: anObject [
+	activeIngredients add: anObject
+]
+
 { #category : #modifying }
 Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations add: withdrawalPeriodRecommendation
