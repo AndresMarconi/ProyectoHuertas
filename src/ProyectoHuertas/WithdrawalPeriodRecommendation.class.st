@@ -40,7 +40,7 @@ WithdrawalPeriodRecommendation >> daysToWait: anObject [
 
 { #category : #'as yet unclassified' }
 WithdrawalPeriodRecommendation >> exportToJson [ 
-	^ '{ "crop" : " ',  crop vulgarName , ' ",  "daysToWait" : " ',  daysToWait asString,  ' ",  "referenceUrl" : " ' ,   referenceUrl ,  ' "}'
+	^ '{ "crop" : "',  crop vulgarName , '",  "daysToWait" : "',  daysToWait asString,  '",  "referenceUrl" : "' ,   referenceUrl ,  '"}'
 ]
 
 { #category : #accessing }
