@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMPlotsManagementComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
@@ -13,13 +13,13 @@ FOMPlotsManagementComponent >> addManyElements [
 
 { #category : #rendering }
 FOMPlotsManagementComponent >> columnHeadings [
-	^ {'ID' . 'Superficie (m2)' }
+	^ {'ID' . 'Superficie (m2)' },super columnHeadings
 ]
 
 { #category : #rendering }
 FOMPlotsManagementComponent >> columnValuesFor: element [
 	^ {element id.
-	element surface}
+	element surface}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }

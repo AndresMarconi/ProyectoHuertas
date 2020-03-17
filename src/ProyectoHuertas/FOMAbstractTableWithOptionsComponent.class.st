@@ -1,8 +1,7 @@
 Class {
-	#name : #FOMAbstractListComponent,
-	#superclass : #FOMAbstractComponent,
+	#name : #FOMAbstractTableWithOptionsComponent,
+	#superclass : #FOMAbstractTableComponent,
 	#instVars : [
-		'paginator',
 		'editEnabled',
 		'removeEnabled',
 		'addEnabled',
@@ -12,89 +11,68 @@ Class {
 }
 
 { #category : #callbacks }
-FOMAbstractListComponent >> addElement [
+FOMAbstractTableWithOptionsComponent >> addElement [
 	(self call: (self elementEditorClass subject: self elementClass new))
 		ifNotNil: [ :it | self saveAddedElement: it. ]
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> columnHeadings [
-	^ self subclassResponsibility
+FOMAbstractTableWithOptionsComponent >> columnHeadings [ 
+	^ {'Notas' . 'Acciones' }
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> columnValuesFor: element [
-	^ self subclassResponsibility
+FOMAbstractTableWithOptionsComponent >> columnValuesFor: element [
+	^ {element comment}
 ]
 
 { #category : #callbacks }
-FOMAbstractListComponent >> duplicateElement: element [
+FOMAbstractTableWithOptionsComponent >> duplicateElement: element [
 	(self call: (self elementEditorClass subject: element copy))
 		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 
 { #category : #callbacks }
-FOMAbstractListComponent >> editElement: element [
+FOMAbstractTableWithOptionsComponent >> editElement: element [
 	(self call: (self elementEditorClass subject: element))
 		ifNotNil: [ :it | self saveEditedElement: it ]
 ]
 
 { #category : #hooks }
-FOMAbstractListComponent >> elementClass [
+FOMAbstractTableWithOptionsComponent >> elementClass [
 	"Returns the class of elements to edit and add"
 
 	^ self subclassResponsibility
 ]
 
 { #category : #hooks }
-FOMAbstractListComponent >> elementEditorClass [
+FOMAbstractTableWithOptionsComponent >> elementEditorClass [
 	"Returns the class of editor used to edit elements"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
-FOMAbstractListComponent >> elements [
-	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
-FOMAbstractListComponent >> elementsToList [
-	^ self elements
-		select: [ :each | self session showArchived or: [ each archived not ] ]
-]
-
 { #category : #initialization }
-FOMAbstractListComponent >> initialize [
+FOMAbstractTableWithOptionsComponent >> initialize [
+	super initialize.
 	editEnabled := true.
 	removeEnabled := true.
 	addEnabled := true.
 	duplicateEnabled := true.
-	paginator := Paginator subject: self selector: #elements pageSize: 10
 ]
 
 { #category : #accessing }
-FOMAbstractListComponent >> paginator: anObject [
-	paginator := anObject
-]
-
-{ #category : #accessing }
-FOMAbstractListComponent >> parent [
-	^ parent
-]
-
-{ #category : #accessing }
-FOMAbstractListComponent >> parent: anObject [
+FOMAbstractTableWithOptionsComponent >> parent: anObject [
 	parent := anObject
 ]
 
 { #category : #callbacks }
-FOMAbstractListComponent >> removeElement: element [
+FOMAbstractTableWithOptionsComponent >> removeElement: element [
 	element archive
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
+FOMAbstractTableWithOptionsComponent >> renderActionButtonsFor: element on: html [
 	html
 		form: [ editEnabled
 				ifTrue: [ html formButton
@@ -123,7 +101,7 @@ FOMAbstractListComponent >> renderActionButtonsFor: element on: html [
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> renderAddButtonOn: html [
+FOMAbstractTableWithOptionsComponent >> renderAddButtonOn: html [
 	addEnabled
 		ifTrue: [ html
 				paragraph: [ html anchor
@@ -134,38 +112,23 @@ FOMAbstractListComponent >> renderAddButtonOn: html [
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> renderContentOn: html [
-	self renderElementsTableOn: html.
-	paginator renderPaginationOn: html.
+FOMAbstractTableWithOptionsComponent >> renderContentOn: html [
+	super renderContentOn: html.
 	self renderAddButtonOn: html.
 	
 ]
 
 { #category : #rendering }
-FOMAbstractListComponent >> renderElementsTableOn: html [
-	html table
-		class: 'table table-hover';
-		with: [ html
-				tableHead: [ html
-						tableRow: [ self columnHeadings , {'Notas' . 'Acciones'}
-								do: [ :heading | html tableHeading: heading ] ] ].
-			html
-				tableBody: [ (paginator selectElementsIn: self elementsToList)
-						do: [ :element | 
-							html
-								tableRow: [ (self columnValuesFor: element)
-										do: [ :value | html tableData: value ].
-									html tableData: element comment.
-									html
-										tableData: [ self renderActionButtonsFor: element on: html ] ] ] ] ]
+FOMAbstractTableWithOptionsComponent >> renderExtraRowValue: element On: html [
+	html tableData: [ self renderActionButtonsFor: element on: html ] 
 ]
 
 { #category : #hooks }
-FOMAbstractListComponent >> saveAddedElement: anElement [
+FOMAbstractTableWithOptionsComponent >> saveAddedElement: anElement [
 	anElement save
 ]
 
 { #category : #hooks }
-FOMAbstractListComponent >> saveEditedElement: anElement [
+FOMAbstractTableWithOptionsComponent >> saveEditedElement: anElement [
 	anElement save
 ]

@@ -1,18 +1,18 @@
 Class {
 	#name : #FOMCropsComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }
 FOMCropsComponent >> columnHeadings [
-	^ {'Nombre vulgar' . 'Rinde óptimo (kg/hectárea)'}
+	^ {'Nombre vulgar' . 'Rinde óptimo (kg/hectárea)'}, super columnHeadings
 ]
 
 { #category : #rendering }
 FOMCropsComponent >> columnValuesFor: element [
 	^ {element vulgarName.
-	element optimalYield}
+	element optimalYield}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }

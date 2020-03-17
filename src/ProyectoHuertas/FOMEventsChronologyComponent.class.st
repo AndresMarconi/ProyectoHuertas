@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMEventsChronologyComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#instVars : [
 		'plot'
 	],

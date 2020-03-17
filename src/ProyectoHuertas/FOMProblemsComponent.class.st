@@ -1,12 +1,12 @@
 Class {
 	#name : #FOMProblemsComponent,
-	#superclass : #FOMEventsListComponent,
+	#superclass : #FOMEventsTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }
 FOMProblemsComponent >> columnHeadings [
-	^ super columnHeadings , { 'Adversidad'. }
+	^ super columnHeadings , { 'Adversidad'. }, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -14,7 +14,7 @@ FOMProblemsComponent >> columnValuesFor: element [
 	" {'Fecha' . 'Lote' . 'Problema'. }"
 
 	^ (super columnValuesFor: element)
-		, {(element name , ' (' , element type , ')')}
+		, {(element name , ' (' , element type , ')')}, (self generalColumnValuesFor: element)
 ]
 
 { #category : #hooks }

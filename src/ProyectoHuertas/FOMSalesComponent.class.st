@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMSalesComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
@@ -15,13 +15,13 @@ FOMSalesComponent >> addElement [
 
 { #category : #rendering }
 FOMSalesComponent >> columnHeadings [
-	^ { 'Fecha'. 'Cliente'. }
+	^ { 'Fecha'. 'Cliente'. }, super columnHeadings
 ]
 
 { #category : #rendering }
 FOMSalesComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
-	element client}
+	element client},(super columnValuesFor: element)
 ]
 
 { #category : #callbacks }

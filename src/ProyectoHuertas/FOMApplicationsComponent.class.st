@@ -1,12 +1,12 @@
 Class {
 	#name : #FOMApplicationsComponent,
-	#superclass : #FOMEventsListComponent,
+	#superclass : #FOMEventsTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }
 FOMApplicationsComponent >> columnHeadings [
-	^ super columnHeadings , {'Razón'. 'Producto' . 'Dosis'}
+	^ super columnHeadings , {'Razón'. 'Producto' . 'Dosis'}, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ FOMApplicationsComponent >> columnValuesFor: element [
 		,
 			{element reason.
 			element substance comercialName.
-			element dose}
+			element dose}, (self generalColumnValuesFor: element)
 ]
 
 { #category : #hooks }

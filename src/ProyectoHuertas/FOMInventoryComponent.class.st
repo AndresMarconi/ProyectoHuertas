@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMInventoryComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
@@ -17,14 +17,14 @@ FOMInventoryComponent >> addSubstanceStock [
 
 { #category : #rendering }
 FOMInventoryComponent >> columnHeadings [
-	^ {'Nombre comercial' . 'Principio Activo' . 'Cantidad disponible'}
+	^ {'Nombre comercial' . 'Principio Activo' . 'Cantidad disponible'}, super columnHeadings
 ]
 
 { #category : #rendering }
 FOMInventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
 	element substance activeIngredients.
-	element quantity}
+	element quantity}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }

@@ -1,18 +1,18 @@
 Class {
 	#name : #FOMActiveIngredienteComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }
 FOMActiveIngredienteComponent >> columnHeadings [
-	^ {'Nombre' . 'URL de referencia'}
+	^ {'Nombre' . 'URL de referencia'}, super columnHeadings
 ]
 
 { #category : #rendering }
 FOMActiveIngredienteComponent >> columnValuesFor: element [
 	^ {element tradeName.
-	element referenceUrl}
+	element referenceUrl},(super columnValuesFor: element)
 ]
 
 { #category : #hooks }

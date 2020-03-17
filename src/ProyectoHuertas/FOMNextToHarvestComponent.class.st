@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMNextToHarvestComponent,
-	#superclass : #FOMAbstractListForDashboardComponent,
+	#superclass : #FOMAbstractTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
@@ -22,6 +22,11 @@ FOMNextToHarvestComponent >> columnValuesFor: element [
 FOMNextToHarvestComponent >> elements [
 	^ ((self session sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ])
 		asSortedCollection: [ :a :b | a date < b date ].
+]
+
+{ #category : #accessing }
+FOMNextToHarvestComponent >> parent [
+	^ parent
 ]
 
 { #category : #rendering }

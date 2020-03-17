@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMPlotsInWithdrawalTime,
-	#superclass : #FOMAbstractListForDashboardComponent,
+	#superclass : #FOMAbstractTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
@@ -22,6 +22,11 @@ FOMPlotsInWithdrawalTime >> columnValuesFor: element [
 FOMPlotsInWithdrawalTime >> elements [
 	^ (self session plots reject: [ :plot | ((plot currentCycle) inWaitingPeriod) isNil ])
 		asSortedCollection: [ :a :b | a date < b date ].
+]
+
+{ #category : #accessing }
+FOMPlotsInWithdrawalTime >> parent [
+	^ parent
 ]
 
 { #category : #rendering }

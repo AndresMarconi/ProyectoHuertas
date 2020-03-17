@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMSenasaRecordsComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#instVars : [
 		'filterCrop'
 	],
@@ -10,7 +10,7 @@ Class {
 { #category : #rendering }
 FOMSenasaRecordsComponent >> columnHeadings [
 	^ {'Principio activo' . 'Cultivo' . 'Residuos (mg/Kg)'.
-	'Aptitud'}
+	'Aptitud'}, super columnHeadings
 ]
 
 { #category : #rendering }
@@ -18,7 +18,7 @@ FOMSenasaRecordsComponent >> columnValuesFor: element [
 	^ {element activeIngredient tradeName.
 	element crop vulgarName.
 	element residue printString.
-	(self asCommaSeparatedList: element applicabilities)}
+	(self asCommaSeparatedList: element applicabilities)}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }

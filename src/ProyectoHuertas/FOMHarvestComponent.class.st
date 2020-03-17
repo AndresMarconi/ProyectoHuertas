@@ -1,12 +1,12 @@
 Class {
 	#name : #FOMHarvestComponent,
-	#superclass : #FOMEventsListComponent,
+	#superclass : #FOMEventsTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }
 FOMHarvestComponent >> columnHeadings [
-	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
+	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ FOMHarvestComponent >> columnValuesFor: element [
 		,
 			{element crop vulgarName.
 			element cultivarName.
-			(self quantityStringFor: element)}
+			(self quantityStringFor: element)}, (self generalColumnValuesFor: element)
 ]
 
 { #category : #hooks }

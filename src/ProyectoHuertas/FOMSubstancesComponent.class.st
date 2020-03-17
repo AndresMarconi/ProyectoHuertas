@@ -1,12 +1,12 @@
 Class {
 	#name : #FOMSubstancesComponent,
-	#superclass : #FOMAbstractListComponent,
+	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }
 FOMSubstancesComponent >> columnHeadings [
-	^ {'Nombre comercial'. 'Aptitud'. 'Principios activos'. 'Períodos de carencia' }
+	^ {'Nombre comercial'. 'Aptitud'. 'Principios activos'. 'Períodos de carencia' }, super columnHeadings
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ FOMSubstancesComponent >> columnValuesFor: element [
 	(self asCommaSeparatedList: element applicabilities).
 	(self
 		asCommaSeparatedList: (element activeIngredients collect: #tradeName)).
-	(self withdrawalStringFor: element)}
+	(self withdrawalStringFor: element)}, (super columnValuesFor: element)
 ]
 
 { #category : #callbacks }
