@@ -45,8 +45,10 @@ FOMWithdrawalTimeRecommendationsEditor >> cancel [
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> crops [
-	^ substance registeredCrops
-		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ (substance activeIngredients
+		flatCollect:
+			[ :ingredient | self session registeredCropsForActiveIngredient: ingredient ]
+		as: Set) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #accessing }
@@ -84,32 +86,8 @@ FOMWithdrawalTimeRecommendationsEditor >> removeWithdrawalRecommentationPeriodFo
 ]
 
 { #category : #rendering }
-FOMWithdrawalTimeRecommendationsEditor >> renderActiveIngredientsOn: html [
-	html heading
-		level5;
-		with: 'Principios activos: '.
-	html
-		paragraph: [ html
-				small:
-					'Se para cada par principio activo y cultivo se indican los  residuos máximos establecidos por SENASA para el 2020' ].
-	substance activeIngredients
-		do: [ :ingredient | 
-			html
-				paragraph: [ html
-						strong: ingredient tradeName , ': ';
-						text:
-							(self
-								asCommaSeparatedList:
-									(ingredient senasaApplicabilityRecords
-										collect: [ :record | 
-											record crop vulgarName , ' (' , record residue printString
-												, ' mg/Kg )' ])) ] ]
-]
-
-{ #category : #rendering }
 FOMWithdrawalTimeRecommendationsEditor >> renderContentOn: html [
 	self renderFixedDataOn: html.
-	self renderActiveIngredientsOn: html.
 	html heading
 		level5;
 		with: 'Períodos de carencia'.

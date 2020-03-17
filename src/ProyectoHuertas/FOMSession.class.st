@@ -11,7 +11,9 @@ Class {
 
 { #category : #'db queries' }
 FOMSession >> activeIngredients [
-	^ (ActiveIngredient selectMany: [ :each | each archived = false ]) asOrderedCollection
+
+	^ (ActiveIngredient selectMany: [ :each | each archived = false ])
+		asOrderedCollection
 ]
 
 { #category : #'indirect queries' }
@@ -110,6 +112,13 @@ FOMSession >> problems [
 	^ self plots flatCollect: [ :each | each problems ]
 ]
 
+{ #category : #'db queries' }
+FOMSession >> registeredCropsForActiveIngredient: activeIngrediente [
+	^ (SenasaApplicabilityRecord selectAll
+		select: [ :each | each activeIngredient = activeIngrediente ])
+		collect: #crop
+]
+
 { #category : #'indirect queries' }
 FOMSession >> sales [
 	^ self farm ifNil: [ Array new ] ifNotNil: [ :it | it sales ]
@@ -131,6 +140,18 @@ FOMSession >> senasaApplicabilityRecords [
 		selectMany: [ :each | each archived = false ])
 		asSortedCollection:
 			[ :a :b | a activeIngredient tradeName <= b activeIngredient tradeName ]
+]
+
+{ #category : #'db queries' }
+FOMSession >> senasaApplicabilityRecordsForActiveIngredient: anActiveIngrediente [
+	^ SenasaApplicabilityRecord selectAll
+		select: [ :each | each activeIngredient = anActiveIngrediente ]
+]
+
+{ #category : #'db queries' }
+FOMSession >> senasaApplicabilityRecordsForCrop: aCrop [
+	^ (SenasaApplicabilityRecord selectAll
+		select: [ :each | each crop = aCrop ]) asArray
 ]
 
 { #category : #testing }

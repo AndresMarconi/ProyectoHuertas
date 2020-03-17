@@ -45,10 +45,10 @@ FOMSenasaImportComponent >> importRecordsForSelectedCrops [
 	selectedRecords
 		do: [ :record | 
 			record crop save.
-			record activeIngredient save.
-			record save.
-			record activeIngredient addSenasaApplicabilityRecord: record.
-			record activeIngredient save ].
+			record activeIngredient 
+				addApplicabilities: record applicabilities;
+				save.
+			record save ].
 	self answer
 ]
 

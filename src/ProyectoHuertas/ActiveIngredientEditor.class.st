@@ -41,7 +41,7 @@ ActiveIngredientEditor >> renderChildrenOn: html [
 		paragraph:
 			(self
 				asCommaSeparatedList:
-					((subject senasaApplicabilityRecords
+					(((self session senasaApplicabilityRecordsForActiveIngredient: subject)
 						asSortedCollection: [ :a :b | a crop vulgarName < b crop vulgarName ])
 						collect:
 							[ :record | record crop vulgarName , ' (' , record residue printString , ' mg/Kg)' ]))

@@ -66,7 +66,6 @@ SenasaApplicabilityRecord >> applicabilities [
 
 { #category : #accessing }
 SenasaApplicabilityRecord >> applicabilities: anObject [
-	anObject ifNil: [ self halt ].
 	applicabilities := anObject
 ]
 

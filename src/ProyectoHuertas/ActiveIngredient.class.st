@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tradeName',
 		'referenceUrl',
-		'senasaApplicabilityRecords'
+		'applicabilities'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -14,25 +14,20 @@ ActiveIngredient class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #accessing }
-ActiveIngredient >> addSenasaApplicabilityRecord: aSenasaApplicabilityRecord [
-	| existingRecord |
-	existingRecord := senasaApplicabilityRecords
-		detect: [ :each | 
-			each crop = aSenasaApplicabilityRecord crop
-				& (each activeIngredient = aSenasaApplicabilityRecord activeIngredient) ]
-		ifNone: [ nil ].
-	existingRecord notNil
-		ifTrue: [ existingRecord
-				alertOfPotencialDuplicateWith: aSenasaApplicabilityRecord.
-			existingRecord mergeFrom: aSenasaApplicabilityRecord ]
-		ifFalse: [ senasaApplicabilityRecords add: aSenasaApplicabilityRecord ]
+{ #category : #acccessing }
+ActiveIngredient >> addApplicabilities: aCollection [
+	applicabilities addAll: aCollection
 ]
 
-{ #category : #accessing }
+{ #category : #acccessing }
+ActiveIngredient >> addApplicability: aString [
+	applicabilities add: aString
+	
+]
+
+{ #category : #acccessing }
 ActiveIngredient >> applicabilities [
-	^ (senasaApplicabilityRecords
-		flatCollect: [ :each | each applicabilities ]) asSet
+	^ applicabilities
 ]
 
 { #category : #'as yet unclassified' }
@@ -43,7 +38,7 @@ ActiveIngredient >> exportToJson [
 { #category : #initialization }
 ActiveIngredient >> initialize [
 	super initialize.
-	senasaApplicabilityRecords := OrderedCollection new
+	applicabilities := Set new
 ]
 
 { #category : #printing }
@@ -60,16 +55,6 @@ ActiveIngredient >> referenceUrl [
 { #category : #accessing }
 ActiveIngredient >> referenceUrl: anObject [
 	referenceUrl := anObject
-]
-
-{ #category : #accessing }
-ActiveIngredient >> registeredCrops [
-	^senasaApplicabilityRecords collect: #crop
-]
-
-{ #category : #accessing }
-ActiveIngredient >> senasaApplicabilityRecords [
-	^ senasaApplicabilityRecords
 ]
 
 { #category : #accessing }

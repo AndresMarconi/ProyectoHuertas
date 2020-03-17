@@ -10,14 +10,15 @@ FOMSubstancesComponent >> columnHeadings [
 ]
 
 { #category : #rendering }
-FOMSubstancesComponent >> columnValuesFor: element [
+FOMSubstancesComponent >> columnValuesFor: substance [
 	"{'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}"
 
-	^ {element comercialName.
-	(self asCommaSeparatedList: element applicabilities).
+	^ {substance comercialName.
+	(self asCommaSeparatedList: substance applicabilities).
 	(self
-		asCommaSeparatedList: (element activeIngredients collect: #tradeName)).
-	(self withdrawalStringFor: element)}, (super columnValuesFor: element)
+		asCommaSeparatedList: (substance activeIngredients collect: #tradeName)).
+	(self withdrawalStringFor: substance)}
+		, (super columnValuesFor: substance)
 ]
 
 { #category : #callbacks }
