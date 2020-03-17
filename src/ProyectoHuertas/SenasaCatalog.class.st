@@ -14,7 +14,7 @@ Class {
 	#classInstVars : [
 		'twentyTwenty'
 	],
-	#category : #'ProyectoHuertas-model'
+	#category : #'ProyectoHuertas-senasa'
 }
 
 { #category : #'instance creation' }

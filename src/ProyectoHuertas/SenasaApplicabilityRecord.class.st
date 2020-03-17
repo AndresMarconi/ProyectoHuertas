@@ -8,7 +8,7 @@ Class {
 		'postHarvest',
 		'applicabilities'
 	],
-	#category : #'ProyectoHuertas-model'
+	#category : #'ProyectoHuertas-senasa'
 }
 
 { #category : #voyage }
