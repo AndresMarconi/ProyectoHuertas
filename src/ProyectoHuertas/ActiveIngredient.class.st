@@ -35,6 +35,11 @@ ActiveIngredient >> applicabilities [
 		flatCollect: [ :each | each applicabilities ]) asSet
 ]
 
+{ #category : #'as yet unclassified' }
+ActiveIngredient >> exportToJson [ 
+	^ '{ "tradeName" : " ' ,  tradeName ,  ' " }'
+]
+
 { #category : #initialization }
 ActiveIngredient >> initialize [
 	super initialize.

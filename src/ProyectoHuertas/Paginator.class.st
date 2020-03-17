@@ -103,12 +103,13 @@ Paginator >> renderPagesOn: html [
 Paginator >> renderPaginationOn: html [
 	self totalElements < elementsPerPage
 		ifTrue: [ ^ self ].
-	html
-		navigation: [ html unorderedList
+	html row class: 'd-flex flex-row justify-content-center'; with: [  
+		html
+			navigation: [ html unorderedList
 				class: 'pagination';
 				with: [ self renderPreviousButtonOn: html.
 					self renderPagesOn: html.
-					self renderNextButtonOn: html ] ]
+					self renderNextButtonOn: html ] ] ]
 ]
 
 { #category : #rendering }

@@ -50,6 +50,20 @@ Substance >> comercialName: anObject [
 	comercialName := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Substance >> exportToJson [
+	| json |
+	json:=  
+	'{ "comercialName" : "',  comercialName,  '" , ' ,  ' "activeIngredients" : [  '.
+	activeIngredients do: [ :each | json:= json,  (each exportToJson), ' , ' ].
+	json at: (json size)-1 put: $].
+	json:= json ,  ',  "withdrawalPeriodRecommendations": ['.
+	withdrawalPeriodRecommendations do: [ :each | json:= json, (each exportToJson), ' , ' ].
+	json at: (json size)-1 put: $].
+	json:= json, ' }'.
+	^json 
+]
+
 { #category : #initialization }
 Substance >> initialize [
 	super initialize.
