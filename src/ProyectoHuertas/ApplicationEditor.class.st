@@ -15,6 +15,8 @@ Class {
 { #category : #callbacks }
 ApplicationEditor >> accept [
 	| substance plot |
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
 	substance:= substanceEditorComponent bufferedValue.
 	plot:= plotEditorComponent bufferedValue.
 	((substance allowedUsage) includes: (plot currentCrop))

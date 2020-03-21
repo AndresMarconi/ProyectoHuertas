@@ -33,5 +33,6 @@ FOMNextToHarvestComponent >> parent [
 FOMNextToHarvestComponent >> renderContentOn: html [
 	html heading level3; with: 'Proximas Cosechas'.
 	html paragraph: 'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.'.
+	paginator elementsPerPage: 5.
 	super renderContentOn: html.
 ]

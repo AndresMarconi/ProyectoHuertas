@@ -33,5 +33,6 @@ FOMPlotsInWithdrawalTime >> parent [
 FOMPlotsInWithdrawalTime >> renderContentOn: html [
 	html heading level3; with: 'Lotes en carencia'.
 	html paragraph: 'Respete las carencias correspondientes a los fitosanitarios aplicados.'.
+	paginator elementsPerPage: 5.
 	super renderContentOn: html.
 ]
