@@ -76,7 +76,7 @@ Application >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForApplication: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #queries }
 Application >> waitingPeriodFor: aCrop [
 	^ dateAndTime asDate
 		addDays: ((substance withdrawalTimeFor: aCrop) ifNil: [ 0 ])

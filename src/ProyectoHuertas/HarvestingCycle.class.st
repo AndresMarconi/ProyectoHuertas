@@ -18,12 +18,14 @@ HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #queries }
 HarvestingCycle >> inWaitingPeriod [
 	| waitingPeriods |
-	waitingPeriods:= self aplications collect: [ :app | app waitingPeriodFor: (self sowing crop) ].
-	(waitingPeriods select: [ :wp | wp isAfter: Date today ] )
-	ifEmpty: [ ^nil ] ifNotEmpty: [ :it | ^it first ]
+	waitingPeriods := self aplications
+		collect: [ :app | app waitingPeriodFor: self sowing crop ].
+	(waitingPeriods select: [ :wp | wp isAfter: Date today ])
+		ifEmpty: [ ^ nil ]
+		ifNotEmpty: [ :it | ^ it first ]
 ]
 
 { #category : #events }
