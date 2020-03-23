@@ -64,7 +64,7 @@ FOMSenasaRecordsComponent >> renderContentOn: html [
 	html break.
 	html
 		paragraph:
-			'A continuaci√≥n se listan los registros publicados por SENASA que ya han sido importados'.
+			'A continuación se listan los registros publicados por SENASA que ya han sido importados'.
 	super renderContentOn: html.
 	self renderImportButtonOn: html
 ]

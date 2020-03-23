@@ -13,18 +13,16 @@ Problem class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'instance creation' }
-Problem class >> name: aName date: aDate surface: aSurface [
-	^ self new
-		name: aName;
-		date: aDate;
-		surface: aSurface;
-		yourself
-]
-
 { #category : #accessing }
 Problem class >> typeDescriptor [
 	^ 'Adversidad'
+]
+
+{ #category : #constants }
+Problem class >> types [
+	"types of possible problems"
+
+	^ #('Ácaros' 'Enfermedad' 'Hongos' 'Insectos' 'Malezas' 'Malnutrición' 'Nemátodos' 'Otro')
 ]
 
 { #category : #accessing }

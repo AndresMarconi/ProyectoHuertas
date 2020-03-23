@@ -30,7 +30,7 @@ ActiveIngredient >> applicabilities [
 	^ applicabilities
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 ActiveIngredient >> exportToJson [ 
 	^ '{ "tradeName" : "' ,  tradeName ,  '" }'
 ]

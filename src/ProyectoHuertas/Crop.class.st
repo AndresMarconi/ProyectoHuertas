@@ -3,7 +3,7 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'vulgarName',
-		'optimalYield'
+		'optimalYieldPerPlant'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -17,24 +17,24 @@ Crop class >> isVoyageRoot [
 Crop class >> name: aName yield: aYield [
 	^ self new
 		vulgarName: aName;
-		optimalYield: 0;
+		optimalYieldPerPlant: 0;
 		yourself
 ]
 
 { #category : #initialization }
 Crop >> initialize [
 	super initialize.
-	optimalYield := 0
+	optimalYieldPerPlant := 0
 ]
 
 { #category : #accessing }
-Crop >> optimalYield [
-	^ optimalYield
+Crop >> optimalYieldPerPlant [
+	^ optimalYieldPerPlant
 ]
 
 { #category : #accessing }
-Crop >> optimalYield: anObject [
-	optimalYield := anObject
+Crop >> optimalYieldPerPlant: aMeasurement [
+	optimalYieldPerPlant := aMeasurement
 ]
 
 { #category : #printing }

@@ -3,7 +3,6 @@ Class {
 	#superclass : #FOMObject,
 	#instVars : [
 		'plot',
-		'surface',
 		'dateAndTime'
 	],
 	#category : #'ProyectoHuertas-model'
@@ -54,16 +53,6 @@ Event >> postCopy [
 { #category : #printing }
 Event >> summaryFor: aSummaryRequestor [
 	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
-Event >> surface [
-	^ surface
-]
-
-{ #category : #accessing }
-Event >> surface: anObject [
-	surface := anObject
 ]
 
 { #category : #accessing }

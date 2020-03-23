@@ -12,7 +12,7 @@ FOMCropsComponent >> columnHeadings [
 { #category : #rendering }
 FOMCropsComponent >> columnValuesFor: element [
 	^ {element vulgarName.
-	element optimalYield}, (super columnValuesFor: element)
+	element optimalYieldPerPlant}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }

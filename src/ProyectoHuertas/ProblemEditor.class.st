@@ -10,7 +10,7 @@ Class {
 
 { #category : #'subclass-responsibility' }
 ProblemEditor >> allowedProblemTypes [
-	^ {'Peste' . 'Enfermedad' . 'Falta de nutrientes' . 'Otro'}
+	^ Problem types
 ]
 
 { #category : #'subclass-responsibility' }

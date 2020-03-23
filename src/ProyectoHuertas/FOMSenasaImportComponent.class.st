@@ -75,16 +75,16 @@ FOMSenasaImportComponent >> renderCatalogSummaryOn: html [
 				url:
 					'http://www.senasa.gob.ar/normativas/resolucion-934-2010-senasa-servicio-nacional-de-sanidad-y-calidad-agroalimentaria';
 				target: '_blank';
-				with: 'resoluci√≥n 934-2010 '.
+				with: 'resolución 934-2010 '.
 			html
 				text:
-					'del SENASA establece los l√≠mites m√°ximos de tolerancia para la presencia de los fitosanitarios.' ].
+					'del SENASA establece los límites móximos de tolerancia para la presencia de los fitosanitarios.' ].
 	html
 		paragraph:
-			'GAP-a-Farm incluye una versi√≥n actualizada (al 2020) del listado. A continuaci√≥n podr√° seleccionar los cultivos para los cuales desea importar la informaci√≥n. Solo se importan registros que no existen en el sistema (es decir, no se actualizan si ya hubiesen sido cargados)'.
+			'GAP-a-Farm incluye una versión actualizada (al 2020) del listado. A continuación podrá seleccionar los cultivos para los cuales desea importar la información. Solo se importan registros que no existen en el sistema (es decir, no se actualizan si ya hubiesen sido cargados)'.
 			html
 		paragraph:
-			'Se ignoran todos los productos de aplicaci√≥n post-cosecha. El excel provisto por SENASA fue modificado levemente para corregir errores tipogr√°ficos.'
+			'Se ignoran todos los productos de aplicación post-cosecha. El excel provisto por SENASA fue modificado levemente para corregir errores tipográficos.'
 ]
 
 { #category : #rendering }

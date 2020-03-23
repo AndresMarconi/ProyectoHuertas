@@ -28,7 +28,7 @@ CropEditor >> initializeComponents [
 		required: true.
 	yieldEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
-		selector: #optimalYield
+		selector: #optimalYieldPerPlant
 		label: 'Rinde óptimo (kg/hectárea)'
 		required: true.
 	super initializeComponents.
