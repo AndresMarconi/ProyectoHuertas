@@ -38,6 +38,11 @@ Farm >> addSale: anObject [
 	sales add: anObject
 ]
 
+{ #category : #'move-to-gapafarm' }
+Farm >> aplications [
+	^ plots flatCollect: [ :each | each aplications ]
+]
+
 { #category : #archiving }
 Farm >> archive [
 	super archive.
@@ -75,6 +80,11 @@ Farm >> harvestingUnits: anObject [
 	harvestingUnits := anObject
 ]
 
+{ #category : #'move-to-gapafarm' }
+Farm >> harvestings [ 
+	^ self plots flatCollect: [ :each | each harvests ]
+]
+
 { #category : #initialization }
 Farm >> initialize [
 	super initialize.
@@ -90,7 +100,7 @@ Farm >> initialize [
 
 { #category : #accessing }
 Farm >> inventoryItems [
-	^ inventoryItems reject: [ :inventoryItem | inventoryItem archived ]
+	^ inventoryItems 
 ]
 
 { #category : #utility }
@@ -121,12 +131,22 @@ Farm >> name: anObject [
 
 { #category : #accessing }
 Farm >> plots [
-	^ plots reject: [ :plot | plot archived ]
+	^ plots
+]
+
+{ #category : #'move-to-gapafarm' }
+Farm >> problems [
+	^ self plots flatCollect: [ :each | each problems ]
 ]
 
 { #category : #accessing }
 Farm >> sales [
 	^ sales
+]
+
+{ #category : #'move-to-gapafarm' }
+Farm >> sowings [  
+	^ self plots flatCollect: [ :each | each sowings ]
 ]
 
 { #category : #accessing }

@@ -36,7 +36,7 @@ HarvestComponent >> elementEditorClass [
 
 { #category : #accessing }
 HarvestComponent >> elements [
-	^ (self session harvestings) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session farm harvestings) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #rendering }

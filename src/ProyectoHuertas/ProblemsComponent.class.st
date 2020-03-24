@@ -33,5 +33,5 @@ ProblemsComponent >> elementEditorClass [
 
 { #category : #rendering }
 ProblemsComponent >> elements [
-	^ (self session problems) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session farm problems) asSortedCollection: [ :a :b | a date > b date ]
 ]

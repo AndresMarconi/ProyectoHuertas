@@ -15,7 +15,7 @@ Class {
 { #category : #accessing }
 SowingEditor >> crops [
 	^ (self session farm mostFrequentelyPlanted: 10) , {nil}
-		, self session crops
+		, self session gapAFarm crops
 ]
 
 { #category : #'subclass-responsibility' }
@@ -74,5 +74,5 @@ SowingEditor >> initializeComponents [
 
 { #category : #accessing }
 SowingEditor >> plots [
-	^ self session plots asOrderedCollection
+	^ self session farm plots asOrderedCollection
 ]

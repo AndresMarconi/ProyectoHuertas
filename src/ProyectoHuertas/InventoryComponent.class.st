@@ -43,7 +43,7 @@ InventoryComponent >> elementEditorClass [
 
 { #category : #accessing }
 InventoryComponent >> elements [
-	^ self session inventoryItems
+	^ self session farm inventoryItems
 ]
 
 { #category : #initialization }

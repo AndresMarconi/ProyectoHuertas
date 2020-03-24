@@ -40,5 +40,5 @@ ProblemEditor >> initializeComponents [
 
 { #category : #accessing }
 ProblemEditor >> plots [
-	^ self session plots asOrderedCollection
+	^ self session farm plots asOrderedCollection
 ]

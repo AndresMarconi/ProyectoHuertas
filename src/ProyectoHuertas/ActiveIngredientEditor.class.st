@@ -11,7 +11,7 @@ Class {
 { #category : #'subclass-responsibility' }
 ActiveIngredientEditor >> allowedNames [
 	| ingredientTradeNamesForExistingCrops |
-	ingredientTradeNamesForExistingCrops := (self session crops
+	ingredientTradeNamesForExistingCrops := (self session gapAFarm crops
 		collect: #vulgarName)
 		flatCollect: [ :cropVulgarName | 
 			SenasaCatalogue singleton
@@ -20,7 +20,7 @@ ActiveIngredientEditor >> allowedNames [
 	^ {nil}
 		,
 			(ingredientTradeNamesForExistingCrops
-				copyWithoutAll: (self session activeIngredients collect: #tradeName))
+				copyWithoutAll: (self session gapAFarm activeIngredients collect: #tradeName))
 				asSortedCollection
 ]
 

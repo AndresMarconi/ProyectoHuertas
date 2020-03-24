@@ -44,5 +44,5 @@ InventoryItemEditor >> initializeComponents [
 
 { #category : #accessing }
 InventoryItemEditor >> substances [
-	^ (self session substances) asOrderedCollection.
+	^ self session gapAFarm substances
 ]

@@ -14,17 +14,7 @@ Class {
 { #category : #accessing }
 HarvestingEditor >> crops [
 	^ (self session farm mostFrequentelyHarvested: 10) , {nil}
-		, self session crops
-]
-
-{ #category : #accessing }
-HarvestingEditor >> defaultProduct [
-	^ self session selectedPlot sowings last crop
-]
-
-{ #category : #accessing }
-HarvestingEditor >> defaultSurface [
-	^ (self session selectedPlot) surface
+		, self session gapAFarm crops
 ]
 
 { #category : #'subclass-responsibility' }
@@ -66,7 +56,7 @@ HarvestingEditor >> initializeComponents [
 
 { #category : #accessing }
 HarvestingEditor >> plots [
-	^ self session plots asOrderedCollection
+	^ self session farm plots asOrderedCollection
 ]
 
 { #category : #accessing }

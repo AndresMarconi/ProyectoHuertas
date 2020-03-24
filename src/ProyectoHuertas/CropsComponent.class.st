@@ -46,7 +46,7 @@ CropsComponent >> elementEditorClass [
 
 { #category : #callbacks }
 CropsComponent >> elements [
-	^ (self session crops) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+	^ self session gapAFarm crops
 ]
 
 { #category : #initialization }

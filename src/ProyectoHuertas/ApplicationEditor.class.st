@@ -67,7 +67,7 @@ ApplicationEditor >> initializeComponents [
 
 { #category : #accessing }
 ApplicationEditor >> plots [
-	^ self session plots asOrderedCollection
+	^ self session farm plots asOrderedCollection
 ]
 
 { #category : #'subclass-responsibility' }
@@ -92,5 +92,5 @@ ApplicationEditor >> renderProblemOn: html [
 ApplicationEditor >> substances [
 	^ self session farm inventoryItems
 		ifNotEmpty: [ :inventoryItems | inventoryItems collect: #substance ]
-		ifEmpty: [ self session substances asOrderedCollection ]
+		ifEmpty: [ self session gapAFarm substances asOrderedCollection ]
 ]

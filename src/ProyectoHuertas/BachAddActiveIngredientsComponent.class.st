@@ -34,7 +34,8 @@ BachAddActiveIngredientsComponent >> activeIngredients [
 	| registered existing |
 	registered := SenasaCatalogue singleton
 		registeredIngredientsForCropNamed: crop vulgarName.
-	existing := self session activeIngredients collect: #tradeName.
+	existing := self session gapAFarm activeIngredients
+		collect: #tradeName.
 	^ registered copyWithoutAll: existing
 ]
 

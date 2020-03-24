@@ -24,7 +24,7 @@ TestDataLoader >> addDemoApplicationToPlot: aPlot [
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
 	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
 	type := {'Peste' . 'Enfermedad'} atRandom.
-	substance := session substances atRandom. 
+	substance := session gapAFarm substances atRandom. 
 	application := Application new
 		reason: 'Una ' , type , ' muy grave';
 		substance: substance;
@@ -102,7 +102,7 @@ TestDataLoader >> addDemoSowingToPlot: aPlot [
 	| sowing time crop |
 	lastDay := lastDay addDays: (1 to: 10) atRandom.
 	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
-	crop := session crops atRandom.
+	crop := session gapAFarm crops atRandom.
 	sowing := Sowing new
 		crop: crop;
 		date: lastDay;
@@ -128,7 +128,7 @@ TestDataLoader >> addExpertDemoData [
 
 { #category : #loading }
 TestDataLoader >> addFarmerDemoData [
-	session crops ifEmpty: [ self addExpertDemoData ].
+	session gapAFarm crops ifEmpty: [ self addExpertDemoData ].
 	session farm plots
 		ifEmpty: [ self addDemoPlots.
 			session farm plots do: [ :aPlot | self addDemoEventsToPlot: aPlot ] ]

@@ -20,7 +20,7 @@ SaleItemEditor >> children [
 
 { #category : #accessing }
 SaleItemEditor >> crops [
-	^ self session crops
+	^ self session gapAFarm crops
 ]
 
 { #category : #'subclass-responsibility' }
@@ -48,7 +48,7 @@ SaleItemEditor >> initializeComponents [
 
 { #category : #accessing }
 SaleItemEditor >> plots [ 
-	^ (self session plots) asOrderedCollection.
+	^ (self session farm plots) asOrderedCollection.
 ]
 
 { #category : #rendering }

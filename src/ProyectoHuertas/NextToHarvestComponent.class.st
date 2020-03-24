@@ -20,7 +20,7 @@ NextToHarvestComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 NextToHarvestComponent >> elements [
-	^ ((self session sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ])
+	^ ((self session farm sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ])
 		asSortedCollection: [ :a :b | a date < b date ].
 ]
 

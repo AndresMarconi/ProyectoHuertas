@@ -38,7 +38,7 @@ PlotsManagementComponent >> elementEditorClass [
 
 { #category : #accessing }
 PlotsManagementComponent >> elements [
-	^ self session plots
+	^ self session farm plots
 ]
 
 { #category : #rendering }

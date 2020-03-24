@@ -47,7 +47,7 @@ SubstancesComponent >> elementEditorClass [
 
 { #category : #accessing }
 SubstancesComponent >> elements [
-	^ (self session substances) asSortedCollection: [ :a :b | a comercialName < b comercialName ]
+	^ self session gapAFarm substances
 ]
 
 { #category : #initialization }

@@ -45,12 +45,12 @@ WithdrawalTimeRecommendationsEditor >> cancel [
 
 { #category : #accessing }
 WithdrawalTimeRecommendationsEditor >> crops [
-	| ingredients |
-	ingredients := substance activeIngredients
+	| crops |
+	crops := substance activeIngredients
 		flatCollect:
-			[ :ingredient | self session registeredCropsForActiveIngredient: ingredient ] as: Set.
-	^ ingredients
-		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+			[ :ingredient | self session gapAFarm registeredCropsForActiveIngredient: ingredient ]
+		as: Set.
+	^ crops asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #accessing }

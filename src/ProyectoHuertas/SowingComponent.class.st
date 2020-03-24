@@ -37,5 +37,5 @@ SowingComponent >> elementEditorClass [
 
 { #category : #accessing }
 SowingComponent >> elements [
-	^ (self session sowings) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session farm sowings) asSortedCollection: [ :a :b | a date > b date ]
 ]

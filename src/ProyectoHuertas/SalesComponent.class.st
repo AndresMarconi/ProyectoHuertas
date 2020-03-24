@@ -46,7 +46,7 @@ SalesComponent >> elementEditorClass [
 
 { #category : #callbacks }
 SalesComponent >> elements [
-	^ (self session sales) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session farm sales) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #adding }

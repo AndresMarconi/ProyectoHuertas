@@ -84,7 +84,7 @@ EventsChronologyComponent >> renderPlotFilterOn: html [
 										selector: #elements
 										pageSize: 10 ];
 								id: 'plot';
-								list: {nil} , self session plots ]
+								list: {nil} , self session farm plots ]
 							mediumSize: 3;
 						column: [ html submitButton
 								class: 'btn btn-primary';
@@ -97,12 +97,11 @@ EventsChronologyComponent >> renderPlotSelectorOn: html [
 	"This is horrible! "
 
 	html
-		navigation: [ self session plots
+		navigation: [ self session farm plots
 				do: [ :each | 
 					html navigationLink
 						beDisabledIf: [ plot = each ];
-						callback: [ plot := each.
-							self session selectPlot: each ];
+						callback: [ plot := each. ];
 						with: each printString ] ]
 ]
 

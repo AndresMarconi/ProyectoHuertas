@@ -31,7 +31,7 @@ ActiveIngredientComponent >> elementEditorClass [
 
 { #category : #accessing }
 ActiveIngredientComponent >> elements [
-	^ (self session activeIngredients) asSortedCollection: [ :a :b | a tradeName < b tradeName ]
+	^ self session gapAFarm activeIngredients
 ]
 
 { #category : #initialization }
