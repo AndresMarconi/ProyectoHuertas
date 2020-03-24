@@ -38,6 +38,13 @@ FOMSession >> createUserResources [
 ]
 
 { #category : #'db queries' }
+FOMSession >> cropNamed: aName [
+	^ (Crop
+		selectMany: [ :each | each archived = false & (each vulgarName = aName) ])
+		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+]
+
+{ #category : #'db queries' }
 FOMSession >> crops [
 	^ (Crop selectMany: [ :each | each archived = false ])
 		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
@@ -114,9 +121,9 @@ FOMSession >> problems [
 
 { #category : #'db queries' }
 FOMSession >> registeredCropsForActiveIngredient: activeIngrediente [
-	| cropNames |
-	cropNames := SenasaCatalog singleton
-		registeredCropNamesForActiveIngredient: activeIngrediente tradeName
+	^ (SenasaCatalogue singleton
+		registeredCropNamesForActiveIngredient: activeIngrediente tradeName)
+		flatCollect: [ :cropName | self cropNamed: cropName ]
 ]
 
 { #category : #'indirect queries' }

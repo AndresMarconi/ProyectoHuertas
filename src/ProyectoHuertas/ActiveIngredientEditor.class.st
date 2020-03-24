@@ -14,7 +14,7 @@ ActiveIngredientEditor >> allowedNames [
 	ingredientTradeNamesForExistingCrops := (self session crops
 		collect: #vulgarName)
 		flatCollect: [ :cropVulgarName | 
-			SenasaCatalog singleton
+			SenasaCatalogue singleton
 				registeredIngredientsForCropNamed: cropVulgarName ]
 		as: Set.
 	^ {nil}

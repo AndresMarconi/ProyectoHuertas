@@ -5,7 +5,8 @@ Class {
 		'cropVulgarName',
 		'residue',
 		'applicabilities',
-		'activeIngredientTradeName'
+		'activeIngredientTradeName',
+		'source'
 	],
 	#category : #'ProyectoHuertas-senasa'
 }
@@ -64,4 +65,14 @@ SenasaRecord >> residue [
 { #category : #accessing }
 SenasaRecord >> residue: anObject [
 	residue := anObject
+]
+
+{ #category : #accessing }
+SenasaRecord >> source [
+	^ source
+]
+
+{ #category : #accessing }
+SenasaRecord >> source: anObject [
+	source := anObject
 ]

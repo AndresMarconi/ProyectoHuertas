@@ -1,5 +1,5 @@
 Class {
-	#name : #SenasaCatalog,
+	#name : #SenasaCatalogue,
 	#superclass : #Object,
 	#instVars : [
 		'cropVulgarNames',
@@ -13,21 +13,26 @@ Class {
 }
 
 { #category : #singleton }
-SenasaCatalog class >> singleton [
-	^ singleton
+SenasaCatalogue class >> singleton [
+	"^ singleton
 		ifNil: [ singleton := self new
 				addRecords: SenasaCsvReader res608year12;
 				addRecords: SenasaCsvReader res934year10;
-				yourself ]
+				yourself ]"
+
+	^ self new
+		addRecords: SenasaCsvReader res608year12;
+		addRecords: SenasaCsvReader res934year10;
+		yourself
 ]
 
 { #category : #accessing }
-SenasaCatalog >> activeIngredientsTradeNames [
+SenasaCatalogue >> activeIngredientsTradeNames [
 	^ activeIngredientsTradeNames
 ]
 
 { #category : #accessing }
-SenasaCatalog >> addRecords: aCollectionOfRecords [
+SenasaCatalogue >> addRecords: aCollectionOfRecords [
 	| completeRecords |
 	completeRecords := aCollectionOfRecords select: #isComplete.
 	records addAll: completeRecords.
@@ -40,25 +45,41 @@ SenasaCatalog >> addRecords: aCollectionOfRecords [
 		asSortedCollection
 ]
 
+{ #category : #queries }
+SenasaCatalogue >> combinedApplicabilitiesFor: aCollectionOfActiveIngredientTradeNames [
+	^ (records
+		flatCollect: [ :each | 
+			(aCollectionOfActiveIngredientTradeNames
+				includes: each activeIngredientTradeName)
+				ifTrue: [ each applicabilities ]
+				ifFalse: [ Set new ] ]) asSet asSortedCollection
+]
+
 { #category : #accessing }
-SenasaCatalog >> cropVulgarNames [
+SenasaCatalogue >> cropVulgarNames [
 	^ cropVulgarNames
 ]
 
 { #category : #initialization }
-SenasaCatalog >> initialize [
+SenasaCatalogue >> initialize [
 	cropVulgarNames := SortedCollection new.
 	activeIngredientsTradeNames := SortedCollection new.
 	records := OrderedCollection new
 ]
 
 { #category : #accessing }
-SenasaCatalog >> records [
+SenasaCatalogue >> records [
 	^ records
 ]
 
 { #category : #queries }
-SenasaCatalog >> registeredIngredientsForCropNamed: aCropName [
+SenasaCatalogue >> registeredCropNamesForActiveIngredient: aTradeName [ 
+	^ ((records select: [ :each | each activeIngredientTradeName  = aTradeName ])
+		collect: #cropVulgarName) asSet asSortedCollection
+]
+
+{ #category : #queries }
+SenasaCatalogue >> registeredIngredientsForCropNamed: aCropName [
 	^ ((records select: [ :each | each cropVulgarName = aCropName ])
 		collect: #activeIngredientTradeName) asSet asSortedCollection
 ]

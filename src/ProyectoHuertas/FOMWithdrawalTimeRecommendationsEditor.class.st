@@ -45,10 +45,12 @@ FOMWithdrawalTimeRecommendationsEditor >> cancel [
 
 { #category : #accessing }
 FOMWithdrawalTimeRecommendationsEditor >> crops [
-	^ (substance activeIngredients
+	| ingredients |
+	ingredients := substance activeIngredients
 		flatCollect:
-			[ :ingredient | self session registeredCropsForActiveIngredient: ingredient ]
-		as: Set) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+			[ :ingredient | self session registeredCropsForActiveIngredient: ingredient ] as: Set.
+	^ ingredients
+		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #accessing }
@@ -153,8 +155,11 @@ FOMWithdrawalTimeRecommendationsEditor >> renderFixedDataOn: html [
 		level5;
 		with: 'Aptitud:  '.
 	html
-		paragraph: (self asCommaSeparatedList: substance applicabilities).
-
+		paragraph:
+			(self
+				asCommaSeparatedList:
+					(SenasaCatalogue singleton
+						combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName)))
 ]
 
 { #category : #rendering }

@@ -29,10 +29,15 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 		form: [ html
 				listGroup: [ self
 						renderMenuBlock:
-							{('Tablero de control' -> self dashboardComponentClass).
-							('Cultivos' -> FOMCropsComponent).
-							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent).
-							('Principios activos' -> FOMActiveIngredientComponent)}
+							{('Tablero de control' -> FOMExpertDashboardComponent).
+							('Difusión' -> FOMBlogAdministrationComponent)}
+						heading: 'Gestión'
+						on: html.
+					self
+						renderMenuBlock:
+							{('Cultivos' -> FOMCropsComponent).
+							('Principios activos' -> FOMActiveIngredientComponent).
+							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent)}
 						heading: 'Catálogos'
 						on: html ] ]
 ]

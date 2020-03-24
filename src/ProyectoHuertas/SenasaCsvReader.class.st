@@ -8,6 +8,20 @@ Class {
 }
 
 { #category : #constants }
+SenasaCsvReader class >> autoCorrectionDictionary [
+	^ Dictionary new
+		at: 'funguicida' put: 'fungicida';
+		at: 'antidoto de herbicida' put: 'antídoto de herbicida';
+		at: 'trat de suelos' put: 'tratamiento de suelos';
+		at: 'tratamiento semillas' put: 'tratamiento de semillas';
+		at: 'tormiquicida' put: 'tormiguicida';
+		at: 'hidroxido de cobre' put: 'hidróxido de cobre';
+		at: 'Alfafla' put: 'Alfalfa';
+		at: 'R. de bruselas' put: 'Repollito de bruselas';
+		yourself
+]
+
+{ #category : #constants }
 SenasaCsvReader class >> normalizedApplicabilities [
 	^ {('tt' -> 'tratamiento de semillas').
 	('ah' -> 'antídoto de herbicidas').
@@ -49,7 +63,7 @@ SenasaCsvReader >> applicabilitiesFor934Value: aString [
 	applicabilitiesInString := applicabilitiesInString
 		collect: [ :each | 
 			self
-				fix934TyposIn: (self expand934AbbreviationsIn: each asLowercase trimBoth) ].
+				fixTyposIn: (self expand934AbbreviationsIn: each asLowercase trimBoth) ].
 	^ applicabilitiesInString
 ]
 
@@ -67,18 +81,10 @@ SenasaCsvReader >> expand934AbbreviationsIn: aString [
 ]
 
 { #category : #'934' }
-SenasaCsvReader >> fix934TyposIn: aString [
-	aString = 'funguicida'
-		ifTrue: [ ^ 'fungicida' ].
-	aString = 'antidoto de herbicida'
-		ifTrue: [ ^ 'antídoto de herbicida' ].
-	aString = 'trat de suelos'
-		ifTrue: [ ^ 'tratamiento de suelos' ].
-	aString = 'tratamiento semillas'
-		ifTrue: [ ^ 'tratamiento de semillas' ].
-	aString = 'tormiquicida'
-		ifTrue: [ ^ 'tormiguicida' ].
-	^ aString
+SenasaCsvReader >> fixTyposIn: aString [
+	^ self class autoCorrectionDictionary
+		at: aString
+		ifAbsent: [ aString ]
 ]
 
 { #category : #'608' }
@@ -142,15 +148,20 @@ SenasaCsvReader >> problems608ToApplicabilitiesMapping [
 SenasaCsvReader >> recordFrom934Year2010Row: row [
 	^ SenasaRecord new
 		cropVulgarName:
-			(row third
-				ifNil: [  ]
-				ifNotNil: [ :it | it asLowercase trimBoth capitalized ]);
-		activeIngredientTradeName: (row first ifNil: [  ] ifNotNil: [ :it | it asLowercase trimBoth ]);
+			(self
+				fixTyposIn:
+					(row third
+						ifNil: [ '' ]
+						ifNotNil: [ :it | it asLowercase trimBoth capitalized ]));
+		activeIngredientTradeName:
+			(self
+				fixTyposIn: (row first ifNil: [  ] ifNotNil: [ :it | it asLowercase trimBoth ]));
 		applicabilities:
 			(row second
 				ifNil: [ #() ]
 				ifNotNil: [ :it | self applicabilitiesFor934Value: it ]);
 		residue: (self residueFromString: row fourth);
+		source: 'RESOLUCIÓN-934-2010-SENASA';
 		yourself
 ]
 
@@ -172,6 +183,7 @@ SenasaCsvReader >> recordsFrom608Year2012Row: row [
 						activeIngredientTradeName: principle;
 						applicabilities: (self applicability608For: row second);
 						residue: residue;
+						source: 'RESOLUCIÓN-608-2012-SENASA';
 						yourself) ].
 	^ records
 ]

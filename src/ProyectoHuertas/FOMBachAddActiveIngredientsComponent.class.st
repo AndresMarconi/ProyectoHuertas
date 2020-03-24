@@ -29,10 +29,13 @@ FOMBachAddActiveIngredientsComponent >> accept [
 	self answer
 ]
 
-{ #category : #initialization }
+{ #category : #private }
 FOMBachAddActiveIngredientsComponent >> activeIngredients [
-	^ SenasaCatalog singleton
-		registeredIngredientsForCropNamed: crop vulgarName
+	| registered existing |
+	registered := SenasaCatalogue singleton
+		registeredIngredientsForCropNamed: crop vulgarName.
+	existing := self session activeIngredients collect: #tradeName.
+	^ registered copyWithoutAll: existing
 ]
 
 { #category : #callbacks }
@@ -48,10 +51,7 @@ FOMBachAddActiveIngredientsComponent >> crop [
 { #category : #accessing }
 FOMBachAddActiveIngredientsComponent >> crop: anObject [
 	crop := anObject.
-	selectedIngredientsComponent
-		possibleValues:
-			(SenasaCatalog singleton
-				registeredIngredientsForCropNamed: crop vulgarName)
+	selectedIngredientsComponent possibleValues: self activeIngredients
 ]
 
 { #category : #initialization }

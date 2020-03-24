@@ -10,7 +10,7 @@ Class {
 
 { #category : #'subclass-responsibility' }
 CropEditor >> allowedCropNames [
-	^ {nil} , SenasaCatalog singleton cropVulgarNames
+	^ {nil} , SenasaCatalogue singleton cropVulgarNames
 		copyWithoutAll: (self session crops collect: #vulgarName)
 ]
 
