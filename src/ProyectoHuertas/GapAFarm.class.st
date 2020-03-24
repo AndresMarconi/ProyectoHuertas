@@ -30,14 +30,13 @@ GapAFarm >> createUserResourcesFor: aJsonWebSignature [
 
 { #category : #'db queries' }
 GapAFarm >> cropNamed: aName [
-	^ (Crop
-		selectMany: [ :each | each archived = false & (each vulgarName = aName) ])
+	^ (Crop selectMany: [ :each | each vulgarName = aName ])
 		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #'db queries' }
 GapAFarm >> crops [
-	^ (Crop selectMany: [ :each | each archived = false ])
+	^ Crop selectAll
 		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 

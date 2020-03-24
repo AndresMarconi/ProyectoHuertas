@@ -79,14 +79,7 @@ SubstancesComponent >> renderActionButtonsFor: element on: html [
 				callback: [ self duplicateElement: element ];
 				with: [ html span
 						attributeAt: 'title' put: 'Duplicar';
-						class: 'fa fa-clone' ].
-			html formButton
-				style: 'margin: 2px;';
-				beDanger;
-				callback: [ self removeElement: element ];
-				with: [ html span
-						attributeAt: 'title' put: 'Eliminar';
-						class: 'fa fa-trash' ] ]
+						class: 'fa fa-clone' ] ]
 ]
 
 { #category : #rendering }

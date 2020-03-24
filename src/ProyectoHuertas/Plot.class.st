@@ -35,31 +35,19 @@ Plot >> aplications [
 	^ self events select: [ :event | event class = Application ]
 ]
 
-{ #category : #archiving }
-Plot >> archive [
-	super archive.
-	events do: #archive
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'current cycle' }
 Plot >> currentCrop [
 	^ (self currentCycle sowing) crop
 ]
 
-{ #category : #accessing }
+{ #category : #'current cycle' }
 Plot >> currentCycle [
 	^ currentCycle
 ]
 
 { #category : #accessing }
-Plot >> currentCycle: anObject [
-	currentCycle := anObject
-]
-
-{ #category : #accessing }
 Plot >> events [
-	^ (events reject: [ :each | each archived])
-		asSortedCollection: [ :a :b | a date > b date ]
+	^ events asSortedCollection: [ :a :b | a date > b date ]
 ]
 
 { #category : #utility }
@@ -102,13 +90,13 @@ Plot >> initialize [
 	events := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : #'current cycle' }
 Plot >> lastSowing [
 	self sowings ifEmpty: [ ^ 'sin siembras' ] 
 		ifNotEmpty:[ ^ self sowings first crop ]
 ]
 
-{ #category : #accessing }
+{ #category : #'current cycle' }
 Plot >> lastestSowing [
 	^ self sowings
 		ifEmpty: [ nil ]

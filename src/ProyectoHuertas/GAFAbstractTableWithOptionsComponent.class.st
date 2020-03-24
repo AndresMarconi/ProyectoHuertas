@@ -59,12 +59,11 @@ GAFAbstractTableWithOptionsComponent >> elementEditorClass [
 { #category : #initialization }
 GAFAbstractTableWithOptionsComponent >> initialize [
 	super initialize.
-	viewEnabled := false. 
+	viewEnabled := false.
 	editEnabled := true.
-	removeEnabled := true.
+	removeEnabled := false.
 	addEnabled := true.
-	duplicateEnabled := true.
-
+	duplicateEnabled := true
 ]
 
 { #category : #accessing }
@@ -74,7 +73,7 @@ GAFAbstractTableWithOptionsComponent >> parent: anObject [
 
 { #category : #callbacks }
 GAFAbstractTableWithOptionsComponent >> removeElement: element [
-	element archive
+	^ self subclassResponsibility
 ]
 
 { #category : #rendering }

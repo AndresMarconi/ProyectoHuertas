@@ -28,12 +28,6 @@ Sale >> addItem: aCropSale [
 	aCropSale sale: self
 ]
 
-{ #category : #archiving }
-Sale >> archive [
-	super archive.
-	items do: #archive
-]
-
 { #category : #accessing }
 Sale >> client [
 	^ client

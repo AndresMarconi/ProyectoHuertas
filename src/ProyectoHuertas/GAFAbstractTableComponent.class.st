@@ -25,7 +25,6 @@ GAFAbstractTableComponent >> elements [
 { #category : #accessing }
 GAFAbstractTableComponent >> elementsToList [
 	^ self elements
-		select: [ :each | self session showArchived or: [ each archived not ] ]
 ]
 
 { #category : #initialization }

@@ -43,13 +43,6 @@ Farm >> aplications [
 	^ plots flatCollect: [ :each | each aplications ]
 ]
 
-{ #category : #archiving }
-Farm >> archive [
-	super archive.
-	plots do: #archive.
-	inventoryItems do: #archive
-]
-
 { #category : #accessing }
 Farm >> events [ 
 	^ ((self plots) flatCollect: [ :plot | plot events ]) asSortedCollection: [ :a :b | a date > b date ]

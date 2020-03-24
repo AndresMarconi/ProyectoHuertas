@@ -57,7 +57,7 @@ GAFUser >> email: anObject [
 
 { #category : #accessing }
 GAFUser >> farms [
-	^ farms reject: [ :farm | farm archived ]
+	^ farms
 ]
 
 { #category : #accessing }
