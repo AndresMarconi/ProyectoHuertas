@@ -79,8 +79,22 @@ SenasaCatalogue >> records [
 ]
 
 { #category : #queries }
+SenasaCatalogue >> recordsForActiveIngredientNamed: aString [
+	^ (records
+		select: [ :each | each activeIngredientTradeName = aString ])
+		asSortedCollection: [ :a :b | 
+			a activeIngredientTradeName = b activeIngredientTradeName
+				ifTrue: [ a cropVulgarName < b cropVulgarName ]
+				ifFalse: [ a activeIngredientTradeName < b activeIngredientTradeName ] ]
+]
+
+{ #category : #queries }
 SenasaCatalogue >> recordsForCropNamed: aString [
-	^ records select: [ :each | each cropVulgarName = aString ]
+	^ (records select: [ :each | each cropVulgarName = aString ])
+		asSortedCollection: [ :a :b | 
+			a cropVulgarName = b cropVulgarName
+				ifTrue: [ a activeIngredientTradeName < b activeIngredientTradeName ]
+				ifFalse: [ a cropVulgarName < b cropVulgarName ] ]
 ]
 
 { #category : #queries }

@@ -36,7 +36,7 @@ FOMObject >> comment: anObject [
 { #category : #initialization }
 FOMObject >> initialize [ 
 	archived := false.
-	comment := nil.  
+	comment := ''.  
 ]
 
 { #category : #archiving }

@@ -5,7 +5,8 @@ Class {
 		'editEnabled',
 		'removeEnabled',
 		'addEnabled',
-		'duplicateEnabled'
+		'duplicateEnabled',
+		'viewEnabled'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
@@ -58,10 +59,12 @@ FOMAbstractTableWithOptionsComponent >> elementEditorClass [
 { #category : #initialization }
 FOMAbstractTableWithOptionsComponent >> initialize [
 	super initialize.
+	viewEnabled := false. 
 	editEnabled := true.
 	removeEnabled := true.
 	addEnabled := true.
 	duplicateEnabled := true.
+
 ]
 
 { #category : #accessing }
@@ -77,7 +80,15 @@ FOMAbstractTableWithOptionsComponent >> removeElement: element [
 { #category : #rendering }
 FOMAbstractTableWithOptionsComponent >> renderActionButtonsFor: element on: html [
 	html
-		form: [ editEnabled
+		form: [ viewEnabled 
+				ifTrue: [ html formButton
+						style: 'margin: 2px;';
+						bePrimary;
+						callback: [ self viewElement: element ];
+						with: [ html span
+								attributeAt: 'title' put: 'Ver';
+								class: 'fa fa-eye' ] ].
+			editEnabled
 				ifTrue: [ html formButton
 						style: 'margin: 2px;';
 						bePrimary;
@@ -100,7 +111,8 @@ FOMAbstractTableWithOptionsComponent >> renderActionButtonsFor: element on: html
 						callback: [ self removeElement: element ];
 						with: [ html span
 								attributeAt: 'title' put: 'Eliminar';
-								class: 'fa fa-trash' ] ] ]
+								class: 'fa fa-trash' ] ].
+			self renderCustomActionButtonsFor: element on: html ]
 ]
 
 { #category : #rendering }
@@ -121,6 +133,11 @@ FOMAbstractTableWithOptionsComponent >> renderContentOn: html [
 	
 ]
 
+{ #category : #hooks }
+FOMAbstractTableWithOptionsComponent >> renderCustomActionButtonsFor: element on: html [
+	^ self
+]
+
 { #category : #rendering }
 FOMAbstractTableWithOptionsComponent >> renderExtraRowValue: element On: html [
 	html tableData: [ self renderActionButtonsFor: element on: html ] 
@@ -134,4 +151,9 @@ FOMAbstractTableWithOptionsComponent >> saveAddedElement: anElement [
 { #category : #hooks }
 FOMAbstractTableWithOptionsComponent >> saveEditedElement: anElement [
 	anElement save
+]
+
+{ #category : #callbacks }
+FOMAbstractTableWithOptionsComponent >> viewElement: element [
+	^ self
 ]

@@ -53,7 +53,8 @@ FOMCropsComponent >> elements [
 FOMCropsComponent >> initialize [
 	super initialize.
 	duplicateEnabled := false.
-	removeEnabled := false
+	removeEnabled := false.
+	viewEnabled := true
 ]
 
 { #category : #adding }
@@ -63,4 +64,13 @@ FOMCropsComponent >> userAcceptsToBatchAddIngredientesFor: aCrop [
 			aCrop vulgarName
 				,
 					' se agregó con éxito, ¿quiere agregar los principios activos registrados para el mismo?'
+]
+
+{ #category : #callbacks }
+FOMCropsComponent >> viewElement: aCrop [
+	self
+		call:
+			(FOMCropViewer new
+				crop: aCrop;
+				yourself)
 ]

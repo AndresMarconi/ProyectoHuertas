@@ -11,8 +11,12 @@ FOMActiveIngredientComponent >> columnHeadings [
 
 { #category : #rendering }
 FOMActiveIngredientComponent >> columnValuesFor: element [
-	^ {element tradeName.
-	element referenceUrl},(super columnValuesFor: element)
+	| tradeName |
+	tradeName := element tradeName size > 30
+		ifTrue: [ (element tradeName copyFrom: 1 to: 30) , ' ...' ]
+		ifFalse: [ element tradeName ].
+	^ {tradeName.
+	element referenceUrl} , (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
@@ -34,5 +38,15 @@ FOMActiveIngredientComponent >> elements [
 FOMActiveIngredientComponent >> initialize [
 	super initialize.
 	duplicateEnabled := false.
-	removeEnabled := false
+	removeEnabled := false.
+	viewEnabled := true.
+]
+
+{ #category : #callbacks }
+FOMActiveIngredientComponent >> viewElement: anActiveIngredient [
+	self
+		call:
+			(FOMActiveIngredientViewer new
+				activeIngredient: anActiveIngredient;
+				yourself)
 ]
