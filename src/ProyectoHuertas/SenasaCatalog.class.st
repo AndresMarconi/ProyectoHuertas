@@ -58,7 +58,7 @@ SenasaCatalog >> records [
 ]
 
 { #category : #queries }
-SenasaCatalog >> registeredIngredientesForCropNamed: aCropName [
-	^ (records select: [ :each | each cropVulgarName = aCropName ])
-		collect: #activeIngredientTradeName
+SenasaCatalog >> registeredIngredientsForCropNamed: aCropName [
+	^ ((records select: [ :each | each cropVulgarName = aCropName ])
+		collect: #activeIngredientTradeName) asSet asSortedCollection
 ]

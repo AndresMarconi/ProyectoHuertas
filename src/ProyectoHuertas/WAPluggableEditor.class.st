@@ -5,7 +5,7 @@ Class {
 		'subject',
 		'parent'
 	],
-	#category : #'ProyectoHuertas-widgets'
+	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #'instance creation' }

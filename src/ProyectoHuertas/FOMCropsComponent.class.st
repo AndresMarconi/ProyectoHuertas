@@ -16,7 +16,7 @@ FOMCropsComponent >> addElement [
 
 { #category : #callbacks }
 FOMCropsComponent >> batchAddIngredientsForCrop: aCrop [
-	^ self
+	self call: (FOMBachAddActiveIngredientsComponent crop: aCrop)
 ]
 
 { #category : #rendering }
@@ -60,7 +60,7 @@ FOMCropsComponent >> initialize [
 FOMCropsComponent >> userAcceptsToBatchAddIngredientesFor: aCrop [
 	^ self
 		confirm:
-			'El cultivo "' , aCrop vulgarName
+			aCrop vulgarName
 				,
-					'" fue agregado con éxito ¿Quiere agregar los principios activos registrados para el mismo?'
+					' se agregó con éxito, ¿quiere agregar los principios activos registrados para el mismo?'
 ]

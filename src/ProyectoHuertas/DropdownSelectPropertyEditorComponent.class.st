@@ -33,10 +33,15 @@ DropdownSelectPropertyEditorComponent >> possibleValues: anObject [
 
 { #category : #hooks }
 DropdownSelectPropertyEditorComponent >> renderInputOn: html [
-	html select
-		formControl;
-		list: possibleValues;
-		callback: [ :value | self handleCallbackWith: value ];
-		selected: bufferedValue;
-		id: selector
+	readOnly
+		ifFalse: [ html select
+				formControl;
+				list: possibleValues;
+				callback: [ :value | self handleCallbackWith: value ];
+				selected: bufferedValue;
+				id: selector ]
+		ifTrue: [ html textInput
+				formControl;
+				readonly: true;
+				with: bufferedValue ]
 ]

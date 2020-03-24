@@ -20,8 +20,9 @@ DatePropertyEditorComponent >> obtainValueFromString: aString [
 { #category : #hooks }
 DatePropertyEditorComponent >> renderInputOn: html [
 	html textInput
-	   attributeAt: 'autocomplete' put: 'off'; 
+		attributeAt: 'autocomplete' put: 'off';
 		formControl;
+		readonly: readOnly;
 		placeholder: 'dd/mm/aaaa';
 		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it asDate ddmmyyyy ]);
 		callback: [ :value | self handleCallbackWith: value ];

@@ -32,11 +32,7 @@ FOMExpertHomeComponent >> renderLeftMenuOn: html [
 							{('Tablero de control' -> self dashboardComponentClass).
 							('Cultivos' -> FOMCropsComponent).
 							('Fitosanitarios y fertilizantes' -> FOMSubstancesComponent).
-							('Principios activos' -> FOMActiveIngredienteComponent)}
+							('Principios activos' -> FOMActiveIngredientComponent)}
 						heading: 'Catálogos'
-						on: html.
-					self
-						renderMenuBlock: {('SENASA' -> FOMSenasaRecordsComponent)}
-						heading: 'Administración'
 						on: html ] ]
 ]

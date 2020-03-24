@@ -43,3 +43,10 @@ CropEditor >> initializeComponents [
 		required: true.
 	super initializeComponents
 ]
+
+{ #category : #rendering }
+CropEditor >> renderContentOn: html [
+	subject vulgarName
+		ifNotNil: [ vulgarNameEditorComponent readOnly: true ].
+	super renderContentOn: html
+]

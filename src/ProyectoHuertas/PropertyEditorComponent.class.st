@@ -5,6 +5,7 @@ Class {
 		'subject',
 		'selector',
 		'label',
+		'readOnly',
 		'required',
 		'problems',
 		'bufferedValue',
@@ -34,6 +35,11 @@ PropertyEditorComponent >> bufferedValue [
 	^ bufferedValue
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> bufferedValue: anObject [
+	^ bufferedValue := anObject
+]
+
 { #category : #api }
 PropertyEditorComponent >> cancel [
 	bufferedValue := subject perform: selector.
@@ -55,6 +61,11 @@ PropertyEditorComponent >> hasProblems [
 ]
 
 { #category : #accessing }
+PropertyEditorComponent >> instructions [
+	^ instructions
+]
+
+{ #category : #accessing }
 PropertyEditorComponent >> instructions: anObject [
 	instructions := anObject
 ]
@@ -67,6 +78,16 @@ PropertyEditorComponent >> obtainValueFromString: value [
 { #category : #accessing }
 PropertyEditorComponent >> problems [
 	^ problems
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> problems: anObject [
+	problems := anObject
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> readOnly: anObject [
+	readOnly := anObject
 ]
 
 { #category : #rendering }
@@ -84,6 +105,8 @@ PropertyEditorComponent >> renderInputOn: html [
 
 { #category : #rendering }
 PropertyEditorComponent >> renderInstructionsOn: html [
+	readOnly
+		ifTrue: [ ^ self ].
 	instructions
 		ifNotNil: [ html
 				break;
@@ -109,6 +132,11 @@ PropertyEditorComponent >> required [
 	^ required
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> required: anObject [
+	required := anObject
+]
+
 { #category : #initialization }
 PropertyEditorComponent >> setDefault: aValue [
 	bufferedValue := aValue
@@ -121,7 +149,8 @@ PropertyEditorComponent >> subject: anObject selector: aMessageSelector label: a
 	label := aLabel.
 	required := aBoolean.
 	problems := OrderedCollection new.
-	bufferedValue := subject perform: selector
+	bufferedValue := subject perform: selector.
+	readOnly := false
 ]
 
 { #category : #updating }

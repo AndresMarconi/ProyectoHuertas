@@ -15,7 +15,7 @@ ActiveIngredientEditor >> allowedNames [
 		collect: #vulgarName)
 		flatCollect: [ :cropVulgarName | 
 			SenasaCatalog singleton
-				registeredIngredientesForCropNamed: cropVulgarName ]
+				registeredIngredientsForCropNamed: cropVulgarName ]
 		as: Set.
 	^ {nil}
 		,
@@ -51,4 +51,11 @@ ActiveIngredientEditor >> initializeComponents [
 		label: 'URL de referencia'
 		required: false.
 	super initializeComponents
+]
+
+{ #category : #rendering }
+ActiveIngredientEditor >> renderContentOn: html [
+	subject tradeName
+		ifNotNil: [ tradeNameEditorComponent readOnly: true ].
+	super renderContentOn: html
 ]

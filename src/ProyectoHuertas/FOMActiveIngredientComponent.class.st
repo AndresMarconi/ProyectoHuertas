@@ -1,37 +1,37 @@
 Class {
-	#name : #FOMActiveIngredienteComponent,
+	#name : #FOMActiveIngredientComponent,
 	#superclass : #FOMAbstractTableWithOptionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
 { #category : #rendering }
-FOMActiveIngredienteComponent >> columnHeadings [
+FOMActiveIngredientComponent >> columnHeadings [
 	^ {'Nombre' . 'URL de referencia'}, super columnHeadings
 ]
 
 { #category : #rendering }
-FOMActiveIngredienteComponent >> columnValuesFor: element [
+FOMActiveIngredientComponent >> columnValuesFor: element [
 	^ {element tradeName.
 	element referenceUrl},(super columnValuesFor: element)
 ]
 
 { #category : #hooks }
-FOMActiveIngredienteComponent >> elementClass [
+FOMActiveIngredientComponent >> elementClass [
 	^ ActiveIngredient
 ]
 
 { #category : #hooks }
-FOMActiveIngredienteComponent >> elementEditorClass [
+FOMActiveIngredientComponent >> elementEditorClass [
 	^ ActiveIngredientEditor
 ]
 
 { #category : #accessing }
-FOMActiveIngredienteComponent >> elements [
+FOMActiveIngredientComponent >> elements [
 	^ (self session activeIngredients) asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]
 
 { #category : #initialization }
-FOMActiveIngredienteComponent >> initialize [
+FOMActiveIngredientComponent >> initialize [
 	super initialize.
 	duplicateEnabled := false.
 	removeEnabled := false
