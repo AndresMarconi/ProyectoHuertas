@@ -1,7 +1,7 @@
 Class {
 	#name : #FOMEmailErrorHandler,
 	#superclass : #WAEmailErrorHandler,
-	#category : #'ProyectoHuertas-errors'
+	#category : #'ProyectoHuertas-errors-exeptions'
 }
 
 { #category : #private }
