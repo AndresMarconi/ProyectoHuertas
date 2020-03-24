@@ -17,8 +17,15 @@ ExpertHomeComponent >> dashboardComponentClass [
 ]
 
 { #category : #rendering }
-ExpertHomeComponent >> loadDemoData [
-	TestDataLoader new
+ExpertHomeComponent >> loadDashboardShowcaseDemoData [
+	ExampleDataLoaderToShowcaseTheDashboard new
+		session: self session;
+		addExpertDemoData
+]
+
+{ #category : #rendering }
+ExpertHomeComponent >> loadStressTestDemoData [
+	ExampleDataLoaderToStressTest new
 		session: self session;
 		addExpertDemoData
 ]

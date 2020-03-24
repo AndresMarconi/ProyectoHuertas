@@ -17,8 +17,15 @@ FarmerHomeComponent >> dashboardComponentClass [
 ]
 
 { #category : #rendering }
-FarmerHomeComponent >> loadDemoData [
-	TestDataLoader new
+FarmerHomeComponent >> loadDashboardShowcaseDemoData [
+	ExampleDataLoaderToShowcaseTheDashboard new
+		session: self session;
+		addFarmerDemoData
+]
+
+{ #category : #rendering }
+FarmerHomeComponent >> loadStressTestDemoData [
+	ExampleDataLoaderToStressTest new
 		session: self session;
 		addFarmerDemoData
 ]

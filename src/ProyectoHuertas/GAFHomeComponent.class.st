@@ -72,11 +72,15 @@ GAFHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 GAFHomeComponent >> renderDemoDataButtonOn: html [
-	GAFDeployer demoMode
+	GAFDeployer demoMode 
 		ifFalse: [ ^ self ].
 	html outlineButton beDanger beSmall
-		callback: [ self loadDemoData ];
-		with: 'Load demo data'.
+		callback: [ self loadStressTestDemoData ];
+		with: 'Load stress test data'.
+	html space.
+	html outlineButton beDanger beSmall
+		callback: [ self loadDashboardShowcaseDemoData ];
+		with: 'Load data to showcase dashboard'.
 	html space
 ]
 
