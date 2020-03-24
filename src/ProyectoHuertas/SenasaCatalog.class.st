@@ -56,3 +56,9 @@ SenasaCatalog >> initialize [
 SenasaCatalog >> records [
 	^ records
 ]
+
+{ #category : #queries }
+SenasaCatalog >> registeredIngredientesForCropNamed: aCropName [
+	^ (records select: [ :each | each cropVulgarName = aCropName ])
+		collect: #activeIngredientTradeName
+]

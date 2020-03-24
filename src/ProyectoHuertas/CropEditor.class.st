@@ -5,8 +5,14 @@ Class {
 		'yieldEditorComponent',
 		'vulgarNameEditorComponent'
 	],
-	#category : #'ProyectoHuertas-ui-expert'
+	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #'subclass-responsibility' }
+CropEditor >> allowedCropNames [
+	^ {nil} , SenasaCatalog singleton cropVulgarNames
+		copyWithoutAll: (self session crops collect: #vulgarName)
+]
 
 { #category : #'subclass-responsibility' }
 CropEditor >> children [
@@ -26,7 +32,10 @@ CropEditor >> initializeComponents [
 		selector: #vulgarName
 		label: 'Nombre'
 		required: true.
-	vulgarNameEditorComponent possibleValues: self allowedCropNames.
+	vulgarNameEditorComponent
+		possibleValues: self allowedCropNames;
+		instructions:
+			'Solo se admiten cultivos para los que existan principios activos registrados en SENASA'.
 	yieldEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #optimalYieldPerPlant

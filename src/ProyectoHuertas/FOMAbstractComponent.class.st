@@ -27,6 +27,11 @@ FOMAbstractComponent >> asCommaSeparatedList: strings [
 		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
 ]
 
+{ #category : #dialogs }
+FOMAbstractComponent >> confirm: message [
+	^ self call: (FOMYesNoDialog message: message)
+]
+
 { #category : #initialization }
 FOMAbstractComponent >> initialize [
 	super initialize.

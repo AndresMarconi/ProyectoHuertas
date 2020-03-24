@@ -12,8 +12,11 @@ Class {
 
 { #category : #callbacks }
 FOMAbstractTableWithOptionsComponent >> addElement [
-	(self call: (self elementEditorClass subject: self elementClass new))
-		ifNotNil: [ :it | self saveAddedElement: it. ]
+	| element |
+	element := self
+		call: (self elementEditorClass subject: self elementClass new).
+	element ifNotNil: [ :it | self saveAddedElement: it ].
+	^ element
 ]
 
 { #category : #rendering }

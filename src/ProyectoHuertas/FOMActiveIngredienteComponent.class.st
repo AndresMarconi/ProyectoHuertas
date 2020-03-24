@@ -33,5 +33,6 @@ FOMActiveIngredienteComponent >> elements [
 { #category : #initialization }
 FOMActiveIngredienteComponent >> initialize [
 	super initialize.
-	duplicateEnabled := false
+	duplicateEnabled := false.
+	removeEnabled := false
 ]

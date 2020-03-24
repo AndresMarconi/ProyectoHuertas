@@ -43,11 +43,12 @@ SenasaRecord >> cropVulgarName: anObject [
 { #category : #testing }
 SenasaRecord >> hasActiveIngredient [
 	^ activeIngredientTradeName notNil
+		and: [ activeIngredientTradeName notEmpty ]
 ]
 
 { #category : #testing }
 SenasaRecord >> hasCrop [
-	^ cropVulgarName notNil
+	^ cropVulgarName notNil and: [ cropVulgarName notEmpty ]
 ]
 
 { #category : #testing }

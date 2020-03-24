@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'commentEditorComponent'
 	],
-	#category : #'ProyectoHuertas-ui-editors'
+	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #'subclass-responsibility' }

@@ -9,6 +9,22 @@ Class {
 }
 
 { #category : #'subclass-responsibility' }
+ActiveIngredientEditor >> allowedNames [
+	| ingredientTradeNamesForExistingCrops |
+	ingredientTradeNamesForExistingCrops := (self session crops
+		collect: #vulgarName)
+		flatCollect: [ :cropVulgarName | 
+			SenasaCatalog singleton
+				registeredIngredientesForCropNamed: cropVulgarName ]
+		as: Set.
+	^ {nil}
+		,
+			(ingredientTradeNamesForExistingCrops
+				copyWithoutAll: (self session activeIngredients collect: #tradeName))
+				asSortedCollection
+]
+
+{ #category : #'subclass-responsibility' }
 ActiveIngredientEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
@@ -20,29 +36,19 @@ ActiveIngredientEditor >> children [
 ActiveIngredientEditor >> initializeComponents [
 	"Initialize all property components"
 
-	tradeNameEditorComponent := TextLinePropertyEditorComponent
+	tradeNameEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #tradeName
 		label: 'Nombre'
 		required: true.
+	tradeNameEditorComponent
+		possibleValues: self allowedNames;
+		instructions:
+			'Solo se admiten principios activos registrados en SENASA para alguno de los cultivos existentes en el sistema'.
 	referenceUrlEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #referenceUrl
 		label: 'URL de referencia'
 		required: false.
 	super initializeComponents
-]
-
-{ #category : #rendering }
-ActiveIngredientEditor >> renderChildrenOn: html [
-	super renderChildrenOn: html.
-	html label: 'Registro SENASA'.
-	html
-		paragraph:
-			(self
-				asCommaSeparatedList:
-					(((self session senasaApplicabilityRecordsForActiveIngredient: subject)
-						asSortedCollection: [ :a :b | a crop vulgarName < b crop vulgarName ])
-						collect:
-							[ :record | record crop vulgarName , ' (' , record residue printString , ' mg/Kg)' ]))
 ]

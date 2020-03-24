@@ -4,6 +4,21 @@ Class {
 	#category : #'ProyectoHuertas-ui-expert'
 }
 
+{ #category : #adding }
+FOMCropsComponent >> addElement [
+	| theCrop |
+	theCrop := super addElement.
+	theCrop
+		ifNotNil: [ (self userAcceptsToBatchAddIngredientesFor: theCrop)
+				ifTrue: [ self batchAddIngredientsForCrop: theCrop ] ].
+	^ theCrop
+]
+
+{ #category : #callbacks }
+FOMCropsComponent >> batchAddIngredientsForCrop: aCrop [
+	^ self
+]
+
 { #category : #rendering }
 FOMCropsComponent >> columnHeadings [
 	^ {'Nombre vulgar' . 'Rinde óptimo (kg/hectárea)'}, super columnHeadings
@@ -32,4 +47,20 @@ FOMCropsComponent >> elementEditorClass [
 { #category : #callbacks }
 FOMCropsComponent >> elements [
 	^ (self session crops) asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
+]
+
+{ #category : #initialization }
+FOMCropsComponent >> initialize [
+	super initialize.
+	duplicateEnabled := false.
+	removeEnabled := false
+]
+
+{ #category : #adding }
+FOMCropsComponent >> userAcceptsToBatchAddIngredientesFor: aCrop [
+	^ self
+		confirm:
+			'El cultivo "' , aCrop vulgarName
+				,
+					'" fue agregado con éxito ¿Quiere agregar los principios activos registrados para el mismo?'
 ]

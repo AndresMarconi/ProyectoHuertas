@@ -6,11 +6,11 @@ Class {
 
 { #category : #callbacks }
 FOMSalesComponent >> addElement [
-	(self call: (self elementEditorClass subject: self elementClass new))
+	^ (self
+		call: (self elementEditorClass subject: self elementClass new))
 		ifNotNil: [ :it | 
 			(self call: (SaleListItemEditor subject: it))
-			ifNotNil: [ :sale | 
-				self saveAddedElement: sale ] ]
+				ifNotNil: [ :sale | self saveAddedElement: sale ] ]
 ]
 
 { #category : #rendering }
