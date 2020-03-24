@@ -66,25 +66,7 @@ FOMSenasaImportComponent >> initialize [
 
 { #category : #rendering }
 FOMSenasaImportComponent >> renderCatalogSummaryOn: html [
-	html heading
-		level5;
-		with: 'Tolerancias de residuos de plaguicidas'.
-	html
-		paragraph: [ html text: 'La '.
-			html anchor
-				url:
-					'http://www.senasa.gob.ar/normativas/resolucion-934-2010-senasa-servicio-nacional-de-sanidad-y-calidad-agroalimentaria';
-				target: '_blank';
-				with: 'resolución 934-2010 '.
-			html
-				text:
-					'del SENASA establece los límites móximos de tolerancia para la presencia de los fitosanitarios.' ].
-	html
-		paragraph:
-			'GAP-a-Farm incluye una versión actualizada (al 2020) del listado. A continuación podrá seleccionar los cultivos para los cuales desea importar la información. Solo se importan registros que no existen en el sistema (es decir, no se actualizan si ya hubiesen sido cargados)'.
-			html
-		paragraph:
-			'Se ignoran todos los productos de aplicación post-cosecha. El excel provisto por SENASA fue modificado levemente para corregir errores tipográficos.'
+	
 ]
 
 { #category : #rendering }

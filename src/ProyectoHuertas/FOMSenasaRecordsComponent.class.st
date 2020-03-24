@@ -25,7 +25,7 @@ FOMSenasaRecordsComponent >> columnValuesFor: element [
 FOMSenasaRecordsComponent >> elementClass [
 	"Returns the class of elements to edit and add"
 
-	^ SenasaApplicabilityRecord 
+	^ 	self notYetImplemented
 ]
 
 { #category : #accessing }

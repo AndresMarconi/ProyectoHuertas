@@ -114,9 +114,9 @@ FOMSession >> problems [
 
 { #category : #'db queries' }
 FOMSession >> registeredCropsForActiveIngredient: activeIngrediente [
-	^ (SenasaApplicabilityRecord selectAll
-		select: [ :each | each activeIngredient = activeIngrediente ])
-		collect: #crop
+	| cropNames |
+	cropNames := SenasaCatalog singleton
+		registeredCropNamesForActiveIngredient: activeIngrediente tradeName
 ]
 
 { #category : #'indirect queries' }
@@ -136,22 +136,17 @@ FOMSession >> selectedPlot [
 
 { #category : #'db queries' }
 FOMSession >> senasaApplicabilityRecords [
-	^ (SenasaApplicabilityRecord
-		selectMany: [ :each | each archived = false ])
-		asSortedCollection:
-			[ :a :b | a activeIngredient tradeName <= b activeIngredient tradeName ]
+	self notYetImplemented
 ]
 
 { #category : #'db queries' }
 FOMSession >> senasaApplicabilityRecordsForActiveIngredient: anActiveIngrediente [
-	^ SenasaApplicabilityRecord selectAll
-		select: [ :each | each activeIngredient = anActiveIngrediente ]
+	^ 	self notYetImplemented
 ]
 
 { #category : #'db queries' }
 FOMSession >> senasaApplicabilityRecordsForCrop: aCrop [
-	^ (SenasaApplicabilityRecord selectAll
-		select: [ :each | each crop = aCrop ]) asArray
+	^ 	self notYetImplemented
 ]
 
 { #category : #testing }

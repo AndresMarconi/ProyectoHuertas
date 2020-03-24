@@ -1,10 +1,5 @@
 "
-Produces JSON of the form: 
- 
-[{ ""crop"" : ""Tomate"",
-   ""ingredient"" : ""clofentezine"",
-   ""applicabilities"" : [""Insecticida"",""Fungicida""],
-   ""residue"" : 3 }]
+-
 "
 Class {
 	#name : #SenasaCsvReader,
@@ -64,48 +59,6 @@ SenasaCsvReader >> applicability608For: aString [
 		with: (self problems608ToApplicabilitiesMapping at: aString asLowercase)
 ]
 
-{ #category : #'608' }
-SenasaCsvReader >> dictionaryFrom608Year2012Row: row [
-	| activePrinciples dictionaries residues |
-	dictionaries := OrderedCollection new.
-	activePrinciples := (row third splitOn: $+)
-		collect: [ :each | each asLowercase trimBoth ].
-	residues := ((row at: 10) splitOn: $+)
-		collect: [ :each | self residueFromString: each ].
-	activePrinciples
-		with: residues
-		do: [ :principle :residue | 
-			dictionaries
-				add:
-					(Dictionary new
-						at: 'crop' put: row first trimBoth asLowercase capitalized;
-						at: 'principle' put: principle;
-						at: 'applicabilities'
-							put: (self applicability608For: row second);
-						at: 'residue' put: residue;
-						yourself) ].
-	^ dictionaries
-]
-
-{ #category : #'934' }
-SenasaCsvReader >> dictionaryFrom934Year2010Row: row [
-	^ Dictionary new
-		at: 'crop'
-			put:
-			(row third
-				ifNil: [  ]
-				ifNotNil: [ :it | it asLowercase trimBoth capitalized ]);
-		at: 'principle'
-			put: (row first ifNil: [  ] ifNotNil: [ :it | it asLowercase trimBoth ]);
-		at: 'applicabilities'
-			put:
-			(row second
-				ifNil: [ #() ]
-				ifNotNil: [ :it | self applicabilitiesFor934Value: it ]);
-		at: 'residue' put: (self residueFromString: row fourth);
-		yourself
-]
-
 { #category : #'934' }
 SenasaCsvReader >> expand934AbbreviationsIn: aString [
 	^ self class normalizedApplicabilities
@@ -137,7 +90,7 @@ SenasaCsvReader >> fromRes608Year2012Stream: aReadStream [
 		skip;
 		skip;
 		upToEnd.
-	^ rows flatCollect: [ :row | self dictionaryFrom608Year2012Row: row ]
+	^ rows flatCollect: [ :row | self recordsFrom608Year2012Row: row ]
 ]
 
 { #category : #'934' }
@@ -148,7 +101,7 @@ SenasaCsvReader >> fromRes934Year2010Stream: aReadStream [
 	rows := (NeoCSVReader on: aReadStream)
 		skip;
 		upToEnd.
-	^ rows collect: [ :row | self dictionaryFrom934Year2010Row: row ]
+	^ rows collect: [ :row | self recordFrom934Year2010Row: row ]
 ]
 
 { #category : #'608' }
@@ -183,6 +136,44 @@ SenasaCsvReader >> problems608ToApplicabilitiesMapping [
 	('hormigas' -> 'hormiguicida').
 	('gusanos de suelo' -> 'insecticida').
 	('gusano de la fruta' -> 'insecticida')} asDictionary
+]
+
+{ #category : #'934' }
+SenasaCsvReader >> recordFrom934Year2010Row: row [
+	^ SenasaRecord new
+		cropVulgarName:
+			(row third
+				ifNil: [  ]
+				ifNotNil: [ :it | it asLowercase trimBoth capitalized ]);
+		activeIngredientTradeName: (row first ifNil: [  ] ifNotNil: [ :it | it asLowercase trimBoth ]);
+		applicabilities:
+			(row second
+				ifNil: [ #() ]
+				ifNotNil: [ :it | self applicabilitiesFor934Value: it ]);
+		residue: (self residueFromString: row fourth);
+		yourself
+]
+
+{ #category : #'608' }
+SenasaCsvReader >> recordsFrom608Year2012Row: row [
+	| activePrinciples records residues |
+	records := OrderedCollection new.
+	activePrinciples := (row third splitOn: $+)
+		collect: [ :each | each asLowercase trimBoth ].
+	residues := ((row at: 10) splitOn: $+)
+		collect: [ :each | self residueFromString: each ].
+	activePrinciples
+		with: residues
+		do: [ :principle :residue | 
+			records
+				add:
+					(SenasaRecord new
+						cropVulgarName: row first trimBoth asLowercase capitalized;
+						activeIngredientTradeName: principle;
+						applicabilities: (self applicability608For: row second);
+						residue: residue;
+						yourself) ].
+	^ records
 ]
 
 { #category : #common }
