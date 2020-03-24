@@ -15,9 +15,9 @@ Class {
 SenasaRecord >> = anotherRecord [
 	^ cropVulgarName = anotherRecord cropVulgarName
 		& (residue = anotherRecord residue)
-		& (applicabilities = anotherRecord applicabilities)
 		& (activeIngredientTradeName = anotherRecord activeIngredientTradeName)
 		& (source = anotherRecord source)
+		& (applicabilities = anotherRecord applicabilities)
 ]
 
 { #category : #accessing }
@@ -61,9 +61,32 @@ SenasaRecord >> hasCrop [
 	^ cropVulgarName notNil and: [ cropVulgarName notEmpty ]
 ]
 
+{ #category : #comparing }
+SenasaRecord >> hash [
+	^ {residue.
+	activeIngredientTradeName.
+	source} , applicabilities asArray
+		inject: cropVulgarName hash
+		into: [ :sum :each | sum bitXor: each hash ]
+]
+
 { #category : #testing }
 SenasaRecord >> isComplete [
 	^ self hasActiveIngredient & self hasCrop
+]
+
+{ #category : #printing }
+SenasaRecord >> printOn: aStream [
+	aStream
+		nextPutAll: 'a SenasaRecord(';
+		nextPutAll: cropVulgarName;
+		nextPutAll: ', ';
+		nextPutAll: activeIngredientTradeName;
+		nextPutAll: ', ';
+		nextPutAll: residue printString;
+		nextPutAll: ', ';
+		nextPutAll: source;
+		nextPutAll: ')'
 ]
 
 { #category : #accessing }

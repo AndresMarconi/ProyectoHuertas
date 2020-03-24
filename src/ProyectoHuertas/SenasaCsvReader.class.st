@@ -53,7 +53,7 @@ SenasaCsvReader class >> res934year10 [
 		fromRes934Year2010Stream: FOMLibrary new res93410anexoCsv readStream
 ]
 
-{ #category : #'934' }
+{ #category : #'934Year10' }
 SenasaCsvReader >> applicabilitiesFor934Value: aString [
 	| applicabilitiesInString |
 	applicabilitiesInString := (aString copyWithoutAll: {$( . $)})
@@ -67,41 +67,42 @@ SenasaCsvReader >> applicabilitiesFor934Value: aString [
 	^ applicabilitiesInString
 ]
 
-{ #category : #'608' }
+{ #category : #'608Year12' }
 SenasaCsvReader >> applicability608For: aString [
 	^ Set
 		with: (self problems608ToApplicabilitiesMapping at: aString asLowercase)
 ]
 
-{ #category : #'934' }
+{ #category : #'934Year10' }
 SenasaCsvReader >> expand934AbbreviationsIn: aString [
 	^ self class normalizedApplicabilities
 		at: aString
 		ifAbsent: [ aString ]
 ]
 
-{ #category : #'934' }
+{ #category : #'934Year10' }
 SenasaCsvReader >> fixTyposIn: aString [
 	^ self class autoCorrectionDictionary
 		at: aString
 		ifAbsent: [ aString ]
 ]
 
-{ #category : #'608' }
+{ #category : #'608Year12' }
 SenasaCsvReader >> fromRes608Year2012Stream: aReadStream [
 	"Produce jSon from an untouched CSV file corresponding to resolucion 608 of 2012 (minor crops)"
 
-	| rows |
+	| rows all withoutDuplicates |
 	rows := (NeoCSVReader on: aReadStream)
 		skip;
 		skip;
 		upToEnd.
-	^ rows
-		flatCollect: [ :row | self recordsFrom608Year2012Row: row ]
-		as: Set
+	all := rows
+		flatCollect: [ :row | self recordsFrom608Year2012Row: row ].
+	withoutDuplicates := all asSet.
+	^ withoutDuplicates
 ]
 
-{ #category : #'934' }
+{ #category : #'934Year10' }
 SenasaCsvReader >> fromRes934Year2010Stream: aReadStream [
 	"Produce jSon from an untouched CSV file corresponding to resolucion 934 of 2010"
 
@@ -112,7 +113,7 @@ SenasaCsvReader >> fromRes934Year2010Stream: aReadStream [
 	^ rows collect: [ :row | self recordFrom934Year2010Row: row ]
 ]
 
-{ #category : #'608' }
+{ #category : #'608Year12' }
 SenasaCsvReader >> problems608ToApplicabilitiesMapping [
 	^ {('mosca blanca' -> 'insecticida').
 	('pulgones' -> 'insecticida').
@@ -146,7 +147,7 @@ SenasaCsvReader >> problems608ToApplicabilitiesMapping [
 	('gusano de la fruta' -> 'insecticida')} asDictionary
 ]
 
-{ #category : #'934' }
+{ #category : #'934Year10' }
 SenasaCsvReader >> recordFrom934Year2010Row: row [
 	^ SenasaRecord new
 		cropVulgarName:
@@ -167,7 +168,7 @@ SenasaCsvReader >> recordFrom934Year2010Row: row [
 		yourself
 ]
 
-{ #category : #'608' }
+{ #category : #'608Year12' }
 SenasaCsvReader >> recordsFrom608Year2012Row: row [
 	| activePrinciples records residues |
 	records := OrderedCollection new.
