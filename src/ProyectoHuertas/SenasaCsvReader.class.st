@@ -96,7 +96,9 @@ SenasaCsvReader >> fromRes608Year2012Stream: aReadStream [
 		skip;
 		skip;
 		upToEnd.
-	^ rows flatCollect: [ :row | self recordsFrom608Year2012Row: row ]
+	^ rows
+		flatCollect: [ :row | self recordsFrom608Year2012Row: row ]
+		as: Set
 ]
 
 { #category : #'934' }

@@ -11,6 +11,15 @@ Class {
 	#category : #'ProyectoHuertas-senasa'
 }
 
+{ #category : #comparing }
+SenasaRecord >> = anotherRecord [
+	^ cropVulgarName = anotherRecord cropVulgarName
+		& (residue = anotherRecord residue)
+		& (applicabilities = anotherRecord applicabilities)
+		& (activeIngredientTradeName = anotherRecord activeIngredientTradeName)
+		& (source = anotherRecord source)
+]
+
 { #category : #accessing }
 SenasaRecord >> activeIngredientTradeName [
 	^ activeIngredientTradeName

@@ -13,6 +13,12 @@ Class {
 }
 
 { #category : #singleton }
+SenasaCatalogue class >> clearSingleton [
+	<script>
+	singleton := nil
+]
+
+{ #category : #singleton }
 SenasaCatalogue class >> singleton [
 	"^ singleton
 		ifNil: [ singleton := self new
@@ -70,6 +76,11 @@ SenasaCatalogue >> initialize [
 { #category : #accessing }
 SenasaCatalogue >> records [
 	^ records
+]
+
+{ #category : #queries }
+SenasaCatalogue >> recordsForCropNamed: aString [
+	^ records select: [ :each | each cropVulgarName = aString ]
 ]
 
 { #category : #queries }
