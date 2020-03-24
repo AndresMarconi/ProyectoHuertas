@@ -20,16 +20,11 @@ SenasaCatalogue class >> clearSingleton [
 
 { #category : #singleton }
 SenasaCatalogue class >> singleton [
-	"^ singleton
+	^ singleton
 		ifNil: [ singleton := self new
 				addRecords: SenasaCsvReader res608year12;
 				addRecords: SenasaCsvReader res934year10;
-				yourself ]"
-
-	^ self new
-		addRecords: SenasaCsvReader res608year12;
-		addRecords: SenasaCsvReader res934year10;
-		yourself
+				yourself ]
 ]
 
 { #category : #accessing }
