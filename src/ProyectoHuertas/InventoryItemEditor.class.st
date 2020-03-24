@@ -1,6 +1,6 @@
 Class {
 	#name : #InventoryItemEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'substanceEditorComponent',
 		'quantityEditorComponent',

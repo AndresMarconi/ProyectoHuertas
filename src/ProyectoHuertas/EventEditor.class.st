@@ -1,6 +1,6 @@
 Class {
 	#name : #EventEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'plotEditorComponent',

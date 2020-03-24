@@ -1,6 +1,6 @@
 Class {
 	#name : #WithdrawalPeriodRecommendation,
-	#superclass : #FOMObject,
+	#superclass : #GAFObject,
 	#instVars : [
 		'daysToWait',
 		'crop',

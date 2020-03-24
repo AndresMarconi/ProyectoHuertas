@@ -1,6 +1,6 @@
 Class {
 	#name : #InventoryItem,
-	#superclass : #FOMObject,
+	#superclass : #GAFObject,
 	#instVars : [
 		'substance',
 		'quantity',

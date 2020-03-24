@@ -1,6 +1,6 @@
 Class {
 	#name : #Sale,
-	#superclass : #FOMObject,
+	#superclass : #GAFObject,
 	#instVars : [
 		'date',
 		'client',

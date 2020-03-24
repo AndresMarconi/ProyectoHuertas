@@ -1,6 +1,6 @@
 Class {
 	#name : #Substance,
-	#superclass : #FOMObject,
+	#superclass : #GAFObject,
 	#instVars : [
 		'comercialName',
 		'activeIngredients',
@@ -37,12 +37,6 @@ Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
 { #category : #accessing }
 Substance >> allowedUsage [
 	^ withdrawalPeriodRecommendations collect: [ :each | each crop ]
-]
-
-{ #category : #accessing }
-Substance >> applicabilities [
-	^ (activeIngredients flatCollect: #applicabilities) asSet
-		asSortedCollection
 ]
 
 { #category : #accessing }

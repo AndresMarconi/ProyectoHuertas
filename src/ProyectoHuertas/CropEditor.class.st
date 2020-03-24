@@ -1,6 +1,6 @@
 Class {
 	#name : #CropEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'yieldEditorComponent',
 		'vulgarNameEditorComponent'

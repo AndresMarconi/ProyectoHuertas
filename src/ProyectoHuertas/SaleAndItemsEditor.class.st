@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleAndItemsEditor,
-	#superclass : #FOMAbstractComponent,
+	#superclass : #GAFAbstractComponent,
 	#instVars : [
 		'sale',
 		'saleEditor',

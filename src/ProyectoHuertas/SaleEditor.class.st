@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'dateEditorComponent',
 		'clientEditorComponent',

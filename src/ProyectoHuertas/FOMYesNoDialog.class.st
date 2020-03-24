@@ -1,6 +1,6 @@
 Class {
 	#name : #FOMYesNoDialog,
-	#superclass : #FOMAbstractComponent,
+	#superclass : #GAFAbstractComponent,
 	#instVars : [
 		'message'
 	],

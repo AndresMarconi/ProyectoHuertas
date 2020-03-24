@@ -76,13 +76,13 @@ FOMDeployer new
      deploy.
 
 "Set demoMode to true to get a [Load demo data] button."
-FOMDeployer demoMode: false.
+GAFDeployer demoMode: false.
 
 "Evaluate one of the following to set the target persistency strategy"
 
-FOMStorage inMemory.
+GAFStorage inMemory.
 
-FOMStorage mongoLocal .
+GAFStorage mongoLocal .
 '
 	
 	label: 'Deployment scripts'.

@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleListItemEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'items'
 	],

@@ -44,13 +44,13 @@ SenasaCsvReader class >> normalizedApplicabilities [
 { #category : #data }
 SenasaCsvReader class >> res608year12 [
 	^ self new
-		fromRes608Year2012Stream: FOMLibrary new res60812anexoCsv readStream
+		fromRes608Year2012Stream: GAFLibrary new res60812anexoCsv readStream
 ]
 
 { #category : #data }
 SenasaCsvReader class >> res934year10 [
 	^ self new
-		fromRes934Year2010Stream: FOMLibrary new res93410anexoCsv readStream
+		fromRes934Year2010Stream: GAFLibrary new res93410anexoCsv readStream
 ]
 
 { #category : #'934Year10' }

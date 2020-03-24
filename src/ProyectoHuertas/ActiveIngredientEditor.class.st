@@ -1,6 +1,6 @@
 Class {
 	#name : #ActiveIngredientEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'tradeNameEditorComponent',
 		'referenceUrlEditorComponent'

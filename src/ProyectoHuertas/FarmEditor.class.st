@@ -1,6 +1,6 @@
 Class {
 	#name : #FarmEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'nameEditorComponent'
 	],

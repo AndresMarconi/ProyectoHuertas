@@ -1,6 +1,6 @@
 Class {
 	#name : #Event,
-	#superclass : #FOMObject,
+	#superclass : #GAFObject,
 	#instVars : [
 		'plot',
 		'dateAndTime'

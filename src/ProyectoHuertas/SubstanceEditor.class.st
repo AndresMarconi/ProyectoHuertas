@@ -1,6 +1,6 @@
 Class {
 	#name : #SubstanceEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'comercialNameEditorComponent',
 		'activeIngredientsEditorComponent'

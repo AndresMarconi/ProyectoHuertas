@@ -1,6 +1,6 @@
 Class {
 	#name : #MultiplePlotsCreator,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'idPrefix',
 		'idPrefixComponent',

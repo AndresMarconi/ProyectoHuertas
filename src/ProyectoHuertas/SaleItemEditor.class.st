@@ -1,6 +1,6 @@
 Class {
 	#name : #SaleItemEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'productEditorComponent',
 		'kilogramsEditorComponent',

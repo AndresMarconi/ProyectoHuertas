@@ -1,6 +1,6 @@
 Class {
 	#name : #WhiteListItemEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'aptitudEditorComponent',
 		'wasteEditorComponent',

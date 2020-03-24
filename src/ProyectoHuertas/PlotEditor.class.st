@@ -1,6 +1,6 @@
 Class {
 	#name : #PlotEditor,
-	#superclass : #FOMEditor,
+	#superclass : #GAFEditor,
 	#instVars : [
 		'idPEditorComponent',
 		'surfaceEditorComponent'
