@@ -12,6 +12,7 @@ ExpertDashboardCardComponent >> renderCardContentOn: html [
 { #category : #rendering }
 ExpertDashboardCardComponent >> renderContentOn: html [
 	html card
+		style: 'margin-bottom: 20px;';
 		with: [ html
 				cardBody: [ html cardTitle level5 with: self title.
 					html cardText: [ self renderCardContentOn: html ] ] ]

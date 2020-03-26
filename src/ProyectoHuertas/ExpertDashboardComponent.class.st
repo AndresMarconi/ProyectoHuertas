@@ -15,6 +15,10 @@ ExpertDashboardComponent >> initialize [
 	super initialize.
 	reactionsExpertDashboardComponent := ReactionsDashboardComponent new.
 	problemsExpertDashboardComponent := ProblemsForExpertsDashboardComponent
+		new.
+	cropsExpertDashboardComponent := CropsForExpertsDashboardComponent
+		new.
+	substancesExpertDashboardComponent := SubstancesForExpertsDashboardComponent
 		new
 ]
 
@@ -22,13 +26,13 @@ ExpertDashboardComponent >> initialize [
 ExpertDashboardComponent >> renderContentOn: html [
 	html
 		row: [ html
-				column: [ html render: reactionsExpertDashboardComponent ]
-					mediumSize: 6;
 				column: [ html render: problemsExpertDashboardComponent ]
+					mediumSize: 6;
+				column: [ html render: substancesExpertDashboardComponent ]
 					mediumSize: 6 ];
 		row: [ html
 				column: [ html render: cropsExpertDashboardComponent ]
 					mediumSize: 6;
-				column: [ html render: substancesExpertDashboardComponent ]
+				column: [ html render: reactionsExpertDashboardComponent ]
 					mediumSize: 6 ]
 ]
