@@ -34,7 +34,7 @@ ApplicationsComponent >> elementEditorClass [
 	^ ApplicationEditor
 ]
 
-{ #category : #callbacks }
+{ #category : #hooks }
 ApplicationsComponent >> elements [
 	^ (self session farm aplications) asSortedCollection: [ :a :b | a date > b date ]
 ]

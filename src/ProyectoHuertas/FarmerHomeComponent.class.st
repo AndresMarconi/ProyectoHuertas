@@ -48,7 +48,8 @@ FarmerHomeComponent >> renderLeftMenuOn: html [
 						renderMenuBlock:
 							{('Lotes' -> PlotsManagementComponent).
 							('Inventario' -> InventoryComponent).
-							('Ventas' -> SalesComponent)}
+							('Ventas' -> SalesComponent).
+							('Exportar' -> FarmerExportComponent)}
 						heading: 'Administración'
 						on: html ] ]
 ]
