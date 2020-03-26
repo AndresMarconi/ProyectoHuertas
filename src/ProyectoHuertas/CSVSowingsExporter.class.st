@@ -1,7 +1,7 @@
 Class {
 	#name : #CSVSowingsExporter,
 	#superclass : #CSVEventsExporter,
-	#category : #'ProyectoHuertas-ui-farmer'
+	#category : #'ProyectoHuertas-export'
 }
 
 { #category : #exporting }

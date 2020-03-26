@@ -1,7 +1,7 @@
 Class {
 	#name : #NextToHarvestComponent,
 	#superclass : #GAFAbstractTableComponent,
-	#category : #'ProyectoHuertas-ui-farmer'
+	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
 { #category : #rendering }

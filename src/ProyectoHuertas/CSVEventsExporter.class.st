@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'events'
 	],
-	#category : #'ProyectoHuertas-ui-farmer'
+	#category : #'ProyectoHuertas-export'
 }
 
 { #category : #'instance creation' }

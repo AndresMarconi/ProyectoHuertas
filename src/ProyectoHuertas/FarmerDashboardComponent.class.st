@@ -5,7 +5,7 @@ Class {
 		'nextToHarvestComponent',
 		'plotsInwithdrawalTimeComponent'
 	],
-	#category : #'ProyectoHuertas-ui-farmer'
+	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
 { #category : #initialization }
