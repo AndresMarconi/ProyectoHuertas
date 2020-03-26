@@ -13,7 +13,9 @@ Class {
 { #category : #initialization }
 ExpertDashboardComponent >> initialize [
 	super initialize.
-	reactionsExpertDashboardComponent := ReactionsDashboardComponent new
+	reactionsExpertDashboardComponent := ReactionsDashboardComponent new.
+	problemsExpertDashboardComponent := ProblemsForExpertsDashboardComponent
+		new
 ]
 
 { #category : #rendering }

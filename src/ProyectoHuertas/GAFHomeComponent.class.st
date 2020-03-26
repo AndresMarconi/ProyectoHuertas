@@ -61,13 +61,13 @@ GAFHomeComponent >> logout [
 
 { #category : #rendering }
 GAFHomeComponent >> renderContentOn: html [
-	self session loginRequired
-		ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
-	self renderNavbarOn: html.
 	html
-		row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
-			html column: [ html render: selectedComponent ] mediumSize: 10 ].
-
+		container: [ self session loginRequired
+				ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
+			self renderNavbarOn: html.
+			html
+				row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
+					html column: [ html render: selectedComponent ] mediumSize: 10 ] ]
 ]
 
 { #category : #rendering }
