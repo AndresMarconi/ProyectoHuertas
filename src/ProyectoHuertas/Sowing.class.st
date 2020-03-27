@@ -12,6 +12,20 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'as yet unclassified' }
+Sowing class >> date: aDate time: aTime plot: aPlot crop: aCrop quantity: aQuantity timeToHarvest: aTTH harvestDuration: aHD expectedYield: aEY [
+	^ self new
+		date: aDate;
+		time: aTime;
+		crop: aCrop;
+		quantity: aQuantity;
+		plot: aPlot;
+		timeToHarvest: aTTH;
+		harvestDuration: aHD;
+		expectedYield: aEY;
+		yourself
+]
+
 { #category : #testing }
 Sowing class >> isVoyageRoot [
 	^ true

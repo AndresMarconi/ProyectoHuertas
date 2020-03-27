@@ -8,6 +8,17 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'as yet unclassified' }
+Problem class >> date: aDate time: aTime plot: aPlot name: aName type: aType [ 
+	^ self new
+		date: aDate;
+		time: aTime;
+		plot: aPlot;
+		name: aName;
+		type: aType;
+		yourself
+]
+
 { #category : #testing }
 Problem class >> isVoyageRoot [
 	^ true

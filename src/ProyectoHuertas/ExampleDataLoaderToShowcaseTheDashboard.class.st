@@ -19,55 +19,13 @@ ExampleDataLoaderToShowcaseTheDashboard >> activeIngredients [
 ]
 
 { #category : #loading }
-ExampleDataLoaderToShowcaseTheDashboard >> addDemoApplicationToPlot: aPlot [
-	| application time type substance |
-	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
-	type := {'Peste' . 'Enfermedad'} atRandom.
-	substance := session gapAFarm substances atRandom. 
-	application := Application new
-		reason: 'Una ' , type , ' muy grave';
-		substance: substance;
-		dose: '200mg/ha';
-		machine: 'Dosificador 1';
-		date: lastDay;
-		time: time;
-		plot: aPlot;
-		yourself.
-	aPlot addEvent: application.
-	application save.
-	aPlot save
-]
-
-{ #category : #loading }
-ExampleDataLoaderToShowcaseTheDashboard >> addDemoEventsToPlot: aPlot [
-	lastDay := '1/1/1980' asDate.
-   20
-		timesRepeat: [ self addDemoSowingToPlot: aPlot.
-			self addDemoProblemToPlot: aPlot.
-			self addDemoApplicationToPlot: aPlot.
-			self addDemoHarvestingToPlot: aPlot ]
-]
-
-{ #category : #loading }
-ExampleDataLoaderToShowcaseTheDashboard >> addDemoHarvestingToPlot: aPlot [
-	| harvesting time  |
-	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
-	harvesting := Harvesting new
-		crop: aPlot lastestSowing crop;
-		date: lastDay;
-		time: time;
-		plot: aPlot;
-		quantity: 3000 atRandom;
-		otherUnit:
-			(Measurement
-				magnitude: 300 atRandom
-				unit: {'Canastos' . 'Razos' . 'Paquetes'} atRandom);
-		yourself.
-	aPlot addEvent: harvesting.
-	harvesting save.
-	aPlot save
+ExampleDataLoaderToShowcaseTheDashboard >> addDemoEvents [
+	lastDay := Date today.
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 1). 
+	self addEventAcelgaToHarvestTo: (self session farm plots at: 2).
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 3). 
+	self addEventAcelgaToHarvestTo: (self session farm plots at: 4).
+	self addEventEspinacaInwaitingPeriodTo: (self session farm plots at: 5)	
 ]
 
 { #category : #loading }
@@ -79,59 +37,95 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoPlots [
 			session farm save ]
 ]
 
-{ #category : #loading }
-ExampleDataLoaderToShowcaseTheDashboard >> addDemoProblemToPlot: aPlot [
-	| problem time type |
-	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
-	type := {'Peste' . 'Enfermedad'} atRandom.
-	problem := Problem new
-		name: 'Una ' , type , ' muy grave';
-		type: type;
-		date: lastDay;
-		time: time;
-		plot: aPlot;
-		yourself.
-	aPlot addEvent: problem.
-	problem save.
-	aPlot save
+{ #category : #constants }
+ExampleDataLoaderToShowcaseTheDashboard >> addDemoSubstances [
+	| ingredients crops |
+	ingredients:= session gapAFarm activeIngredients.
+	crops:= session gapAFarm crops.
+	self 
+		addSubstance: (ingredients at: 1) to: (crops at: 9) with: 10;
+		addSubstance: (ingredients at: 10) to: (crops at: 1) with: 3;
+		addSubstance: (ingredients at: 5) to: (crops at: 4) with: 8;
+		addSubstance: (ingredients at: 7) to: (crops at: 5) with: 21.		
 ]
 
 { #category : #loading }
-ExampleDataLoaderToShowcaseTheDashboard >> addDemoSowingToPlot: aPlot [
-	| sowing time crop |
-	lastDay := lastDay addDays: (1 to: 10) atRandom.
-	time := {'8:00' . '10:00' . '14:00' . '16:00' . '18:00'} atRandom asTime.
-	crop := session gapAFarm crops atRandom.
-	sowing := Sowing new
-		crop: crop;
-		date: lastDay;
-		time: time;
-		plot: aPlot;
-		quantity: (Measurement magnitude: 1000 unit: 'Plantas');
-		timeToHarvest: 90;
-		harvestDuration: 60;
-		expectedYield: 2000;
-		yourself.
-	aPlot addEvent: sowing.
+ExampleDataLoaderToShowcaseTheDashboard >> addEventAcelgaToHarvestTo: aPlot [
+	| crop sowing harvesting |
+	crop := (session gapAFarm crops 
+		select: [ :each | each vulgarName = 'Acelga' ]) at: 1.
+	sowing := Sowing date: (lastDay subtractDays: 29) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 30 harvestDuration: 4 expectedYield: 2000.
+	harvesting:= Harvesting date: (lastDay subtractDays: 1) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
+	aPlot addEvent: sowing;
+			addEvent: harvesting.
 	sowing save.
+	harvesting save.
+	aPlot save. 
+]
+
+{ #category : #loading }
+ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aPlot [
+	| crop substance sowing problem application |
+	crop := (session gapAFarm crops select: [ :each | each vulgarName = 'Espinaca' ]) at: 1.
+	substance := (session gapAFarm substances) at: 3.
+	sowing := Sowing date: (lastDay subtractDays: 30) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 40 harvestDuration: 7 expectedYield: 2000.
+	problem := Problem date: (lastDay subtractDays: 15) time: ('18:00' asTime) plot: aPlot name: 'Añternaria' type: 'Enfermedad'.
+	application:= Application date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'Remedio para la enfermedad'.
+	aPlot addEvent: sowing;
+			addEvent: application;
+			addEvent: problem.	
+	sowing save.
+	problem save.
+	application save.
+	aPlot save. 
+]
+
+{ #category : #loading }
+ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlot [
+	| crop substance sowing problem application |
+	crop := (session gapAFarm crops select: [ :each | each vulgarName = 'Tomate' ]) at: 1.
+	substance := (session gapAFarm substances) at: 1.
+	sowing := Sowing date: (lastDay subtractDays: 45) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 50 harvestDuration: 7 expectedYield: 2000.
+	problem := Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: aPlot name: 'pulgon' type: 'Ácaros'.
+	application:= Application date: (lastDay subtractDays: 2) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'contra el pulgon'.
+	aPlot addEvent: sowing;
+			addEvent: application;
+			addEvent: problem.	
+	sowing save.
+	problem save.
+	application save.
 	aPlot save. 
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addExpertDemoData [
-	session crops ifEmpty: [ self crops do: #save ].
-	session activeIngredients
+	session gapAFarm crops ifEmpty: [ self crops do: #save ].
+	session gapAFarm activeIngredients
 		ifEmpty: [ self activeIngredients do: #save ].
-	session substances ifEmpty: [ self substances do: #save ]
+	session gapAFarm substances ifEmpty: [ self addDemoSubstances ]
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addFarmerDemoData [
 	session gapAFarm crops ifEmpty: [ self addExpertDemoData ].
 	session farm plots
-		ifEmpty: [ self addDemoPlots.
-			session farm plots do: [ :aPlot | self addDemoEventsToPlot: aPlot ] ]
+		ifEmpty: [ self addDemoPlots].
+	self addDemoEvents
+]
+
+{ #category : #constants }
+ExampleDataLoaderToShowcaseTheDashboard >> addSubstance: ingredient to: crop with: days [
+	| substance |
+	substance := Substance new
+		comercialName: 'Preparado de ' , ingredient tradeName;
+		activeIngredients: (OrderedCollection with: ingredient) yourself.
+	substance addWithdrawalPeriodRecommendation:
+		(WithdrawalPeriodRecommendation
+		daysToWait: days
+		crop: crop
+		referenceUrl: '') .
+	substance save.
+	^substance 
 ]
 
 { #category : #constants }
@@ -146,18 +140,8 @@ ExampleDataLoaderToShowcaseTheDashboard >> crops [
 
 { #category : #constants }
 ExampleDataLoaderToShowcaseTheDashboard >> plots [
-	^ (1 to: 5)
+	^ (1 to: 10)
 		collect: [ :each | Plot id: 'A' , each asString surface: 1000 ]
-]
-
-{ #category : #utility }
-ExampleDataLoaderToShowcaseTheDashboard >> randomCrops: aNumber [
-	| allCrops selectedCrops |
-	allCrops := session crops.
-	selectedCrops := Set new.
-	[ selectedCrops size < (aNumber min: allCrops size / 2) ]
-		whileTrue: [ selectedCrops add: allCrops atRandom ].
-	^ selectedCrops
 ]
 
 { #category : #accessing }
@@ -168,23 +152,4 @@ ExampleDataLoaderToShowcaseTheDashboard >> session [
 { #category : #accessing }
 ExampleDataLoaderToShowcaseTheDashboard >> session: anObject [
 	session := anObject
-]
-
-{ #category : #constants }
-ExampleDataLoaderToShowcaseTheDashboard >> substances [
-	^ session activeIngredients
-		collect: [ :ingredient | 
-			| substance |
-			substance := Substance new
-				comercialName: 'Preparado de ' , ingredient tradeName;
-				activeIngredients: (OrderedCollection with: ingredient) yourself.
-			(self randomCrops: 4)
-				do: [ :crop | 
-					substance
-						addWithdrawalPeriodRecommendation:
-							(WithdrawalPeriodRecommendation
-								daysToWait: {1 . 3 . 7 . 21} atRandom
-								crop: crop
-								referenceUrl: '') ].
-			substance ]
 ]

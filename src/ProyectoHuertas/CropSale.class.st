@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-CropSale class >> product: aProduct kilograms: kg fromPlot: aPlot [
+CropSale class >> product: aCrop kilograms: kg fromPlot: aPlot [
 	^ self new
-		product: aProduct;
+		crop: aCrop;
 		kilograms: kg;
 		plot: aPlot;
 		yourself

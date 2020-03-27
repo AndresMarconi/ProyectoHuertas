@@ -20,13 +20,19 @@ NextToHarvestComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 NextToHarvestComponent >> elements [
-	^ ((self session farm sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ])
-		asSortedCollection: [ :a :b | a date < b date ].
+	| sowings |
+	sowings:= (self session farm sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ].
+	^sowings reject: [ :each | self plotsInWaitingPeriod includes: each plot ]
 ]
 
 { #category : #accessing }
 NextToHarvestComponent >> parent [
 	^ parent
+]
+
+{ #category : #'as yet unclassified' }
+NextToHarvestComponent >> plotsInWaitingPeriod [
+	^(self session farm plots reject: [ :plot | ((plot currentCycle) inWaitingPeriod) isNil ])
 ]
 
 { #category : #rendering }

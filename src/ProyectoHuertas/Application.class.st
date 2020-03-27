@@ -10,20 +10,22 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #testing }
-Application class >> isVoyageRoot [
-	^ true
-]
-
 { #category : #'instance creation' }
-Application class >> substance: aSubstance dose: aDose machine: aMachine date: aDate surface: aSurface [
+Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance dose: aDose machine: aMachine reason: aReason [
 	^ self new
+		time: aTime;
 		dose: aDose;
 		machine: aMachine;
 		date: aDate;
-		surface: aSurface;
+		plot: aPlot;
 		substance: aSubstance;
+		reason: aReason;
 		yourself
+]
+
+{ #category : #testing }
+Application class >> isVoyageRoot [
+	^ true
 ]
 
 { #category : #accessing }

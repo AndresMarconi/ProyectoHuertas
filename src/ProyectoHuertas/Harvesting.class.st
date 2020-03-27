@@ -10,6 +10,17 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #'as yet unclassified' }
+Harvesting class >> date: aDate time: aTime plot: aPlot crop: aCrop quantity: aQuantity [
+	^ self new
+		date: aDate;
+		time: aTime;
+		crop: aCrop;
+		quantity: aQuantity;
+		plot: aPlot;
+		yourself
+]
+
 { #category : #testing }
 Harvesting class >> isVoyageRoot [
 	^ true
@@ -18,25 +29,6 @@ Harvesting class >> isVoyageRoot [
 { #category : #accessing }
 Harvesting class >> typeDescriptor [
 	^ 'Cosecha'
-]
-
-{ #category : #'instance creation' }
-Harvesting class >> variety: aVariety quantity: aQuantity date: aDate [
-	^ self new
-		quantity: aQuantity;
-		variety: aVariety;
-		date: aDate;
-		yourself
-]
-
-{ #category : #'instance creation' }
-Harvesting class >> variety: aVariety quantity: aQuantity date: aDate otherUnit: aUnit [
-	^ self new
-		quantity: aQuantity;
-		variety: aVariety;
-		date: aDate;
-		otherUnit: aUnit;
-		yourself
 ]
 
 { #category : #accessing }

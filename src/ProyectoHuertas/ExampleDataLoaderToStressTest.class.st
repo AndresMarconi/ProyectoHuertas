@@ -120,10 +120,10 @@ ExampleDataLoaderToStressTest >> addDemoSowingToPlot: aPlot [
 
 { #category : #loading }
 ExampleDataLoaderToStressTest >> addExpertDemoData [
-	session crops ifEmpty: [ self crops do: #save ].
+	session gapAFarm crops ifEmpty: [ self crops do: #save ].
 	session activeIngredients
 		ifEmpty: [ self activeIngredients do: #save ].
-	session substances ifEmpty: [ self substances do: #save ]
+	session gapAFarm substances ifEmpty: [ self substances do: #save ]
 ]
 
 { #category : #loading }
@@ -161,7 +161,7 @@ ExampleDataLoaderToStressTest >> plots [
 { #category : #utility }
 ExampleDataLoaderToStressTest >> randomCrops: aNumber [
 	| allCrops selectedCrops |
-	allCrops := session crops.
+	allCrops := session gapAFarm crops.
 	selectedCrops := Set new.
 	[ selectedCrops size < (aNumber min: allCrops size / 2) ]
 		whileTrue: [ selectedCrops add: allCrops atRandom ].
@@ -180,7 +180,7 @@ ExampleDataLoaderToStressTest >> session: anObject [
 
 { #category : #constants }
 ExampleDataLoaderToStressTest >> substances [
-	^ session activeIngredients
+	^ session gapAFarm activeIngredients
 		collect: [ :ingredient | 
 			| substance |
 			substance := Substance new
