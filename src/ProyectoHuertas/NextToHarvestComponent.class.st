@@ -12,17 +12,16 @@ NextToHarvestComponent >> columnHeadings [
 { #category : #rendering }
 NextToHarvestComponent >> columnValuesFor: element [
 
-	^ {element plot id.
-		element crop vulgarName.
-		element harvestDate yyyymmdd.
-		element harvestDuration}
+	^ {element id.
+		element currentCrop vulgarName.
+		element currentCycle harvestDate yyyymmdd.
+		element currentCycle endOfPeriod yyyymmdd}
 ]
 
 { #category : #accessing }
 NextToHarvestComponent >> elements [
-	| sowings |
-	sowings:= (self session farm sowings) select: [ :each | (each harvestDate) isAfter: (Date today) ].
-	^sowings reject: [ :each | self plotsInWaitingPeriod includes: each plot ]
+	^((self session farm plots) select: [ :plot| (plot currentCycle harvestDate) isAfter: (Date today)])
+	 reject: [ :plot | self plotsInWaitingPeriod includes: plot ]
 ]
 
 { #category : #accessing }

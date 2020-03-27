@@ -3,7 +3,8 @@ Class {
 	#superclass : #GAFAbstractComponent,
 	#instVars : [
 		'nextToHarvestComponent',
-		'plotsInwithdrawalTimeComponent'
+		'plotsInwithdrawalTimeComponent',
+		'harvestedPlotsComponent'
 	],
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
@@ -13,6 +14,7 @@ FarmerDashboardComponent >> initialize [
 	super initialize.
 	nextToHarvestComponent:= NextToHarvestComponent new.
 	plotsInwithdrawalTimeComponent:= PlotsInWithdrawalTime new.
+	harvestedPlotsComponent:= HarvestedPlotsComponent new.
 ]
 
 { #category : #printing }
@@ -29,8 +31,8 @@ FarmerDashboardComponent >> renderContentOn: html [
 				  column: [ html render: plotsInwithdrawalTimeComponent ] mediumSize: 6 ];
 		 break; break;
 	 	 row: [ 
-			html column: [ self renderYieldOn: html ] mediumSize: 6;
-				  column: [ self renderTrendProblemsOn: html ] mediumSize: 6 ]
+			html column: [ html render: harvestedPlotsComponent ] mediumSize: 8;
+				  column: [ self renderTrendProblemsOn: html ] mediumSize: 4 ]
 ]
 
 { #category : #rendering }

@@ -18,6 +18,26 @@ HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
 ]
 
+{ #category : #'as yet unclassified' }
+HarvestingCycle >> endOfPeriod [
+	^ self harvestDate addDays: self sowing harvestDuration.
+]
+
+{ #category : #'as yet unclassified' }
+HarvestingCycle >> harvestDate [
+	^ self sowing date addDays: self sowing timeToHarvest.
+]
+
+{ #category : #'as yet unclassified' }
+HarvestingCycle >> harvested [
+	^ self harvests inject: 0 into: [ :sum :harvest | sum + harvest quantity magnitude ]
+]
+
+{ #category : #queries }
+HarvestingCycle >> harvests [
+	^ events select: [ :each | each class = Harvesting ]
+]
+
 { #category : #queries }
 HarvestingCycle >> inWaitingPeriod [
 	| waitingPeriods |
@@ -44,7 +64,16 @@ HarvestingCycle >> restart [
 
 { #category : #queries }
 HarvestingCycle >> sowing [
-	^ self sowings first.
+	self sowings ifEmpty: 
+	[ ^Sowing date: ('1900-09-09' asDate) 
+				 time: ('18:00' asTime)  
+				 plot: (Plot new) 
+				 crop: (Crop new) 
+				 quantity: '2000' 
+				 timeToHarvest: 0 
+				 harvestDuration: 0 
+				 expectedYield: 0 ] 		
+	ifNotEmpty: [ :it | ^it first ]
 ]
 
 { #category : #queries }
