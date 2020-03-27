@@ -15,6 +15,11 @@ Substance class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
+Substance >> activeIngredient [
+	^ activeIngredients
+]
+
+{ #category : #accessing }
 Substance >> activeIngredients [
 	^ activeIngredients
 ]

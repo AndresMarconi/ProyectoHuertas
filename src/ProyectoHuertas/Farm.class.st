@@ -132,6 +132,11 @@ Farm >> problems [
 	^ self plots flatCollect: [ :each | each problems ]
 ]
 
+{ #category : #'move-to-gapafarm' }
+Farm >> problemsType [
+	^ self plots flatCollect: [ :each | each problemsType ]
+]
+
 { #category : #accessing }
 Farm >> sales [
 	^ sales

@@ -49,6 +49,22 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoSubstances [
 		addSubstance: (ingredients at: 7) to: (crops at: 5) with: 21.		
 ]
 
+{ #category : #adding }
+ExampleDataLoaderToShowcaseTheDashboard >> addDemoUsers [
+	5 timesRepeat: [ 
+		| user farm |
+		lastDay:= Date today.  
+		user:= GAFUser new.
+		farm:= Farm name: 'nueva granja'.
+		self plots do: [ :each | farm addPlot: each. each save].
+		self addProblemsTo: farm plots.
+		farm problems do: [ :each | each save ].
+		user addFarm: farm.
+		farm save.
+		user save.
+	]
+]
+
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventAcelgaToHarvestTo: aPlot [
 	| crop sowing harvesting |
@@ -102,7 +118,9 @@ ExampleDataLoaderToShowcaseTheDashboard >> addExpertDemoData [
 	session gapAFarm crops ifEmpty: [ self crops do: #save ].
 	session gapAFarm activeIngredients
 		ifEmpty: [ self activeIngredients do: #save ].
-	session gapAFarm substances ifEmpty: [ self addDemoSubstances ]
+	session gapAFarm substances ifEmpty: [ self addDemoSubstances ].
+	self addDemoUsers.
+	
 ]
 
 { #category : #loading }
@@ -111,6 +129,17 @@ ExampleDataLoaderToShowcaseTheDashboard >> addFarmerDemoData [
 	session farm plots
 		ifEmpty: [ self addDemoPlots].
 	self addDemoEvents
+]
+
+{ #category : #adding }
+ExampleDataLoaderToShowcaseTheDashboard >> addProblemsTo: plots [
+	(plots at: 1) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 1) name: 'pulgon' type: 'Ácaros').
+	(plots at: 2) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 2) name: 'mosca blanca' type: 'Insectos').
+	(plots at: 3) addEvent: (Problem date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: (plots at: 3) name: 'pulgon' type: 'Ácaros').
+	(plots at: 4) addEvent: (Problem date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: (plots at: 4) name: 'mosca blanca' type: 'Insectos').
+	(plots at: 5) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 5) name: 'Alternaria' type: 'enfermedad').
+	(plots at: 7) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 7) name: 'Alternaria' type: 'enfermedad').
+	(plots at: 8) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 8) name: 'Alternaria' type: 'enfermedad')
 ]
 
 { #category : #constants }

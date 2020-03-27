@@ -122,6 +122,11 @@ Plot >> problems [
 ]
 
 { #category : #accessing }
+Plot >> problemsType [
+	^self problems collect: [ :each | each type ]
+]
+
+{ #category : #accessing }
 Plot >> sowings [
 	^ self events select: [ :event | event class = Sowing ]
 ]
