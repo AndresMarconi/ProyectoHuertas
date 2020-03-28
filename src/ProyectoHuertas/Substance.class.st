@@ -16,7 +16,8 @@ Substance class >> isVoyageRoot [
 
 { #category : #accessing }
 Substance >> activeIngredient [
-	^ activeIngredients
+	(activeIngredients class = OrderedCollection) 
+	ifTrue: [ ^ activeIngredients at: 1 ] ifFalse: [ ^activeIngredients ]
 ]
 
 { #category : #accessing }

@@ -17,7 +17,7 @@ Class {
 ApplicationEditor >> accept [
 	(self children anySatisfy: [ :each | each hasProblems ])
 		ifTrue: [ ^ self ].
-	 (self checkWithdrawalPeriodRecomendation and: [ self checkItemQuantity ])
+	 (self checkWithdrawalPeriodRecomendation)
 	ifFalse: [ ^self ].
 	super accept
 ]
