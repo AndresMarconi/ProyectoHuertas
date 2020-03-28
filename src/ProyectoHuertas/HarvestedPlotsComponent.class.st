@@ -14,7 +14,7 @@ HarvestedPlotsComponent >> columnValuesFor: element [
 
 	^ {element id.
 		element currentCrop vulgarName.
-		element harvested.
+		element currentCycle harvested.
 		element currentCycle sowing expectedYield.
 		element currentCrop optimalYieldPerPlant.
 		element currentCycle endOfPeriod}
@@ -23,7 +23,7 @@ HarvestedPlotsComponent >> columnValuesFor: element [
 { #category : #accessing }
 HarvestedPlotsComponent >> elements [
 	^ (self session farm plots select: [ :plot | 
-		(plot currentCycle endOfPeriod isBefore: Date today)
+		(Date today isBefore: plot currentCycle endOfPeriod)
 		and: [ plot currentCycle harvestDate isAfter: Date today ] ] ).
 ]
 

@@ -30,7 +30,7 @@ HarvestingCycle >> harvestDate [
 
 { #category : #'as yet unclassified' }
 HarvestingCycle >> harvested [
-	^ self harvests inject: 0 into: [ :sum :harvest | sum + harvest quantity magnitude ]
+	^ self harvests inject: 0 into: [ :sum :harvest | sum + harvest quantity ]
 ]
 
 { #category : #queries }

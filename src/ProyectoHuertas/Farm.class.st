@@ -132,11 +132,6 @@ Farm >> problems [
 	^ self plots flatCollect: [ :each | each problems ]
 ]
 
-{ #category : #'move-to-gapafarm' }
-Farm >> problemsType [
-	^ self plots flatCollect: [ :each | each problemsType ]
-]
-
 { #category : #accessing }
 Farm >> sales [
 	^ sales
@@ -148,11 +143,7 @@ Farm >> sowings [
 ]
 
 { #category : #accessing }
-Farm >> updateStockOf: substance with: quantity expiringOn: aDate [
-	inventoryItems
-		add:
-			(InventoryItem
-				substance: substance
-				quantity: quantity
-				expirationDate: aDate)
+Farm >> updateStockOf: substance with: item [ 
+	substance updateStock: item
+	
 ]

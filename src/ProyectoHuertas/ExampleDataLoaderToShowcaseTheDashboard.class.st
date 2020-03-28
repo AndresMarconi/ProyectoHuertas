@@ -25,7 +25,10 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoEvents [
 	self addEventAcelgaToHarvestTo: (self session farm plots at: 2).
 	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 3). 
 	self addEventAcelgaToHarvestTo: (self session farm plots at: 4).
-	self addEventEspinacaInwaitingPeriodTo: (self session farm plots at: 5)	
+	self addEventEspinacaInwaitingPeriodTo: (self session farm plots at: 5).	
+	self addEventPimientoInHarvestingTo: (self session farm plots at: 7).
+	self addEventPimientoInHarvestingTo: (self session farm plots at: 8).
+	self addEventAlbahacaInHarvestingTo: (self session farm plots at: 9)
 ]
 
 { #category : #loading }
@@ -68,9 +71,21 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoUsers [
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventAcelgaToHarvestTo: aPlot [
 	| crop sowing harvesting |
-	crop := (session gapAFarm crops 
-		select: [ :each | each vulgarName = 'Acelga' ]) at: 1.
+	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Acelga' ].
 	sowing := Sowing date: (lastDay subtractDays: 29) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 30 harvestDuration: 4 expectedYield: 2000.
+	harvesting:= Harvesting date: (lastDay subtractDays: 1) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
+	aPlot addEvent: sowing;
+			addEvent: harvesting.
+	sowing save.
+	harvesting save.
+	aPlot save. 
+]
+
+{ #category : #loading }
+ExampleDataLoaderToShowcaseTheDashboard >> addEventAlbahacaInHarvestingTo: aPlot [
+	| crop sowing harvesting |
+	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Albahaca' ].
+	sowing := Sowing date: (lastDay subtractDays: 40) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 38 harvestDuration: 10 expectedYield: 2000.
 	harvesting:= Harvesting date: (lastDay subtractDays: 1) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
 	aPlot addEvent: sowing;
 			addEvent: harvesting.
@@ -82,10 +97,10 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventAcelgaToHarvestTo: aPlot [
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aPlot [
 	| crop substance sowing problem application |
-	crop := (session gapAFarm crops select: [ :each | each vulgarName = 'Espinaca' ]) at: 1.
-	substance := (session gapAFarm substances) at: 3.
+	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Espinaca' ].
+	substance := session gapAFarm substances at: 3.
 	sowing := Sowing date: (lastDay subtractDays: 30) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 40 harvestDuration: 7 expectedYield: 2000.
-	problem := Problem date: (lastDay subtractDays: 15) time: ('18:00' asTime) plot: aPlot name: 'Añternaria' type: 'Enfermedad'.
+	problem := Problem date: (lastDay subtractDays: 15) time: ('18:00' asTime) plot: aPlot name: 'Alternaria' type: 'Enfermedad'.
 	application:= Application date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'Remedio para la enfermedad'.
 	aPlot addEvent: sowing;
 			addEvent: application;
@@ -97,11 +112,24 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aP
 ]
 
 { #category : #loading }
+ExampleDataLoaderToShowcaseTheDashboard >> addEventPimientoInHarvestingTo: aPlot [
+	| crop sowing harvesting |
+	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Pimiento' ].
+	sowing := Sowing date: (lastDay subtractDays: 25) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 22 harvestDuration: 10 expectedYield: 2000.
+	harvesting:= Harvesting date: (lastDay subtractDays: 2) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
+	aPlot addEvent: sowing;
+			addEvent: harvesting.
+	sowing save.
+	harvesting save.
+	aPlot save. 
+]
+
+{ #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlot [
 	| crop substance sowing problem application |
-	crop := (session gapAFarm crops select: [ :each | each vulgarName = 'Tomate' ]) at: 1.
-	substance := (session gapAFarm substances) at: 1.
-	sowing := Sowing date: (lastDay subtractDays: 45) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 50 harvestDuration: 7 expectedYield: 2000.
+	crop:= session gapAFarm crops detect: [ :each | each vulgarName = 'Tomate' ].
+	substance:= (session gapAFarm substances) at: 1.
+	sowing:= Sowing date: (lastDay subtractDays: 45) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 50 harvestDuration: 7 expectedYield: 2000.
 	problem := Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: aPlot name: 'pulgon' type: 'Ácaros'.
 	application:= Application date: (lastDay subtractDays: 2) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'contra el pulgon'.
 	aPlot addEvent: sowing;

@@ -4,17 +4,6 @@ Class {
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
-{ #category : #adding }
-InventoryComponent >> addSubstanceStock [
-	| substanceStock |
-	substanceStock := self call: (InventoryItemEditor subject: InventoryItem new).
-	substanceStock ifNotNil: [ :it | 
-		it save.
-		self session farm addInventory: it.
-		self session farm save.
-		self initializeLists ]
-]
-
 { #category : #rendering }
 InventoryComponent >> columnHeadings [
 	^ {'Nombre comercial' . 'Principio Activo' . 'Cantidad disponible'}, super columnHeadings
@@ -54,7 +43,12 @@ InventoryComponent >> initialize [
 
 { #category : #adding }
 InventoryComponent >> saveAddedElement: anInventoryItem [
-	super saveAddedElement: anInventoryItem.
-	self session farm addInventoryItem: anInventoryItem.
+	(self session farm inventoryItems 
+	detect: [ :each | each substance = anInventoryItem substance]) 
+	ifNil: [ 
+		super saveAddedElement: anInventoryItem. 
+		self session farm addInventoryItem: anInventoryItem ]
+	ifNotNil: [ :it |
+		self session farm updateStockOf: it with: anInventoryItem  ].
 	self session farm save
 ]

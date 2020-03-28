@@ -52,3 +52,14 @@ InventoryItem >> substance [
 InventoryItem >> substance: anObject [
 	substance := anObject
 ]
+
+{ #category : #'as yet unclassified' }
+InventoryItem >> updateStock: item [
+	quantity := quantity + item quantity.
+	expirationDate:= item expirationDate.
+]
+
+{ #category : #'as yet unclassified' }
+InventoryItem >> useItem: usageQuantity [
+	quantity := quantity - usageQuantity
+]

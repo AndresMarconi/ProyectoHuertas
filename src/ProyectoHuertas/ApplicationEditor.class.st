@@ -7,21 +7,39 @@ Class {
 		'machineEditorComponent',
 		'substanceEditorComponent',
 		'reasonEditorComponent',
-		'notAllowed'
+		'notAllowed',
+		'notEnough'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #callbacks }
 ApplicationEditor >> accept [
-	| substance plot |
 	(self children anySatisfy: [ :each | each hasProblems ])
 		ifTrue: [ ^ self ].
+	 (self checkWithdrawalPeriodRecomendation and: [ self checkItemQuantity ])
+	ifFalse: [ ^self ].
+	super accept
+]
+
+{ #category : #'as yet unclassified' }
+ApplicationEditor >> checkItemQuantity [
+	| item |
+	item:= self session farm inventoryItems detect: 
+		[ :each | each substance = substanceEditorComponent bufferedValue].
+	item quantity >= doseEditorComponent bufferedValue
+		ifTrue: [ ^true ]
+		ifFalse: [ notEnough:= true. ^false ]
+]
+
+{ #category : #'as yet unclassified' }
+ApplicationEditor >> checkWithdrawalPeriodRecomendation [
+	| substance plot |
 	substance:= substanceEditorComponent bufferedValue.
 	plot:= plotEditorComponent bufferedValue.
 	((substance allowedUsage) includes: (plot currentCrop))
-		ifFalse: [ notAllowed:= true. ^self ]. 
-	super accept
+		ifFalse: [ notAllowed:= true. ^false ]
+		ifTrue: [ ^true ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -44,7 +62,7 @@ ApplicationEditor >> initializeComponents [
 		label: 'Razón'
 		required: true.
 	reasonEditorComponent possibleValues: self possibleReasons.
-	doseEditorComponent := TextLinePropertyEditorComponent
+	doseEditorComponent := NumberPropertyEditorComponent 
 		subject: subject
 		selector: #dose
 		label: 'Dosis'
@@ -62,6 +80,7 @@ ApplicationEditor >> initializeComponents [
 	substanceEditorComponent possibleValues: {nil} , self substances.
 	substanceEditorComponent instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
 	notAllowed := false.
+	notEnough:= false.
 
 ]
 
@@ -85,7 +104,9 @@ ApplicationEditor >> renderContentOn: html [
 { #category : #rendering }
 ApplicationEditor >> renderProblemOn: html [
 	notAllowed ifTrue: [ html alert beDanger; 
-		with: 'no puede aplicar ', substanceEditorComponent bufferedValue comercialName,' a ', plotEditorComponent bufferedValue currentCrop vulgarName ]
+		with: 'no puede aplicar ', substanceEditorComponent bufferedValue comercialName,' a ', plotEditorComponent bufferedValue currentCrop vulgarName ].
+	notEnough ifTrue: [ html alert beDanger; 
+		with: 'no tiene suficiente ', substanceEditorComponent bufferedValue comercialName,' para aplicar']
 ]
 
 { #category : #accessing }
