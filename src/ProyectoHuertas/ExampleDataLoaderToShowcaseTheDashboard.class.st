@@ -54,91 +54,182 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoSubstances [
 
 { #category : #adding }
 ExampleDataLoaderToShowcaseTheDashboard >> addDemoUsers [
-	5 timesRepeat: [ 
-		| user farm |
-		lastDay:= Date today.  
-		user:= GAFUser new.
-		farm:= Farm name: 'nueva granja'.
-		self plots do: [ :each | farm addPlot: each. each save].
-		self addProblemsTo: farm plots.
-		farm problems do: [ :each | each save ].
-		user addFarm: farm.
-		farm save.
-		user save.
-	]
+	5
+		timesRepeat: [ | user farm |
+			lastDay := Date today.
+			user := GAFUser new.
+			farm := Farm name: 'nueva granja'.
+			self plots
+				do: [ :each | 
+					farm addPlot: each.
+					each save ].
+			self addProblemsTo: farm plots.
+			farm problems do: [ :each | each save ].
+			user addFarm: farm.
+			farm save.
+			user save ]
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventAcelgaToHarvestTo: aPlot [
 	| crop sowing harvesting |
-	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Acelga' ].
-	sowing := Sowing date: (lastDay subtractDays: 29) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 30 harvestDuration: 4 expectedYield: 2000.
-	harvesting:= Harvesting date: (lastDay subtractDays: 1) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
-	aPlot addEvent: sowing;
-			addEvent: harvesting.
+	crop := session gapAFarm crops
+		detect: [ :each | each vulgarName = 'Acelga' ].
+	sowing := Sowing
+		date: (lastDay subtractDays: 29)
+		time: '12:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas')
+		timeToHarvest: 30
+		harvestDuration: 4
+		expectedYield: 2000.
+	harvesting := Harvesting
+		date: (lastDay subtractDays: 1)
+		time: '18:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: 1000.
+	aPlot
+		addEvent: sowing;
+		addEvent: harvesting.
 	sowing save.
 	harvesting save.
-	aPlot save. 
+	aPlot save
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventAlbahacaInHarvestingTo: aPlot [
 	| crop sowing harvesting |
-	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Albahaca' ].
-	sowing := Sowing date: (lastDay subtractDays: 40) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 38 harvestDuration: 10 expectedYield: 2000.
-	harvesting:= Harvesting date: (lastDay subtractDays: 1) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
-	aPlot addEvent: sowing;
-			addEvent: harvesting.
+	crop := session gapAFarm crops
+		detect: [ :each | each vulgarName = 'Albahaca' ].
+	sowing := Sowing
+		date: (lastDay subtractDays: 40)
+		time: '12:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas')
+		timeToHarvest: 38
+		harvestDuration: 10
+		expectedYield: 2000.
+	harvesting := Harvesting
+		date: (lastDay subtractDays: 1)
+		time: '18:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: 1000.
+	aPlot
+		addEvent: sowing;
+		addEvent: harvesting.
 	sowing save.
 	harvesting save.
-	aPlot save. 
+	aPlot save
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aPlot [
 	| crop substance sowing problem application |
-	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Espinaca' ].
+	crop := session gapAFarm crops
+		detect: [ :each | each vulgarName = 'Espinaca' ].
 	substance := session gapAFarm substances at: 3.
-	sowing := Sowing date: (lastDay subtractDays: 30) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 40 harvestDuration: 7 expectedYield: 2000.
-	problem := Problem date: (lastDay subtractDays: 15) time: ('18:00' asTime) plot: aPlot name: 'Alternaria' type: 'Enfermedad'.
-	application:= Application date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'Remedio para la enfermedad'.
-	aPlot addEvent: sowing;
-			addEvent: application;
-			addEvent: problem.	
+	sowing := Sowing
+		date: (lastDay subtractDays: 30)
+		time: '18:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas')
+		timeToHarvest: 40
+		harvestDuration: 7
+		expectedYield: 2000.
+	problem := Problem
+		date: (lastDay subtractDays: 15)
+		time: '18:00' asTime
+		plot: aPlot
+		name: 'Alternaria'
+		type: Problem types second.
+	application := Application
+		date: (lastDay subtractDays: 10)
+		time: '18:00' asTime
+		plot: aPlot
+		substance: substance
+		dose: '2'
+		machine: '1'
+		reason: Application reasons second.
+	aPlot
+		addEvent: sowing;
+		addEvent: application;
+		addEvent: problem.
 	sowing save.
 	problem save.
 	application save.
-	aPlot save. 
+	aPlot save
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventPimientoInHarvestingTo: aPlot [
 	| crop sowing harvesting |
-	crop := session gapAFarm crops detect: [ :each | each vulgarName = 'Pimiento' ].
-	sowing := Sowing date: (lastDay subtractDays: 25) time: ('12:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 22 harvestDuration: 10 expectedYield: 2000.
-	harvesting:= Harvesting date: (lastDay subtractDays: 2) time: ('18:00' asTime) plot: aPlot crop: crop  quantity: 1000.
-	aPlot addEvent: sowing;
-			addEvent: harvesting.
+	crop := session gapAFarm crops
+		detect: [ :each | each vulgarName = 'Pimiento' ].
+	sowing := Sowing
+		date: (lastDay subtractDays: 25)
+		time: '12:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas')
+		timeToHarvest: 22
+		harvestDuration: 10
+		expectedYield: 2000.
+	harvesting := Harvesting
+		date: (lastDay subtractDays: 2)
+		time: '18:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: 1000.
+	aPlot
+		addEvent: sowing;
+		addEvent: harvesting.
 	sowing save.
 	harvesting save.
-	aPlot save. 
+	aPlot save
 ]
 
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlot [
 	| crop substance sowing problem application |
-	crop:= session gapAFarm crops detect: [ :each | each vulgarName = 'Tomate' ].
-	substance:= (session gapAFarm substances) at: 1.
-	sowing:= Sowing date: (lastDay subtractDays: 45) time: ('18:00' asTime) plot: aPlot crop: crop quantity: (Measurement magnitude: 1000 unit: 'Plantas') timeToHarvest: 50 harvestDuration: 7 expectedYield: 2000.
-	problem := Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: aPlot name: 'pulgon' type: 'Ácaros'.
-	application:= Application date: (lastDay subtractDays: 2) time: ('18:00' asTime) plot: aPlot substance: substance dose: '2' machine: '1' reason:'contra el pulgon'.
-	aPlot addEvent: sowing;
-			addEvent: application;
-			addEvent: problem.	
+	crop := session gapAFarm crops
+		detect: [ :each | each vulgarName = 'Tomate' ].
+	substance := session gapAFarm substances at: 1.
+	sowing := Sowing
+		date: (lastDay subtractDays: 45)
+		time: '18:00' asTime
+		plot: aPlot
+		crop: crop
+		quantity: (Measurement magnitude: 1000 unit: 'Plantas')
+		timeToHarvest: 50
+		harvestDuration: 7
+		expectedYield: 2000.
+	problem := Problem
+		date: (lastDay subtractDays: 5)
+		time: '18:00' asTime
+		plot: aPlot
+		name: 'Pulgón'
+		type: Problem types first.
+	application := Application
+		date: (lastDay subtractDays: 2)
+		time: '18:00' asTime
+		plot: aPlot
+		substance: substance
+		dose: '2'
+		machine: '1'
+		reason: Application reasons first.
+	aPlot
+		addEvent: sowing;
+		addEvent: application;
+		addEvent: problem.
 	sowing save.
 	problem save.
 	application save.
-	aPlot save. 
+	aPlot save
 ]
 
 { #category : #loading }
@@ -147,8 +238,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addExpertDemoData [
 	session gapAFarm activeIngredients
 		ifEmpty: [ self activeIngredients do: #save ].
 	session gapAFarm substances ifEmpty: [ self addDemoSubstances ].
-	self addDemoUsers.
-	
+	self addDemoUsers
 ]
 
 { #category : #loading }
@@ -161,13 +251,62 @@ ExampleDataLoaderToShowcaseTheDashboard >> addFarmerDemoData [
 
 { #category : #adding }
 ExampleDataLoaderToShowcaseTheDashboard >> addProblemsTo: plots [
-	(plots at: 1) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 1) name: 'pulgon' type: 'Ácaros').
-	(plots at: 2) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 2) name: 'mosca blanca' type: 'Insectos').
-	(plots at: 3) addEvent: (Problem date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: (plots at: 3) name: 'pulgon' type: 'Ácaros').
-	(plots at: 4) addEvent: (Problem date: (lastDay subtractDays: 10) time: ('18:00' asTime) plot: (plots at: 4) name: 'mosca blanca' type: 'Insectos').
-	(plots at: 5) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 5) name: 'Alternaria' type: 'enfermedad').
-	(plots at: 7) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 7) name: 'Alternaria' type: 'enfermedad').
-	(plots at: 8) addEvent: (Problem date: (lastDay subtractDays: 5) time: ('18:00' asTime) plot: (plots at: 8) name: 'Alternaria' type: 'enfermedad')
+	(plots at: 1)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 5)
+				time: '18:00' asTime
+				plot: (plots at: 1)
+				name: 'Pulgón'
+				type: Problem types first).
+	(plots at: 2)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 5)
+				time: '18:00' asTime
+				plot: (plots at: 2)
+				name: 'Mosca blanca'
+				type: Problem types fourth).
+	(plots at: 3)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 10)
+				time: '18:00' asTime
+				plot: (plots at: 3)
+				name: 'Pulgón'
+				type: Problem types first).
+	(plots at: 4)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 10)
+				time: '18:00' asTime
+				plot: (plots at: 4)
+				name: 'Mosca blanca'
+				type: Problem types fourth).
+	(plots at: 5)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 5)
+				time: '18:00' asTime
+				plot: (plots at: 5)
+				name: 'Alternaria'
+				type: Problem types second).
+	(plots at: 7)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 5)
+				time: '18:00' asTime
+				plot: (plots at: 7)
+				name: 'Alternaria'
+				type: Problem types second).
+	(plots at: 8)
+		addEvent:
+			(Problem
+				date: (lastDay subtractDays: 5)
+				time: '18:00' asTime
+				plot: (plots at: 8)
+				name: 'Alternaria'
+				type: Problem types second)
 ]
 
 { #category : #constants }

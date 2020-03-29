@@ -19,11 +19,6 @@ CropSale class >> product: aCrop kilograms: kg fromPlot: aPlot [
 ]
 
 { #category : #accessing }
-CropSale class >> typeDescriptor [
-	^ 'Venta'
-]
-
-{ #category : #accessing }
 CropSale >> crop [
 	^ crop
 ]

@@ -157,5 +157,9 @@ EventsChronologyComponent >> summaryForSowing: aSowing [
 
 { #category : #rendering }
 EventsChronologyComponent >> typeDescriptorFor: element [
-	^ element class typeDescriptor
+	^ {(Application -> 'Aplicación').
+	(CropSale -> 'Venta').
+	(Harvesting -> 'Cosecha').
+	(Problem -> 'Adversidad').
+	(Sowing -> 'Siembra')} asDictionary at: element class
 ]

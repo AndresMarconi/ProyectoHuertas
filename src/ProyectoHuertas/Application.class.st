@@ -28,9 +28,10 @@ Application class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #accessing }
-Application class >> typeDescriptor [
-	^ 'Aplicación'
+{ #category : #constants }
+Application class >> reasons [
+	^ {'Control de peste' . 'Tratamiento de enfermedad'.
+	'Prevención' . 'Preparación de suelo' . 'Otro (aclarar en notas)'}
 ]
 
 { #category : #accessing }

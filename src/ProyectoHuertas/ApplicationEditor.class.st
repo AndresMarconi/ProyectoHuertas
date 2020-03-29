@@ -13,35 +13,6 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
-{ #category : #callbacks }
-ApplicationEditor >> accept [
-	(self children anySatisfy: [ :each | each hasProblems ])
-		ifTrue: [ ^ self ].
-	 (self checkWithdrawalPeriodRecomendation)
-	ifFalse: [ ^self ].
-	super accept
-]
-
-{ #category : #'as yet unclassified' }
-ApplicationEditor >> checkItemQuantity [
-	| item |
-	item:= self session farm inventoryItems detect: 
-		[ :each | each substance = substanceEditorComponent bufferedValue].
-	item quantity >= doseEditorComponent bufferedValue
-		ifTrue: [ ^true ]
-		ifFalse: [ notEnough:= true. ^false ]
-]
-
-{ #category : #'as yet unclassified' }
-ApplicationEditor >> checkWithdrawalPeriodRecomendation [
-	| substance plot |
-	substance:= substanceEditorComponent bufferedValue.
-	plot:= plotEditorComponent bufferedValue.
-	((substance allowedUsage) includes: (plot currentCrop))
-		ifFalse: [ notAllowed:= true. ^false ]
-		ifTrue: [ ^true ]
-]
-
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> eventSpecificChildren [
 
@@ -61,7 +32,7 @@ ApplicationEditor >> initializeComponents [
 		selector: #reason
 		label: 'Razón'
 		required: true.
-	reasonEditorComponent possibleValues: self possibleReasons.
+	reasonEditorComponent possibleValues: Application reasons.
 	doseEditorComponent := NumberPropertyEditorComponent 
 		subject: subject
 		selector: #dose
@@ -87,12 +58,6 @@ ApplicationEditor >> initializeComponents [
 { #category : #accessing }
 ApplicationEditor >> plots [
 	^ self session farm plots asOrderedCollection
-]
-
-{ #category : #'subclass-responsibility' }
-ApplicationEditor >> possibleReasons [
-	^ {'Control de peste' . 'Tratamiento de enfermedad'.
-	'Prevención' . 'Preparación de suelo' . 'Otro (aclarar en notas)'}
 ]
 
 { #category : #rendering }

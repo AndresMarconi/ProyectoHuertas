@@ -27,11 +27,6 @@ Harvesting class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
-Harvesting class >> typeDescriptor [
-	^ 'Cosecha'
-]
-
-{ #category : #accessing }
 Harvesting >> crop [
 	^ crop
 ]

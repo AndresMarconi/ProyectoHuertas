@@ -32,11 +32,6 @@ Sowing class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
-Sowing class >> typeDescriptor [
-	^ 'Siembra'
-]
-
-{ #category : #accessing }
 Sowing >> crop [
 	^ crop
 ]

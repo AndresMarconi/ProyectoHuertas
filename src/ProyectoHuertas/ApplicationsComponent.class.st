@@ -43,13 +43,3 @@ ApplicationsComponent >> elements [
 ApplicationsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Aplicaciones'
 ]
-
-{ #category : #adding }
-ApplicationsComponent >> saveAddedElement: anApplication [
-	| item |
-	item:= self session farm inventoryItems detect: [ :each | each substance = anApplication substance].
-	item useItem: anApplication dose.
-	item save.
-	self session farm save.
-	super saveAddedElement: anApplication.
-]

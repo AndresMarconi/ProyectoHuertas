@@ -24,11 +24,6 @@ Problem class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #accessing }
-Problem class >> typeDescriptor [
-	^ 'Adversidad'
-]
-
 { #category : #constants }
 Problem class >> types [
 	"types of possible problems"
