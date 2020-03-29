@@ -1,11 +1,11 @@
 Class {
 	#name : #ReactionsDashboardComponent,
-	#superclass : #ExpertDashboardCardComponent,
+	#superclass : #GAFAbstractComponent,
 	#category : #'ProyectoHuertas-ui-expert-dashboard'
 }
 
 { #category : #rendering }
-ReactionsDashboardComponent >> renderCardContentOn: html [
+ReactionsDashboardComponent >> renderContentOn: html [
 	html table
 		class: 'table table-hover';
 		with: [ html

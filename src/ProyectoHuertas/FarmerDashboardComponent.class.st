@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'nextToHarvestComponent',
 		'plotsInwithdrawalTimeComponent',
-		'harvestedPlotsComponent'
+		'yieldReportsComponent'
 	],
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
@@ -13,26 +13,44 @@ Class {
 FarmerDashboardComponent >> initialize [ 
 	super initialize.
 	nextToHarvestComponent:= NextToHarvestComponent new.
-	plotsInwithdrawalTimeComponent:= PlotsInWithdrawalTime new.
-	harvestedPlotsComponent:= HarvestedPlotsComponent new.
-]
-
-{ #category : #printing }
-FarmerDashboardComponent >> printOn: aStream [
-	aStream nextPutAll: 'Tablero de Control'
+	plotsInwithdrawalTimeComponent:= PlotsInWithdrawalTimeComponent new.
+	yieldReportsComponent:= YeildReportsComponent new. 
 ]
 
 { #category : #rendering }
 FarmerDashboardComponent >> renderContentOn: html [
-	html heading: self session farm name;
-		 break; break;
-		 row: [ 
-			html column: [ html render: nextToHarvestComponent ] mediumSize: 6;
-				  column: [ html render: plotsInwithdrawalTimeComponent ] mediumSize: 6 ];
-		 break; break;
-	 	 row: [ 
-			html column: [ html render: harvestedPlotsComponent ] mediumSize: 8;
-				  column: [ self renderTrendProblemsOn: html ] mediumSize: 4 ]
+	html
+		row: [ html
+				column: [ self renderNextToHarvestCardOn: html ] mediumSize: 6;
+				column: [ self renderInWithdrawalCardOn: html ] mediumSize: 6 ];
+		row:
+				[ html column: [ self renderYieldReportsCardOn: html ] mediumSize: 8 ]
+]
+
+{ #category : #rendering }
+FarmerDashboardComponent >> renderInWithdrawalCardOn: html [
+	^ html
+		render:
+			(DashboardCardDecorator new
+				component: plotsInwithdrawalTimeComponent;
+				title: 'En carencia';
+				subtitle:
+					'Respete las carencias correspondientes a los fitosanitarios aplicados.';
+				imageUrl: GAFLibrary / #stopJpg;
+				yourself)
+]
+
+{ #category : #rendering }
+FarmerDashboardComponent >> renderNextToHarvestCardOn: html [
+	^ html
+		render:
+			(DashboardCardDecorator new
+				component: nextToHarvestComponent;
+				title: 'Próximo a cosechar';
+				subtitle:
+					'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.';
+				imageUrl: GAFLibrary / #harvestingpeopleJpg;
+				yourself)
 ]
 
 { #category : #rendering }
@@ -59,6 +77,12 @@ FarmerDashboardComponent >> renderTrendProblemsOn: html [
 ]
 
 { #category : #rendering }
-FarmerDashboardComponent >> renderYieldOn: html [
-	html text: 'aqui se mostrara un grafico comparando lo que se esperaba para cosechar y lo que se cosecho'
+FarmerDashboardComponent >> renderYieldReportsCardOn: html [
+	^ html
+		render:
+			(DashboardCardDecorator new
+				component: yieldReportsComponent;
+				title: 'Rinde';
+				subtitle: 'Su rinde actual vs. el esperato y el óptimo.';
+				yourself)
 ]

@@ -10,6 +10,11 @@ ManifestProyectoHuertas class >> ruleRBBadMessageRuleV1FalsePositive [
 ]
 
 { #category : #'code-critics' }
+ManifestProyectoHuertas class >> ruleRBMissingTranslationsInMenusRuleV1FalsePositive [
+	^ #(#(#(#RGPackage #(#ProyectoHuertas)) #'2020-03-29T14:26:07.713208-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestProyectoHuertas class >> ruleRBStringConcatenationRuleV1FalsePositive [
 	^ #(#(#(#RGPackage #(#ProyectoHuertas)) #'2019-11-14T22:26:18.924963-03:00') )
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #CropsForExpertsDashboardComponent,
-	#superclass : #ExpertDashboardCardComponent,
+	#superclass : #GAFAbstractComponent,
 	#category : #'ProyectoHuertas-ui-expert-dashboard'
 }
 
@@ -26,7 +26,7 @@ CropsForExpertsDashboardComponent >> inthisWeek: elements of: crop [
 ]
 
 { #category : #rendering }
-CropsForExpertsDashboardComponent >> renderCardContentOn: html [
+CropsForExpertsDashboardComponent >> renderContentOn: html [
 	html table
 		class: 'table table-hover';
 		with: [ self tableHeadingOn: html.

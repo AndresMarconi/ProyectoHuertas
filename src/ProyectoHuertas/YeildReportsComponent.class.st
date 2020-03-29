@@ -1,16 +1,16 @@
 Class {
-	#name : #HarvestedPlotsComponent,
+	#name : #YeildReportsComponent,
 	#superclass : #GAFAbstractTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
 { #category : #rendering }
-HarvestedPlotsComponent >> columnHeadings [
+YeildReportsComponent >> columnHeadings [
 	^  {'Lote'. 'Cultivo' . 'Cosechado' . 'Esperado'. 'Optimo'. 'Fecha de fin'}
 ]
 
 { #category : #rendering }
-HarvestedPlotsComponent >> columnValuesFor: element [
+YeildReportsComponent >> columnValuesFor: element [
 
 	^ {element id.
 		element currentCrop vulgarName.
@@ -21,21 +21,19 @@ HarvestedPlotsComponent >> columnValuesFor: element [
 ]
 
 { #category : #accessing }
-HarvestedPlotsComponent >> elements [
+YeildReportsComponent >> elements [
 	^ (self session farm plots select: [ :plot | 
 		(Date today isBefore: plot currentCycle endOfPeriod)
 		and: [ plot currentCycle harvestDate isAfter: Date today ] ] ).
 ]
 
 { #category : #accessing }
-HarvestedPlotsComponent >> parent [
+YeildReportsComponent >> parent [
 	^ parent
 ]
 
 { #category : #rendering }
-HarvestedPlotsComponent >> renderContentOn: html [
-	html heading level3; with: 'Lotes en periodo de cosecha'.
-	html paragraph: 'Se muestran los resultados de su cosecha hasta ahora.'.
+YeildReportsComponent >> renderContentOn: html [
 	paginator elementsPerPage: 5.
-	super renderContentOn: html.
+	super renderContentOn: html
 ]

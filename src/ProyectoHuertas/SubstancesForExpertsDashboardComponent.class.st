@@ -1,6 +1,6 @@
 Class {
 	#name : #SubstancesForExpertsDashboardComponent,
-	#superclass : #ExpertDashboardCardComponent,
+	#superclass : #GAFAbstractComponent,
 	#category : #'ProyectoHuertas-ui-expert-dashboard'
 }
 
@@ -22,7 +22,7 @@ SubstancesForExpertsDashboardComponent >> inthisWeek: elements of: ingredient [
 ]
 
 { #category : #rendering }
-SubstancesForExpertsDashboardComponent >> renderCardContentOn: html [
+SubstancesForExpertsDashboardComponent >> renderContentOn: html [
 	html table
 		class: 'table table-hover';
 		with: [ self tableHeadingOn: html.
