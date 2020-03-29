@@ -22,7 +22,10 @@ GAFLoginComponent >> renderContentOn: html [
 	html
 		container: [ html break.
 			html
-				jumbotron: [ html heading: 'GAP-a-Farm'.
+				jumbotron: [ html
+						heading: [ html text: 'GAP-a-Farm'.
+							(self requestContext request url printString includesSubstring: 'expert')
+								ifTrue: [ html strong: ' (para expertos!)' ] ].
 					html image url: GAFLibrary / #farmomaticJpeg.
 					html
 						break;
