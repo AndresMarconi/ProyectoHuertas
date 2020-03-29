@@ -107,8 +107,9 @@ EventsChronologyComponent >> renderPlotSelectorOn: html [
 
 { #category : #summaries }
 EventsChronologyComponent >> summaryForApplication: anApplication [
-	^ anApplication substance comercialName , ': ' , anApplication dose
-		, ' (' , anApplication reason , ')'
+	^ anApplication substance comercialName , ': '
+		, anApplication quantity printString , ' (' , anApplication reason
+		, ')'
 ]
 
 { #category : #summaries }
@@ -145,7 +146,7 @@ EventsChronologyComponent >> summaryForSowing: aSowing [
 	stream := String new writeStream.
 	stream nextPutAll: aSowing crop vulgarName.
 	aSowing cultivarName
-		ifNotNil: [ :it | 
+		ifNotEmpty: [ :it | 
 			stream
 				nextPutAll: ' (';
 				nextPutAll: it;

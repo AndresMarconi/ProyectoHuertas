@@ -26,6 +26,15 @@ Harvesting class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #constants }
+Harvesting class >> units [
+	^ (OrderedCollection
+		with: 'Cajones'
+		with: 'Paquetes'
+		with: 'Canastos'
+		with: 'Razos') copy
+]
+
 { #category : #accessing }
 Harvesting >> crop [
 	^ crop
@@ -44,6 +53,15 @@ Harvesting >> cultivarName [
 { #category : #accessing }
 Harvesting >> cultivarName: anObject [
 	cultivarName := anObject
+]
+
+{ #category : #initialization }
+Harvesting >> initialize [
+	"initialize only noptional attributes"
+
+	super initialize.
+	cultivarName := ''.
+	otherUnit := Measurement magnitude: 0 unit: Harvesting units first
 ]
 
 { #category : #testing }

@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 ApplicationsComponent >> columnHeadings [
-	^ super columnHeadings , {'Razón'. 'Producto' . 'Dosis'}, self generalColumnHeadings
+	^ super columnHeadings , {'Razón'. 'Producto' . 'Cantidad'}, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ ApplicationsComponent >> columnValuesFor: element [
 		,
 			{element reason.
 			element substance comercialName.
-			element dose}, (self generalColumnValuesFor: element)
+			element quantity}, (self generalColumnValuesFor: element)
 ]
 
 { #category : #hooks }

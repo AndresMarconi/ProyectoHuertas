@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'substance',
 		'machine',
+		'quantity',
 		'dose',
 		'reason'
 	],
@@ -52,6 +53,16 @@ Application >> machine [
 { #category : #accessing }
 Application >> machine: anObject [
 	machine := anObject
+]
+
+{ #category : #accessing }
+Application >> quantity [
+	^ quantity
+]
+
+{ #category : #accessing }
+Application >> quantity: anObject [
+	quantity := anObject
 ]
 
 { #category : #accessing }

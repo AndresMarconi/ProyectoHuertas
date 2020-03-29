@@ -8,16 +8,17 @@ Class {
 		'substanceEditorComponent',
 		'reasonEditorComponent',
 		'notAllowed',
-		'notEnough'
+		'notEnough',
+		'quantityEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> eventSpecificChildren [
-
 	^ {reasonEditorComponent.
 	substanceEditorComponent.
+	quantityEditorComponent.
 	doseEditorComponent.
 	machineEditorComponent}
 ]
@@ -32,12 +33,18 @@ ApplicationEditor >> initializeComponents [
 		selector: #reason
 		label: 'Razón'
 		required: true.
-	reasonEditorComponent possibleValues: Application reasons.
-	doseEditorComponent := NumberPropertyEditorComponent 
+	reasonEditorComponent possibleValues: {nil}, Application reasons.
+	quantityEditorComponent := MeasurementPropertyEditorComponent
+		subject: subject
+		selector: #quantity
+		label: 'Cantidad utilizada'
+		required: true
+		units: {'Kg' . 'L'}.
+	doseEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #dose
-		label: 'Dosis'
-		required: true.
+		label: 'Dosificación'
+		required: false.
 	machineEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #machine
@@ -49,10 +56,10 @@ ApplicationEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent possibleValues: {nil} , self substances.
-	substanceEditorComponent instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
+	substanceEditorComponent
+		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
 	notAllowed := false.
-	notEnough:= false.
-
+	notEnough := false
 ]
 
 { #category : #accessing }

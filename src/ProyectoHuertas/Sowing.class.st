@@ -81,6 +81,14 @@ Sowing >> harvestPeriod [
 	^ self harvestDate addDays: harvestDuration.
 ]
 
+{ #category : #initializeation }
+Sowing >> initialize [
+	"initialize only noptional attributes"
+
+	super initialize.
+	cultivarName := ''
+]
+
 { #category : #copying }
 Sowing >> postCopy [
 	super postCopy.

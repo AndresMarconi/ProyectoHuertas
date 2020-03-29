@@ -84,11 +84,7 @@ Farm >> initialize [
 	plots := OrderedCollection new.
 	inventoryItems := OrderedCollection new.
 	sales := OrderedCollection new.
-	harvestingUnits := OrderedCollection
-		with: 'Cajones'
-		with: 'Paquetes'
-		with: 'Canastos'
-		with: 'Razos'
+	harvestingUnits := Harvesting units copy.
 ]
 
 { #category : #accessing }

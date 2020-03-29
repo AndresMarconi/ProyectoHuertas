@@ -94,7 +94,7 @@ FarmerDashboardComponent >> renderYieldReportsCardOn: html [
 		render:
 			(DashboardCardDecorator new
 				component: yieldReportsComponent;
-				title: 'Rinde';
+				title: 'Progreso de la cosecha';
 				subtitle: 'Su rinde actual vs. el esperato y el óptimo.';
 				yourself)
 ]

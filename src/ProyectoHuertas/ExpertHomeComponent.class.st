@@ -8,7 +8,7 @@ Class {
 ExpertHomeComponent >> barBrand [
 	"return a string for the Bar brand"
 
-	^ 'GAP-a-Farm (for experts)'
+	^ 'GAP-a-Farm (para expertos)'
 ]
 
 { #category : #rendering }

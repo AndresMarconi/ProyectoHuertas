@@ -43,12 +43,10 @@ InventoryComponent >> initialize [
 
 { #category : #adding }
 InventoryComponent >> saveAddedElement: anInventoryItem [
-	(self session farm inventoryItems 
-	detect: [ :each | each substance = anInventoryItem substance]) 
-	ifNil: [ 
-		super saveAddedElement: anInventoryItem. 
-		self session farm addInventoryItem: anInventoryItem ]
-	ifNotNil: [ :it |
-		self session farm updateStockOf: it with: anInventoryItem  ].
+	self session farm inventoryItems
+		detect: [ :each | each substance = anInventoryItem substance ]
+		ifFound: [ :it | self session farm updateStockOf: it with: anInventoryItem ]
+		ifNone: [ super saveAddedElement: anInventoryItem.
+			self session farm addInventoryItem: anInventoryItem ].
 	self session farm save
 ]

@@ -35,6 +35,7 @@ HarvestingEditor >> initializeComponents [
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
+	cropEditorComponent possibleValues: self crops.
 	cultivarEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #cultivarName
@@ -50,8 +51,7 @@ HarvestingEditor >> initializeComponents [
 		selector: #otherUnit
 		label: 'Cantidad (otra unidad)'
 		required: false
-		units: self units.
-	cropEditorComponent possibleValues: self crops
+		units: self units
 ]
 
 { #category : #accessing }
