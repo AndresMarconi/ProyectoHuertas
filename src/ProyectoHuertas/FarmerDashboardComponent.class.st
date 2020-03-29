@@ -24,7 +24,8 @@ FarmerDashboardComponent >> renderContentOn: html [
 				column: [ self renderNextToHarvestCardOn: html ] mediumSize: 6;
 				column: [ self renderInWithdrawalCardOn: html ] mediumSize: 6 ];
 		row:
-				[ html column: [ self renderYieldReportsCardOn: html ] mediumSize: 8 ]
+				[ html column: [ self renderYieldReportsCardOn: html ] mediumSize: 8 .
+				html column: [ self renderNewsCardOn: html ] mediumSize: 4]
 ]
 
 { #category : #rendering }
@@ -37,6 +38,17 @@ FarmerDashboardComponent >> renderInWithdrawalCardOn: html [
 				subtitle:
 					'Respete las carencias correspondientes a los fitosanitarios aplicados.';
 				imageUrl: GAFLibrary / #stopJpg;
+				yourself)
+]
+
+{ #category : #rendering }
+FarmerDashboardComponent >> renderNewsCardOn: html [
+	^ html
+		render:
+			(DashboardCardDecorator new
+				component: NewsDahboardComponent new;
+				title: 'Noticias';
+				subtitle: 'Ultimas noticias, seleccionadas para usted.';
 				yourself)
 ]
 

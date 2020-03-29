@@ -121,7 +121,7 @@ ExampleDataLoaderToStressTest >> addDemoSowingToPlot: aPlot [
 { #category : #loading }
 ExampleDataLoaderToStressTest >> addExpertDemoData [
 	session gapAFarm crops ifEmpty: [ self crops do: #save ].
-	session activeIngredients
+	session gapAFarm activeIngredients
 		ifEmpty: [ self activeIngredients do: #save ].
 	session gapAFarm substances ifEmpty: [ self substances do: #save ]
 ]
