@@ -63,64 +63,116 @@ Paginator >> pages [
 ]
 
 { #category : #rendering }
-Paginator >> renderItem: simbol Number: aNumber Class: aClass on: html [
+Paginator >> renderItem: symbol number: aNumber class: aClass on: html [
 	html listItem
 		class: 'page-item ',aClass ;
 		with: [ html anchor
 			class: 'page-link';
 			callback: [ page := aNumber ];
-			with: simbol ]
+			with: symbol ]
 ]
 
 { #category : #rendering }
 Paginator >> renderNextButtonOn: html [
-	(page = self pages)
-	ifTrue: [ 
-		self renderItem: '>' Number: (page) Class: ' disabled' on: html.
-		self renderItem: '>>' Number: (page) Class: ' disabled' on: html. ] 
-	ifFalse: [ 
-		self renderItem: '>' Number: (page + 1) Class: '' on: html. 
-		self renderItem: '>>' Number: (self pages) Class: '' on: html.  ] 
+	page = self pages
+		ifTrue: [ self
+				renderItem: [ html span
+						attributeAt: 'title' put: 'Ver';
+						class: 'fa fa-arrow-right' ]
+				number: page
+				class: ' disabled'
+				on: html.
+			self
+				renderItem: 'Final'
+				number: page
+				class: ' disabled'
+				on: html ]
+		ifFalse: [ self
+				renderItem: [ html span
+						attributeAt: 'title' put: 'Ver';
+						class: 'fa fa-arrow-right' ]
+				number: page + 1
+				class: ''
+				on: html.
+			self
+				renderItem: 'Final'
+				number: self pages
+				class: ''
+				on: html ]
 ]
 
 { #category : #rendering }
 Paginator >> renderPagesOn: html [
-	(self pages < 10)
-	ifTrue: [ 
-		1 to: self pages do: [ :pageNumber | 
-		page = pageNumber
-			ifTrue: [ self renderItem: pageNumber Number: pageNumber Class: 'active' on: html ]
-			ifFalse: [ self renderItem: pageNumber Number: pageNumber Class: '' on: html] ] ] 
-	ifFalse: [ 
-		self leftItemsQuantity to: (self rigthItemsQuantity) do: [ :pageNumber | 
-		page = pageNumber
-			ifTrue: [ self renderItem: pageNumber Number: pageNumber Class: 'active' on: html ]
-			ifFalse: [ self renderItem: pageNumber Number: pageNumber Class: '' on: html ] ] ] 
-	
+	self pages < 10
+		ifTrue: [ 1 to: self pages do: [ :pageNumber | 
+				page = pageNumber
+					ifTrue: [ self
+							renderItem: pageNumber
+							number: pageNumber
+							class: 'active'
+							on: html ]
+					ifFalse: [ self
+							renderItem: pageNumber
+							number: pageNumber
+							class: ''
+							on: html ] ] ]
+		ifFalse:
+			[ self leftItemsQuantity to: self rigthItemsQuantity do: [ :pageNumber | 
+				page = pageNumber
+					ifTrue: [ self
+							renderItem: pageNumber
+							number: pageNumber
+							class: 'active'
+							on: html ]
+					ifFalse: [ self
+							renderItem: pageNumber
+							number: pageNumber
+							class: ''
+							on: html ] ] ]
 ]
 
 { #category : #rendering }
 Paginator >> renderPaginationOn: html [
 	self totalElements < elementsPerPage
 		ifTrue: [ ^ self ].
-	html row class: 'd-flex flex-row justify-content-center'; with: [  
-		html
-			navigation: [ html unorderedList
-				class: 'pagination';
-				with: [ self renderPreviousButtonOn: html.
-					self renderPagesOn: html.
-					self renderNextButtonOn: html ] ] ]
+	html row
+		class: 'd-flex flex-row justify-content-center';
+		with: [ html
+				navigation: [ html unorderedList
+						class: 'pagination';
+						style: 'font-size: 0.9rem;';
+						with: [ self renderPreviousButtonOn: html.
+							self renderPagesOn: html.
+							self renderNextButtonOn: html ] ] ]
 ]
 
 { #category : #rendering }
 Paginator >> renderPreviousButtonOn: html [
-	(page = 1)
-	ifTrue: [ 
-		self renderItem: '<<' Number: (page) Class: ' disabled' on: html.
-		self renderItem: '<' Number: (page) Class: ' disabled' on: html ]
-	ifFalse: [
-		self renderItem: '<<' Number: 1 Class: '' on: html. 
-		self renderItem: '<' Number: (page - 1) Class: '' on: html ] 
+	page = 1
+		ifTrue: [ self
+				renderItem: 'Principio'
+				number: page
+				class: ' disabled'
+				on: html.
+			self
+				renderItem: [ html span
+						attributeAt: 'title' put: 'Ver';
+						class: 'fa fa-arrow-left' ]
+				number: page
+				class: ' disabled'
+				on: html ]
+		ifFalse: [ self
+				renderItem: 'Principio'
+				number: 1
+				class: ''
+				on: html.
+			self
+				renderItem: [ html span
+						attributeAt: 'title' put: 'Ver';
+						class: 'fa fa-arrow-left' ]
+				number: page - 1
+				class: ''
+				on: html ]
 ]
 
 { #category : #initialization }
