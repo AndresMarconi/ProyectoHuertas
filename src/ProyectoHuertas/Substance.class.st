@@ -15,19 +15,8 @@ Substance class >> isVoyageRoot [
 ]
 
 { #category : #accessing }
-Substance >> activeIngredient [
-	(activeIngredients class = OrderedCollection) 
-	ifTrue: [ ^ activeIngredients at: 1 ] ifFalse: [ ^activeIngredients ]
-]
-
-{ #category : #accessing }
 Substance >> activeIngredients [
 	^ activeIngredients
-]
-
-{ #category : #accessing }
-Substance >> activeIngredients: anObject [
-	activeIngredients := anObject
 ]
 
 { #category : #accessing }
@@ -72,6 +61,7 @@ Substance >> exportToJson [
 { #category : #initialization }
 Substance >> initialize [
 	super initialize.
+	activeIngredients:= OrderedCollection new.
 	withdrawalPeriodRecommendations := OrderedCollection new
 ]
 

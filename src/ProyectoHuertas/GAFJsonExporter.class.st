@@ -16,7 +16,6 @@ GAFJsonExporter >> buildActiveIngredient: aDic [
 GAFJsonExporter >> buildSubstance: aDic [
 	| substance |
 	substance:= Substance new.
-	substance activeIngredients: OrderedCollection new.
 	substance comercialName: (aDic at: 'comercialName').
 	(aDic at: 'activeIngredients') do: [ :each | 
 		substance addActiveIngredients: (self buildActiveIngredient: each) ].
