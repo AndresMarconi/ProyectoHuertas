@@ -19,5 +19,5 @@ CSVApplicationsExporter >> elementRowFor: anApplication [
 
 { #category : #exporting }
 CSVApplicationsExporter >> headerRow [
-	^ #('Fecha' 'Hora' 'Lote' 'Razón' 'Producto' 'Cantidad' 'Dosificación' 'Maquina' 'Notas')
+	^ #('Fecha' 'Hora' 'Lote' 'Motivo' 'Producto' 'Cantidad' 'Dosificación' 'Maquina' 'Notas')
 ]

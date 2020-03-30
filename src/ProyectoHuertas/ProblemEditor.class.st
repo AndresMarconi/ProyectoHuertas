@@ -29,6 +29,7 @@ ProblemEditor >> initializeComponents [
 		selector: #name
 		label: 'Problema'
 		required: true.
+	nameEditorComponent instructions: 'por ejemplo, Mosca blanca'.
 	problemTypeEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #type

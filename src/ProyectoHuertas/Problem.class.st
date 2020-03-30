@@ -28,7 +28,7 @@ Problem class >> isVoyageRoot [
 Problem class >> types [
 	"types of possible problems"
 
-	^ #('Ácaros' 'Enfermedad' 'Hongos' 'Insectos' 'Malezas' 'Malnutrición' 'Nemátodos' 'Otro')
+	^ #('Ácaros' 'Enfermedad' 'Hongos' 'Insectos' 'Malezas' 'Carencia nutricional' 'Nemátodos' 'Otro')
 ]
 
 { #category : #accessing }

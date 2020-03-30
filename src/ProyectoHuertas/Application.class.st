@@ -31,8 +31,8 @@ Application class >> isVoyageRoot [
 
 { #category : #constants }
 Application class >> reasons [
-	^ {'Control de peste' . 'Tratamiento de enfermedad'.
-	'Prevención' . 'Preparación de suelo' . 'Otro (aclarar en notas)'}
+	^ {'Control de plaga' . 'Tratamiento de enfermedad'.
+	'Tratamiento preventivo' . 'Tratamiento de suelo' . 'Fertilización'. 'Otro (aclarar en notas)'}
 ]
 
 { #category : #accessing }

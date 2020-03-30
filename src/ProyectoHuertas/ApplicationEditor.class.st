@@ -31,7 +31,7 @@ ApplicationEditor >> initializeComponents [
 	reasonEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #reason
-		label: 'Razón'
+		label: 'Motivo'
 		required: true.
 	reasonEditorComponent possibleValues: {nil}, Application reasons.
 	quantityEditorComponent := MeasurementPropertyEditorComponent

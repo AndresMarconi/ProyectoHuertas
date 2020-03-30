@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 ApplicationsComponent >> columnHeadings [
-	^ super columnHeadings , {'Razón'. 'Producto' . 'Cantidad'}, self generalColumnHeadings
+	^ super columnHeadings , {'Motivo'. 'Producto' . 'Cantidad'}, self generalColumnHeadings
 ]
 
 { #category : #rendering }

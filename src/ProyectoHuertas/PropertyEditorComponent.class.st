@@ -94,7 +94,6 @@ PropertyEditorComponent >> readOnly: anObject [
 PropertyEditorComponent >> renderContentOn: html [
 	html
 		formGroup: [ self renderLabelOn: html.
-			self renderInstructionsOn: html.
 			self renderInputOn: html ]
 ]
 
@@ -119,7 +118,10 @@ PropertyEditorComponent >> renderLabelOn: html [
 		for: selector;
 		with: [ html text: label.
 			required
-				ifTrue: [ html text: ' *' ] ]
+				ifTrue: [ html span
+						style: 'color: red; ';
+						with: ' *' ].
+			self renderInstructionsOn: html ]
 ]
 
 { #category : #rendering }
