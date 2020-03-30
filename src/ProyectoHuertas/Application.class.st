@@ -46,6 +46,12 @@ Application >> dose: anObject [
 ]
 
 { #category : #accessing }
+Application >> initialize [
+	super initialize.
+	machine := ''
+]
+
+{ #category : #accessing }
 Application >> machine [
 	^ machine
 ]

@@ -49,7 +49,7 @@ ApplicationEditor >> initializeComponents [
 		subject: subject
 		selector: #machine
 		label: 'Maquina Usada'
-		required: true.
+		required: false.
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #substance
