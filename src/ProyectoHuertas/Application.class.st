@@ -99,5 +99,5 @@ Application >> summaryFor: aSummaryRequestor [
 { #category : #queries }
 Application >> waitingPeriodFor: aCrop [
 	^ dateAndTime asDate
-		addDays: ((substance withdrawalTimeFor: aCrop) ifNil: [ 0 ])
+		addDays: (((substance withdrawalTimeFor: aCrop) at: 1) ifNil: [ 0 ])
 ]

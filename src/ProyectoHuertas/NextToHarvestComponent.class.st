@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 NextToHarvestComponent >> columnHeadings [
-	^  {'Lote'. 'Cultivo' . 'Fecha de inicio'. 'Duracion(dias)'}
+	^  {'Lote'. 'Cultivo' . 'Dias restantes'. 'Duracion(dias)'}
 ]
 
 { #category : #rendering }
@@ -14,8 +14,8 @@ NextToHarvestComponent >> columnValuesFor: element [
 
 	^ {element id.
 		element currentCrop vulgarName.
-		element currentCycle harvestDate yyyymmdd.
-		element currentCycle endOfPeriod yyyymmdd}
+		element currentCycle daysToHarvest.
+		element currentCycle harvestDuration}
 ]
 
 { #category : #accessing }

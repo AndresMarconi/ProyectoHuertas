@@ -121,8 +121,7 @@ Substance >> withdrawalPeriodRecommendationsByDays [
 
 { #category : #accessing }
 Substance >> withdrawalTimeFor: aCrop [
-	^ withdrawalPeriodRecommendations
-		detect: [ :wp | wp crop = aCrop ]
-		ifFound: [ :it | it daysToWait ]
-		ifNone: [ nil ]
+	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
+		collect: [ :wp | wp daysToWait ])
+		asSortedCollection: [ :a :b | a > b ]
 ]

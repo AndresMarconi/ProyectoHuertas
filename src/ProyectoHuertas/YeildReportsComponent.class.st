@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 YeildReportsComponent >> columnHeadings [
-	^  {'Lote'. 'Cultivo' . 'Cosechado' . 'Esperado'. 'Optimo'. 'Fecha de fin'}
+	^  {'Lote'. 'Cultivo' . 'Cosechado' . 'Esperado'. 'Optimo'. 'Dias restantes'}
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ YeildReportsComponent >> columnValuesFor: element [
 		element currentCycle harvested.
 		element currentCycle sowing expectedYield.
 		element currentCrop optimalYieldPerPlant.
-		element currentCycle endOfPeriod}
+		element currentCycle harvestDuration}
 ]
 
 { #category : #accessing }
