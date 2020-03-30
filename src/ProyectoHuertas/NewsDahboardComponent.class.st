@@ -4,6 +4,11 @@ Class {
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
+{ #category : #accessing }
+NewsDahboardComponent >> elements [ 
+	^{1}
+]
+
 { #category : #rendering }
 NewsDahboardComponent >> renderContentOn: html [
 	html table

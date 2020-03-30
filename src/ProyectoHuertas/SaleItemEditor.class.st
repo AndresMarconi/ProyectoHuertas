@@ -32,7 +32,7 @@ SaleItemEditor >> initializeComponents [
 		selector: #crop
 		label: 'Producto'
 		required: true.
-	productEditorComponent possibleValues: self crops.
+	productEditorComponent possibleValues: { nil }, self crops.
 	kilogramsEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #kilograms

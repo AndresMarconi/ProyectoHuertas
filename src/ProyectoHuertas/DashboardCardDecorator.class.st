@@ -21,7 +21,7 @@ DashboardCardDecorator >> imageUrl: aWAUrl [
 ]
 
 { #category : #rendering }
-DashboardCardDecorator >> renderContentOn: html [
+DashboardCardDecorator >> renderCardOn: html [
 	html card
 		style: 'margin-bottom: 20px;';
 		with: [ imageUrl
@@ -40,6 +40,11 @@ DashboardCardDecorator >> renderContentOn: html [
 								mutedText;
 								with: subtitle ].
 					html cardText: [ html render: component ] ] ]
+]
+
+{ #category : #rendering }
+DashboardCardDecorator >> renderContentOn: html [
+	component elements ifNotEmpty: [ self renderCardOn: html ]
 ]
 
 { #category : #accessing }

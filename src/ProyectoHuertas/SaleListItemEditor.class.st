@@ -19,8 +19,7 @@ SaleListItemEditor >> accept [
 SaleListItemEditor >> addRow [
 	items do: #accept.
 	subject addItem: CropSale new.
-	items:= OrderedCollection new.
-	subject items do: [ :each | items add: (SaleItemEditor subject: each) ].
+	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
 ]
 
@@ -31,8 +30,7 @@ SaleListItemEditor >> cancel [
 
 { #category : #'subclass-responsibility' }
 SaleListItemEditor >> initializeComponents [
-	items:= OrderedCollection new.
-	subject items do: [ :each | items add: (SaleItemEditor subject: each) ].
+	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
 ]
 
