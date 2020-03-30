@@ -51,14 +51,14 @@ BaselineOfProyectoHuertas >> neoCSV: spec [
 BaselineOfProyectoHuertas >> postLoadActions [
 
 	GTPlayground
-		edit: '"GAFDeployer new adminEmail: ''gaf@mail.com''; deploy.
+		edit: 'GAFDeployer new adminEmail: ''gaf@mail.com''; deploy.
 
-	"Set demoMode to true to get a [Load demo data] button."
-	GAFDeployer demoMode: false.
+"Set demoMode to true to get a [Load demo data] button."
+GAFDeployer demoMode: false.
 
-	"Evaluate one of the following to set the target persistency strategy"
-	GAFStorage inMemory.
-	GAFStorage mongoLocal.
+"Evaluate one of the following to set the target persistency strategy"
+GAFStorage inMemory.
+GAFStorage mongoLocal.
 	
 	Smalltalk garbageCollect  .
 '
