@@ -10,14 +10,14 @@ CropsForExpertsDashboardComponent >> elements [
 ]
 
 { #category : #'as yet unclassified' }
-CropsForExpertsDashboardComponent >> inthisMounth: elements of: crop [
+CropsForExpertsDashboardComponent >> inThisMonth: elements of: crop [
 	| sowings |
 	sowings:= (elements select: [ :sowing | (sowing crop vulgarName) = crop ]).
 	^sowings inject: 0 into: [ :sum :sowing | sum + sowing quantity magnitude] 
 ]
 
 { #category : #'as yet unclassified' }
-CropsForExpertsDashboardComponent >> inthisWeek: elements of: crop [
+CropsForExpertsDashboardComponent >> inThisWeek: elements of: crop [
 	| sowings |
 	sowings:= (elements select: [ :sowing | 
 		(sowing crop vulgarName) = crop  
@@ -41,8 +41,8 @@ CropsForExpertsDashboardComponent >> renderTableBodyOn: html [
 		(set collect: [ :sowing | sowing crop vulgarName ]) do: [ :element | 
 			html tableRow: [  
 				html tableData: element. 
-				html tableData: (self inthisMounth: set of: element ).
-				html tableData: (self inthisWeek: set of: element ) ] ] ]
+				html tableData: (self inThisMonth: set of: element ).
+				html tableData: (self inThisWeek: set of: element ) ] ] ]
 ]
 
 { #category : #'as yet unclassified' }

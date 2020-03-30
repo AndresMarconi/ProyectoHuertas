@@ -11,12 +11,12 @@ ProblemsForExpertsDashboardComponent >> elements [
 ]
 
 { #category : #'as yet unclassified' }
-ProblemsForExpertsDashboardComponent >> inthisMounth: elements of: type [
+ProblemsForExpertsDashboardComponent >> inThisMonth: elements of: type [
 	^(elements select: [ :issue | issue type = type ]) size
 ]
 
 { #category : #'as yet unclassified' }
-ProblemsForExpertsDashboardComponent >> inthisWeek: elements of: type [
+ProblemsForExpertsDashboardComponent >> inThisWeek: elements of: type [
 	^(elements select: [ :issue | 
 		issue type = type and: [ issue date isAfter: ((Date today) subtractDays: 7) ] ]) size
 ]
@@ -37,8 +37,8 @@ ProblemsForExpertsDashboardComponent >> renderTableBodyOn: html [
 		(set collect: [ :issue | issue type ]) do: [ :element | 
 			html tableRow: [  
 				html tableData: element. 
-				html tableData: (self inthisMounth: set of: element ).
-				html tableData: (self inthisWeek: set of: element )  ] ] ]
+				html tableData: (self inThisMonth: set of: element ).
+				html tableData: (self inThisWeek: set of: element )  ] ] ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -10,12 +10,12 @@ SubstancesForExpertsDashboardComponent >> elements [
 ]
 
 { #category : #'as yet unclassified' }
-SubstancesForExpertsDashboardComponent >> inthisMounth: elements of: ingredient [
+SubstancesForExpertsDashboardComponent >> inThisMonth: elements of: ingredient [
 	^(elements select: [ :application | application substance activeIngredients includes: ingredient ]) size
 ]
 
 { #category : #'as yet unclassified' }
-SubstancesForExpertsDashboardComponent >> inthisWeek: elements of: ingredient [
+SubstancesForExpertsDashboardComponent >> inThisWeek: elements of: ingredient [
 	^(elements select: [ :application | 
 		(application substance activeIngredients includes: ingredient) 
 		and: [ application date isAfter: ((Date today) subtractDays: 7) ] ]) size
@@ -37,8 +37,8 @@ SubstancesForExpertsDashboardComponent >> renderTableBodyOn: html [
 		(set flatCollect: [ :application | application substance activeIngredients ]) do: [ :element | 
 			html tableRow: [  
 				html tableData: element. 
-				html tableData: (self inthisMounth: set of: element ).
-				html tableData: (self inthisWeek: set of: element )  ] ] ]
+				html tableData: (self inThisMonth: set of: element ).
+				html tableData: (self inThisWeek: set of: element )  ] ] ]
 ]
 
 { #category : #'as yet unclassified' }

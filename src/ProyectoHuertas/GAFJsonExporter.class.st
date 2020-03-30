@@ -1,10 +1,10 @@
 Class {
 	#name : #GAFJsonExporter,
 	#superclass : #Object,
-	#category : #'ProyectoHuertas-example-data'
+	#category : #'ProyectoHuertas-export'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'creating objects' }
 GAFJsonExporter >> buildActiveIngredient: aDic [
 	| activeIngredient |
 	activeIngredient:= ActiveIngredient new.
@@ -12,19 +12,19 @@ GAFJsonExporter >> buildActiveIngredient: aDic [
 	^ activeIngredient.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'creating objects' }
 GAFJsonExporter >> buildSubstance: aDic [
 	| substance |
 	substance:= Substance new.
 	substance comercialName: (aDic at: 'comercialName').
 	(aDic at: 'activeIngredients') do: [ :each | 
-		substance addActiveIngredients: (self buildActiveIngredient: each) ].
+		substance addActiveIngredient: (self buildActiveIngredient: each) ].
 	(aDic at: 'withdrawalPeriodRecommendations') do: [ :each | 
 		substance addWithdrawalPeriodRecommendation: (self buildWPR: each) ].
 	^substance
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'creating objects' }
 GAFJsonExporter >> buildWPR: aDic [
 	| wpr |
 	wpr:= WithdrawalPeriodRecommendation new.
@@ -33,7 +33,7 @@ GAFJsonExporter >> buildWPR: aDic [
 	^ wpr.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 GAFJsonExporter >> exportSubstanceToJson [
 |json|
 	json:= '[ '.
@@ -42,7 +42,7 @@ GAFJsonExporter >> exportSubstanceToJson [
 	^json
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 GAFJsonExporter >> importJsonOfSubstance: json [
 	|substances|
 	substances:= OrderedCollection new.

@@ -185,7 +185,7 @@ ExampleDataLoaderToStressTest >> substances [
 			| substance |
 			substance := Substance new
 				comercialName: 'Preparado de ' , ingredient tradeName;
-				addActiveIngredients: ingredient yourself.
+				addActiveIngredient: ingredient.
 			(self randomCrops: 4)
 				do: [ :crop | 
 					substance

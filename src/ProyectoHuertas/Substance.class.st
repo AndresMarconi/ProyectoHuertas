@@ -20,7 +20,12 @@ Substance >> activeIngredients [
 ]
 
 { #category : #accessing }
-Substance >> addActiveIngredients: anObject [
+Substance >> activeIngredients: anObject [
+	activeIngredients := anObject
+]
+
+{ #category : #accessing }
+Substance >> addActiveIngredient: anObject [
 	activeIngredients add: anObject
 ]
 
@@ -44,7 +49,7 @@ Substance >> comercialName: anObject [
 	comercialName := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 Substance >> exportToJson [
 	| json |
 	json:=  

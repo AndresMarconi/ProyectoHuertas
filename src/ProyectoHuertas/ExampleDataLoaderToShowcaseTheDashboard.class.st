@@ -314,7 +314,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addSubstance: ingredient to: crop wit
 	| substance |
 	substance := Substance new
 		comercialName: 'Preparado de ' , ingredient tradeName;
-		addActiveIngredients: ingredient yourself.
+		addActiveIngredient: ingredient.
 	substance addWithdrawalPeriodRecommendation:
 		(WithdrawalPeriodRecommendation
 		daysToWait: days
