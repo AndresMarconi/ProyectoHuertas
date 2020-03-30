@@ -59,7 +59,9 @@ Paginator >> page: number [
 
 { #category : #accessing }
 Paginator >> pages [ 
-	^ (self totalElements quo: elementsPerPage) + 1
+	((self totalElements \\ elementsPerPage) > 0)
+		ifTrue: [ ^ (self totalElements quo: elementsPerPage) + 1 ] 
+		ifFalse: [ ^ self totalElements quo: elementsPerPage ]
 ]
 
 { #category : #rendering }
