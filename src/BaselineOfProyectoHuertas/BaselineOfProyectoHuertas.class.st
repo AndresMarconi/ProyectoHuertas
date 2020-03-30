@@ -51,30 +51,16 @@ BaselineOfProyectoHuertas >> neoCSV: spec [
 BaselineOfProyectoHuertas >> postLoadActions [
 
 	GTPlayground
-		edit: '"Edit and valuate the following expresion to deploy your apps. 
-Applications will be available at:
-		
-		<uri-base-for-your-apps>/farmer-login
-		<uri-base-for-your-apps>/farmer
-		<uri-base-for-your-apps>/expert-login
-		<uri-base-for-your-apps>/expert"
-		
-FOMDeployer new 
-     clientId: ''<your-client-id>'';
-     oidcHost: ''<your-oidc-authentication-domain>'';
-     clientSecret: ''<your-client-secret>'';    
-     baseUrl: ''<uri-base-for-your-apps>/'';
-     adminEmail: ''<email-of-the-first-admin>'';
-     deploy.
+		edit: '"GAFDeployer new adminEmail: ''gaf@mail.com''; deploy.
 
-"Set demoMode to true to get a [Load demo data] button."
-GAFDeployer demoMode: false.
+	"Set demoMode to true to get a [Load demo data] button."
+	GAFDeployer demoMode: false.
 
-"Evaluate one of the following to set the target persistency strategy"
-
-GAFStorage inMemory.
-
-GAFStorage mongoLocal .
+	"Evaluate one of the following to set the target persistency strategy"
+	GAFStorage inMemory.
+	GAFStorage mongoLocal.
+	
+	Smalltalk garbageCollect  .
 '
 	
 	label: 'Deployment scripts'.
