@@ -51,7 +51,7 @@ GAFHomeComponent >> loadDemoData [
 
 { #category : #'rendering-login' }
 GAFHomeComponent >> loginUrl [
-	^ self application preferenceAt: #loginApp
+	^ GAFLandingComponent  url
 ]
 
 { #category : #callbacks }
@@ -154,5 +154,5 @@ GAFHomeComponent >> updateRoot: aWARoot [
 	self session loginRequired
 		ifTrue: [ aWARoot meta
 				attributeAt: 'http-equiv' put: 'Refresh';
-				content: '5;URL=''' , (self application preferenceAt: #loginApp) , '''' ]
+				content: '5;URL=''' , GAFLandingComponent url , '''' ]
 ]

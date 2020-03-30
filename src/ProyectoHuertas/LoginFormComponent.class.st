@@ -8,7 +8,8 @@ Class {
 		'email',
 		'hashedPassword',
 		'emailComponent',
-		'passwordComponent'
+		'passwordComponent',
+		'problem'
 	],
 	#category : #'ProyectoHuertas-ui-login'
 }
@@ -18,7 +19,9 @@ LoginFormComponent >> accept [
 	(self children anySatisfy: [ :each | each hasProblems ])
 		ifTrue: [ ^ self ].
 	self children do: #accept.
-	self parent login: email trimBoth withHashedPassword: hashedPassword
+	self parent
+		login: email greaseString trimBoth
+		withHashedPassword: hashedPassword
 ]
 
 { #category : #'subclass-responsibility' }
@@ -67,6 +70,16 @@ LoginFormComponent >> password: aString [
 		asString
 ]
 
+{ #category : #accessing }
+LoginFormComponent >> problem [
+	^ problem
+]
+
+{ #category : #accessing }
+LoginFormComponent >> problem: anObject [
+	problem := anObject
+]
+
 { #category : #rendering }
 LoginFormComponent >> renderButtonsOn: html [
 	html
@@ -74,4 +87,18 @@ LoginFormComponent >> renderButtonsOn: html [
 				bePrimary;
 				callback: [ self accept ];
 				with: 'Ingresar' ]
+]
+
+{ #category : #rendering }
+LoginFormComponent >> renderContentOn: html [
+	self renderProblemOn: html.
+	super renderContentOn: html
+]
+
+{ #category : #rendering }
+LoginFormComponent >> renderProblemOn: html [
+	problem
+		ifNotNil: [ html paragraph
+				style: 'color: red;';
+				with: problem ]
 ]

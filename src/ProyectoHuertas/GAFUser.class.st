@@ -5,7 +5,9 @@ Class {
 		'email',
 		'fullname',
 		'farms',
-		'otherProperties'
+		'hashedPassword',
+		'isAdmin',
+		'isExpert'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -70,18 +72,45 @@ GAFUser >> fullname: anObject [
 	fullname := anObject
 ]
 
+{ #category : #accessing }
+GAFUser >> hashedPassword [
+	^ hashedPassword
+]
+
+{ #category : #accessing }
+GAFUser >> hashedPassword: anObject [
+	hashedPassword := anObject
+]
+
 { #category : #initialization }
 GAFUser >> initialize [
 	super initialize.
-	farms := OrderedCollection new
+	farms := OrderedCollection new.
+	isAdmin := false.
+	isExpert := false
+]
+
+{ #category : #testing }
+GAFUser >> isAdmin [
+	^ isAdmin
 ]
 
 { #category : #accessing }
-GAFUser >> otherProperties [
-	^ otherProperties
+GAFUser >> isAdmin: anObject [
+	isAdmin := anObject
+]
+
+{ #category : #testing }
+GAFUser >> isExpert [
+	^ isExpert
 ]
 
 { #category : #accessing }
-GAFUser >> otherProperties: anObject [
-	otherProperties := anObject
+GAFUser >> isExpert: anObject [
+	isExpert := anObject
+]
+
+{ #category : #passwords }
+GAFUser >> isValidPassword: aHashedPassword [
+	^ aHashedPassword = hashedPassword
 ]

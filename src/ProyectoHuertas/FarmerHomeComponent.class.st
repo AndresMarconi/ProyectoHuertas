@@ -51,5 +51,25 @@ FarmerHomeComponent >> renderLeftMenuOn: html [
 							('Ventas' -> SalesComponent).
 							('Exportar' -> FarmerExportComponent)}
 						heading: 'Administración'
-						on: html ] ]
+						on: html.
+					self renderRolesMenuBlockOn: html ] ]
+]
+
+{ #category : #rendering }
+FarmerHomeComponent >> renderRolesMenuBlockOn: html [
+	| roles |
+	roles := OrderedCollection new.
+	self session user isExpert
+		ifTrue: [ roles add: 'Experto' -> [ self call: ExpertHomeComponent new ] ].
+	self session user isAdmin
+		ifTrue: [ roles add: 'Administrador' -> [ self call: GAFAdminComponent new ] ].
+	roles ifEmpty: [ ^ self ].
+	html div
+		class: 'left-menu-heading';
+		with: 'Otros roles'.
+	roles
+		do: [ :ass | 
+			html listGroupLinkedItem
+				callback: ass value;
+				with: ass key ]
 ]

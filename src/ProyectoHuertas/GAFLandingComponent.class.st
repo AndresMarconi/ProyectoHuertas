@@ -1,10 +1,12 @@
 "
 | app |
-app := WAAdmin register: GAFLandingComponent asApplicationAt: 'test'.
+app := WAAdmin register: GAFLandingComponent asApplicationAt: 'gaf'.
 app
-				addLibrary: JQDeploymentLibrary;
-				addLibrary: JQUiDeploymentLibrary;
-				addLibrary: SBSDeploymentLibrary 
+	addLibrary: JQDeploymentLibrary;
+	addLibrary: JQUiDeploymentLibrary;
+	addLibrary: SBSDeploymentLibrary .
+	app sessionClass: GAFSession.
+
 "
 Class {
 	#name : #GAFLandingComponent,
@@ -17,6 +19,16 @@ Class {
 	#category : #'ProyectoHuertas-ui-login'
 }
 
+{ #category : #urls }
+GAFLandingComponent class >> applicationName [
+	^ 'gaf'
+]
+
+{ #category : #urls }
+GAFLandingComponent class >> url [
+	^ '/' , self applicationName
+]
+
 { #category : #initialization }
 GAFLandingComponent >> initialize [
 	super initialize.
@@ -25,9 +37,40 @@ GAFLandingComponent >> initialize [
 	activeComponent := loginComponent
 ]
 
-{ #category : #'login-register' }
-GAFLandingComponent >> register: aString withHashedPassword: aString2 andName: aString3 [ 
-	self shouldBeImplemented.
+{ #category : #passwords }
+GAFLandingComponent >> login: anEmailAddress withHashedPassword: aHashedPassword [
+	(self session gapAFarm userWithEmail: anEmailAddress)
+		ifNil: [ activeComponent problem: 'El usuario no existe' ]
+		ifNotNil: [ :it | 
+			(it isValidPassword: aHashedPassword)
+				ifTrue: [ self proceedWith: it ]
+				ifFalse: [ activeComponent problem: 'Contraseña incorrecta' ] ]
+]
+
+{ #category : #callbacks }
+GAFLandingComponent >> proceedWith: aUser [
+	aUser email = (self application preferenceAt: #adminEmail) trimBoth
+		ifTrue: [ aUser
+				isAdmin: true;
+				save ].
+	self session user: aUser.
+	registerComponent := RegisterFormComponent new parent: self.
+	loginComponent := LoginFormComponent new parent: self.
+	self call: FarmerHomeComponent new
+]
+
+{ #category : #callbacks }
+GAFLandingComponent >> register: anEmailAddress withHashedPassword: aHashedPassword andName: aName [
+	(self session gapAFarm userWithEmail: anEmailAddress)
+		ifNotNil: [ activeComponent
+				problem: 'Ya existe un usuario con ese correo electrónico.'.
+			^ self ].
+	self
+		proceedWith:
+			(self session gapAFarm
+				register: anEmailAddress
+				withHashedPassword: aHashedPassword
+				andName: aName)
 ]
 
 { #category : #rendering }

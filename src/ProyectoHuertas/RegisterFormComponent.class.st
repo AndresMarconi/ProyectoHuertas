@@ -5,8 +5,7 @@ Class {
 		'repeatEmail',
 		'repeatEmailComponent',
 		'fullname',
-		'fullnameComponent',
-		'problem'
+		'fullnameComponent'
 	],
 	#category : #'ProyectoHuertas-ui-login'
 }
@@ -62,15 +61,6 @@ RegisterFormComponent >> initialize [
 		label: 'Nombre completo'
 		required: true.
 	problem := nil
-]
-
-{ #category : #rendering }
-RegisterFormComponent >> renderContentOn: html [
-	problem
-		ifNotNil: [ html paragraph
-				style: 'color: red;';
-				with: problem ].
-	super renderContentOn: html
 ]
 
 { #category : #accessing }

@@ -46,5 +46,23 @@ ExpertHomeComponent >> renderLeftMenuOn: html [
 							('Principios activos' -> ActiveIngredientComponent).
 							('Fitosanitarios y fertilizantes' -> SubstancesComponent)}
 						heading: 'Catálogos'
-						on: html ] ]
+						on: html.
+					self renderRolesMenuBlockOn: html ] ]
+]
+
+{ #category : #rendering }
+ExpertHomeComponent >> renderRolesMenuBlockOn: html [
+	| roles |
+	html div
+		class: 'left-menu-heading';
+		with: 'Otros roles'.
+	roles := OrderedCollection
+		with: 'Agricultor' -> [ self call: FarmerHomeComponent new ].
+	self session user isAdmin
+		ifTrue: [ roles add: 'Administrador' -> [ self call: GAFAdminComponent new ] ].
+	roles
+		do: [ :ass | 
+			html listGroupLinkedItem
+				callback: ass value;
+				with: ass key ]
 ]

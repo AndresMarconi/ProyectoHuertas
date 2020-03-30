@@ -18,14 +18,15 @@ GapAFarm >> activeIngredients [
 		asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]
 
-{ #category : #'factory methods' }
-GapAFarm >> createUserResourcesFor: aJsonWebSignature [
-	| aUser |
-	aUser := GAFUser fromOIDCUser: aJsonWebSignature.
-	aUser
-		addFarm: (self findOrCreateFarmNamed: 'Granja de ' , aUser email).
-	aUser save.
-	^ aUser
+{ #category : #private }
+GapAFarm >> createUserResourcesFor: aGAFUser [
+	| farm |
+	farm := self findOrCreateFarmNamed: 'Granja de ' , aGAFUser fullname.
+	farm save.
+	aGAFUser
+		addFarm: farm;
+		save;
+		yourself
 ]
 
 { #category : #'db queries' }
@@ -55,6 +56,19 @@ GapAFarm >> findOrCreateFarmNamed: aName [
 	^ aFarm
 ]
 
+{ #category : #'factory methods' }
+GapAFarm >> register: anEmailAddress withHashedPassword: aHashedPassword andName: aFullName [
+	| user |
+	user := GAFUser new
+		email: anEmailAddress;
+		hashedPassword: aHashedPassword;
+		fullname: aFullName;
+		save;
+		yourself.
+	self createUserResourcesFor: user.
+	^ user
+]
+
 { #category : #senasa }
 GapAFarm >> registeredCropsForActiveIngredient: activeIngrediente [
 	^ (SenasaCatalogue singleton
@@ -66,6 +80,11 @@ GapAFarm >> registeredCropsForActiveIngredient: activeIngrediente [
 GapAFarm >> substances [
 	^ Substance selectAll
 		asSortedCollection: [ :a :b | a comercialName < b comercialName ]
+]
+
+{ #category : #'db queries' }
+GapAFarm >> userWithEmail: anEmailAddress [
+	^ GAFUser selectOne: [ :each | each email = anEmailAddress ]
 ]
 
 { #category : #'db queries' }

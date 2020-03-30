@@ -1,18 +1,11 @@
 Class {
 	#name : #GAFSession,
-	#superclass : #WAOpenIdConnectSession,
+	#superclass : #WASession,
 	#instVars : [
-		'user',
-		'farm'
+		'user'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
-
-{ #category : #user }
-GAFSession >> authenticatedUser: aDictionary [
-	super authenticatedUser: aDictionary.
-	user := self findOrCreateUserFromClaims: aDictionary
-]
 
 { #category : #accessing }
 GAFSession >> farm [
@@ -21,34 +14,34 @@ GAFSession >> farm [
 	^ user farms ifNotEmpty: [ :farms | farms first ] ifEmpty: [ nil ]
 ]
 
-{ #category : #user }
-GAFSession >> findOrCreateUserFromClaims: aJsonWebSignature [
-	self halt.
-	^ self gapAFarm users
-		detect: [ :each | each email = (self session authenticatedUser at: 'email') ]
-		ifNone:
-			[ self gapAFarm createUserResourcesFor: self session authenticatedUser ]
-]
-
 { #category : #accessing }
 GAFSession >> gapAFarm [
 	^ GapAFarm singleton
 ]
 
 { #category : #testing }
-GAFSession >> loginRequired [
-	"true if loginApp prefference has been set, and the session has not been authenticated"
-
-	^ (self application preferenceAt: #loginApp) notEmpty
-		& self authenticated not
+GAFSession >> isAdmin [
+	^ (self application preferenceAt: #adminEmail) trimBoth = user email
 ]
 
 { #category : #testing }
-GAFSession >> showArchived [
-	^ false
+GAFSession >> loginRequired [
+	"true if loginApp prefference has been set, and the session has not been authenticated"
+
+	^ user isNil
+]
+
+{ #category : #testing }
+GAFSession >> logout [
+	user := nil
 ]
 
 { #category : #accessing }
 GAFSession >> user [ 
 	^ user
+]
+
+{ #category : #accessing }
+GAFSession >> user: anObject [
+	user := anObject
 ]
