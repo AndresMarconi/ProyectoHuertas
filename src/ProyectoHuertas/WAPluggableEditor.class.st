@@ -70,8 +70,8 @@ WAPluggableEditor >> renderButtonsOn: html [
 				callback: [ self accept ];
 				with: 'Aceptar'.
 			html space.
-			html formButton
-				beSecondary;
+			html anchor
+				class: 'btn btn-secondary';
 				callback: [ self cancel ];
 				with: 'Cancelar' ]
 ]

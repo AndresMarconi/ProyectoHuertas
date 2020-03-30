@@ -24,18 +24,12 @@ GAFLoginComponent >> renderContentOn: html [
 			html
 				jumbotron: [ html
 						heading: [ html text: 'GAP-a-Farm'.
-							(self requestContext request url printString includesSubstring: 'expert')
+							(self requestContext request url printString
+								includesSubstring: 'expert')
 								ifTrue: [ html strong: ' (para expertos!)' ] ].
 					html image url: GAFLibrary / #farmomaticJpeg.
 					html
 						break;
 						break.
-					html paragraph: [ html text: self appDescription ].
-					html
-						paragraph: [ html anchor
-								url: self session oidcUrl;
-								with: [ html formButton
-										bePrimary;
-										beLarge;
-										with: 'Ingresar' ] ] ] ]
+					html paragraph: [ html text: self appDescription ] ] ]
 ]

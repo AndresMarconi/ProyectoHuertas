@@ -18,13 +18,12 @@ TimeStringPropertyEditorComponent >> obtainValueFromString: aString [
 { #category : #hooks }
 TimeStringPropertyEditorComponent >> renderInputOn: html [
 	html textInput
-		attributeAt: 'autocomplete' put: 'off';
+		noAutocomplete;
 		formControl;
 		placeholder: 'hh:mm';
 		value:
-			(bufferedValue
-				ifNil: [ Time now ]
-				ifNotNil: [ :it | it ]) print24WithoutSeconds ;
+			(bufferedValue ifNil: [ Time now ] ifNotNil: [ :it | it ])
+				print24WithoutSeconds;
 		callback: [ :value | self handleCallbackWith: value ];
 		id: selector
 ]

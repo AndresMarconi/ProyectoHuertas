@@ -1,16 +1,15 @@
 Class {
-	#name : #TextLinePropertyEditorComponent,
+	#name : #PasswordPropertyEditorComponent,
 	#superclass : #PropertyEditorComponent,
 	#category : #'ProyectoHuertas-widgets'
 }
 
-{ #category : #'subclass-responsibility' }
-TextLinePropertyEditorComponent >> renderInputOn: html [
+{ #category : #hooks }
+PasswordPropertyEditorComponent >> renderInputOn: html [
 	| input |
-	input := html textInput.
+	input := html passwordInput.
 	input
 		noAutocomplete;
-		readonly: readOnly;
 		formControl;
 		callback: [ :value | self handleCallbackWith: value ];
 		value: bufferedValue;

@@ -24,10 +24,14 @@ NumberPropertyEditorComponent >> obtainValueFromString: aString [
 
 { #category : #hooks }
 NumberPropertyEditorComponent >> renderInputOn: html [
-	html textInput
+	| input |
+	input := html textInput.
+	input
 		formControl;
-		attributeAt: 'autocomplete' put: 'off';
+		noAutocomplete;
 		callback: [ :value | self handleCallbackWith: value ];
-		with: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it printString ]);
-		id: selector
+		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it printString ]);
+		id: selector.
+	required
+		ifTrue: [ input attributeAt: 'required' put: 'on' ]
 ]

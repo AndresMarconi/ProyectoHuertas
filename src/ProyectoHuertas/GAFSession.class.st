@@ -23,6 +23,7 @@ GAFSession >> farm [
 
 { #category : #user }
 GAFSession >> findOrCreateUserFromClaims: aJsonWebSignature [
+	self halt.
 	^ self gapAFarm users
 		detect: [ :each | each email = (self session authenticatedUser at: 'email') ]
 		ifNone:

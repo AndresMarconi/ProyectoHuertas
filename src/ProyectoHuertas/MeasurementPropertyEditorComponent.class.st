@@ -45,6 +45,7 @@ MeasurementPropertyEditorComponent >> initialize [
 
 { #category : #hooks }
 MeasurementPropertyEditorComponent >> renderInputOn: html [
+	| input |
 	html inputGroup
 		with: [ html
 				inputGroupPrepend: [ html select
@@ -52,13 +53,16 @@ MeasurementPropertyEditorComponent >> renderInputOn: html [
 						callback: [ :value | bufferedValue unit: value ];
 						list: allowedUnits;
 						selected: bufferedValue unit;
-						id: selector , '-magnitude' ].
-			html textInput
+						id: selector , '-unit' ].
+			input := html textInput.
+			input
 				formControl;
-				attributeAt: 'autocomplete' put: 'off';
+				noAutocomplete;
 				callback: [ :value | self handleCallbackWith: value ];
-				with: bufferedValue magnitude printString;
-				id: selector , '-magnitude' ]
+				value: bufferedValue magnitude printString;
+				id: selector , '-magnitude'.
+			required
+				ifTrue: [ input attributeAt: 'required' put: 'on' ] ]
 ]
 
 { #category : #initialization }

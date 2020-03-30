@@ -19,8 +19,10 @@ DatePropertyEditorComponent >> obtainValueFromString: aString [
 
 { #category : #hooks }
 DatePropertyEditorComponent >> renderInputOn: html [
-	html textInput
-		attributeAt: 'autocomplete' put: 'off';
+	| input |
+	input := html textInput.
+	input
+		noAutocomplete;
 		formControl;
 		readonly: readOnly;
 		placeholder: 'dd/mm/aaaa';
@@ -30,5 +32,7 @@ DatePropertyEditorComponent >> renderInputOn: html [
 		script:
 			(html jQuery new datepicker
 				dateFormat: 'dd/mm/yy';
-				onSelect: html jQuery ajax serializeThis)
+				onSelect: html jQuery ajax serializeThis).
+	required
+		ifTrue: [ input attributeAt: 'required' put: 'on' ]
 ]
