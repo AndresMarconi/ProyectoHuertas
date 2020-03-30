@@ -10,7 +10,10 @@ Class {
 
 { #category : #'subclass-responsibility' }
 CropEditor >> allowedCropNames [
-	^ {nil} , SenasaCatalogue singleton cropVulgarNames
+	^ {nil}
+		,
+			(SenasaCatalogue singleton cropVulgarNames
+				reject: [ :each | each includes: $* ])
 		copyWithoutAll: (self session gapAFarm crops collect: #vulgarName)
 ]
 
