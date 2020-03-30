@@ -14,12 +14,11 @@ BaselineOfProyectoHuertas >> baseline: spec [
 				bootstrap4: spec;
 				voyage: spec;
 				gettext: spec;
-				neoCSV: spec;
-				oicdForSeaside: spec.
+				neoCSV: spec.
 			spec
 				package: 'ProyectoHuertas'
 				with: [ spec
-						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'OIDCForSeaside' 'NeoCSV') ].
+						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'NeoCSV') ].
 			spec postLoadDoIt: #postLoadActions ]
 ]
 
@@ -46,13 +45,6 @@ BaselineOfProyectoHuertas >> neoCSV: spec [
 	spec
 		baseline: 'NeoCSV'
 		with: [ spec repository: 'github://svenvc/NeoCSV/repository' ]
-]
-
-{ #category : #baselines }
-BaselineOfProyectoHuertas >> oicdForSeaside: spec [
-	spec
-		baseline: 'OIDCForSeaside'
-		with: [ spec repository: 'github://casco/oicd-for-seaside/src' ]
 ]
 
 { #category : #baselines }
