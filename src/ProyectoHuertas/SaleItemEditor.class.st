@@ -23,6 +23,11 @@ SaleItemEditor >> crops [
 	^ self session gapAFarm crops
 ]
 
+{ #category : #accessing }
+SaleItemEditor >> hasProblems [
+	(self children flatCollect: #problems) ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
+]
+
 { #category : #'subclass-responsibility' }
 SaleItemEditor >> initializeComponents [
 	"Initialize all property components"
@@ -49,6 +54,11 @@ SaleItemEditor >> initializeComponents [
 { #category : #accessing }
 SaleItemEditor >> plots [ 
 	^ (self session farm plots) asOrderedCollection.
+]
+
+{ #category : #accessing }
+SaleItemEditor >> problems [ 
+	^self children flatCollect: #problems
 ]
 
 { #category : #rendering }

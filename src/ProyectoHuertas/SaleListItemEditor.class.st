@@ -7,17 +7,11 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
-{ #category : #callbacks }
-SaleListItemEditor >> accept [ 
-	items do: #accept.
-	parent
-		ifNil: [ self answer: subject ]
-		ifNotNil: [ :it | it answer: subject ]
-]
-
 { #category : #adding }
 SaleListItemEditor >> addRow [
-	items do: #accept.
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
 	subject addItem: CropSale new.
 	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
@@ -26,6 +20,11 @@ SaleListItemEditor >> addRow [
 { #category : #callbacks }
 SaleListItemEditor >> cancel [
 	parent ifNil: [ self answer: nil ] ifNotNil: [ :it | it answer: nil ]
+]
+
+{ #category : #'subclass-responsibility' }
+SaleListItemEditor >> children [ 
+	^items
 ]
 
 { #category : #'subclass-responsibility' }
@@ -39,6 +38,7 @@ SaleListItemEditor >> renderContentOn: html [
 	html heading level4; with: 'Fecha: ', (subject date asDate ddmmyyyy).
 	html heading level4; with: 'Cliente: ', (subject client).
 	html heading level4; with: 'Productos'.
+	self renderProblemsOn: html.
 	html form: [ 
 		self renderElementsTableOn: html.
 		html formButton
