@@ -3,8 +3,7 @@ Class {
 	#superclass : #GAFEditor,
 	#instVars : [
 		'substanceEditorComponent',
-		'quantityEditorComponent',
-		'expirationDateEditorComponent'
+		'unitEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -14,8 +13,7 @@ InventoryItemEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {substanceEditorComponent.
-		expirationDateEditorComponent.
-		quantityEditorComponent}, 
+		unitEditorComponent}, 
 		super children
 ]
 
@@ -29,20 +27,22 @@ InventoryItemEditor >> initializeComponents [
 		required: true.
 	substanceEditorComponent
 		possibleValues: {nil} , (self substances).
-	quantityEditorComponent := NumberPropertyEditorComponent
+	unitEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #quantity
-		label: 'Cantidad'
+		selector: #unit
+		label: 'Unidad de medida'
 		required: true.
-	expirationDateEditorComponent := DatePropertyEditorComponent
-		subject: subject
-		selector: #expirationDate
-		label: 'Fecha de Vencimiento'
-		required: true.
+	unitEditorComponent 
+		possibleValues: {nil} , (self units).
 	super initializeComponents.
 ]
 
 { #category : #accessing }
 InventoryItemEditor >> substances [
 	^ self session gapAFarm substances
+]
+
+{ #category : #constants }
+InventoryItemEditor >> units [ 
+	^Substance units
 ]

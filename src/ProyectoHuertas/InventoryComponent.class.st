@@ -6,14 +6,14 @@ Class {
 
 { #category : #rendering }
 InventoryComponent >> columnHeadings [
-	^ {'Nombre comercial' . 'Principio Activo' . 'Cantidad disponible'}, super columnHeadings
+	^ {'Nombre comercial' . 'Principio Activo' }, super columnHeadings
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
-	element substance activeIngredients.
-	element quantity}, (super columnValuesFor: element)
+	element substance activeIngredients}
+		, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
@@ -38,7 +38,19 @@ InventoryComponent >> elements [
 { #category : #initialization }
 InventoryComponent >> initialize [
 	super initialize.
-	duplicateEnabled := false
+	duplicateEnabled := false.
+	viewEnabled:= true
+]
+
+{ #category : #hooks }
+InventoryComponent >> renderCustomActionButtonsFor: element on: html [
+	html formButton
+		style: 'margin: 2px;';
+		bePrimary;
+		callback: [ self addRecord: element ];
+		with: [ html span
+				attributeAt: 'title' put: 'Agregar';
+				class: 'fa fa-plus' ]
 ]
 
 { #category : #adding }
@@ -49,4 +61,9 @@ InventoryComponent >> saveAddedElement: anInventoryItem [
 		ifNone: [ super saveAddedElement: anInventoryItem.
 			self session farm addInventoryItem: anInventoryItem ].
 	self session farm save
+]
+
+{ #category : #callbacks }
+InventoryComponent >> viewElement: element [
+	^self call: (InventoryItemsViewerComponent item: element)
 ]

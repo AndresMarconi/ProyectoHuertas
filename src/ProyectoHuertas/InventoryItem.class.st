@@ -3,8 +3,8 @@ Class {
 	#superclass : #GAFObject,
 	#instVars : [
 		'substance',
-		'quantity',
-		'expirationDate'
+		'unit',
+		'records'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -14,33 +14,20 @@ InventoryItem class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'instance creation' }
-InventoryItem class >> substance: substance quantity: quantity expirationDate: date [
-	^ self new
-		substance: substance;
-		quantity: quantity;
-		expirationDate: date;
-		yourself
+{ #category : #adding }
+InventoryItem >> addRecord: aRecord [
+	records add: aRecord
+]
+
+{ #category : #initialization }
+InventoryItem >> initialize [ 
+	super initialize.
+	records:= OrderedCollection new.
 ]
 
 { #category : #accessing }
-InventoryItem >> expirationDate [
-	^ expirationDate
-]
-
-{ #category : #accessing }
-InventoryItem >> expirationDate: anObject [
-	expirationDate := anObject
-]
-
-{ #category : #accessing }
-InventoryItem >> quantity [
-	^ quantity
-]
-
-{ #category : #accessing }
-InventoryItem >> quantity: anObject [
-	quantity := anObject
+InventoryItem >> records [
+	^ records
 ]
 
 { #category : #accessing }
@@ -53,13 +40,12 @@ InventoryItem >> substance: anObject [
 	substance := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-InventoryItem >> updateStock: item [
-	quantity := quantity + item quantity.
-	expirationDate:= item expirationDate.
+{ #category : #accessing }
+InventoryItem >> unit [
+	^ unit
 ]
 
-{ #category : #'as yet unclassified' }
-InventoryItem >> useItem: usageQuantity [
-	quantity := quantity - usageQuantity
+{ #category : #accessing }
+InventoryItem >> unit: anObject [
+	unit := anObject
 ]

@@ -14,6 +14,11 @@ Substance class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #constants }
+Substance class >> units [ 
+	^{ 'Kg'. 'Lt'  }
+]
+
 { #category : #accessing }
 Substance >> activeIngredients [
 	^ activeIngredients
