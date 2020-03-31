@@ -4,6 +4,11 @@ Class {
 	#category : #'ProyectoHuertas-ui-expert-dashboard'
 }
 
+{ #category : #accessing }
+ReactionsDashboardComponent >> elements [ 
+	^{1}
+]
+
 { #category : #rendering }
 ReactionsDashboardComponent >> renderContentOn: html [
 	html table

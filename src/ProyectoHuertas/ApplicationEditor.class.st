@@ -68,13 +68,8 @@ ApplicationEditor >> plots [
 ]
 
 { #category : #rendering }
-ApplicationEditor >> renderContentOn: html [
-	self renderProblemOn: html.
-	super renderContentOn: html.
-]
-
-{ #category : #rendering }
-ApplicationEditor >> renderProblemOn: html [
+ApplicationEditor >> renderProblemsOn: html [
+	super renderProblemsOn: html.
 	notAllowed ifTrue: [ html alert beDanger; 
 		with: 'no puede aplicar ', substanceEditorComponent bufferedValue comercialName,' a ', plotEditorComponent bufferedValue currentCrop vulgarName ].
 	notEnough ifTrue: [ html alert beDanger; 
