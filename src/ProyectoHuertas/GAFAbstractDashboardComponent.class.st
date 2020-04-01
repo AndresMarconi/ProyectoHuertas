@@ -26,7 +26,7 @@ GAFAbstractDashboardComponent >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 GAFAbstractDashboardComponent >> sortedWigets [
-	^self widgets asSortedCollection: [ :a :b | a sizeOfColumn > b sizeOfColumn ]
+	^self widgets asSortedCollection: [ :a :b | a sizeOfColumn <= b sizeOfColumn ]
 ]
 
 { #category : #initialization }
