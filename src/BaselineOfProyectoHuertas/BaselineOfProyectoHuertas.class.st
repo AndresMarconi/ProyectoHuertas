@@ -58,10 +58,7 @@ GAFDeployer demoMode: false.
 
 "Evaluate one of the following to set the target persistency strategy"
 GAFStorage inMemory.
-GAFStorage mongoLocal.
-	
-	Smalltalk garbageCollect  .
-'
+GAFStorage mongoLocal.'
 	
 	label: 'Deployment scripts'.
 ]
