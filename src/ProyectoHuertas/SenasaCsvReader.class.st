@@ -18,6 +18,7 @@ SenasaCsvReader class >> autoCorrectionDictionary [
 		at: 'hidroxido de cobre' put: 'hidróxido de cobre';
 		at: 'Alfafla' put: 'Alfalfa';
 		at: 'R. de bruselas' put: 'Repollito de bruselas';
+		at: 'pyriproxifen' put: 'pyriproxyfen';
 		yourself
 ]
 
@@ -80,7 +81,7 @@ SenasaCsvReader >> expand934AbbreviationsIn: aString [
 		ifAbsent: [ aString ]
 ]
 
-{ #category : #'934Year10' }
+{ #category : #common }
 SenasaCsvReader >> fixTyposIn: aString [
 	^ self class autoCorrectionDictionary
 		at: aString
@@ -183,7 +184,7 @@ SenasaCsvReader >> recordsFrom608Year2012Row: row [
 				add:
 					(SenasaRecord new
 						cropVulgarName: row first trimBoth asLowercase capitalized;
-						activeIngredientTradeName: principle;
+						activeIngredientTradeName: (self fixTyposIn: principle);
 						applicabilities: (self applicability608For: row second);
 						residue: residue;
 						source: 'RESOLUCIÓN-608-2012-SENASA';
