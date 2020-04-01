@@ -5,7 +5,8 @@ Class {
 		'title',
 		'subtitle',
 		'component',
-		'imageUrl'
+		'imageUrl',
+		'size'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
@@ -13,6 +14,11 @@ Class {
 { #category : #accessing }
 DashboardCardDecorator >> component: anObject [
 	component := anObject
+]
+
+{ #category : #testing }
+DashboardCardDecorator >> hasElementsToShow [
+	^component elements isNotEmpty.
 ]
 
 { #category : #accessing }
@@ -44,7 +50,17 @@ DashboardCardDecorator >> renderCardOn: html [
 
 { #category : #rendering }
 DashboardCardDecorator >> renderContentOn: html [
-	component elements ifNotEmpty: [ self renderCardOn: html ]
+	self renderCardOn: html
+]
+
+{ #category : #accessing }
+DashboardCardDecorator >> size: anObject [
+	size := anObject
+]
+
+{ #category : #accessing }
+DashboardCardDecorator >> sizeOfColumn [
+	^ size
 ]
 
 { #category : #accessing }

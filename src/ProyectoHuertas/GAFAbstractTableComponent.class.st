@@ -24,8 +24,8 @@ GAFAbstractTableComponent >> elements [
 ]
 
 { #category : #accessing }
-GAFAbstractTableComponent >> filteredElements [
-	^ self subclassResponsibility
+GAFAbstractTableComponent >> filteredElements [ 
+	^self elements
 ]
 
 { #category : #initialization }

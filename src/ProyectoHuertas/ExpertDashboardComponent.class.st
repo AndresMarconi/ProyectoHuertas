@@ -1,6 +1,6 @@
 Class {
 	#name : #ExpertDashboardComponent,
-	#superclass : #GAFAbstractComponent,
+	#superclass : #GAFAbstractDashboardComponent,
 	#instVars : [
 		'reactionsExpertDashboardComponent',
 		'cropsExpertDashboardComponent',
@@ -11,74 +11,37 @@ Class {
 }
 
 { #category : #initialization }
-ExpertDashboardComponent >> initialize [
-	super initialize.
-	reactionsExpertDashboardComponent := ReactionsDashboardComponent new.
-	problemsExpertDashboardComponent := ProblemsForExpertsDashboardComponent
-		new.
-	cropsExpertDashboardComponent := CropsForExpertsDashboardComponent
-		new.
-	substancesExpertDashboardComponent := SubstancesForExpertsDashboardComponent
-		new
-]
-
-{ #category : #rendering }
-ExpertDashboardComponent >> renderAsCard: aBlock titled: aTitle on: html [
-	html card
-		style: 'margin-bottom: 20px;';
-		with: [ html
-				cardBody: [ html cardTitle level5 with: aTitle.
-					html cardText: aBlock ] ]
-]
-
-{ #category : #rendering }
-ExpertDashboardComponent >> renderContentOn: html [
-	html
-		row: [ html
-				column: [ self renderProblemsCardOn: html ] mediumSize: 6;
-				column: [ self renderSubstancesCardOn: html ] mediumSize: 6 ];
-		row: [ html
-				column: [ self renderCropsCardOn: html ] mediumSize: 6;
-				column:
-						[ self renderReactionsCardOn: html ] mediumSize: 6 ]
-]
-
-{ #category : #rendering }
-ExpertDashboardComponent >> renderCropsCardOn: html [
-	^ html
-		render:
-			(DashboardCardDecorator new
-				component: cropsExpertDashboardComponent;
+ExpertDashboardComponent >> initializeComponents [
+	cropsExpertDashboardComponent:=
+		(DashboardCardDecorator new
+				component: CropsForExpertsDashboardComponent new;
 				title: 'Siembra';
-				yourself)
-]
-
-{ #category : #rendering }
-ExpertDashboardComponent >> renderProblemsCardOn: html [
-	^ html
-		render:
-			(DashboardCardDecorator new
-				component: problemsExpertDashboardComponent;
+				size: 6;
+				yourself).
+	problemsExpertDashboardComponent:=
+		(DashboardCardDecorator new
+				component: ProblemsForExpertsDashboardComponent new;
 				title: 'Adversidades';
-				yourself)
-]
-
-{ #category : #rendering }
-ExpertDashboardComponent >> renderReactionsCardOn: html [
-	^ html
-		render:
-			(DashboardCardDecorator new
-				component: reactionsExpertDashboardComponent;
+				size: 6;
+				yourself).
+	reactionsExpertDashboardComponent:=
+		(DashboardCardDecorator new
+				component: ReactionsDashboardComponent new;
 				title: 'Reacciones';
+				size: 6;
+				yourself).
+	substancesExpertDashboardComponent:=
+		(DashboardCardDecorator new
+				component: SubstancesForExpertsDashboardComponent new;
+				title: 'Uso de fitosanitarios';
+				size: 6;
 				yourself)
 ]
 
-{ #category : #rendering }
-ExpertDashboardComponent >> renderSubstancesCardOn: html [
-	^ html
-		render:
-			(DashboardCardDecorator new
-				component: substancesExpertDashboardComponent;
-				title: 'Uso de fitosanitarios';
-				yourself)
+{ #category : #accessing }
+ExpertDashboardComponent >> widgets [ 
+	^{reactionsExpertDashboardComponent.
+	cropsExpertDashboardComponent.
+	problemsExpertDashboardComponent.
+	substancesExpertDashboardComponent }
 ]
