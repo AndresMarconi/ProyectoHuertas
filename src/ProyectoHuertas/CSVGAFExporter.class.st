@@ -1,39 +1,40 @@
 Class {
-	#name : #CSVEventsExporter,
+	#name : #CSVGAFExporter,
 	#superclass : #Object,
 	#instVars : [
-		'events'
+		'events',
+		'sortBlock'
 	],
 	#category : #'ProyectoHuertas-export'
 }
 
 { #category : #'instance creation' }
-CSVEventsExporter class >> events: aCollectionOfEvents [
+CSVGAFExporter class >> events: aCollectionOfEvents [
 	^ self new events: aCollectionOfEvents
 ]
 
 { #category : #exporting }
-CSVEventsExporter >> elementRowFor: each [
+CSVGAFExporter >> elementRowFor: each [
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-CSVEventsExporter >> events [
+CSVGAFExporter >> events [
 	^ events
 ]
 
 { #category : #accessing }
-CSVEventsExporter >> events: anObject [
+CSVGAFExporter >> events: anObject [
 	events := anObject
 ]
 
 { #category : #exporting }
-CSVEventsExporter >> export [
+CSVGAFExporter >> export [
 	| rows |
 	rows := Array new writeStream.
 	rows nextPut: self headerRow.
 	(self events
-		asSortedCollection: [ :a :b | a dateAndTime < b dateAndTime ])
+		asSortedCollection: sortBlock)
 		do: [ :each | rows nextPut: (self elementRowFor: each) ].
 	^ String
 		streamContents: [ :stream | 
@@ -43,6 +44,21 @@ CSVEventsExporter >> export [
 ]
 
 { #category : #exporting }
-CSVEventsExporter >> headerRow [
+CSVGAFExporter >> headerRow [
 	self subclassResponsibility
+]
+
+{ #category : #initialization }
+CSVGAFExporter >> initialize [
+	sortBlock := [ :a :b | a dateAndTime < b dateAndTime ]
+]
+
+{ #category : #accessing }
+CSVGAFExporter >> sortBlock [
+	^ sortBlock
+]
+
+{ #category : #accessing }
+CSVGAFExporter >> sortBlock: anObject [
+	sortBlock := anObject
 ]

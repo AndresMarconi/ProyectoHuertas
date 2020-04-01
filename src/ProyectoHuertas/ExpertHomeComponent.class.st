@@ -47,6 +47,10 @@ ExpertHomeComponent >> renderLeftMenuOn: html [
 							('Fitosanitarios y fertilizantes' -> SubstancesComponent)}
 						heading: 'Catálogos'
 						on: html.
+					self
+						renderMenuBlock: {('Exportar' -> ExpertExportComponent)}
+						heading: 'Administración'
+						on: html.
 					self renderRolesMenuBlockOn: html ] ]
 ]
 

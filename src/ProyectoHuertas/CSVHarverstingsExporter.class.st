@@ -1,6 +1,6 @@
 Class {
 	#name : #CSVHarverstingsExporter,
-	#superclass : #CSVEventsExporter,
+	#superclass : #CSVGAFExporter,
 	#category : #'ProyectoHuertas-export'
 }
 

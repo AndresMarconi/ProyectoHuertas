@@ -1,27 +1,17 @@
 Class {
 	#name : #FarmerExportComponent,
-	#superclass : #GAFAbstractComponent,
+	#superclass : #ExportComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
-{ #category : #private }
-FarmerExportComponent >> export: data inFileNamed: aFileName [
-	self requestContext
-		respond: [ :response | 
-			response
-				contentType: WAMimeType applicationJson;
-				document: data;
-				attachmentWithFileName: aFileName ]
-]
-
-{ #category : #private }
+{ #category : #callbacks }
 FarmerExportComponent >> exportApplications [
 	self
 		export: (CSVApplicationsExporter events: self session farm aplications) export
 		inFileNamed: 'aplicaciones.csv'
 ]
 
-{ #category : #private }
+{ #category : #callbacks }
 FarmerExportComponent >> exportHarvestings [
 	self
 		export:
@@ -29,14 +19,14 @@ FarmerExportComponent >> exportHarvestings [
 		inFileNamed: 'cosechas.csv'
 ]
 
-{ #category : #private }
+{ #category : #callbacks }
 FarmerExportComponent >> exportProblems [
 	self
 		export: (CSVProblemsExporter events: self session farm problems) export
 		inFileNamed: 'adversidades.csv'
 ]
 
-{ #category : #private }
+{ #category : #callbacks }
 FarmerExportComponent >> exportSowings [
 	self
 		export: (CSVSowingsExporter events: self session farm sowings) export
@@ -69,13 +59,4 @@ FarmerExportComponent >> renderContentOn: html [
 								renderExportCsvButonFor: #exportHarvestings
 								labeled: 'Cosechas'
 								on: html ] ] ]
-]
-
-{ #category : #rendering }
-FarmerExportComponent >> renderExportCsvButonFor: selector labeled: label on: html [
-	html
-		tableData: label;
-		tableData: [ html anchor
-				callback: [ self perform: selector ];
-				with: [ html image url: GAFLibrary / #csvicon48Jpg ] ]
 ]

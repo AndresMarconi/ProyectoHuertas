@@ -28,10 +28,8 @@ ActiveIngredientViewer >> renderContentOn: html [
 		with: 'Aptitud'.
 	html
 		paragraph:
-			(self
-				asCommaSeparatedList:
-					(SenasaCatalogue singleton
-						combinedApplicabilitiesFor: {activeIngredient})).
+			(SenasaCatalogue singleton
+				combinedApplicabilitiesFor: {activeIngredient}) asCommaString.
 	activeIngredient comment
 		ifNotEmpty: [ :it | 
 			html heading

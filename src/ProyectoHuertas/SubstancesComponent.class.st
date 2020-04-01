@@ -15,12 +15,10 @@ SubstancesComponent >> columnValuesFor: substance [
 	"{'Nombre comercial'. 'Marca'. 'Componentes activos'. 'Carencia (días)'}"
 
 	^ {substance comercialName.
-	(self
-		asCommaSeparatedList: (substance activeIngredients collect: #tradeName)).
-	(self
-		asCommaSeparatedList:
-			(SenasaCatalogue singleton
-				combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName))).
+	(substance activeIngredients collect: #tradeName) asCommaString.
+	(SenasaCatalogue singleton
+		combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName))
+		asCommaString.
 	(self withdrawalStringFor: substance)}
 		, (super columnValuesFor: substance)
 ]

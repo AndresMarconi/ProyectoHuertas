@@ -156,10 +156,9 @@ WithdrawalTimeRecommendationsEditor >> renderFixedDataOn: html [
 		with: 'Aptitud:  '.
 	html
 		paragraph:
-			(self
-				asCommaSeparatedList:
-					(SenasaCatalogue singleton
-						combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName)))
+			(SenasaCatalogue singleton
+				combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName))
+				asCommaString
 ]
 
 { #category : #rendering }
