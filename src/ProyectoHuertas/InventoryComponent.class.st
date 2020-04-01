@@ -4,6 +4,18 @@ Class {
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
+{ #category : #adding }
+InventoryComponent >> addRecord: substance [
+	| record |
+	record := self
+		call:
+			(InventoryItemRecordEditor
+				subject: InventoryItemRecord new
+				unit: substance unit).
+	record ifNotNil: [ :it | substance addRecord: it ].
+	substance save
+]
+
 { #category : #rendering }
 InventoryComponent >> columnHeadings [
 	^ {'Nombre comercial' . 'Principio Activo' }, super columnHeadings

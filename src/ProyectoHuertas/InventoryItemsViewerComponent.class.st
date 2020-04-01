@@ -21,7 +21,9 @@ InventoryItemsViewerComponent >> columnHeadings [
 
 { #category : #initialization }
 InventoryItemsViewerComponent >> columnValuesFor: element [
-	^{}
+	^{element source.
+	(element quantity magnitude asString , ' ' , element quantity unit).
+	element expirationDate yyyymmdd}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
