@@ -92,6 +92,13 @@ Farm >> inventoryItems [
 	^ inventoryItems 
 ]
 
+{ #category : #testing }
+Farm >> isPlotIdInUse: anId byOtherThan: aPlot [
+	| nameMatches |
+	nameMatches := plots select: [ :each | each id = anId ].
+	^ nameMatches anySatisfy: [ :each | each ~= aPlot ]
+]
+
 { #category : #utility }
 Farm >> mostFrequentelyHarvested: count [
 	^ ((plots flatCollect: #frequentelyHarvested as: Bag) sortedCounts

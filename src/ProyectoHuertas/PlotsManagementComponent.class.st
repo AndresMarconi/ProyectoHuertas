@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 PlotsManagementComponent >> addManyElements [
-	(self call: (MultiplePlotsCreator subject: nil))
+	(self call: (BatchPlotCreator subject: nil))
 		ifNotNil:
 			[ :plots | plots do: [ :plot | self saveAddedElement: plot ] ]
 ]

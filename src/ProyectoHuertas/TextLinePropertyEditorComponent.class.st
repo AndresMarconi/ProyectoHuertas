@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'subclass-responsibility' }
+TextLinePropertyEditorComponent >> obtainValueFromString: aString [
+	^ aString trimBoth
+]
+
+{ #category : #'subclass-responsibility' }
 TextLinePropertyEditorComponent >> renderInputOn: html [
 	| input |
 	input := html textInput.
