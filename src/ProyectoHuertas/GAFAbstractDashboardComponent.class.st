@@ -18,10 +18,15 @@ GAFAbstractDashboardComponent >> initializeComponents [
 { #category : #rendering }
 GAFAbstractDashboardComponent >> renderContentOn: html [
 	html
-		row: [ self widgets
+		row: [ self sortedWigets
 				do: [ :widget | 
 					widget hasElementsToShow
 						ifTrue: [ html column: [ html render: widget ] mediumSize: widget sizeOfColumn ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+GAFAbstractDashboardComponent >> sortedWigets [
+	^self widgets asSortedCollection: [ :a :b | a sizeOfColumn > b sizeOfColumn ]
 ]
 
 { #category : #initialization }
