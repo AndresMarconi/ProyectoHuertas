@@ -31,6 +31,11 @@ PropertyEditorComponent >> accept [
 ]
 
 { #category : #accessing }
+PropertyEditorComponent >> addProblem: aProblemString [
+	problems add: aProblemString
+]
+
+{ #category : #accessing }
 PropertyEditorComponent >> bufferedValue [
 	^ bufferedValue
 ]

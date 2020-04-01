@@ -8,9 +8,24 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
+{ #category : #callbacks }
+SubstanceEditor >> accept [
+	self checkIfCommercialNameIsAlreadyInUse.
+	super accept
+]
+
 { #category : #accessing }
 SubstanceEditor >> activeIngredients [ 
 	^ ActiveIngredient selectAll asSortedCollection: [ :a :b | a tradeName < b tradeName ]
+]
+
+{ #category : #private }
+SubstanceEditor >> checkIfCommercialNameIsAlreadyInUse [
+	(self session gapAFarm
+		isSubstanceCommercialNameInUse: comercialNameEditorComponent bufferedValue
+		byOtherThan: subject)
+		ifTrue: [ comercialNameEditorComponent
+				addProblem: 'Ya existe un producto con ese nombre' ]
 ]
 
 { #category : #'subclass-responsibility' }

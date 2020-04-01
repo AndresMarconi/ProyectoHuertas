@@ -56,6 +56,14 @@ GapAFarm >> findOrCreateFarmNamed: aName [
 	^ aFarm
 ]
 
+{ #category : #testing }
+GapAFarm >> isSubstanceCommercialNameInUse: aCommercialName byOtherThan: aSubstance [
+	| nameMatches |
+	nameMatches := self substances
+		select: [ :each | each comercialName = aCommercialName ].
+	^ nameMatches anySatisfy: [ :each | each ~= aSubstance ]
+]
+
 { #category : #'factory methods' }
 GapAFarm >> register: anEmailAddress withHashedPassword: aHashedPassword andName: aFullName [
 	| user |
@@ -74,6 +82,13 @@ GapAFarm >> registeredCropsForActiveIngredient: activeIngrediente [
 	^ (SenasaCatalogue singleton
 		registeredCropNamesForActiveIngredient: activeIngrediente tradeName)
 		flatCollect: [ :cropName | self cropNamed: cropName ]
+]
+
+{ #category : #'db queries' }
+GapAFarm >> substanceWithCommercialName: aCommercialName [
+	^ Substance selectAll
+		detect: [ :each | each comercialName = aCommercialName ]
+		ifNone: [ nil ]
 ]
 
 { #category : #'db queries' }
