@@ -36,7 +36,10 @@ CSVEventsExporter >> export [
 		asSortedCollection: [ :a :b | a dateAndTime < b dateAndTime ])
 		do: [ :each | rows nextPut: (self elementRowFor: each) ].
 	^ String
-		streamContents: [ :stream | (NeoCSVWriter on: stream) nextPutAll: rows contents ]
+		streamContents: [ :stream | 
+			(NeoCSVWriter on: stream)
+				separator: $;;
+				nextPutAll: rows contents ]
 ]
 
 { #category : #exporting }
