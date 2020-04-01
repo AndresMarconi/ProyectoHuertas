@@ -25,22 +25,14 @@ GAFAbstractTableComponent >> elements [
 
 { #category : #accessing }
 GAFAbstractTableComponent >> filteredElements [
-	^ filterComponent shouldFilter
-		ifTrue: [ self elements
-				select: [ :each | 
-					((self columnValuesFor: each)
-						at: (self columnHeadings indexOf: filterComponent column))
-						asLowercase
-						includesSubstring: filterComponent filter asLowercase ] ]
-		ifFalse: [ self elements ]
+	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
 GAFAbstractTableComponent >> initialize [
 	super initialize.
 	paginator := Paginator subject: self selector: #filteredElements pageSize: 10.
-	filterComponent := TableFilterComponent
-		columns: (self columnHeadings copyWithout: 'Acciones')
+
 ]
 
 { #category : #accessing }

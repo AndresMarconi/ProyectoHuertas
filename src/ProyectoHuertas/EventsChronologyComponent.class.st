@@ -60,16 +60,6 @@ EventsChronologyComponent >> plot: anObject [
 ]
 
 { #category : #rendering }
-EventsChronologyComponent >> renderContentOn: html [
-	html heading
-		level4;
-		with: 'Eventos'.
-	self renderPlotFilterOn: html.
-	html break.
-	super renderContentOn: html.
-]
-
-{ #category : #rendering }
 EventsChronologyComponent >> renderPlotFilterOn: html [
 	html
 		form: [ html

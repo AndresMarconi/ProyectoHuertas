@@ -56,6 +56,18 @@ GAFAbstractTableWithOptionsComponent >> elementEditorClass [
 	^ self subclassResponsibility
 ]
 
+{ #category : #accessing }
+GAFAbstractTableWithOptionsComponent >> filteredElements [
+	^ filterComponent shouldFilter
+		ifTrue: [ self elements
+				select: [ :each | 
+					((self columnValuesFor: each)
+						at: (self columnHeadings indexOf: filterComponent column))
+						asLowercase
+						includesSubstring: filterComponent filter asLowercase ] ]
+		ifFalse: [ self elements ]
+]
+
 { #category : #initialization }
 GAFAbstractTableWithOptionsComponent >> initialize [
 	super initialize.
@@ -63,7 +75,9 @@ GAFAbstractTableWithOptionsComponent >> initialize [
 	editEnabled := true.
 	removeEnabled := false.
 	addEnabled := true.
-	duplicateEnabled := true
+	duplicateEnabled := true.
+	filterComponent := TableFilterComponent
+		columns: (self columnHeadings copyWithout: 'Acciones')
 ]
 
 { #category : #accessing }
