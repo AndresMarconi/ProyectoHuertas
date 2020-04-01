@@ -2,14 +2,15 @@ Class {
 	#name : #GAFAbstractTableComponent,
 	#superclass : #GAFAbstractComponent,
 	#instVars : [
-		'paginator'
+		'paginator',
+		'filterComponent'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
 
 { #category : #rendering }
 GAFAbstractTableComponent >> columnHeadings [
-	^ self subclassResponsibility
+	^ self
 ]
 
 { #category : #rendering }
@@ -23,14 +24,23 @@ GAFAbstractTableComponent >> elements [
 ]
 
 { #category : #accessing }
-GAFAbstractTableComponent >> elementsToList [
-	^ self elements
+GAFAbstractTableComponent >> filteredElements [
+	^ filterComponent shouldFilter
+		ifTrue: [ self elements
+				select: [ :each | 
+					((self columnValuesFor: each)
+						at: (self columnHeadings indexOf: filterComponent column))
+						asLowercase
+						includesSubstring: filterComponent filter asLowercase ] ]
+		ifFalse: [ self elements ]
 ]
 
 { #category : #initialization }
-GAFAbstractTableComponent >> initialize [ 
+GAFAbstractTableComponent >> initialize [
 	super initialize.
-	paginator := Paginator subject: self selector: #elements pageSize: 10
+	paginator := Paginator subject: self selector: #filteredElements pageSize: 10.
+	filterComponent := TableFilterComponent
+		columns: (self columnHeadings copyWithout: 'Acciones')
 ]
 
 { #category : #accessing }
@@ -45,8 +55,9 @@ GAFAbstractTableComponent >> parent [
 
 { #category : #rendering }
 GAFAbstractTableComponent >> renderContentOn: html [
+	html render: filterComponent.
 	self renderElementsTableOn: html.
-	paginator renderPaginationOn: html.
+	paginator renderPaginationOn: html
 ]
 
 { #category : #rendering }
@@ -64,7 +75,7 @@ GAFAbstractTableComponent >> renderExtraRowValue: element On: html [
 
 { #category : #rendering }
 GAFAbstractTableComponent >> renderTableBodyOn: html [
-	html tableBody: [ (paginator selectElementsIn: self elementsToList) do: [ :element | 
+	html tableBody: [ (paginator selectElementsIn: self filteredElements) do: [ :element | 
 		html tableRow: [ (self columnValuesFor: element) do: [ :value | html tableData: value ].
 			self renderExtraRowValue: element On: html. ] ] ]
 ]
