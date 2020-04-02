@@ -23,6 +23,24 @@ SubstancesComponent >> columnValuesFor: substance [
 		, (super columnValuesFor: substance)
 ]
 
+{ #category : #rendering }
+SubstancesComponent >> definedWithdrawalStringFor: aSubstance [
+	| stream |
+	stream := String new writeStream.
+	(aSubstance withdrawalRecommendationsByDays associations
+		asSortedCollection: [ :a :b | a key < b key ])
+		do: [ :association | 
+			association value
+				do: [ :recommendation| stream nextPutAll:  recommendation crop vulgarName ]
+				separatedBy: [ stream nextPutAll: ', ' ].
+			stream nextPutAll: ': '.
+			stream
+				nextPutAll: association key asString;
+				nextPutAll: ' días' ]
+		separatedBy: [ stream nextPutAll: ' - ' ].
+	^ stream contents
+]
+
 { #category : #callbacks }
 SubstancesComponent >> editWithdrawalPeriodRecommendations: aSubstance [
 	self
@@ -55,45 +73,43 @@ SubstancesComponent >> initialize [
 ]
 
 { #category : #rendering }
-SubstancesComponent >> renderActionButtonsFor: element on: html [
-	html
-		form: [ html formButton
-				style: 'margin: 2px;';
-				bePrimary;
-				callback: [ self editElement: element ];
-				with: [ html span
-						attributeAt: 'title' put: 'Modificar';
-						class: 'fa fa-pencil' ].
-			html formButton
-				style: 'margin: 2px;';
-				bePrimary;
-				callback: [ self editWithdrawalPeriodRecommendations: element ];
-				with: [ html span
-						attributeAt: 'title' put: 'Ajustar tiempos de carencia';
-						class: 'fa fa-calendar-times-o' ].
-			html formButton
-				style: 'margin: 2px;';
-				bePrimary;
-				callback: [ self duplicateElement: element ];
-				with: [ html span
-						attributeAt: 'title' put: 'Duplicar';
-						class: 'fa fa-clone' ] ]
+SubstancesComponent >> isExempt: aSubstance [
+	^ (aSubstance activeIngredients collect: #tradeName)
+		allSatisfy: [ :each | SenasaCatalogue singleton isExempt: each ]
+]
+
+{ #category : #rendering }
+SubstancesComponent >> isIncomplete: aSubstance [
+	| namesOfCropsWithWithdrawalPeriod namesOfCropsThatRequireWithdrawal missing |
+	namesOfCropsWithWithdrawalPeriod := aSubstance
+		withdrawalRecommendations
+		collect: [ :each | each crop vulgarName ]
+		as: Set.
+	namesOfCropsThatRequireWithdrawal := ((aSubstance activeIngredients
+		collect: #tradeName)
+		flatCollect: [ :aTradeName | 
+			(SenasaCatalogue singleton recordsForActiveIngredientNamed: aTradeName)
+				reject: #isExempt ]) collect: #cropVulgarName as: Set.
+	missing := (namesOfCropsThatRequireWithdrawal
+		intersection: (self session gapAFarm crops collect: #vulgarName))
+		copyWithoutAll: namesOfCropsWithWithdrawalPeriod.
+	^ missing notEmpty
+]
+
+{ #category : #rendering }
+SubstancesComponent >> renderSpecificActionsFor: element on: html [
+	html div class: 'dropdown-divider'.
+	html anchor
+		class: 'dropdown-item';
+		callback: [ self editWithdrawalPeriodRecommendations: element ];
+		with: 'Ajustar tiempos de carencia'
 ]
 
 { #category : #rendering }
 SubstancesComponent >> withdrawalStringFor: aSubstance [
-	| stream |
-	stream := String new writeStream.
-	(aSubstance withdrawalRecommendationsByDays associations
-		asSortedCollection: [ :a :b | a key < b key ])
-		do: [ :association | 
-			association value
-				do: [ :recommendation| stream nextPutAll:  recommendation crop vulgarName ]
-				separatedBy: [ stream nextPutAll: ', ' ].
-			stream nextPutAll: ': '.
-			stream
-				nextPutAll: association key asString;
-				nextPutAll: ' días' ]
-		separatedBy: [ stream nextPutAll: ' - ' ].
-	^ stream contents
+	(self isExempt: aSubstance)
+		ifTrue: [ ^ 'Exento' ].
+	(self isIncomplete: aSubstance)
+		ifTrue: [ ^ 'INCOMPLETO' ].
+	^self definedWithdrawalStringFor: aSubstance
 ]

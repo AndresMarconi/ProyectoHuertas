@@ -22,7 +22,7 @@ GAFAbstractTableWithOptionsComponent >> addElement [
 
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> columnHeadings [ 
-	^ {'Acciones' }
+	^ {''}
 ]
 
 { #category : #rendering }
@@ -92,40 +92,35 @@ GAFAbstractTableWithOptionsComponent >> removeElement: element [
 
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> renderActionButtonsFor: element on: html [
-	html
-		form: [ viewEnabled 
-				ifTrue: [ html formButton
-						style: 'margin: 2px;';
-						bePrimary;
-						callback: [ self viewElement: element ];
-						with: [ html span
-								attributeAt: 'title' put: 'Ver';
-								class: 'fa fa-eye' ] ].
-			editEnabled
-				ifTrue: [ html formButton
-						style: 'margin: 2px;';
-						bePrimary;
-						callback: [ self editElement: element ];
-						with: [ html span
-								attributeAt: 'title' put: 'Modificar';
-								class: 'fa fa-pencil' ] ].
-			duplicateEnabled
-				ifTrue: [ html formButton
-						style: 'margin: 2px;';
-						bePrimary;
-						callback: [ self duplicateElement: element ];
-						with: [ html span
-								attributeAt: 'title' put: 'Duplicar';
-								class: 'fa fa-clone' ] ].
-			removeEnabled
-				ifTrue: [ html formButton
-						style: 'margin: 2px;';
-						beDanger;
-						callback: [ self removeElement: element ];
-						with: [ html span
-								attributeAt: 'title' put: 'Eliminar';
-								class: 'fa fa-trash' ] ].
-			self renderCustomActionButtonsFor: element on: html ]
+	html dropdown
+		with: [ html formButton
+				id: 'dropdownMenuButton';
+				class: 'fa fa-ellipsis-v';
+				dataToggle: 'dropdown'.
+			html div
+				class: 'dropdown-menu';
+				attributeAt: 'aria-labelledby' put: 'dropdownMenuButton';
+				with: [ viewEnabled
+						ifTrue: [ html anchor
+								class: 'dropdown-item';
+								callback: [ self viewElement: element ];
+								with: 'Ver' ].
+					editEnabled
+						ifTrue: [ html anchor
+								class: 'dropdown-item';
+								callback: [ self editElement: element ];
+								with: 'Modificar' ].
+					duplicateEnabled
+						ifTrue: [ html anchor
+								class: 'dropdown-item';
+								callback: [ self duplicateElement: element ];
+								with: 'Duplicar' ].
+					removeEnabled
+						ifTrue: [ html anchor
+								class: 'dropdown-item';
+								callback: [ self removeElement: element ];
+								with: 'Eliminar' ].
+					self renderSpecificActionsFor: element on: html ] ]
 ]
 
 { #category : #rendering }
@@ -154,6 +149,11 @@ GAFAbstractTableWithOptionsComponent >> renderCustomActionButtonsFor: element on
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> renderExtraRowValue: element On: html [
 	html tableData: [ self renderActionButtonsFor: element on: html ] 
+]
+
+{ #category : #rendering }
+GAFAbstractTableWithOptionsComponent >> renderSpecificActionsFor: element on: html [
+	^ self
 ]
 
 { #category : #hooks }
