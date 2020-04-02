@@ -67,9 +67,18 @@ GAFAbstractTableComponent >> renderExtraRowValue: element On: html [
 
 { #category : #rendering }
 GAFAbstractTableComponent >> renderTableBodyOn: html [
-	html tableBody: [ (paginator selectElementsIn: self filteredElements) do: [ :element | 
-		html tableRow: [ (self columnValuesFor: element) do: [ :value | html tableData: value ].
-			self renderExtraRowValue: element On: html. ] ] ]
+	html
+		tableBody: [ (paginator selectElementsIn: self filteredElements)
+				do: [ :element | 
+					html tableRow:
+						[ self renderTableRowFor: element on: html ] ] ]
+]
+
+{ #category : #rendering }
+GAFAbstractTableComponent >> renderTableRowFor: element on: html [
+	(self columnValuesFor: element)
+		do: [ :value | html tableData: value ].
+	
 ]
 
 { #category : #'as yet unclassified' }

@@ -11,6 +11,11 @@ Class {
 	#category : #'ProyectoHuertas-ui-common'
 }
 
+{ #category : #rendering }
+GAFAbstractTableWithOptionsComponent >> actionsEnabled [
+	^ removeEnabled | duplicateEnabled | editEnabled | viewEnabled
+]
+
 { #category : #callbacks }
 GAFAbstractTableWithOptionsComponent >> addElement [
 	| element |
@@ -21,8 +26,10 @@ GAFAbstractTableWithOptionsComponent >> addElement [
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> columnHeadings [ 
-	^ {''}
+GAFAbstractTableWithOptionsComponent >> columnHeadings [
+	^ self actionsEnabled
+		ifTrue: [ {''} ]
+		ifFalse: [ {} ]
 ]
 
 { #category : #rendering }
@@ -91,7 +98,7 @@ GAFAbstractTableWithOptionsComponent >> removeElement: element [
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderActionButtonsFor: element on: html [
+GAFAbstractTableWithOptionsComponent >> renderActionMenuFor: element on: html [
 	html dropdown
 		with: [ html formButton
 				id: 'dropdownMenuButton';
@@ -147,13 +154,16 @@ GAFAbstractTableWithOptionsComponent >> renderCustomActionButtonsFor: element on
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderExtraRowValue: element On: html [
-	html tableData: [ self renderActionButtonsFor: element on: html ] 
+GAFAbstractTableWithOptionsComponent >> renderSpecificActionsFor: element on: html [
+	^ self
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderSpecificActionsFor: element on: html [
-	^ self
+GAFAbstractTableWithOptionsComponent >> renderTableRowFor: element on: html [
+	super renderTableRowFor: element on: html.
+	self actionsEnabled
+		ifFalse: [ ^ self ].
+	html tableData: [ self renderActionMenuFor: element on: html ]
 ]
 
 { #category : #hooks }
