@@ -44,7 +44,7 @@ WithdrawalTimeRecommendationsEditor >> cancel [
 ]
 
 { #category : #accessing }
-WithdrawalTimeRecommendationsEditor >> crops [
+WithdrawalTimeRecommendationsEditor >> cropsRequiringWithdrawalRecomendationPeriod [
 	| crops |
 	crops := substance activeIngredients
 		flatCollect:
@@ -63,7 +63,7 @@ WithdrawalTimeRecommendationsEditor >> days: anObject [
 	days := anObject
 ]
 
-{ #category : #rendering }
+{ #category : #callbacks }
 WithdrawalTimeRecommendationsEditor >> editRecordFor: crop [
 	editing := crop.
 	(substance recommendationFor: crop)
@@ -80,6 +80,13 @@ WithdrawalTimeRecommendationsEditor >> initialize [
 	days := 0
 ]
 
+{ #category : #accessing }
+WithdrawalTimeRecommendationsEditor >> isExempt [
+	^ substance activeIngredients
+		allSatisfy:
+			[ :ingredient | SenasaCatalogue singleton isExempt: ingredient tradeName ]
+]
+
 { #category : #callbacks }
 WithdrawalTimeRecommendationsEditor >> removeWithdrawalRecommentationPeriodFor: aCrop [
 	substance
@@ -93,6 +100,7 @@ WithdrawalTimeRecommendationsEditor >> renderContentOn: html [
 	html heading
 		level5;
 		with: 'Períodos de carencia'.
+		
 	editing notNil
 		ifTrue: [ html form: [ self renderWithdrawalRecommendationPeriodsOn: html ] ]
 		ifFalse: [ self renderWithdrawalRecommendationPeriodsOn: html ]
@@ -123,8 +131,6 @@ WithdrawalTimeRecommendationsEditor >> renderDisplayRowFor: crop on: html [
 
 { #category : #rendering }
 WithdrawalTimeRecommendationsEditor >> renderEditRowFor: crop on: html [
-	| record |
-	record := substance recommendationFor: crop.
 	html
 		tableData: crop vulgarName;
 		tableData: [ html textInput
@@ -153,6 +159,11 @@ WithdrawalTimeRecommendationsEditor >> renderFixedDataOn: html [
 	html paragraph: substance comercialName.
 	html heading
 		level5;
+		with: 'Principios activos: '.
+	html
+		paragraph: (substance activeIngredients collect: #tradeName) asCommaString.
+	html heading
+		level5;
 		with: 'Aptitud:  '.
 	html
 		paragraph:
@@ -163,6 +174,11 @@ WithdrawalTimeRecommendationsEditor >> renderFixedDataOn: html [
 
 { #category : #rendering }
 WithdrawalTimeRecommendationsEditor >> renderWithdrawalRecommendationPeriodsOn: html [
+	| crops |
+	crops := self cropsRequiringWithdrawalRecomendationPeriod.
+	crops
+		ifEmpty: [ html paragraph: 'Exento'.
+			^ self ].
 	html table
 		class: 'table table-hover';
 		with: [ html
@@ -170,7 +186,7 @@ WithdrawalTimeRecommendationsEditor >> renderWithdrawalRecommendationPeriodsOn: 
 						tableRow: [ {'Cultivo' . 'Carencia (días)' . 'Fuente' . 'Acciones'}
 								do: [ :heading | html tableHeading: heading ] ] ].
 			html
-				tableBody: [ self crops
+				tableBody: [ crops
 						do: [ :crop | 
 							html
 								tableRow: [ editing = crop

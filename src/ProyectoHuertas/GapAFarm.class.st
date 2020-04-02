@@ -79,6 +79,8 @@ GapAFarm >> register: anEmailAddress withHashedPassword: aHashedPassword andName
 
 { #category : #senasa }
 GapAFarm >> registeredCropsForActiveIngredient: activeIngrediente [
+	"may return the empty string"
+
 	^ (SenasaCatalogue singleton
 		registeredCropNamesForActiveIngredient: activeIngrediente tradeName)
 		flatCollect: [ :cropName | self cropNamed: cropName ]

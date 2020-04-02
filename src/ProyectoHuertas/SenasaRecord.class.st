@@ -72,7 +72,12 @@ SenasaRecord >> hash [
 
 { #category : #testing }
 SenasaRecord >> isComplete [
-	^ self hasActiveIngredient & self hasCrop
+	^ self hasActiveIngredient
+]
+
+{ #category : #testing }
+SenasaRecord >> isExempt [
+	^ residue isNil
 ]
 
 { #category : #printing }
@@ -87,6 +92,13 @@ SenasaRecord >> printOn: aStream [
 		nextPutAll: ', ';
 		nextPutAll: source;
 		nextPutAll: ')'
+]
+
+{ #category : #testing }
+SenasaRecord >> refersToCropNamed: aCropName [
+	"returns true if this record is either specific to the crop, or valid for any crop"
+
+	^ cropVulgarName isEmpty | (cropVulgarName = aCropName)
 ]
 
 { #category : #accessing }

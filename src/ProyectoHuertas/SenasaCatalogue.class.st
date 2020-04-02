@@ -38,7 +38,7 @@ SenasaCatalogue >> addRecords: aCollectionOfRecords [
 	completeRecords := aCollectionOfRecords select: #isComplete.
 	records addAll: completeRecords.
 	cropVulgarNames
-		addAll: (completeRecords collect: [ :each | each cropVulgarName ]).
+		addAll: ((completeRecords collect: [ :each | each cropVulgarName ]) copyWithout: nil).
 	cropVulgarNames := cropVulgarNames asSet asSortedCollection.
 	activeIngredientsTradeNames
 		addAll: (completeRecords collect: [ :each | each activeIngredientTradeName ]).
@@ -68,6 +68,14 @@ SenasaCatalogue >> initialize [
 	records := OrderedCollection new
 ]
 
+{ #category : #testing }
+SenasaCatalogue >> isExempt: anActiveIngredientTradeName [
+	^ (records
+		select:
+			[ :each | each activeIngredientTradeName = anActiveIngredientTradeName ])
+		allSatisfy: #isExempt
+]
+
 { #category : #accessing }
 SenasaCatalogue >> records [
 	^ records
@@ -85,7 +93,7 @@ SenasaCatalogue >> recordsForActiveIngredientNamed: aString [
 
 { #category : #queries }
 SenasaCatalogue >> recordsForCropNamed: aString [
-	^ (records select: [ :each | each cropVulgarName = aString ])
+	^ (records select: [ :each | each refersToCropNamed: aString ])
 		asSortedCollection: [ :a :b | 
 			a cropVulgarName = b cropVulgarName
 				ifTrue: [ a activeIngredientTradeName < b activeIngredientTradeName ]
@@ -93,13 +101,16 @@ SenasaCatalogue >> recordsForCropNamed: aString [
 ]
 
 { #category : #queries }
-SenasaCatalogue >> registeredCropNamesForActiveIngredient: aTradeName [ 
-	^ ((records select: [ :each | each activeIngredientTradeName  = aTradeName ])
-		collect: #cropVulgarName) asSet asSortedCollection
+SenasaCatalogue >> registeredCropNamesForActiveIngredient: aTradeName [
+	^ ((records
+		select: [ :each | 
+			each activeIngredientTradeName = aTradeName
+				& each cropVulgarName notEmpty ]) collect: #cropVulgarName) asSet
+		asSortedCollection
 ]
 
 { #category : #queries }
 SenasaCatalogue >> registeredIngredientsForCropNamed: aCropName [
-	^ ((records select: [ :each | each cropVulgarName = aCropName ])
+	^ ((records select: [ :each | each refersToCropNamed: aCropName ])
 		collect: #activeIngredientTradeName) asSet asSortedCollection
 ]
