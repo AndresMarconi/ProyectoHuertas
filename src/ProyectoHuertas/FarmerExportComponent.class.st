@@ -8,7 +8,7 @@ Class {
 FarmerExportComponent >> exportApplications [
 	self
 		export: (CSVApplicationsExporter events: self session farm aplications) export
-		inFileNamed: 'aplicaciones.csv'
+		inCsvFileNamed: 'aplicaciones.csv'
 ]
 
 { #category : #callbacks }
@@ -16,21 +16,21 @@ FarmerExportComponent >> exportHarvestings [
 	self
 		export:
 			(CSVHarverstingsExporter events: self session farm harvestings) export
-		inFileNamed: 'cosechas.csv'
+		inCsvFileNamed: 'cosechas.csv'
 ]
 
 { #category : #callbacks }
 FarmerExportComponent >> exportProblems [
 	self
 		export: (CSVProblemsExporter events: self session farm problems) export
-		inFileNamed: 'adversidades.csv'
+		inCsvFileNamed: 'adversidades.csv'
 ]
 
 { #category : #callbacks }
 FarmerExportComponent >> exportSowings [
 	self
 		export: (CSVSowingsExporter events: self session farm sowings) export
-		inFileNamed: 'siembras.csv'
+		inCsvFileNamed: 'siembras.csv'
 ]
 
 { #category : #rendering }
@@ -43,20 +43,17 @@ FarmerExportComponent >> renderContentOn: html [
 						tableHeading: 'Formatos disponibles' ].
 			html
 				tableBody: [ html
-						tableRow: [ self
-								renderExportCsvButonFor: #exportSowings
-								labeled: 'Siembras'
-								on: html ];
-						tableRow: [ self
-								renderExportCsvButonFor: #exportProblems
-								labeled: 'Adversidades'
-								on: html ];
-						tableRow: [ self
-								renderExportCsvButonFor: #exportApplications
-								labeled: 'Aplicaciones'
-								on: html ];
-						tableRow: [ self
-								renderExportCsvButonFor: #exportHarvestings
-								labeled: 'Cosechas'
-								on: html ] ] ]
+						tableRow: [ html
+								tableData: 'Siembras';
+								tableData: [ self renderExportCsvButonFor: #exportSowings on: html ] ];
+						tableRow: [ html
+								tableData: 'Adversidades';
+								tableData: [ self renderExportCsvButonFor: #exportProblems on: html ] ];
+						tableRow: [ html
+								tableData: 'Aplicaciones';
+								tableData: [ self renderExportCsvButonFor: #exportApplications on: html ] ];
+						tableRow: [ html
+								tableData: 'Cosechas';
+								tableData:
+										[ self renderExportCsvButonFor: #exportHarvestings on: html ] ] ] ]
 ]

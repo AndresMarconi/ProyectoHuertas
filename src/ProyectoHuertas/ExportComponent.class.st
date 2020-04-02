@@ -5,7 +5,17 @@ Class {
 }
 
 { #category : #private }
-ExportComponent >> export: data inFileNamed: aFileName [
+ExportComponent >> export: data inCsvFileNamed: aFileName [
+	self requestContext
+		respond: [ :response | 
+			response
+				contentType: (WAMimeType main: 'text' sub: 'csv');
+				document: data;
+				attachmentWithFileName: aFileName ]
+]
+
+{ #category : #private }
+ExportComponent >> export: data inJsonFileNamed: aFileName [
 	self requestContext
 		respond: [ :response | 
 			response
@@ -15,10 +25,15 @@ ExportComponent >> export: data inFileNamed: aFileName [
 ]
 
 { #category : #rendering }
-ExportComponent >> renderExportCsvButonFor: selector labeled: label on: html [
-	html
-		tableData: label;
-		tableData: [ html anchor
-				callback: [ self perform: selector ];
-				with: [ html image url: GAFLibrary / #csvicon48Jpg ] ]
+ExportComponent >> renderExportCsvButonFor: selector on: html [
+	html anchor
+		callback: [ self perform: selector ];
+		with: [ html image url: GAFLibrary / #csvicon48Jpg ]
+]
+
+{ #category : #rendering }
+ExportComponent >> renderExportJsonButonFor: selector on: html [
+	html anchor
+		callback: [ self perform: selector ];
+		with: [ html image url: GAFLibrary / #jsonicon48Jpg ]
 ]

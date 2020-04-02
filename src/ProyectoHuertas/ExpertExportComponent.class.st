@@ -10,7 +10,16 @@ ExpertExportComponent >> exportSubstances [
 		export:
 			(CSVSubstancesExporter events: self session gapAFarm substances)
 				export
-		inFileNamed: 'fitosanitarios-y-fertilizantes.csv'
+		inCsvFileNamed: 'fitosanitarios-y-fertilizantes.csv'
+]
+
+{ #category : #callbacks }
+ExpertExportComponent >> exportSubstancesAsJson [
+	self
+		export:
+			(GAFNeoJsonExporter new
+				exportSubstances: self session gapAFarm substances)
+		inJsonFileNamed: 'fitosanitarios-y-fertilizantes.json'
 ]
 
 { #category : #rendering }
@@ -23,8 +32,11 @@ ExpertExportComponent >> renderContentOn: html [
 						tableHeading: 'Formatos disponibles' ].
 			html
 				tableBody: [ html
-						tableRow: [ self
-								renderExportCsvButonFor: #exportSubstances
-								labeled: 'Fitosanitarios y fertilizantes'
-								on: html ] ] ]
+						tableRow: [ html
+								tableData: 'Fitosanitarios y fertilizantes';
+								tableData: [ self renderExportCsvButonFor: #exportSubstances on: html.
+									html space.
+									self
+										renderExportJsonButonFor: #exportSubstancesAsJson
+										on: html ] ] ] ]
 ]
