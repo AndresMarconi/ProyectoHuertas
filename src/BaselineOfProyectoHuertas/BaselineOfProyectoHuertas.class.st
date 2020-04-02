@@ -51,14 +51,37 @@ BaselineOfProyectoHuertas >> neoCSV: spec [
 BaselineOfProyectoHuertas >> postLoadActions [
 
 	GTPlayground
-		edit: 'GAFDeployer new adminEmail: ''gaf@mail.com''; deploy.
+		edit: '"To deploy in debug mode use this lines"
+
+GAFDeployer new adminEmail: ''youremail@yourdomain.com''; deploy.
 
 "Set demoMode to true to get a [Load demo data] button."
 GAFDeployer demoMode: false.
 
 "Evaluate one of the following to set the target persistency strategy"
 GAFStorage inMemory.
-GAFStorage mongoLocal.'
+GAFStorage mongoLocal.
+
+"To deploy to production, in a clear image evaluate"
+
+WAAdmin defaultServerManager adaptors
+        do: [ :each | WAAdmin defaultServerManager unregister: each ].
+ZnZincServerAdaptor startOn: 8080.
+
+(WAAdmin defaultDispatcher handlers keys copyWithoutAll: #(''files''))
+        do: [ :appName |
+                WAAdmin defaultDispatcher
+                        unregister: (WAAdmin defaultDispatcher handlerAt: appName) ].
+WAAdmin applicationDefaults
+        removeParent: WADevelopmentConfiguration instance.
+
+GAFDeployer new
+        adminEmail: ''youremail@yourdomain.com'';
+        deploy.
+WAAdmin defaultDispatcher defaultName: ''gaf''.
+
+GAFStorage mongoLocal.
+'
 	
 	label: 'Deployment scripts'.
 ]
