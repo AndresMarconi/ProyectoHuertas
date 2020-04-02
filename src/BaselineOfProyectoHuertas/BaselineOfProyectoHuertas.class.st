@@ -14,11 +14,11 @@ BaselineOfProyectoHuertas >> baseline: spec [
 				bootstrap4: spec;
 				voyage: spec;
 				gettext: spec;
-				neoCSV: spec.
+				neoCSV: spec;
+				neoJSON: spec.
 			spec
 				package: 'ProyectoHuertas'
-				with: [ spec
-						requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'NeoCSV') ].
+				with: [ spec requires: #('Seaside3' 'Bootstrap4-Core' 'Voyage' 'NeoCSV') ].
 			spec postLoadDoIt: #postLoadActions ]
 ]
 
@@ -45,6 +45,16 @@ BaselineOfProyectoHuertas >> neoCSV: spec [
 	spec
 		baseline: 'NeoCSV'
 		with: [ spec repository: 'github://svenvc/NeoCSV/repository' ]
+]
+
+{ #category : #baselines }
+BaselineOfProyectoHuertas >> neoJSON: spec [
+	spec
+		project: 'NeoJSON'
+		with: [ spec
+				className: 'ConfigurationOfNeoJSON';
+				versionString: #stable;
+				repository: 'github://svenvc/NeoJSON/repository' ]
 ]
 
 { #category : #baselines }
