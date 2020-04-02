@@ -12,14 +12,14 @@ CSVSubstancesExporter >> elementRowFor: aSubstance [
 	activeIngredientNames := aSubstance activeIngredients
 		collect: #tradeName.
 	withdrawalPeriodsAsStrings := aSubstance
-		withdrawalPeriodRecommendations
+		withdrawalRecommendations
 		collect: [ :each | each crop vulgarName , ': ' , each daysToWait asString ].
 	^ {aSubstance comercialName.
 	activeIngredientNames asCommaString.
 	(SenasaCatalogue singleton
 		combinedApplicabilitiesFor: activeIngredientNames) asCommaString.
 	withdrawalPeriodsAsStrings asCommaString.
-	(aSubstance withdrawalPeriodRecommendations
+	(aSubstance withdrawalRecommendations
 		collect: [ :each | each referenceUrl ]) asCommaString}
 ]
 

@@ -98,9 +98,5 @@ Application >> summaryFor: aSummaryRequestor [
 
 { #category : #queries }
 Application >> waitingPeriodFor: aCrop [
-	^ dateAndTime asDate
-		addDays:
-			(((substance withdrawalTimeFor: aCrop)
-				ifEmpty: [ 0 ]
-				ifNotEmpty: [ :it | it at: 1 ]) ifNil: [ 0 ])
+	^ dateAndTime asDate addDays: (substance maxWithdrawalTimeFor: aCrop)
 ]

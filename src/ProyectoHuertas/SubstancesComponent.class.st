@@ -84,7 +84,7 @@ SubstancesComponent >> renderActionButtonsFor: element on: html [
 SubstancesComponent >> withdrawalStringFor: aSubstance [
 	| stream |
 	stream := String new writeStream.
-	(aSubstance withdrawalPeriodRecommendationsByDays associations
+	(aSubstance withdrawalRecommendationsByDays associations
 		asSortedCollection: [ :a :b | a key < b key ])
 		do: [ :association | 
 			association value

@@ -82,7 +82,7 @@ GapAFarm >> registeredCropsForActiveIngredient: activeIngrediente [
 	"may return the empty string"
 
 	^ (SenasaCatalogue singleton
-		registeredCropNamesForActiveIngredient: activeIngrediente tradeName)
+		registeredCropNamesForActiveIngredientNamed: activeIngrediente tradeName)
 		flatCollect: [ :cropName | self cropNamed: cropName ]
 ]
 

@@ -38,7 +38,7 @@ WithdrawalPeriodRecommendation >> daysToWait: anObject [
 	daysToWait := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exporting }
 WithdrawalPeriodRecommendation >> exportToJson [ 
 	^ '{ "crop" : "',  crop vulgarName , '",  "daysToWait" : "',  daysToWait asString,  '",  "referenceUrl" : "' ,   referenceUrl ,  '"}'
 ]

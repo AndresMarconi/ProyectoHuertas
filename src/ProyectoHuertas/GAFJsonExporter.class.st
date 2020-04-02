@@ -20,7 +20,7 @@ GAFJsonExporter >> buildSubstance: aDic [
 	(aDic at: 'activeIngredients') do: [ :each | 
 		substance addActiveIngredient: (self buildActiveIngredient: each) ].
 	(aDic at: 'withdrawalPeriodRecommendations') do: [ :each | 
-		substance addWithdrawalPeriodRecommendation: (self buildWPR: each) ].
+		substance addWithdrawalRecommendation: (self buildWPR: each) ].
 	^substance
 ]
 

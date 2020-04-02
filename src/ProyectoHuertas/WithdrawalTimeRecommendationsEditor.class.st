@@ -24,13 +24,13 @@ WithdrawalTimeRecommendationsEditor >> accept [
 		on: Error
 		do: [ days := ''.
 			^ self ].
-	recommendation := substance recommendationFor: editing.
+	recommendation := substance withdrawalRecommendationFor: editing.
 	recommendation
 		ifNil: [ recommendation := WithdrawalPeriodRecommendation
 				daysToWait: numberOfDays
 				crop: editing
 				referenceUrl: source.
-			substance addWithdrawalPeriodRecommendation: recommendation ]
+			substance addWithdrawalRecommendation: recommendation ]
 		ifNotNil: [ recommendation
 				daysToWait: days asNumber;
 				referenceUrl: source ].
@@ -66,7 +66,7 @@ WithdrawalTimeRecommendationsEditor >> days: anObject [
 { #category : #callbacks }
 WithdrawalTimeRecommendationsEditor >> editRecordFor: crop [
 	editing := crop.
-	(substance recommendationFor: crop)
+	(substance withdrawalRecommendationFor: crop)
 		ifNil: [ days := ''.
 			source := '' ]
 		ifNotNil: [ :it | 
@@ -88,9 +88,9 @@ WithdrawalTimeRecommendationsEditor >> isExempt [
 ]
 
 { #category : #callbacks }
-WithdrawalTimeRecommendationsEditor >> removeWithdrawalRecommentationPeriodFor: aCrop [
+WithdrawalTimeRecommendationsEditor >> removeWithdrawalPeriodRecommentationFor: aCrop [
 	substance
-		removeWithdrawalPeriodRecommendation: (substance recommendationFor: aCrop).
+		removeWithdrawalRecommendation: (substance withdrawalRecommendationFor: aCrop).
 	substance save
 ]
 
@@ -109,7 +109,7 @@ WithdrawalTimeRecommendationsEditor >> renderContentOn: html [
 { #category : #rendering }
 WithdrawalTimeRecommendationsEditor >> renderDisplayRowFor: crop on: html [
 	| record |
-	record := substance recommendationFor: crop.
+	record := substance withdrawalRecommendationFor: crop.
 	^ html
 		tableData: crop vulgarName;
 		tableData: (record ifNil: [ '?' ] ifNotNil: [ record daysToWait ]);
@@ -123,7 +123,7 @@ WithdrawalTimeRecommendationsEditor >> renderDisplayRowFor: crop on: html [
 					record
 						ifNotNil: [ html space.
 							html anchor
-								callback: [ self removeWithdrawalRecommentationPeriodFor: crop ];
+								callback: [ self removeWithdrawalPeriodRecommentationFor: crop ];
 								with: [ html span
 										class: 'fa fa-trash';
 										attributeAt: 'title' put: 'Borrar' ] ] ] ]

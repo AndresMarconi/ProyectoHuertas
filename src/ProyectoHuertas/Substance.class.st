@@ -34,8 +34,8 @@ Substance >> addActiveIngredient: anObject [
 	activeIngredients add: anObject
 ]
 
-{ #category : #modifying }
-Substance >> addWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
+{ #category : #'withdrawal-periods' }
+Substance >> addWithdrawalRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations add: withdrawalPeriodRecommendation
 ]
 
@@ -52,6 +52,11 @@ Substance >> comercialName [
 { #category : #accessing }
 Substance >> comercialName: anObject [
 	comercialName := anObject
+]
+
+{ #category : #'withdrawal-periods' }
+Substance >> cropsWithDefinedWithdrawalRecommendation [
+	^ withdrawalPeriodRecommendations collect: #crop
 ]
 
 { #category : #printing }
@@ -75,6 +80,14 @@ Substance >> initialize [
 	withdrawalPeriodRecommendations := OrderedCollection new
 ]
 
+{ #category : #'withdrawal-periods' }
+Substance >> maxWithdrawalTimeFor: aCrop [
+	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
+		collect: [ :wp | wp daysToWait ])
+		ifEmpty: [ 0 ]
+		ifNotEmpty: [ :times | times max ]
+]
+
 { #category : #copying }
 Substance >> postCopy [
 	activeIngredients := activeIngredients copy.
@@ -89,31 +102,26 @@ Substance >> printOn: aStream [
 		nextPutAll: (self comercialName).
 ]
 
-{ #category : #accessing }
-Substance >> recommendationFor: aCrop [
+{ #category : #'withdrawal-periods' }
+Substance >> removeWithdrawalRecommendation: withdrawalPeriodRecommendation [
+	withdrawalPeriodRecommendations
+		remove: withdrawalPeriodRecommendation
+]
+
+{ #category : #'withdrawal-periods' }
+Substance >> withdrawalRecommendationFor: aCrop [
 	^ withdrawalPeriodRecommendations
 		detect: [ :wp | wp crop = aCrop ]
 		ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
-Substance >> registeredCrops [
-	^ (activeIngredients flatCollect: #registeredCrops) asSet asArray
-]
-
-{ #category : #modifying }
-Substance >> removeWithdrawalPeriodRecommendation: withdrawalPeriodRecommendation [
-	withdrawalPeriodRecommendations
-		remove: withdrawalPeriodRecommendation
-]
-
-{ #category : #accessing }
-Substance >> withdrawalPeriodRecommendations [
+{ #category : #'withdrawal-periods' }
+Substance >> withdrawalRecommendations [
 	^ withdrawalPeriodRecommendations
 ]
 
-{ #category : #accessing }
-Substance >> withdrawalPeriodRecommendationsByDays [
+{ #category : #'withdrawal-periods' }
+Substance >> withdrawalRecommendationsByDays [
 	| simplifiedWithdrawalPeriodRecommendations |
 	simplifiedWithdrawalPeriodRecommendations := Dictionary new.
 	withdrawalPeriodRecommendations
@@ -122,11 +130,4 @@ Substance >> withdrawalPeriodRecommendationsByDays [
 				at: recommendation daysToWait 
 				ifAbsentPut: OrderedCollection new) add: recommendation ].
 	^ simplifiedWithdrawalPeriodRecommendations
-]
-
-{ #category : #accessing }
-Substance >> withdrawalTimeFor: aCrop [
-	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
-		collect: [ :wp | wp daysToWait ])
-		asSortedCollection: [ :a :b | a > b ]
 ]

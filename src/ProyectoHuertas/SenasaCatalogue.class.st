@@ -101,7 +101,7 @@ SenasaCatalogue >> recordsForCropNamed: aString [
 ]
 
 { #category : #queries }
-SenasaCatalogue >> registeredCropNamesForActiveIngredient: aTradeName [
+SenasaCatalogue >> registeredCropNamesForActiveIngredientNamed: aTradeName [
 	^ ((records
 		select: [ :each | 
 			each activeIngredientTradeName = aTradeName
