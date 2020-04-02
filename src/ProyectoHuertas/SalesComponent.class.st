@@ -15,13 +15,14 @@ SalesComponent >> addElement [
 
 { #category : #rendering }
 SalesComponent >> columnHeadings [
-	^ { 'Fecha'. 'Cliente'. }, super columnHeadings
+	^ { 'Fecha'. 'Cliente'. 'Productos' }, super columnHeadings
 ]
 
 { #category : #rendering }
 SalesComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
-	element client},(super columnValuesFor: element)
+	element client.
+	(self productsStringFor: element)} , (super columnValuesFor: element)
 ]
 
 { #category : #callbacks }
@@ -47,6 +48,14 @@ SalesComponent >> elementEditorClass [
 { #category : #callbacks }
 SalesComponent >> elements [
 	^ (self session farm sales) asSortedCollection: [ :a :b | a date > b date ]
+]
+
+{ #category : #rendering }
+SalesComponent >> productsStringFor: element [
+	^ (element items
+		collect: [ :each | 
+			each crop vulgarName , ': ' , each kilograms greaseString , ' Kg ('
+				, each plot id , ')' ]) asCommaString
 ]
 
 { #category : #adding }
