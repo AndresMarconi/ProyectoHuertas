@@ -55,7 +55,7 @@ GAFAbstractTableComponent >> renderContentOn: html [
 { #category : #rendering }
 GAFAbstractTableComponent >> renderElementsTableOn: html [
 	html table
-		class: 'table table-hover';
+		class: 'table table-hover table-sm';
 		with: [ self tableHeadingOn: html.
 				  self renderTableBodyOn: html ]
 ]
