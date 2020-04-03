@@ -61,12 +61,18 @@ GAFHomeComponent >> logout [
 
 { #category : #rendering }
 GAFHomeComponent >> renderContentOn: html [
+	| menuColumn |
 	html
 		container: [ self session loginRequired
 				ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
 			self renderNavbarOn: html.
 			html
-				row: [ html column: [ self renderLeftMenuOn: html ] mediumSize: 2.
+				row: [ menuColumn := html column.
+					self session farm ~= self session user farms first
+						ifTrue: [ menuColumn style: 'background-color: red;' ].
+					menuColumn
+						mediumSize: 2;
+						with: [ self renderLeftMenuOn: html ].
 					html column: [ html render: selectedComponent ] mediumSize: 10 ] ]
 ]
 

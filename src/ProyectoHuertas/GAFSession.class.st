@@ -2,7 +2,8 @@ Class {
 	#name : #GAFSession,
 	#superclass : #WASession,
 	#instVars : [
-		'user'
+		'user',
+		'farm'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
@@ -11,7 +12,12 @@ Class {
 GAFSession >> farm [
 	"the currently selected farm"
 
-	^ user farms ifNotEmpty: [ :farms | farms first ] ifEmpty: [ nil ]
+	^ farm ifNil: [ user farms first ]
+]
+
+{ #category : #accessing }
+GAFSession >> farm: anObject [
+	farm := anObject
 ]
 
 { #category : #accessing }
