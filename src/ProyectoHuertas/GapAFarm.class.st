@@ -35,6 +35,11 @@ GapAFarm >> farmNamed: aName [
 	^ Farm selectOne: [ :each | each name = aName ]
 ]
 
+{ #category : #'db queries' }
+GapAFarm >> farms [
+	^ Farm selectAll asSortedCollection: [ :a :b | a name < b name ]
+]
+
 { #category : #testing }
 GapAFarm >> isSubstanceCommercialNameInUse: aCommercialName byOtherThan: aSubstance [
 	| nameMatches |
