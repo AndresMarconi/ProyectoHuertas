@@ -21,7 +21,14 @@ GAFStorage class >> initialize [
 
 { #category : #configuration }
 GAFStorage class >> mongoLocal [
+	self mongoLocalAt: 'gapafarm'
+]
+
+{ #category : #configuration }
+GAFStorage class >> mongoLocalAt: databaseId [
 	| repository |
-	repository := VOMongoRepository host: 'localhost' database: 'gapafarm'.
+	repository := VOMongoRepository
+		host: 'localhost'
+		database: databaseId.
 	repository enableSingleton
 ]

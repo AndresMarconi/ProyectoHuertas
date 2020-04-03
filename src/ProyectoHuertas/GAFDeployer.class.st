@@ -6,19 +6,30 @@ Class {
 		'application'
 	],
 	#classVars : [
-		'DemoMode'
+		'DemoMode',
+		'EnableTestDataLoaders'
 	],
 	#category : #'ProyectoHuertas-deployment'
 }
 
 { #category : #demo }
 GAFDeployer class >> demoMode [
-	^ DemoMode ifNil: [ DemoMode := true ]
+	^ DemoMode ifNil: [ DemoMode := false ]
 ]
 
 { #category : #demo }
 GAFDeployer class >> demoMode: aBoolean [
 	DemoMode := aBoolean
+]
+
+{ #category : #demo }
+GAFDeployer class >> enableTestDataLoaders [
+	^ EnableTestDataLoaders ifNil: [ EnableTestDataLoaders := false ]
+]
+
+{ #category : #demo }
+GAFDeployer class >> enableTestDataLoaders: aBoolean [
+	EnableTestDataLoaders := aBoolean
 ]
 
 { #category : #deploying }
@@ -37,6 +48,11 @@ GAFDeployer >> adminEmail [
 { #category : #accessing }
 GAFDeployer >> adminEmail: anObject [
 	adminEmail := anObject
+]
+
+{ #category : #accessing }
+GAFDeployer >> database: anId [
+	GAFStorage mongoLocalAt: anId
 ]
 
 { #category : #deploying }

@@ -75,7 +75,8 @@ GAFLandingComponent >> register: anEmailAddress withHashedPassword: aHashedPassw
 
 { #category : #rendering }
 GAFLandingComponent >> renderContentOn: html [
-	html paragraph: [  ].
+	GAFDeployer demoMode
+		ifTrue: [ self renderDemoStampOn: html ].
 	html
 		container: [ html break.
 			html

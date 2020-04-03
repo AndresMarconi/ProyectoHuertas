@@ -62,6 +62,8 @@ GAFHomeComponent >> logout [
 { #category : #rendering }
 GAFHomeComponent >> renderContentOn: html [
 	| menuColumn |
+	GAFDeployer demoMode
+		ifTrue: [ self renderDemoStampOn: html ].
 	html
 		container: [ self session loginRequired
 				ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
@@ -78,7 +80,7 @@ GAFHomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 GAFHomeComponent >> renderDemoDataButtonOn: html [
-	GAFDeployer demoMode 
+	GAFDeployer enableTestDataLoaders
 		ifFalse: [ ^ self ].
 	html outlineButton beDanger beSmall
 		callback: [ self loadStressTestDemoData ];

@@ -49,6 +49,14 @@ GAFAbstractComponent >> parent: anObject [
 ]
 
 { #category : #updating }
+GAFAbstractComponent >> renderDemoStampOn: html [
+	html image
+		style: 'position: fixed; bottom: 30px; right: 30px; z-index: 999';
+		url: GAFLibrary / #demoPng
+	"		class: 'fixed-bottom';"
+]
+
+{ #category : #updating }
 GAFAbstractComponent >> rendererClass [
 	^ SBSHtmlCanvas
 ]
