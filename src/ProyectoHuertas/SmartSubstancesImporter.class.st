@@ -81,5 +81,4 @@ SmartSubstancesImporter >> initialize [
 	crops := Dictionary new.
 	substances := Dictionary new.
 	ingredients := Dictionary new.
-	records := OrderedCollection new
 ]
