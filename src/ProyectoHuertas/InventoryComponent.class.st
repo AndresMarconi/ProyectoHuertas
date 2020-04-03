@@ -10,21 +10,21 @@ InventoryComponent >> addRecord: substance [
 	record := self
 		call:
 			(InventoryItemRecordEditor
-				subject: InventoryItemRecord new
-				unit: substance unit).
+				subject: InventoryItemRecord new).
 	record ifNotNil: [ :it | substance addRecord: it ].
 	substance save
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnHeadings [
-	^ {'Nombre comercial' . 'Principio Activo' }, super columnHeadings
+	^ {'Nombre comercial' . 'Principio Activo' . 'Unidad de medida'  }, super columnHeadings
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
-	element substance activeIngredients}
+	element substance activeIngredients.
+	element unit}
 		, (super columnValuesFor: element)
 ]
 
@@ -54,15 +54,12 @@ InventoryComponent >> initialize [
 	viewEnabled:= true
 ]
 
-{ #category : #hooks }
-InventoryComponent >> renderCustomActionButtonsFor: element on: html [
-	html formButton
-		style: 'margin: 2px;';
-		bePrimary;
+{ #category : #rendering }
+InventoryComponent >> renderSpecificActionsFor: element on: html [
+	html anchor
+		class: 'dropdown-item';
 		callback: [ self addRecord: element ];
-		with: [ html span
-				attributeAt: 'title' put: 'Agregar';
-				class: 'fa fa-plus' ]
+		with: 'Registrar movimiento'
 ]
 
 { #category : #adding }

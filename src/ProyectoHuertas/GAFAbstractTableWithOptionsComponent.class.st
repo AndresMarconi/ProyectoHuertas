@@ -148,11 +148,6 @@ GAFAbstractTableWithOptionsComponent >> renderContentOn: html [
 	
 ]
 
-{ #category : #hooks }
-GAFAbstractTableWithOptionsComponent >> renderCustomActionButtonsFor: element on: html [
-	^ self
-]
-
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> renderSpecificActionsFor: element on: html [
 	^ self

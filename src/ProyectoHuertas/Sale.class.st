@@ -63,3 +63,8 @@ Sale >> items [
 Sale >> removeItem: item [
 	items remove: item
 ]
+
+{ #category : #accessing }
+Sale >> removeLastItem [
+	items removeLast
+]

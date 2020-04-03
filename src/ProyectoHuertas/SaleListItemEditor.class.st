@@ -17,11 +17,6 @@ SaleListItemEditor >> addRow [
 	
 ]
 
-{ #category : #callbacks }
-SaleListItemEditor >> cancel [
-	parent ifNil: [ self answer: nil ] ifNotNil: [ :it | it answer: nil ]
-]
-
 { #category : #'subclass-responsibility' }
 SaleListItemEditor >> children [ 
 	^items
@@ -29,6 +24,13 @@ SaleListItemEditor >> children [
 
 { #category : #'subclass-responsibility' }
 SaleListItemEditor >> initializeComponents [
+	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
+	
+]
+
+{ #category : #adding }
+SaleListItemEditor >> removeRow [
+	subject removeLastItem.
 	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
 ]
@@ -45,6 +47,11 @@ SaleListItemEditor >> renderContentOn: html [
 				bePrimary;
 				callback: [ self addRow ];
 				with: 'agregar item'.
+		html space.
+		html formButton
+				beDanger;
+				callback: [ self removeRow ];
+				with: 'quitar item'.				
 		html break; break.
 		self renderButtonsOn: html]
 ]

@@ -22,13 +22,20 @@ InventoryItemsViewerComponent >> columnHeadings [
 { #category : #initialization }
 InventoryItemsViewerComponent >> columnValuesFor: element [
 	^{element source.
-	(element quantity magnitude asString , ' ' , element quantity unit).
+	(element quantity asString , ' ' , item unit).
 	element expirationDate yyyymmdd}, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
 InventoryItemsViewerComponent >> elementClass [
 	^InventoryItemRecord
+]
+
+{ #category : #hooks }
+InventoryItemsViewerComponent >> elementEditorClass [
+	"Returns the class of editor used to edit elements"
+
+	^ InventoryItemRecordEditor
 ]
 
 { #category : #initialization }
