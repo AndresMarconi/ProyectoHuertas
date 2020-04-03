@@ -45,7 +45,8 @@ GAFAbstractTableWithOptionsComponent >> duplicateElement: element [
 
 { #category : #callbacks }
 GAFAbstractTableWithOptionsComponent >> editElement: element [
-	(self call: (self elementEditorClass subject: element))
+	(self
+		call: (self elementEditorClass subject: element))
 		ifNotNil: [ :it | self saveEditedElement: it ]
 ]
 
@@ -83,8 +84,7 @@ GAFAbstractTableWithOptionsComponent >> initialize [
 	removeEnabled := false.
 	addEnabled := true.
 	duplicateEnabled := true.
-	filterComponent := TableFilterComponent
-		columns: (self columnHeadings copyWithout: 'Acciones')
+	filterComponent := TableFilterComponent columns: {'Motivo'}
 ]
 
 { #category : #accessing }

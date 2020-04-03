@@ -15,27 +15,36 @@ InventoryItemsViewerComponent class >> item: item [
 ]
 
 { #category : #initialization }
-InventoryItemsViewerComponent >> columnHeadings [ 
-	^ { 'Fuente' . 'Cantidad' . 'vencimiento' }
+InventoryItemsViewerComponent >> columnHeadings [
+	^ {'Fecha'.
+	'Motivo'.
+	('Cantidad (' , item unit , ')')}
 ]
 
 { #category : #initialization }
 InventoryItemsViewerComponent >> columnValuesFor: element [
-	^{element source.
-	(element quantity asString , ' ' , item unit).
-	element expirationDate yyyymmdd}, (super columnValuesFor: element)
+	^ {element date mmddyyyy.
+	element reason.
+	element quantity greaseString} , (super columnValuesFor: element)
+]
+
+{ #category : #callbacks }
+InventoryItemsViewerComponent >> editElement: element [
+	(self
+		call: (self elementEditorClass subject: element unit: item unit))
+		ifNotNil: [ :it | self saveEditedElement: it ]
 ]
 
 { #category : #hooks }
 InventoryItemsViewerComponent >> elementClass [
-	^InventoryItemRecord
+	^InventoryItemMovement
 ]
 
 { #category : #hooks }
 InventoryItemsViewerComponent >> elementEditorClass [
 	"Returns the class of editor used to edit elements"
 
-	^ InventoryItemRecordEditor
+	^ InventoryItemMovementEditor
 ]
 
 { #category : #initialization }
@@ -64,8 +73,6 @@ InventoryItemsViewerComponent >> item: anObject [
 InventoryItemsViewerComponent >> renderContentOn: html [
 	html heading level5; with: 'Substancia'.
 	html paragraph: item substance.
-	html heading level5; with: 'Unidad'.
-	html paragraph: item unit.
 	html heading level5; with: 'Movimientos'.
 	super renderContentOn: html
 ]

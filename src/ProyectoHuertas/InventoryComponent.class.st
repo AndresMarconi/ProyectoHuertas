@@ -5,14 +5,15 @@ Class {
 }
 
 { #category : #adding }
-InventoryComponent >> addRecord: substance [
+InventoryComponent >> addRecord: anInventoryItem [
 	| record |
 	record := self
 		call:
-			(InventoryItemRecordEditor
-				subject: InventoryItemRecord new).
-	record ifNotNil: [ :it | substance addRecord: it ].
-	substance save
+			(InventoryItemMovementEditor
+				subject: InventoryItemMovement new
+				unit: anInventoryItem unit).
+	record ifNotNil: [ :it | anInventoryItem addRecord: it ].
+	anInventoryItem save 
 ]
 
 { #category : #rendering }
@@ -56,6 +57,7 @@ InventoryComponent >> initialize [
 
 { #category : #rendering }
 InventoryComponent >> renderSpecificActionsFor: element on: html [
+	html div class: 'dropdown-divider'.
 	html anchor
 		class: 'dropdown-item';
 		callback: [ self addRecord: element ];

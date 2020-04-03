@@ -27,6 +27,7 @@ GAFStorage class >> mongoLocal [
 { #category : #configuration }
 GAFStorage class >> mongoLocalAt: databaseId [
 	| repository |
+	Transcript show: 'Using mongodb persistency at: ' , databaseId.
 	repository := VOMongoRepository
 		host: 'localhost'
 		database: databaseId.
