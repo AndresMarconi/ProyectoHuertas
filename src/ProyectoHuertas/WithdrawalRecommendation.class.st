@@ -1,6 +1,6 @@
 Class {
-	#name : #WithdrawalPeriodRecommendation,
-	#superclass : #GAFObject,
+	#name : #WithdrawalRecommendation,
+	#superclass : #GafObject,
 	#instVars : [
 		'daysToWait',
 		'crop',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'instance-creation' }
-WithdrawalPeriodRecommendation class >> daysToWait: days crop: crop referenceUrl: url [
+WithdrawalRecommendation class >> daysToWait: days crop: crop referenceUrl: url [
 	^ self new
 		daysToWait: days;
 		crop: crop;
@@ -18,37 +18,42 @@ WithdrawalPeriodRecommendation class >> daysToWait: days crop: crop referenceUrl
 		yourself
 ]
 
+{ #category : #voyage }
+WithdrawalRecommendation class >> isVoyageRoot [
+	^ false
+]
+
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> crop [
+WithdrawalRecommendation >> crop [
 	^ crop
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> crop: anObject [
+WithdrawalRecommendation >> crop: anObject [
 	crop := anObject
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> daysToWait [
+WithdrawalRecommendation >> daysToWait [
 	^ daysToWait
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> daysToWait: anObject [
+WithdrawalRecommendation >> daysToWait: anObject [
 	daysToWait := anObject
 ]
 
 { #category : #exporting }
-WithdrawalPeriodRecommendation >> exportToJson [ 
+WithdrawalRecommendation >> exportToJson [ 
 	^ '{ "crop" : "',  crop vulgarName , '",  "daysToWait" : "',  daysToWait asString,  '",  "referenceUrl" : "' ,   referenceUrl ,  '"}'
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> referenceUrl [
+WithdrawalRecommendation >> referenceUrl [
 	^ referenceUrl
 ]
 
 { #category : #accessing }
-WithdrawalPeriodRecommendation >> referenceUrl: anObject [
+WithdrawalRecommendation >> referenceUrl: anObject [
 	referenceUrl := anObject
 ]

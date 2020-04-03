@@ -1,6 +1,6 @@
 Class {
 	#name : #Plot,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'id',
 		'surface',

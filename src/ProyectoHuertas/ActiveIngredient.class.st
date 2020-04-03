@@ -1,6 +1,6 @@
 Class {
 	#name : #ActiveIngredient,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'tradeName',
 		'referenceUrl'

@@ -1,5 +1,5 @@
 Class {
-	#name : #GAFObject,
+	#name : #GafObject,
 	#superclass : #Object,
 	#instVars : [
 		'comment'
@@ -8,21 +8,21 @@ Class {
 }
 
 { #category : #testing }
-GAFObject class >> isVoyageRoot [
-	^ true
+GafObject class >> isVoyageRoot [
+	^ false
 ]
 
 { #category : #accessing }
-GAFObject >> comment [
+GafObject >> comment [
 	^ comment
 ]
 
 { #category : #accessing }
-GAFObject >> comment: anObject [
+GafObject >> comment: anObject [
 	comment := anObject
 ]
 
 { #category : #initialization }
-GAFObject >> initialize [ 
+GafObject >> initialize [ 
 	comment := ''.  
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #InventoryItem,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'substance',
 		'unit',

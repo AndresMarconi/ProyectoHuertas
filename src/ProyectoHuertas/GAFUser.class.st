@@ -1,6 +1,6 @@
 Class {
 	#name : #GAFUser,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'email',
 		'fullname',
@@ -40,6 +40,11 @@ GAFUser class >> fromOIDCUser: aDictionaryOfProperties [
 { #category : #testing }
 GAFUser class >> isVoyageRoot [
 	^ true
+]
+
+{ #category : #testing }
+GAFUser class >> voyageCollectionName [
+   ^ 'GAFUser'
 ]
 
 { #category : #accessing }

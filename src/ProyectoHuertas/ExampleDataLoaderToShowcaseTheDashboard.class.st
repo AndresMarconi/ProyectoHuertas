@@ -316,7 +316,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addSubstance: ingredient to: crop wit
 		comercialName: 'Preparado de ' , ingredient tradeName;
 		addActiveIngredient: ingredient.
 	substance addWithdrawalRecommendation:
-		(WithdrawalPeriodRecommendation
+		(WithdrawalRecommendation
 		daysToWait: days
 		crop: crop
 		referenceUrl: '') .

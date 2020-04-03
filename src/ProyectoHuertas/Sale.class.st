@@ -1,6 +1,6 @@
 Class {
 	#name : #Sale,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'date',
 		'client',

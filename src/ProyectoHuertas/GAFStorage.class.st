@@ -16,7 +16,7 @@ GAFStorage class >> inMemory [
 
 { #category : #initialization }
 GAFStorage class >> initialize [
-	self inMemory
+	self mongoLocal
 ]
 
 { #category : #configuration }

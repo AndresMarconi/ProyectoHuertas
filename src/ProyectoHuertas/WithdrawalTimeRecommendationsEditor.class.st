@@ -26,7 +26,7 @@ WithdrawalTimeRecommendationsEditor >> accept [
 			^ self ].
 	recommendation := substance withdrawalRecommendationFor: editing.
 	recommendation
-		ifNil: [ recommendation := WithdrawalPeriodRecommendation
+		ifNil: [ recommendation := WithdrawalRecommendation
 				daysToWait: numberOfDays
 				crop: editing
 				referenceUrl: source.

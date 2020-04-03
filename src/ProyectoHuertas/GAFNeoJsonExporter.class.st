@@ -9,26 +9,26 @@ GAFNeoJsonExporter >> configureSchemasAndMappingsFor: aNeoJSONReaderOrWriter [
 	aNeoJSONReaderOrWriter
 		mapInstVarsFor: ActiveIngredient;
 		mapInstVarsFor: Crop;
-		mapInstVarsFor: WithdrawalPeriodRecommendation;
-		for: WithdrawalPeriodRecommendation
+		mapInstVarsFor: WithdrawalRecommendation;
+		for: WithdrawalRecommendation
 			do: [ :mapping | (mapping mapInstVar: #crop) valueSchema: Crop ];
 		for: #OrderedCollectionOfActiveIngredient
 			customDo: [ :mapping | 
 			mapping
 				listOfType: OrderedCollection
 				andElementSchema: ActiveIngredient ];
-		for: #OrderedCollectionOfWithdrawalPeriodRecommendation
+		for: #OrderedCollectionOfWithdrawalRecommendation
 			customDo: [ :mapping | 
 			mapping
 				listOfType: OrderedCollection
-				andElementSchema: WithdrawalPeriodRecommendation ];
+				andElementSchema: WithdrawalRecommendation ];
 		mapInstVarsFor: Substance;
 		for: Substance
 			do: [ :mapping | 
 			(mapping mapInstVar: #activeIngredients)
 				valueSchema: #OrderedCollectionOfActiveIngredient.
 			(mapping mapInstVar: #withdrawalPeriodRecommendations)
-				valueSchema: #OrderedCollectionOfWithdrawalPeriodRecommendation ];
+				valueSchema: #OrderedCollectionOfWithdrawalRecommendation ];
 		for: #OrderedCollectionOfSubstance
 			customDo:
 				[ :mapping | mapping listOfType: OrderedCollection andElementSchema: Substance ]
@@ -47,6 +47,8 @@ GAFNeoJsonExporter >> exportSubstances: aCollectionOfSubstances [
 
 { #category : #export }
 GAFNeoJsonExporter >> importSubstances: aJSONString [
+	"Careful! reacreates all objects, does not pay attention to identities, does not persist"
+
 	| reader |
 	reader := NeoJSONReader on: aJSONString readStream.
 	self configureSchemasAndMappingsFor: reader.

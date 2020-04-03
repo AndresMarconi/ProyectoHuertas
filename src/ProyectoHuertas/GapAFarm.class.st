@@ -18,17 +18,6 @@ GapAFarm >> activeIngredients [
 		asSortedCollection: [ :a :b | a tradeName < b tradeName ]
 ]
 
-{ #category : #private }
-GapAFarm >> createUserResourcesFor: aGAFUser [
-	| farm |
-	farm := self findOrCreateFarmNamed: 'Granja de ' , aGAFUser fullname.
-	farm save.
-	aGAFUser
-		addFarm: farm;
-		save;
-		yourself
-]
-
 { #category : #'db queries' }
 GapAFarm >> cropNamed: aName [
 	^ (Crop selectMany: [ :each | each vulgarName = aName ])
@@ -46,16 +35,6 @@ GapAFarm >> farmNamed: aName [
 	^ Farm selectOne: [ :each | each name = aName ]
 ]
 
-{ #category : #'factory methods' }
-GapAFarm >> findOrCreateFarmNamed: aName [
-	| aFarm |
-	aFarm := self farmNamed: aName.
-	aFarm
-		ifNil: [ aFarm := Farm name: aName.
-			aFarm save ].
-	^ aFarm
-]
-
 { #category : #testing }
 GapAFarm >> isSubstanceCommercialNameInUse: aCommercialName byOtherThan: aSubstance [
 	| nameMatches |
@@ -66,14 +45,16 @@ GapAFarm >> isSubstanceCommercialNameInUse: aCommercialName byOtherThan: aSubsta
 
 { #category : #'factory methods' }
 GapAFarm >> register: anEmailAddress withHashedPassword: aHashedPassword andName: aFullName [
-	| user |
+	| user firstFarm |
 	user := GAFUser new
 		email: anEmailAddress;
 		hashedPassword: aHashedPassword;
 		fullname: aFullName;
-		save;
 		yourself.
-	self createUserResourcesFor: user.
+	firstFarm := Farm name: 'A farm for ' , anEmailAddress.
+	firstFarm save.
+	user addFarm: firstFarm.
+	user save.
 	^ user
 ]
 

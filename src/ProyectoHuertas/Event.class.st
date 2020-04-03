@@ -1,6 +1,6 @@
 Class {
 	#name : #Event,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'plot',
 		'dateAndTime'
@@ -10,7 +10,7 @@ Class {
 
 { #category : #testing }
 Event class >> isVoyageRoot [
-	^ true
+	^ false
 ]
 
 { #category : #accessing }

@@ -9,6 +9,11 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #testing }
+CropSale class >> isVoyageRoot [
+	^ true
+]
+
 { #category : #'instance creation' }
 CropSale class >> product: aCrop kilograms: kg fromPlot: aPlot [
 	^ self new

@@ -1,6 +1,6 @@
 Class {
 	#name : #Crop,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'vulgarName',
 		'optimalYieldPerPlant'

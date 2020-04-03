@@ -1,6 +1,6 @@
 Class {
 	#name : #Farm,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'name',
 		'plots',

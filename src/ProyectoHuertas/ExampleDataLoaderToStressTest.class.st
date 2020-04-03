@@ -190,7 +190,7 @@ ExampleDataLoaderToStressTest >> substances [
 				do: [ :crop | 
 					substance
 						addWithdrawalRecommendation:
-							(WithdrawalPeriodRecommendation
+							(WithdrawalRecommendation
 								daysToWait: {1 . 3 . 7 . 21} atRandom
 								crop: crop
 								referenceUrl: '') ].

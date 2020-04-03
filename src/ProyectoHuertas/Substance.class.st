@@ -1,6 +1,6 @@
 Class {
 	#name : #Substance,
-	#superclass : #GAFObject,
+	#superclass : #GafObject,
 	#instVars : [
 		'comercialName',
 		'activeIngredients',
@@ -118,6 +118,11 @@ Substance >> withdrawalRecommendationFor: aCrop [
 { #category : #'withdrawal-periods' }
 Substance >> withdrawalRecommendations [
 	^ withdrawalPeriodRecommendations
+]
+
+{ #category : #'withdrawal-periods' }
+Substance >> withdrawalRecommendations: anObject [
+	withdrawalPeriodRecommendations := anObject
 ]
 
 { #category : #'withdrawal-periods' }
