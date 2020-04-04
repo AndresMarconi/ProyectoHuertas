@@ -3,7 +3,9 @@ Class {
 	#superclass : #GAFEditor,
 	#instVars : [
 		'comercialNameEditorComponent',
-		'activeIngredientsEditorComponent'
+		'activeIngredientsEditorComponent',
+		'manufacturerEditorComponent',
+		'unitEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
@@ -33,6 +35,8 @@ SubstanceEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {comercialNameEditorComponent.
+	manufacturerEditorComponent.
+	unitEditorComponent.
 	activeIngredientsEditorComponent} , super children
 ]
 
@@ -45,6 +49,11 @@ SubstanceEditor >> initializeComponents [
 		selector: #comercialName
 		label: 'Nombre Comercial'
 		required: true.
+	manufacturerEditorComponent := TextLinePropertyEditorComponent
+		subject: subject
+		selector: #manufacturer
+		label: 'Fabricante'
+		required: false.
 	activeIngredientsEditorComponent := MultipleSelectPropertyEditorComponent
 		subject: subject
 		selector: #activeIngredients
@@ -52,5 +61,11 @@ SubstanceEditor >> initializeComponents [
 		required: false.
 	activeIngredientsEditorComponent
 		possibleValues: self activeIngredients.
-	super initializeComponents.
+	unitEditorComponent := DropdownSelectPropertyEditorComponent
+		subject: subject
+		selector: #unit
+		label: 'Unidad de medida'
+		required: true.
+	unitEditorComponent possibleValues: Substance units.
+	super initializeComponents
 ]

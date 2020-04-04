@@ -28,8 +28,10 @@ NumberPropertyEditorComponent >> renderInputOn: html [
 	input := html numberInput.
 	input
 		formControl;
+		step: 0.01;
+		placeholder: '0.00';
 		noAutocomplete;
 		callback: [ :value | self handleCallbackWith: value ];
 		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it printString ]);
-		id: selector.
+		id: selector
 ]

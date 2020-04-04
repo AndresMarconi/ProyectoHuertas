@@ -63,7 +63,7 @@ SaleListItemEditor >> renderElementsTableOn: html [
 		class: 'table table-hover table-sm';
 		with: [ html
 				tableHead: [ html
-						tableRow: [ {'producto' . 'kilos' . 'lote'}
+						tableRow: [ {'Producto' . 'Cantidad (Kg)' . 'Lote' . ''}
 								do: [ :heading | html tableHeading: heading ] ] ].
 			html
 				tableBody: [ items

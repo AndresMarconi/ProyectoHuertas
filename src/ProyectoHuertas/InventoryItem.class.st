@@ -3,8 +3,7 @@ Class {
 	#superclass : #GafObject,
 	#instVars : [
 		'substance',
-		'unit',
-		'records'
+		'movements'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -15,19 +14,19 @@ InventoryItem class >> isVoyageRoot [
 ]
 
 { #category : #adding }
-InventoryItem >> addRecord: aRecord [
-	records add: aRecord
+InventoryItem >> addMovement: aMovement [
+	movements add: aMovement
 ]
 
 { #category : #initialization }
 InventoryItem >> initialize [ 
 	super initialize.
-	records:= OrderedCollection new.
+	movements:= OrderedCollection new.
 ]
 
 { #category : #accessing }
-InventoryItem >> records [
-	^ records
+InventoryItem >> movements [
+	^ movements
 ]
 
 { #category : #accessing }
@@ -38,14 +37,4 @@ InventoryItem >> substance [
 { #category : #accessing }
 InventoryItem >> substance: anObject [
 	substance := anObject
-]
-
-{ #category : #accessing }
-InventoryItem >> unit [
-	^ unit
-]
-
-{ #category : #accessing }
-InventoryItem >> unit: anObject [
-	unit := anObject
 ]

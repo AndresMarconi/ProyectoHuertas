@@ -2,7 +2,8 @@ Class {
 	#name : #DropdownSelectPropertyEditorComponent,
 	#superclass : #PropertyEditorComponent,
 	#instVars : [
-		'possibleValues'
+		'possibleValues',
+		'labelsBlock'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
@@ -22,6 +23,16 @@ DropdownSelectPropertyEditorComponent >> initialize [
 ]
 
 { #category : #accessing }
+DropdownSelectPropertyEditorComponent >> labelsBlock [
+	^ labelsBlock
+]
+
+{ #category : #accessing }
+DropdownSelectPropertyEditorComponent >> labelsBlock: anObject [
+	labelsBlock := anObject
+]
+
+{ #category : #accessing }
 DropdownSelectPropertyEditorComponent >> possibleValues [
 	^ possibleValues
 ]
@@ -33,13 +44,16 @@ DropdownSelectPropertyEditorComponent >> possibleValues: anObject [
 
 { #category : #hooks }
 DropdownSelectPropertyEditorComponent >> renderInputOn: html [
+	| select |
 	readOnly
-		ifFalse: [ html select
+		ifFalse: [ select := html select.
+			select
 				formControl;
 				list: possibleValues;
 				callback: [ :value | self handleCallbackWith: value ];
 				selected: bufferedValue;
-				id: selector ]
+				id: selector.
+			labelsBlock ifNotNil: [ select labels: labelsBlock ] ]
 		ifTrue: [ html textInput
 				formControl;
 				readonly: true;

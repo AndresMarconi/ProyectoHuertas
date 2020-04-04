@@ -3,22 +3,22 @@ Class {
 	#superclass : #GAFEditor,
 	#instVars : [
 		'quantityEditorComponent',
-		'unit',
 		'dateEditorComponent',
-		'reasonEditorComponent'
+		'reasonEditorComponent',
+		'substance'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
 { #category : #'instance creation' }
 InventoryItemMovementEditor class >> subject: aSubject [
-	self error: 'Use #subject:unit: instead'
+	self error: 'Use #subject:substance: instead'
 ]
 
 { #category : #'instance creation' }
-InventoryItemMovementEditor class >> subject: anInventoryRecord unit: aString [
+InventoryItemMovementEditor class >> subject: anInventoryRecord substance: aSubstance [
 	^ self new
-		unit: aString;
+		substance: aSubstance;
 		subject: anInventoryRecord;
 		yourself
 ]
@@ -53,7 +53,7 @@ InventoryItemMovementEditor >> initializeComponents [
 	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
-		label: 'Cantidad (' , (unit ifNil: [ 'Unidades' ]) , ')'
+		label: 'Cantidad (' , substance unit , ')'
 		required: true.
 	quantityEditorComponent
 		instructions: 'Utilice números negativos para indicar egresos.'.
@@ -61,6 +61,6 @@ InventoryItemMovementEditor >> initializeComponents [
 ]
 
 { #category : #accessing }
-InventoryItemMovementEditor >> unit: anObject [
-	unit := anObject
+InventoryItemMovementEditor >> substance: anObject [
+	substance := anObject
 ]

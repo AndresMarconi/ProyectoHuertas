@@ -18,7 +18,7 @@ InventoryItemsViewerComponent class >> item: item [
 InventoryItemsViewerComponent >> columnHeadings [
 	^ {'Fecha'.
 	'Motivo'.
-	('Cantidad (' , item unit , ')')}
+	('Cantidad (' , item substance unit , ')')} , super columnHeadings
 ]
 
 { #category : #initialization }
@@ -49,7 +49,7 @@ InventoryItemsViewerComponent >> elementEditorClass [
 
 { #category : #initialization }
 InventoryItemsViewerComponent >> elements [ 	
-	^item records
+	^item movements
 ]
 
 { #category : #initialization }

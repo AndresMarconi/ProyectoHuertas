@@ -4,7 +4,19 @@ Class {
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
-{ #category : #adding }
+{ #category : #callbacks }
+InventoryComponent >> addMovement: anInventoryItem [
+	| record |
+	record := self
+		call: 
+			(InventoryItemMovementEditor
+				subject: InventoryItemMovement new 
+				substance: anInventoryItem substance).
+	record ifNotNil: [ :it | anInventoryItem addMovement: it ].
+	anInventoryItem save 
+]
+
+{ #category : #callbacks }
 InventoryComponent >> addRecord: anInventoryItem [
 	| record |
 	record := self
@@ -12,7 +24,7 @@ InventoryComponent >> addRecord: anInventoryItem [
 			(InventoryItemMovementEditor
 				subject: InventoryItemMovement new
 				unit: anInventoryItem unit).
-	record ifNotNil: [ :it | anInventoryItem addRecord: it ].
+	record ifNotNil: [ :it | anInventoryItem addMovement: it ].
 	anInventoryItem save 
 ]
 
@@ -25,8 +37,7 @@ InventoryComponent >> columnHeadings [
 InventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
 	element substance activeIngredients.
-	element unit}
-		, (super columnValuesFor: element)
+	element substance unit} , (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
@@ -52,7 +63,8 @@ InventoryComponent >> elements [
 InventoryComponent >> initialize [
 	super initialize.
 	duplicateEnabled := false.
-	viewEnabled:= true
+	editEnabled := false.
+	viewEnabled := true
 ]
 
 { #category : #rendering }
@@ -60,11 +72,11 @@ InventoryComponent >> renderSpecificActionsFor: element on: html [
 	html div class: 'dropdown-divider'.
 	html anchor
 		class: 'dropdown-item';
-		callback: [ self addRecord: element ];
+		callback: [ self addMovement: element ];
 		with: 'Registrar movimiento'
 ]
 
-{ #category : #adding }
+{ #category : #callbacks }
 InventoryComponent >> saveAddedElement: anInventoryItem [
 	self session farm inventoryItems
 		detect: [ :each | each substance = anInventoryItem substance ]

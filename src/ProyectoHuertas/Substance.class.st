@@ -3,8 +3,10 @@ Class {
 	#superclass : #GafObject,
 	#instVars : [
 		'comercialName',
+		'manufacturer',
 		'activeIngredients',
-		'withdrawalPeriodRecommendations'
+		'withdrawalPeriodRecommendations',
+		'unit'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -16,7 +18,7 @@ Substance class >> isVoyageRoot [
 
 { #category : #constants }
 Substance class >> units [ 
-	^{ 'Kg'. 'Lt'  }
+	^{ 'Kg'. 'L'  }
 ]
 
 { #category : #accessing }
@@ -80,6 +82,16 @@ Substance >> initialize [
 	withdrawalPeriodRecommendations := OrderedCollection new
 ]
 
+{ #category : #accessing }
+Substance >> manufacturer [
+	^ manufacturer
+]
+
+{ #category : #accessing }
+Substance >> manufacturer: anObject [
+	manufacturer := anObject
+]
+
 { #category : #'withdrawal-periods' }
 Substance >> maxWithdrawalTimeFor: aCrop [
 	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
@@ -106,6 +118,16 @@ Substance >> printOn: aStream [
 Substance >> removeWithdrawalRecommendation: withdrawalPeriodRecommendation [
 	withdrawalPeriodRecommendations
 		remove: withdrawalPeriodRecommendation
+]
+
+{ #category : #accessing }
+Substance >> unit [
+	^ unit ifNil: [ 'Kg' ]
+]
+
+{ #category : #accessing }
+Substance >> unit: anObject [
+	unit := anObject
 ]
 
 { #category : #'withdrawal-periods' }
