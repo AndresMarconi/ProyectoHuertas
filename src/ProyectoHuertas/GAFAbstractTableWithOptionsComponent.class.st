@@ -84,7 +84,8 @@ GAFAbstractTableWithOptionsComponent >> initialize [
 	removeEnabled := false.
 	addEnabled := true.
 	duplicateEnabled := true.
-	filterComponent := TableFilterComponent columns: {'Motivo'}
+	filterComponent := TableFilterComponent
+		columns: (self columnHeadings copyWithout: 'Acciones')
 ]
 
 { #category : #accessing }
