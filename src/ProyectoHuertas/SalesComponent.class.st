@@ -35,6 +35,14 @@ SalesComponent >> elements [
 	^ (self session farm sales) asSortedCollection: [ :a :b | a date > b date ]
 ]
 
+{ #category : #adding }
+SalesComponent >> initialize [
+	super initialize.
+	viewEnabled := true.
+	editEnabled := false.
+	duplicateEnabled := false
+]
+
 { #category : #rendering }
 SalesComponent >> productsStringFor: element [
 	^ (element items

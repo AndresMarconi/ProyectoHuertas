@@ -1,36 +1,58 @@
 Class {
 	#name : #SaleListItemEditor,
-	#superclass : #GAFEditor,
+	#superclass : #GAFAbstractComponent,
 	#instVars : [
-		'items'
+		'items',
+		'sale',
+		'selectedCrop',
+		'quantity',
+		'selectedPlot'
 	],
-	#category : #'ProyectoHuertas-ui-editors'
+	#category : #'ProyectoHuertas-widgets'
 }
 
-{ #category : #adding }
-SaleListItemEditor >> addRow [
-	(self children anySatisfy: [ :each | each hasProblems ])
-		ifTrue: [ ^ self ].
-	self children do: #accept.
-	subject addItem: CropSale new.
-	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
-	
+{ #category : #callbacks }
+SaleListItemEditor >> accept [
+	sale items: items
 ]
 
-{ #category : #'subclass-responsibility' }
-SaleListItemEditor >> children [ 
-	^items
+{ #category : #adding }
+SaleListItemEditor >> addItem [
+	selectedCrop
+		ifNil: [ problems add: 'Debe seleccionar un cultivo'.
+			^ self ].
+	selectedPlot
+		ifNil: [ problems add: 'Debe seleccionar un lote'.
+			^ self ].
+	(quantity isNotNil and: [ quantity > 0 ])
+		ifFalse: [ problems add: 'La cantidad debe ser mayor a 0'.
+			^ self ].
+	items
+		add:
+			(CropSale new
+				crop: selectedCrop;
+				plot: selectedPlot;
+				kilograms: quantity;
+				yourself).
+	selectedCrop := nil.
+	selectedPlot := nil.
+	quantity := nil
+]
+
+{ #category : #callbacks }
+SaleListItemEditor >> cancel [
+	^ self
 ]
 
 { #category : #testing }
 SaleListItemEditor >> hasProblems [
-	self problems ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
+	^ false
 ]
 
-{ #category : #'subclass-responsibility' }
-SaleListItemEditor >> initializeComponents [
-	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
-	
+{ #category : #initialization }
+SaleListItemEditor >> initialize [
+	items := OrderedCollection new.
+	problems := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -40,39 +62,124 @@ SaleListItemEditor >> problems [
 
 { #category : #adding }
 SaleListItemEditor >> removeRowWith: item [
-	self children do: #accept.
-	subject removeItem: item.
-	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
-	
+	items remove: item
 ]
 
 { #category : #rendering }
 SaleListItemEditor >> renderContentOn: html [
-	html heading level4; with: 'Productos'.
-		self renderElementsTableOn: html.
-		html formButton
-				bePrimary;
-				callback: [ self addRow ];
-				with: '+'.			
-		html break; break.
+	html label: 'Productos'.
+	problems
+		do: [ :each | 
+			html alert
+				beDanger;
+				with: each ].
+	problems := OrderedCollection new.
+	self renderElementsTableOn: html
+]
+
+{ #category : #rendering }
+SaleListItemEditor >> renderCropSelectorOn: html [
+	html select
+		formControl;
+		list: {nil} , self session gapAFarm crops;
+		callback: [ :value | selectedCrop := value ];
+		selected: selectedCrop;
+		id: 'crop-selector'
 ]
 
 { #category : #rendering }
 SaleListItemEditor >> renderElementsTableOn: html [
 	html table
-		class: 'table table-hover table-sm';
+		class: 'table table-bordered table-sm';
+		style: 'margin-top: 10px;';
 		with: [ html
 				tableHead: [ html
-						tableRow: [ {'Producto' . 'Cantidad (Kg)' . 'Lote' . ''}
-								do: [ :heading | html tableHeading: heading ] ] ].
+						tableRow: [ html tableData
+								style: 'width: 40%;';
+								with: 'Producto'.
+							html tableData
+								style: 'width: 35%;';
+								with: 'Lote'.
+							html tableData
+								style: 'width: 20%;';
+								with: 'Cantidad'.
+							html tableData
+								style: 'width: 5%;';
+								with: '' ] ].
 			html
-				tableBody: [ items
-						do: [ :element | 
-							html
-								tableRow: [ html render: element.
-									html
-										tableData: [ html formButton
-												beDanger;
-												callback: [ self removeRowWith: element subject ];
-												with: '-' ] ] ] ] ]
+				tableBody: [ self renderExitingItemsRowsOn: html.
+					self renderNewItemRowOn: html ] ]
+]
+
+{ #category : #rendering }
+SaleListItemEditor >> renderExitingItemsRowsOn: html [
+	^ items
+		do: [ :item | 
+			html
+				tableRow: [ html
+						tableData: (item crop ifNil: [ 'N/A' ] ifNotNil: [ :it | it vulgarName ]);
+						tableData: (item plot ifNil: [ 'N/A' ] ifNotNil: [ :it | it id ]);
+						tableData: item kilograms greaseString.
+					html tableData
+						class: 'text-right';
+						with: [ html formButton
+								beSmall;
+								beDanger;
+								callback: [ self removeRowWith: item ];
+								with: [ html span class: 'fa fa-minus' ] ] ] ]
+]
+
+{ #category : #rendering }
+SaleListItemEditor >> renderNewItemRowOn: html [
+	html
+		tableRow: [ html
+				tableData: [ self renderCropSelectorOn: html ];
+				tableData: [ self renderPlotSelectorOn: html ];
+				tableData: [ self renderQuantityEditorOn: html ].
+			html tableData
+				class: 'text-right';
+				with: [ html formButton
+						beSmall;
+						bePrimary;
+						callback: [ self addItem ];
+						with: [ html span class: 'fa fa-plus' ] ] ]
+]
+
+{ #category : #rendering }
+SaleListItemEditor >> renderPlotSelectorOn: html [
+	html select
+		formControl;
+		list: {nil} , self session farm plots;
+		callback: [ :value | selectedPlot := value ];
+		selected: selectedPlot;
+		id: 'crop-selector'
+]
+
+{ #category : #rendering }
+SaleListItemEditor >> renderQuantityEditorOn: html [
+	html numberInput
+		formControl;
+		step: 0.01;
+		placeholder: '0.00';
+		size: 10;
+		noAutocomplete;
+		callback:
+				[ :value | quantity := value ifEmpty: [ nil ] ifNotEmpty: [ :it | it asNumber ] ];
+		value: (quantity ifNil: [ '' ]);
+		id: 'quantity'
+]
+
+{ #category : #accessing }
+SaleListItemEditor >> sale [
+	^ sale
+]
+
+{ #category : #accessing }
+SaleListItemEditor >> sale: aSale [
+	sale := aSale.
+	items := aSale items
+		collect: [ :each | 
+			each copy
+				sale: nil;
+				yourself ]
 ]

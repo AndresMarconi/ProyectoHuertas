@@ -60,6 +60,13 @@ Sale >> items [
 ]
 
 { #category : #removing }
+Sale >> items: aCollectionOfItems [
+	items do: [ :each | each sale: nil ].
+	items := aCollectionOfItems.
+	items do: [ :each | each sale: self ]
+]
+
+{ #category : #removing }
 Sale >> removeItem: item [
 	items remove: item
 ]

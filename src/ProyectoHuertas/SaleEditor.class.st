@@ -21,7 +21,7 @@ SaleEditor >> children [
 { #category : #'subclass-responsibility' }
 SaleEditor >> initializeComponents [
 	"Initialize all property components"
-	
+
 	super initializeComponents.
 	dateEditorComponent := DatePropertyEditorComponent
 		subject: subject
@@ -33,5 +33,7 @@ SaleEditor >> initializeComponents [
 		selector: #client
 		label: 'Cliente'
 		required: true.
-	listComponent:= SaleListItemEditor subject: subject.
+	listComponent := SaleListItemEditor new
+		sale: subject;
+		yourself
 ]
