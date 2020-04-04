@@ -24,7 +24,7 @@ SaleListItemEditor >> children [
 
 { #category : #testing }
 SaleListItemEditor >> hasProblems [
-	(self children flatCollect: #problems) ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
+	self problems ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -39,8 +39,9 @@ SaleListItemEditor >> problems [
 ]
 
 { #category : #adding }
-SaleListItemEditor >> removeRow [
-	subject removeLastItem.
+SaleListItemEditor >> removeRowWith: item [
+	self children do: #accept.
+	subject removeItem: item.
 	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
 ]
@@ -52,26 +53,26 @@ SaleListItemEditor >> renderContentOn: html [
 		html formButton
 				bePrimary;
 				callback: [ self addRow ];
-				with: 'agregar item'.
-		html space.
-		html formButton
-				beDanger;
-				callback: [ self removeRow ];
-				with: 'quitar item'.				
+				with: '+'.			
 		html break; break.
 ]
 
 { #category : #rendering }
 SaleListItemEditor >> renderElementsTableOn: html [
 	html table
-		class: 'table table-hover';
+		class: 'table table-hover table-sm';
 		with: [ html
 				tableHead: [ html
-						tableRow: [ {'producto'. 'kilos'. 'lote'}
+						tableRow: [ {'producto' . 'kilos' . 'lote'}
 								do: [ :heading | html tableHeading: heading ] ] ].
 			html
 				tableBody: [ items
 						do: [ :element | 
 							html
-								tableRow: [ html render: element ] ] ]. ]
+								tableRow: [ html render: element.
+									html
+										tableData: [ html formButton
+												beDanger;
+												callback: [ self removeRowWith: element subject ];
+												with: '-' ] ] ] ] ]
 ]

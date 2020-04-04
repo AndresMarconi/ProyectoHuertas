@@ -25,7 +25,7 @@ SaleItemEditor >> crops [
 
 { #category : #accessing }
 SaleItemEditor >> hasProblems [
-	(self children flatCollect: #problems) ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
+	self problems ifEmpty: [ ^ false ] ifNotEmpty: [ ^ true ]
 ]
 
 { #category : #'subclass-responsibility' }
