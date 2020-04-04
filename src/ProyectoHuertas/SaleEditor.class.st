@@ -14,7 +14,8 @@ SaleEditor >> children [
 	"Return all property editors in this editor, in the order you want them to be rendered"
 
 	^ {dateEditorComponent.
-	clientEditorComponent } , super children
+	clientEditorComponent.
+	listComponent} , super children
 ]
 
 { #category : #'subclass-responsibility' }
@@ -32,26 +33,5 @@ SaleEditor >> initializeComponents [
 		selector: #client
 		label: 'Cliente'
 		required: true.
-]
-
-{ #category : #rendering }
-SaleEditor >> renderButtonsOn: html [
-	html
-		paragraph: [ html formButton
-				bePrimary;
-				callback: [ self accept ];
-				with: 'Cargar Productos'.
-			html space.
-			html formButton
-				beSecondary;
-				callback: [ self cancel ];
-				with: 'Cancel' ]
-]
-
-{ #category : #rendering }
-SaleEditor >> renderContentOn: html [
-	html
-		form: [ self renderChildrenOn: html.
-			self renderProblemsOn: html. 
-			self renderButtonsOn: html].
+	listComponent:= SaleListItemEditor subject: subject.
 ]

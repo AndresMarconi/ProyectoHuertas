@@ -22,10 +22,20 @@ SaleListItemEditor >> children [
 	^items
 ]
 
+{ #category : #testing }
+SaleListItemEditor >> hasProblems [
+	(self children flatCollect: #problems) ifEmpty: [ ^false ] ifNotEmpty: [ ^true ]
+]
+
 { #category : #'subclass-responsibility' }
 SaleListItemEditor >> initializeComponents [
 	items:= subject items collect: [ :each | SaleItemEditor subject: each ].
 	
+]
+
+{ #category : #accessing }
+SaleListItemEditor >> problems [
+	^ self children flatCollect: #problems
 ]
 
 { #category : #adding }
@@ -37,11 +47,7 @@ SaleListItemEditor >> removeRow [
 
 { #category : #rendering }
 SaleListItemEditor >> renderContentOn: html [
-	html heading level4; with: 'Fecha: ', (subject date asDate ddmmyyyy).
-	html heading level4; with: 'Cliente: ', (subject client).
 	html heading level4; with: 'Productos'.
-	self renderProblemsOn: html.
-	html form: [ 
 		self renderElementsTableOn: html.
 		html formButton
 				bePrimary;
@@ -53,7 +59,6 @@ SaleListItemEditor >> renderContentOn: html [
 				callback: [ self removeRow ];
 				with: 'quitar item'.				
 		html break; break.
-		self renderButtonsOn: html]
 ]
 
 { #category : #rendering }

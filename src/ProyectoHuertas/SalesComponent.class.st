@@ -4,15 +4,6 @@ Class {
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
-{ #category : #callbacks }
-SalesComponent >> addElement [
-	^ (self
-		call: (self elementEditorClass subject: self elementClass new))
-		ifNotNil: [ :it | 
-			(self call: (SaleListItemEditor subject: it))
-				ifNotNil: [ :sale | self saveAddedElement: sale ] ]
-]
-
 { #category : #rendering }
 SalesComponent >> columnHeadings [
 	^ { 'Fecha'. 'Cliente'. 'Productos' }, super columnHeadings
@@ -23,12 +14,6 @@ SalesComponent >> columnValuesFor: element [
 	^ {element date asDate ddmmyyyy.
 	element client.
 	(self productsStringFor: element)} , (super columnValuesFor: element)
-]
-
-{ #category : #callbacks }
-SalesComponent >> editElement: element [
-	(self call: (self elementEditorClass subject: element))
-		ifNotNil: [ :it | self call: (SaleListItemEditor subject: it). self saveEditedElement: it ]
 ]
 
 { #category : #hooks }
