@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'singleton'
 	],
-	#category : #'ProyectoHuertas-ui-common'
+	#category : #'ProyectoHuertas-model'
 }
 
 { #category : #singleton }
@@ -16,6 +16,17 @@ GapAFarm class >> singleton [
 GapAFarm >> activeIngredients [
 	^ ActiveIngredient selectAll
 		asSortedCollection: [ :a :b | a tradeName < b tradeName ]
+]
+
+{ #category : #'db queries' }
+GapAFarm >> applications [
+	^ Application selectAll
+]
+
+{ #category : #'db queries' }
+GapAFarm >> canRemoveSubstance: aSubstance [
+	^ (self applications
+		anySatisfy: [ :each | each substance = aSubstance ]) not
 ]
 
 { #category : #'db queries' }

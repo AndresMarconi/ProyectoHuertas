@@ -69,7 +69,8 @@ SubstancesComponent >> elements [
 { #category : #initialization }
 SubstancesComponent >> initialize [
 	super initialize.
-	duplicateEnabled := true
+	duplicateEnabled := true.
+	removeEnabled := true.
 ]
 
 { #category : #rendering }
@@ -94,6 +95,20 @@ SubstancesComponent >> isIncomplete: aSubstance [
 		intersection: (self session gapAFarm crops collect: #vulgarName))
 		copyWithoutAll: namesOfCropsWithWithdrawalPeriod.
 	^ missing notEmpty
+]
+
+{ #category : #callbacks }
+SubstancesComponent >> removeElement: element [
+	"Just in case someone applied it since the menu was generated"
+
+	(self removeEnabledFor: element)
+		ifTrue: [ element remove ]
+]
+
+{ #category : #testing }
+SubstancesComponent >> removeEnabledFor: element [
+	^ (super removeEnabledFor: element)
+		& (self session gapAFarm canRemoveSubstance: element)
 ]
 
 { #category : #rendering }

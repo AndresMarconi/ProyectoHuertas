@@ -25,6 +25,11 @@ GAFAbstractTableWithOptionsComponent >> addElement [
 	^ element
 ]
 
+{ #category : #testing }
+GAFAbstractTableWithOptionsComponent >> addEnabled [
+	^ addEnabled
+]
+
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> columnHeadings [
 	^ self actionsEnabled
@@ -43,11 +48,21 @@ GAFAbstractTableWithOptionsComponent >> duplicateElement: element [
 		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 
+{ #category : #testing }
+GAFAbstractTableWithOptionsComponent >> duplicateEnabledFor: element [
+	^ duplicateEnabled
+]
+
 { #category : #callbacks }
 GAFAbstractTableWithOptionsComponent >> editElement: element [
 	(self
 		call: (self elementEditorClass subject: element))
 		ifNotNil: [ :it | self saveEditedElement: it ]
+]
+
+{ #category : #testing }
+GAFAbstractTableWithOptionsComponent >> editEnabledFor: element [
+	^ editEnabled
 ]
 
 { #category : #hooks }
@@ -98,6 +113,11 @@ GAFAbstractTableWithOptionsComponent >> removeElement: element [
 	^ self subclassResponsibility
 ]
 
+{ #category : #testing }
+GAFAbstractTableWithOptionsComponent >> removeEnabledFor: element [
+	^ removeEnabled
+]
+
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> renderActionMenuFor: element on: html [
 	html dropdown
@@ -108,22 +128,22 @@ GAFAbstractTableWithOptionsComponent >> renderActionMenuFor: element on: html [
 			html div
 				class: 'dropdown-menu';
 				attributeAt: 'aria-labelledby' put: 'dropdownMenuButton';
-				with: [ viewEnabled
+				with: [ (self viewEnabledFor: element)
 						ifTrue: [ html anchor
 								class: 'dropdown-item';
 								callback: [ self viewElement: element ];
 								with: 'Ver' ].
-					editEnabled
+					(self editEnabledFor: element)
 						ifTrue: [ html anchor
 								class: 'dropdown-item';
 								callback: [ self editElement: element ];
 								with: 'Modificar' ].
-					duplicateEnabled
+					(self duplicateEnabledFor: element)
 						ifTrue: [ html anchor
 								class: 'dropdown-item';
 								callback: [ self duplicateElement: element ];
 								with: 'Duplicar' ].
-					removeEnabled
+					(self removeEnabledFor: element)
 						ifTrue: [ html anchor
 								class: 'dropdown-item';
 								callback: [ self removeElement: element ];
@@ -175,4 +195,9 @@ GAFAbstractTableWithOptionsComponent >> saveEditedElement: anElement [
 { #category : #callbacks }
 GAFAbstractTableWithOptionsComponent >> viewElement: element [
 	^ self
+]
+
+{ #category : #testing }
+GAFAbstractTableWithOptionsComponent >> viewEnabledFor: element [
+	^ viewEnabled
 ]
