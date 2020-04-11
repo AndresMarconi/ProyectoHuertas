@@ -33,7 +33,8 @@ ApplicationEditor >> initializeComponents [
 		selector: #reason
 		label: 'Motivo'
 		required: true.
-	reasonEditorComponent possibleValues: {nil}, Application reasons.
+	reasonEditorComponent
+		possibleValuesBlock: [ {nil} , Application reasons ].
 	quantityEditorComponent := MeasurementPropertyEditorComponent
 		subject: subject
 		selector: #quantity
@@ -55,7 +56,8 @@ ApplicationEditor >> initializeComponents [
 		selector: #substance
 		label: 'Producto'
 		required: true.
-	substanceEditorComponent possibleValues: {nil} , self substances.
+	substanceEditorComponent
+		possibleValuesBlock: [ {nil} , self substances ].
 	substanceEditorComponent
 		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
 	notAllowed := false.

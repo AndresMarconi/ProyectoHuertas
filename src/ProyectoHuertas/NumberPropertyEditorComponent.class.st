@@ -33,5 +33,6 @@ NumberPropertyEditorComponent >> renderInputOn: html [
 		noAutocomplete;
 		callback: [ :value | self handleCallbackWith: value ];
 		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it printString ]);
-		id: selector
+		id: self id.
+
 ]

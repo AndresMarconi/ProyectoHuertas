@@ -52,7 +52,8 @@ BachAddActiveIngredientsComponent >> crop [
 { #category : #accessing }
 BachAddActiveIngredientsComponent >> crop: anObject [
 	crop := anObject.
-	selectedIngredientsComponent possibleValues: self activeIngredients
+	selectedIngredientsComponent
+		possibleValuesBlock: [ self activeIngredients ]
 ]
 
 { #category : #initialization }

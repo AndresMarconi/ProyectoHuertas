@@ -150,6 +150,7 @@ SaleListItemEditor >> renderPlotSelectorOn: html [
 	html select
 		formControl;
 		list: {nil} , self session farm plots;
+		labels: [ :each | each ifNil: [  ] ifNotNil: [ :it | it id ] ];
 		callback: [ :value | selectedPlot := value ];
 		selected: selectedPlot;
 		id: 'crop-selector'

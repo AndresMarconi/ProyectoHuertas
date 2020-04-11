@@ -13,5 +13,5 @@ TextAreaPropertyEditorComponent >> renderInputOn: html [
 		noAutocomplete;
 		callback: [ :value | self handleCallbackWith: value ];
 		value: bufferedValue;
-		id: selector
+		id: self id
 ]

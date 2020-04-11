@@ -41,5 +41,7 @@ EventEditor >> initializeComponents [
 		selector: #plot
 		label: 'Lote'
 		required: true.
-	plotEditorComponent possibleValues: {nil}, self plots
+	plotEditorComponent
+		possibleValuesBlock: [ {nil} , self plots ];
+		labelsBlock: [ :each | each ifNil: [  ] ifNotNil: [ each id ] ]
 ]

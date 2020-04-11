@@ -60,12 +60,12 @@ SubstanceEditor >> initializeComponents [
 		label: 'Principios activos'
 		required: false.
 	activeIngredientsEditorComponent
-		possibleValues: self activeIngredients.
+		possibleValuesBlock: [ self activeIngredients ].
 	unitEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
 		selector: #unit
 		label: 'Unidad de medida'
 		required: true.
-	unitEditorComponent possibleValues: Substance units.
+	unitEditorComponent possibleValuesBlock: [Substance units].
 	super initializeComponents
 ]

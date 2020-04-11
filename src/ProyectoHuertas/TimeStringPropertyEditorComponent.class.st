@@ -25,5 +25,5 @@ TimeStringPropertyEditorComponent >> renderInputOn: html [
 			(bufferedValue ifNil: [ Time now ] ifNotNil: [ :it | it ])
 				print24WithoutSeconds;
 		callback: [ :value | self handleCallbackWith: value ];
-		id: selector
+		id: self id
 ]

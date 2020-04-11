@@ -35,8 +35,8 @@ ProblemEditor >> initializeComponents [
 		selector: #type
 		label: 'Tipo de problema'
 		required: true.
-	problemTypeEditorComponent possibleValues: self allowedProblemTypes.
-
+	problemTypeEditorComponent
+		possibleValuesBlock: [ self allowedProblemTypes ]
 ]
 
 { #category : #accessing }

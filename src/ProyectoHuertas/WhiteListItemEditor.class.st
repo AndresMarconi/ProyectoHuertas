@@ -37,7 +37,7 @@ WhiteListItemEditor >> initializeComponents [
 		label: 'Principio activo'
 		required: true.
 	activeIngredientsEditorComponent
-		possibleValues: {nil} , (self activeIngredients);
+		possibleValuesBlock: [ {nil} , self activeIngredients ];
 		setDefault: subject activeIngredient.
 	aptitudEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
@@ -54,5 +54,5 @@ WhiteListItemEditor >> initializeComponents [
 		selector: #waitingPeriod
 		label: 'Tiempo de carencia (en días)'
 		required: true.
-	super initializeComponents.
+	super initializeComponents
 ]

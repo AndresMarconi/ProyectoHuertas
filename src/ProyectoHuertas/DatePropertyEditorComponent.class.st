@@ -28,7 +28,7 @@ DatePropertyEditorComponent >> renderInputOn: html [
 		placeholder: 'dd/mm/aaaa';
 		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it asDate ddmmyyyy ]);
 		callback: [ :value | self handleCallbackWith: value ];
-		id: selector;
+		id: self id;
 		script:
 			(html jQuery new datepicker
 				dateFormat: 'dd/mm/yy';

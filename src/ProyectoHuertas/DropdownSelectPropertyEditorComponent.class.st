@@ -2,11 +2,22 @@ Class {
 	#name : #DropdownSelectPropertyEditorComponent,
 	#superclass : #PropertyEditorComponent,
 	#instVars : [
-		'possibleValues',
-		'labelsBlock'
+		'possibleValuesBlock',
+		'labelsBlock',
+		'dependentWidget'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
+
+{ #category : #accessing }
+DropdownSelectPropertyEditorComponent >> dependentWidget [
+	^ dependentWidget
+]
+
+{ #category : #accessing }
+DropdownSelectPropertyEditorComponent >> dependentWidget: anObject [
+	dependentWidget := anObject
+]
 
 { #category : #hooks }
 DropdownSelectPropertyEditorComponent >> handleCallbackWith: anObject [
@@ -19,7 +30,7 @@ DropdownSelectPropertyEditorComponent >> handleCallbackWith: anObject [
 
 { #category : #hooks }
 DropdownSelectPropertyEditorComponent >> initialize [
-	possibleValues := OrderedCollection new
+	possibleValuesBlock := [ OrderedCollection new ]
 ]
 
 { #category : #accessing }
@@ -33,27 +44,34 @@ DropdownSelectPropertyEditorComponent >> labelsBlock: anObject [
 ]
 
 { #category : #accessing }
-DropdownSelectPropertyEditorComponent >> possibleValues [
-	^ possibleValues
+DropdownSelectPropertyEditorComponent >> possibleValuesBlock [
+	^ possibleValuesBlock
 ]
 
 { #category : #accessing }
-DropdownSelectPropertyEditorComponent >> possibleValues: anObject [
-	possibleValues := anObject
+DropdownSelectPropertyEditorComponent >> possibleValuesBlock: anObject [
+	possibleValuesBlock := anObject
 ]
 
-{ #category : #hooks }
+{ #category : #rendering }
 DropdownSelectPropertyEditorComponent >> renderInputOn: html [
 	| select |
 	readOnly
 		ifFalse: [ select := html select.
 			select
 				formControl;
-				list: possibleValues;
+				list: possibleValuesBlock value;
 				callback: [ :value | self handleCallbackWith: value ];
 				selected: bufferedValue;
-				id: selector.
-			labelsBlock ifNotNil: [ select labels: labelsBlock ] ]
+				id: self id.
+			labelsBlock ifNotNil: [ select labels: labelsBlock ].
+			dependentWidget
+				ifNotNil: [ select
+						onChange:
+							((html jQuery id: dependentWidget id) load
+								serializeForm;
+								html: [ :widgetCanvas | widgetCanvas render: dependentWidget ];
+								yourself) ] ]
 		ifTrue: [ html textInput
 				formControl;
 				readonly: true;

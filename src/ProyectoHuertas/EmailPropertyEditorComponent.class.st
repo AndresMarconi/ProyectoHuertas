@@ -22,7 +22,7 @@ EmailPropertyEditorComponent >> renderInputOn: html [
 		formControl;
 		callback: [ :value | self handleCallbackWith: value ];
 		value: bufferedValue;
-		id: selector.
+		id: self id.
 	required
 		ifTrue: [ input attributeAt: 'required' put: 'on' ]
 ]

@@ -43,7 +43,7 @@ SowingEditor >> initializeComponents [
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
-	cropEditorComponent possibleValues: self crops.
+	cropEditorComponent possibleValuesBlock: [ self crops ].
 	cultivarEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #cultivarName

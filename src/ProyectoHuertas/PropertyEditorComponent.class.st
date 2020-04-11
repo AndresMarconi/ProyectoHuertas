@@ -3,6 +3,7 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'subject',
+		'id',
 		'selector',
 		'label',
 		'readOnly',
@@ -63,6 +64,11 @@ PropertyEditorComponent >> handleCallbackWith: aString [
 { #category : #api }
 PropertyEditorComponent >> hasProblems [
 	^ problems notEmpty
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> id [
+	^ id ifNil: [ id := selector ifNil: [ Time millisecondClockValue ] ]
 ]
 
 { #category : #accessing }

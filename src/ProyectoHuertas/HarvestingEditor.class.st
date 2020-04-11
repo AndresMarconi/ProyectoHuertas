@@ -13,8 +13,20 @@ Class {
 
 { #category : #accessing }
 HarvestingEditor >> crops [
-	^ (self session farm mostFrequentelyHarvested: 10) , {nil}
-		, self session gapAFarm crops
+
+	^ {nil}
+		,
+			(self cropsActiveInSelectedPlot
+				ifEmpty: [ self session gapAFarm crops ])
+]
+
+{ #category : #accessing }
+HarvestingEditor >> cropsActiveInSelectedPlot [
+	| selectedPlot |
+	selectedPlot := plotEditorComponent bufferedValue.
+	selectedPlot ifNil: [ ^ OrderedCollection new ].
+	^ (selectedPlot currentCycle sowings collect: #crop) asSet
+		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -35,7 +47,7 @@ HarvestingEditor >> initializeComponents [
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
-	cropEditorComponent possibleValues: self crops.
+	cropEditorComponent possibleValuesBlock: [ self crops ].
 	cultivarEditorComponent := TextLinePropertyEditorComponent
 		subject: subject
 		selector: #cultivarName
@@ -51,7 +63,8 @@ HarvestingEditor >> initializeComponents [
 		selector: #otherUnit
 		label: 'Cantidad (otra unidad)'
 		required: false
-		units: self units
+		units: self units.
+	plotEditorComponent dependentWidget: cropEditorComponent
 ]
 
 { #category : #accessing }

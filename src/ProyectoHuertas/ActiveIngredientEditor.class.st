@@ -42,7 +42,7 @@ ActiveIngredientEditor >> initializeComponents [
 		label: 'Nombre'
 		required: true.
 	tradeNameEditorComponent
-		possibleValues: self allowedNames;
+		possibleValuesBlock: [self allowedNames];
 		instructions:
 			'Solo se admiten principios activos registrados en SENASA para alguno de los cultivos existentes en el sistema'.
 	referenceUrlEditorComponent := TextLinePropertyEditorComponent

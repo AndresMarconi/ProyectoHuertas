@@ -28,7 +28,8 @@ InventoryItemEditor >> initializeComponents [
 			substance
 				ifNil: [  ]
 				ifNotNil: [ substance comercialName , ' (' , substance unit , ')' ] ].
-	substanceEditorComponent possibleValues: {nil} , self substances.
+	substanceEditorComponent
+		possibleValuesBlock: [ {nil} , self substances ].
 	super initializeComponents
 ]
 

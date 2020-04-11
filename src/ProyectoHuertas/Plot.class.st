@@ -91,12 +91,6 @@ Plot >> initialize [
 ]
 
 { #category : #'current cycle' }
-Plot >> lastSowing [
-	self sowings ifEmpty: [ ^ 'sin siembras' ] 
-		ifNotEmpty:[ ^ self sowings first crop ]
-]
-
-{ #category : #'current cycle' }
 Plot >> lastestSowing [
 	^ self sowings
 		ifEmpty: [ nil ]
@@ -113,7 +107,7 @@ Plot >> postCopy [
 
 { #category : #printing }
 Plot >> printOn: aStream [
-	^ aStream nextPutAll: self id asString
+	^ aStream nextPutAll: 'aPlot (id:' , self id asString , ')'
 ]
 
 { #category : #accessing }

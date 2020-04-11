@@ -36,7 +36,7 @@ CropEditor >> initializeComponents [
 		label: 'Nombre'
 		required: true.
 	vulgarNameEditorComponent
-		possibleValues: self allowedCropNames;
+		possibleValuesBlock: [self allowedCropNames];
 		instructions:
 			'Solo se admiten cultivos para los que existan principios activos registrados en SENASA'.
 	yieldEditorComponent := TextLinePropertyEditorComponent
