@@ -22,9 +22,10 @@ YeildReportsComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 YeildReportsComponent >> elements [
-	^ (self session farm plots select: [ :plot | 
-		(Date today isBefore: plot currentCycle endOfPeriod)
-		and: [ plot currentCycle harvestDate isAfter: Date today ] ] ).
+	^ self session farm plotsWithSowing
+		select: [ :plot | 
+			(Date today isBefore: plot currentCycle endOfPeriod)
+				and: [ plot currentCycle harvestDate isAfter: Date today ] ]
 ]
 
 { #category : #accessing }

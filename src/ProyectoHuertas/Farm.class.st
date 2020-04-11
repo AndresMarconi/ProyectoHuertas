@@ -130,6 +130,11 @@ Farm >> plots [
 	^ plots
 ]
 
+{ #category : #accessing }
+Farm >> plotsWithSowing [
+	^ plots reject: [ :plot | plot currentCycle sowing isNil ]
+]
+
 { #category : #'move-to-gapafarm' }
 Farm >> problems [
 	^ self plots flatCollect: [ :each | each problems ]

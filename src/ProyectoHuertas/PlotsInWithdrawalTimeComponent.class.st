@@ -20,8 +20,10 @@ PlotsInWithdrawalTimeComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 PlotsInWithdrawalTimeComponent >> elements [
-	^ (self session farm plots reject: [ :plot | ((plot currentCycle) inWaitingPeriod) isNil ])
-		asSortedCollection: [ :a :b | (a currentCycle inWaitingPeriod) < (b currentCycle inWaitingPeriod) ].
+	^ (self session farm plotsWithSowing
+		reject: [ :plot | plot currentCycle inWaitingPeriod isNil ])
+		asSortedCollection:
+			[ :a :b | a currentCycle inWaitingPeriod < b currentCycle inWaitingPeriod ]
 ]
 
 { #category : #accessing }

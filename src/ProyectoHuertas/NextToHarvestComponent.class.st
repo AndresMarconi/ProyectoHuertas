@@ -20,8 +20,9 @@ NextToHarvestComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 NextToHarvestComponent >> elements [
-	^((self session farm plots) select: [ :plot| (plot currentCycle harvestDate) isAfter: (Date today)])
-	 reject: [ :plot | self plotsInWaitingPeriod includes: plot ]
+	^ (self session farm plotsWithSowing
+		select: [ :plot | plot currentCycle harvestDate isAfter: Date today ])
+		reject: [ :plot | self plotsInWaitingPeriod includes: plot ]
 ]
 
 { #category : #accessing }

@@ -25,17 +25,17 @@ HarvestingCycle >> daysToHarvest [
 
 { #category : #'as yet unclassified' }
 HarvestingCycle >> endOfPeriod [
-	^ self harvestDate addDays: self sowing harvestDuration.
+	^ self harvestDate addDays: self harvestDuration.
 ]
 
 { #category : #'as yet unclassified' }
 HarvestingCycle >> harvestDate [
-	^ self sowing date addDays: self sowing timeToHarvest.
+	^self sowing date addDays: self sowing timeToHarvest
 ]
 
 { #category : #'as yet unclassified' }
 HarvestingCycle >> harvestDuration [
-	^ self sowing harvestDuration.
+	^self sowing harvestDuration
 ]
 
 { #category : #'as yet unclassified' }
@@ -73,16 +73,7 @@ HarvestingCycle >> restart [
 
 { #category : #queries }
 HarvestingCycle >> sowing [
-	self sowings ifEmpty: 
-	[ ^Sowing date: ('1900-09-09' asDate) 
-				 time: ('18:00' asTime)  
-				 plot: (Plot new) 
-				 crop: (Crop new) 
-				 quantity: '2000' 
-				 timeToHarvest: 0 
-				 harvestDuration: 0 
-				 expectedYield: 0 ] 		
-	ifNotEmpty: [ :it | ^it first ]
+	self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it first ]
 ]
 
 { #category : #queries }
