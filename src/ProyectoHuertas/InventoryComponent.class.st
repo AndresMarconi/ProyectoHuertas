@@ -8,36 +8,29 @@ Class {
 InventoryComponent >> addMovement: anInventoryItem [
 	| record |
 	record := self
-		call: 
-			(InventoryItemMovementEditor
-				subject: InventoryItemMovement new 
-				substance: anInventoryItem substance).
-	record ifNotNil: [ :it | anInventoryItem addMovement: it ].
-	anInventoryItem save 
-]
-
-{ #category : #callbacks }
-InventoryComponent >> addRecord: anInventoryItem [
-	| record |
-	record := self
 		call:
 			(InventoryItemMovementEditor
 				subject: InventoryItemMovement new
-				unit: anInventoryItem unit).
-	record ifNotNil: [ :it | anInventoryItem addMovement: it ].
-	anInventoryItem save 
+				substance: anInventoryItem substance).
+	record
+		ifNotNil: [ :it | 
+			anInventoryItem addMovement: it.
+			anInventoryItem save ]
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnHeadings [
-	^ {'Nombre comercial' . 'Principio Activo' . 'Unidad de medida'  }, super columnHeadings
+	^ {'Nombre comercial' . 'Aptitud' . 'Disponible'}
+		, super columnHeadings
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
-	element substance activeIngredients.
-	element substance unit} , (super columnValuesFor: element)
+	(SenasaCatalogue singleton
+		applicabilitiesForSubstance: element substance) asCommaString.
+	(element balance asString , ' ' , element substance unit)}
+		, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
@@ -78,11 +71,8 @@ InventoryComponent >> renderSpecificActionsFor: element on: html [
 
 { #category : #callbacks }
 InventoryComponent >> saveAddedElement: anInventoryItem [
-	self session farm inventoryItems
-		detect: [ :each | each substance = anInventoryItem substance ]
-		ifFound: [ :it | self session farm updateStockOf: it with: anInventoryItem ]
-		ifNone: [ super saveAddedElement: anInventoryItem.
-			self session farm addInventoryItem: anInventoryItem ].
+	super saveAddedElement: anInventoryItem.
+	self session farm addInventoryItem: anInventoryItem.
 	self session farm save
 ]
 

@@ -16,8 +16,7 @@ SubstancesComponent >> columnValuesFor: substance [
 
 	^ {substance comercialName.
 	(substance activeIngredients collect: #tradeName) asCommaString.
-	(SenasaCatalogue singleton
-		combinedApplicabilitiesFor: (substance activeIngredients collect: #tradeName))
+	(SenasaCatalogue singleton applicabilitiesForSubstance: substance)
 		asCommaString.
 	(self withdrawalStringFor: substance)}
 		, (super columnValuesFor: substance)

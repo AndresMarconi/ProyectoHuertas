@@ -47,6 +47,12 @@ SenasaCatalogue >> addRecords: aCollectionOfRecords [
 ]
 
 { #category : #queries }
+SenasaCatalogue >> applicabilitiesForSubstance: aSubstance [
+	^ self
+		combinedApplicabilitiesFor: (aSubstance activeIngredients collect: #tradeName) asSet
+]
+
+{ #category : #queries }
 SenasaCatalogue >> combinedApplicabilitiesFor: aCollectionOfActiveIngredientTradeNames [
 	^ (records
 		flatCollect: [ :each | 

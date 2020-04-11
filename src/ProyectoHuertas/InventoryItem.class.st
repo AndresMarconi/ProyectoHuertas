@@ -18,6 +18,11 @@ InventoryItem >> addMovement: aMovement [
 	movements add: aMovement
 ]
 
+{ #category : #utility }
+InventoryItem >> balance [
+	^ movements sumNumbers: [ :each | each quantity ]
+]
+
 { #category : #initialization }
 InventoryItem >> initialize [ 
 	super initialize.

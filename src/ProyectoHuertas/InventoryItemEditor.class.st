@@ -36,4 +36,5 @@ InventoryItemEditor >> initializeComponents [
 { #category : #accessing }
 InventoryItemEditor >> substances [
 	^ self session gapAFarm substances
+		copyWithoutAll: (self session farm inventoryItems collect: #substance)
 ]

@@ -20,13 +20,6 @@ GAFAbstractComponent class >> parent: aComponent [
 		yourself
 ]
 
-{ #category : #utility }
-GAFAbstractComponent >> asCommaSeparatedList: strings [
-	^ strings
-		ifEmpty: [ '' ]
-		ifNotEmpty: [ :col | col fold: [ :a :b | a , ', ' , b ] ]
-]
-
 { #category : #dialogs }
 GAFAbstractComponent >> confirm: message [
 	^ self call: (FOMYesNoDialog message: message)

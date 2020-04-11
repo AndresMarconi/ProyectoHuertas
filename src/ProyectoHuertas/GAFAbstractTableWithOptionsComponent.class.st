@@ -6,7 +6,8 @@ Class {
 		'removeEnabled',
 		'addEnabled',
 		'duplicateEnabled',
-		'viewEnabled'
+		'viewEnabled',
+		'filterComponent'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
@@ -79,15 +80,22 @@ GAFAbstractTableWithOptionsComponent >> elementEditorClass [
 	^ self subclassResponsibility
 ]
 
+{ #category : #initialization }
+GAFAbstractTableWithOptionsComponent >> filterComponent [
+	^ filterComponent
+		ifNil: [ filterComponent := TableFilterComponent
+				columns: (self columnHeadings copyWithout: 'Acciones') ]
+]
+
 { #category : #accessing }
 GAFAbstractTableWithOptionsComponent >> filteredElements [
-	^ filterComponent shouldFilter
+	^ self filterComponent shouldFilter
 		ifTrue: [ self elements
 				select: [ :each | 
 					((self columnValuesFor: each)
-						at: (self columnHeadings indexOf: filterComponent column))
+						at: (self columnHeadings indexOf: self filterComponent column))
 						asLowercase
-						includesSubstring: filterComponent filter asLowercase ] ]
+						includesSubstring: self filterComponent filter asLowercase ] ]
 		ifFalse: [ self elements ]
 ]
 
@@ -99,8 +107,7 @@ GAFAbstractTableWithOptionsComponent >> initialize [
 	removeEnabled := false.
 	addEnabled := true.
 	duplicateEnabled := true.
-	filterComponent := TableFilterComponent
-		columns: (self columnHeadings copyWithout: 'Acciones')
+
 ]
 
 { #category : #accessing }
@@ -164,9 +171,9 @@ GAFAbstractTableWithOptionsComponent >> renderAddButtonOn: html [
 
 { #category : #rendering }
 GAFAbstractTableWithOptionsComponent >> renderContentOn: html [
+	html render: self filterComponent.
 	super renderContentOn: html.
-	self renderAddButtonOn: html.
-	
+	self renderAddButtonOn: html
 ]
 
 { #category : #rendering }

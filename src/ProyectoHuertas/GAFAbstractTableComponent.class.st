@@ -2,8 +2,7 @@ Class {
 	#name : #GAFAbstractTableComponent,
 	#superclass : #GAFAbstractComponent,
 	#instVars : [
-		'paginator',
-		'filterComponent'
+		'paginator'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
@@ -47,7 +46,6 @@ GAFAbstractTableComponent >> parent [
 
 { #category : #rendering }
 GAFAbstractTableComponent >> renderContentOn: html [
-	html render: filterComponent.
 	self renderElementsTableOn: html.
 	paginator renderPaginationOn: html
 ]

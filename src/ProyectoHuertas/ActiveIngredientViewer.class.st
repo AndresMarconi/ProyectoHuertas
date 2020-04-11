@@ -29,7 +29,7 @@ ActiveIngredientViewer >> renderContentOn: html [
 	html
 		paragraph:
 			(SenasaCatalogue singleton
-				combinedApplicabilitiesFor: {activeIngredient}) asCommaString.
+				combinedApplicabilitiesFor: {activeIngredient tradeName}) asCommaString.
 	activeIngredient comment
 		ifNotEmpty: [ :it | 
 			html heading
