@@ -19,6 +19,11 @@ HarvestingCycle >> aplications [
 ]
 
 { #category : #queries }
+HarvestingCycle >> daysToEndOfHarvest [
+	^self endOfPeriod subtractDate: Date today
+]
+
+{ #category : #queries }
 HarvestingCycle >> daysToHarvest [
 	^self harvestDate subtractDate: Date today
 ]

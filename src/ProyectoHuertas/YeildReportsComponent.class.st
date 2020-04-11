@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 YeildReportsComponent >> columnHeadings [
-	^  {'Lote'. 'Cultivo' . 'Cosechado' . 'Esperado'. 'Optimo'. 'Dias restantes'}
+	^  {'Lote'. 'Cultivo' . 'Cosechado' . 'Esperado'.  'Restan'}
 ]
 
 { #category : #rendering }
@@ -16,8 +16,7 @@ YeildReportsComponent >> columnValuesFor: element [
 		element currentCrop vulgarName.
 		element currentCycle harvested.
 		element currentCycle sowing expectedYield.
-		element currentCrop optimalYieldPerPlant.
-		element currentCycle harvestDuration}
+		(element currentCycle daysToEndOfHarvest asString), ' dias'}
 ]
 
 { #category : #accessing }
@@ -25,7 +24,7 @@ YeildReportsComponent >> elements [
 	^ self session farm plotsWithSowing
 		select: [ :plot | 
 			(Date today isBefore: plot currentCycle endOfPeriod)
-				and: [ plot currentCycle harvestDate isAfter: Date today ] ]
+				and: [ Date today isAfter: plot currentCycle harvestDate ] ]
 ]
 
 { #category : #accessing }

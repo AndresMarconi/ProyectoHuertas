@@ -35,7 +35,7 @@ FarmerDashboardComponent >> initializeComponents [
 				component: YeildReportsComponent new;
 				title: 'Progreso de la cosecha';
 				subtitle: 'Su rinde actual vs. el esperato y el óptimo.';
-				size: 8;
+				size: 6; 
 				yourself).
 	newsDahboardComponent:=
 		(DashboardCardDecorator new

@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 PlotsInWithdrawalTimeComponent >> columnHeadings [
-	^  {'Lote'. 'Cultivo'. 'Producto'. 'Dias restantes'}
+	^  {'Lote'. 'Cultivo'. 'Producto'. 'Restan'}
 ]
 
 { #category : #rendering }
@@ -15,7 +15,7 @@ PlotsInWithdrawalTimeComponent >> columnValuesFor: element [
 	^ {element id.
 		(element currentCycle sowing) crop vulgarName.
 		((element currentCycle aplications) last) substance comercialName.
-		element currentCycle inWaitingPeriod}
+		(element currentCycle inWaitingPeriod asString), ' dias'}
 ]
 
 { #category : #accessing }
