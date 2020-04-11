@@ -5,7 +5,8 @@ Class {
 		'nextToHarvestComponent',
 		'plotsInwithdrawalTimeComponent',
 		'yieldReportsComponent',
-		'newsDahboardComponent'
+		'newsDahboardComponent',
+		'gapAlertComponent'
 	],
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
@@ -43,13 +44,21 @@ FarmerDashboardComponent >> initializeComponents [
 				title: 'Noticias';
 				subtitle: 'Ultimas noticias, seleccionadas para usted.';
 				size: 6;
-				yourself)
+				yourself).
+	gapAlertComponent :=
+		(DashboardCardDecorator new
+				component: GAPAlertDahboardComponent new;
+				title: 'Alerta de buenas practicas';
+				subtitle: 'Se encontraron los siguientes incumplimiento en buenas practicas.';
+				size: 6;
+				yourself).
 ]
 
 { #category : #accessing }
 FarmerDashboardComponent >> widgets [ 
-	^{nextToHarvestComponent.
+	^{gapAlertComponent.
+	nextToHarvestComponent.
 	plotsInwithdrawalTimeComponent.
-	newsDahboardComponent.
-	yieldReportsComponent.}
+	yieldReportsComponent.
+	newsDahboardComponent.}
 ]
