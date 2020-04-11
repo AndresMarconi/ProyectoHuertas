@@ -57,8 +57,11 @@ ApplicationEditor >> initializeComponents [
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent
-		possibleValuesBlock: [ {nil} , self substances ].
-	substanceEditorComponent
+		possibleValuesBlock: [ {nil} , self substances ];
+		labelsBlock: [ :each | 
+			each
+				ifNil: [ '' ]
+				ifNotNil: [ each comercialName , ' (en ' , each unit , ')' ] ];
 		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
 	notAllowed := false.
 	notEnough := false
