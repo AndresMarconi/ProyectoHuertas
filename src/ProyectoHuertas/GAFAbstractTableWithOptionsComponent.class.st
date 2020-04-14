@@ -163,6 +163,7 @@ GAFAbstractTableWithOptionsComponent >> renderAddButtonOn: html [
 	addEnabled
 		ifTrue: [ html
 				paragraph: [ html anchor
+					   id: 'add-button';
 						callback: [ self addElement ];
 						with: [ html formButton
 								bePrimary;
