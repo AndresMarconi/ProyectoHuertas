@@ -84,6 +84,7 @@ LoginFormComponent >> problem: anObject [
 LoginFormComponent >> renderButtonsOn: html [
 	html
 		paragraph: [ html formButton
+			   id: 'login';
 				bePrimary;
 				callback: [ self accept ];
 				with: 'Ingresar' ]
