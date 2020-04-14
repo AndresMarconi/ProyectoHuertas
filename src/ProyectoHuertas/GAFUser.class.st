@@ -20,23 +20,6 @@ GAFUser class >> email: anEmail fullname: aFullName [
 		yourself
 ]
 
-{ #category : #'instance creation' }
-GAFUser class >> email: anEmail fullname: aFullName otherProperties: aDictionaryOfProperties [
-	^ GAFUser new
-		email: anEmail;
-		fullname: aFullName;
-		otherProperties: aDictionaryOfProperties;
-		yourself
-]
-
-{ #category : #'instance creation' }
-GAFUser class >> fromOIDCUser: aDictionaryOfProperties [
-	^ self
-		email: (aDictionaryOfProperties at: 'email')
-		fullname: (aDictionaryOfProperties at: 'nickname')
-		otherProperties: aDictionaryOfProperties
-]
-
 { #category : #testing }
 GAFUser class >> isVoyageRoot [
 	^ true

@@ -13,6 +13,13 @@ ActiveIngredient class >> isVoyageRoot [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+ActiveIngredient class >> tradeName: aName [
+	^ self new
+		tradeName: aName;
+		yourself
+]
+
 { #category : #printing }
 ActiveIngredient >> exportToJson [ 
 	^ '{ "tradeName" : "' ,  tradeName ,  '" }'

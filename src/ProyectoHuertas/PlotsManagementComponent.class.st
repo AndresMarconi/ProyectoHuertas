@@ -1,7 +1,7 @@
 Class {
 	#name : #PlotsManagementComponent,
 	#superclass : #GAFAbstractTableWithOptionsComponent,
-	#category : #'ProyectoHuertas-ui-expert'
+	#category : #'ProyectoHuertas-ui-farmer'
 }
 
 { #category : #rendering }
@@ -46,12 +46,14 @@ PlotsManagementComponent >> renderAddButtonOn: html [
 	addEnabled
 		ifTrue: [ html
 				paragraph: [ html anchor
+						id: 'addOnePlot';
 						callback: [ self addElement ];
 						with: [ html formButton
 								bePrimary;
 								with: 'Agregar uno' ].
 					html space.
 					html anchor
+						id: 'addmanyPlots';
 						callback: [ self addManyElements ];
 						with: [ html formButton
 								bePrimary;

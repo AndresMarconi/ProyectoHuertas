@@ -2,14 +2,16 @@ Class {
 	#name : #ParasolForGAF,
 	#superclass : #TestCase,
 	#instVars : [
-		'driver'
+		'driver',
+		'helper'
 	],
 	#category : #'ParasolHuertas-parasol'
 }
 
 { #category : #scripts }
 ParasolForGAF >> addPlotWithId: plotId [
-	(driver findElementByPartialLinkText: 'uno') click.
+	(driver findElementByID: 'addOnePlot') click.
+	3 second wait.
 	(driver findElementByID: 'id') click.
 	driver getKeyboard sendKeys: plotId.
 	(driver findElementByID: 'surface') click.
@@ -39,17 +41,17 @@ ParasolForGAF >> driver [
 
 { #category : #constants }
 ParasolForGAF >> farmerEmail [
-	^ 'testuser@gmail.com'
+	^ helper sampleEmail
 ]
 
 { #category : #constants }
 ParasolForGAF >> farmerFullname [
-	^ 'testuser'
+	^ helper sampleFullname
 ]
 
 { #category : #constants }
 ParasolForGAF >> farmerPassword [
-	^ 'password'
+	^ helper samplePassword
 ]
 
 { #category : #constants }
@@ -84,49 +86,49 @@ ParasolForGAF >> registerFarmer [
 
 { #category : #scripts }
 ParasolForGAF >> selectApplicationsTab [
-	(driver findElementByPartialLinkText: 'Aplicaciones') click.
+	(driver findElementByID: 'Aplicaciones') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectChronologyTab [
-	(driver findElementByPartialLinkText: 'Cronolog') click.
+	(driver findElementByID: 'Cronología') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectHarvestingTab [
-	(driver findElementByPartialLinkText: 'Cosecha') click.
+	(driver findElementByID: 'Cosecha') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectInventoryTab [
-	(driver findElementByPartialLinkText: 'Inventa') click.
+	(driver findElementByID: 'Inventario') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectPlotsTab [
-	(driver findElementByPartialLinkText: 'Lotes') click.
+	(driver findElementByID: 'Lotes') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectProblemsTab [
-	(driver findElementByPartialLinkText: 'Adversidades') click.
+	(driver findElementByID: 'Adversidades') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectSalesTab [
-	(driver findElementByPartialLinkText: 'Venta') click.
+	(driver findElementByID: 'Ventas') click.
 ]
 
 { #category : #scripts }
 ParasolForGAF >> selectSowingTab [
-	(driver findElementByPartialLinkText: 'Plantac') click.
+	(driver findElementByID: 'PlantaciónYSiembra') click.
 ]
 
 { #category : #tests }
 ParasolForGAF >> setUp [
-   GAFStorage inMemory .
-	driver := BPRemoteWebDriver withCapabilities: BPChromeOptions new.
-
+	GAFStorage inMemory.
+	helper := ParasolHelperForDataPreparation new.
+	driver := BPRemoteWebDriver withCapabilities: BPChromeOptions new
 ]
 
 { #category : #shortcuts }
@@ -136,16 +138,14 @@ ParasolForGAF >> tableContent [
 ]
 
 { #category : #tests }
-ParasolForGAF >> tearDown [ 
-	driver quit.
-
+ParasolForGAF >> tearDown [
+	driver quit
 ]
 
 { #category : #tests }
 ParasolForGAF >> testAddPlot [
 	self registerFarmer.
 	self selectPlotsTab.
-	1000 milliSeconds wait.
 	self addPlotWithId: 'Lote 1'.
 	self assert: self tableContent equals: 'Lote 1 1000'
 ]
@@ -172,10 +172,17 @@ ParasolForGAF >> testBrandNewLanding [
 ]
 
 { #category : #tests }
-ParasolForGAF >> testRegister [
+ParasolForGAF >> testLogin [
 	self loginFarmer.
 	self
 		assert: (driver getPageSource includesSubstring: 'El usuario no existe').
+	helper prepareStartUpFarm.
+	self loginFarmer.
+	self assert: (driver getPageSource includesSubstring: 'Eventos')
+]
+
+{ #category : #tests }
+ParasolForGAF >> testRegister [
 	self registerFarmer.
 	self assert: (driver getPageSource includesSubstring: 'Eventos')
 ]

@@ -127,6 +127,7 @@ GAFHomeComponent >> renderMenuBlock: associations heading: head on: html [
 			item := html listGroupLinkedItem.
 			selectedComponent species = ass value
 				ifTrue: [ item beActive ].
+			item id: ass key asCamelCase.
 			item
 				callback: [ selectedComponent := ass value parent: self ];
 				with: ass key ]
