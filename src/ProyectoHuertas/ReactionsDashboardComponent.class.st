@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 ReactionsDashboardComponent >> elements [ 
-	^{1}
+	GAFDeployer demoMode ifTrue: [ ^{1} ] ifFalse: [ ^{} ]
 ]
 
 { #category : #rendering }

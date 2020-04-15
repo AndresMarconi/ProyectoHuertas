@@ -54,11 +54,13 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoSubstances [
 
 { #category : #adding }
 ExampleDataLoaderToShowcaseTheDashboard >> addDemoUsers [
-	5
-		timesRepeat: [ | user farm |
+	1 to: 5
+		do: [ :num | 
+			| user farm |
 			lastDay := Date today.
 			user := GAFUser new.
-			farm := Farm name: 'nueva granja'.
+			user email: 'user', num asString.
+			farm := Farm name: 'granja de ',user email.
 			self plots
 				do: [ :each | 
 					farm addPlot: each.
