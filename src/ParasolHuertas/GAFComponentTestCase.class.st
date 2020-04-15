@@ -28,6 +28,11 @@ GAFComponentTestCase >> clearActiveFieldWith: email [
 		timesRepeat: [ driver getKeyboard sendKeys: BPKeys backSpace asString ]
 ]
 
+{ #category : #elements }
+GAFComponentTestCase >> commentField [
+	^ driver findElementByID: 'comment'
+]
+
 { #category : #running }
 GAFComponentTestCase >> configureTestApp: testApp [
 	testApp sessionClass: TestGAFSessionForSampleUser.
@@ -40,9 +45,30 @@ GAFComponentTestCase >> configureTestApp: testApp [
 ]
 
 { #category : #elements }
+GAFComponentTestCase >> dateField [
+	^ driver findElementByID: 'date'
+]
+
+{ #category : #utility }
+GAFComponentTestCase >> optionsInSelect: aSelectElement [
+	^ (aSelectElement findElementsByTagName: 'option')
+		collect: [ :each | each getText ]
+]
+
+{ #category : #elements }
+GAFComponentTestCase >> plotSelector [
+	^ driver findElementByID: 'plotSelector'
+]
+
+{ #category : #elements }
 GAFComponentTestCase >> tableContent [
 	^ ((driver findElementByClassName: 'table')
 		findElementByTagName: 'tbody') getText
+]
+
+{ #category : #elements }
+GAFComponentTestCase >> timeField [
+	^ driver findElementByID: 'time'
 ]
 
 { #category : #scripts }
