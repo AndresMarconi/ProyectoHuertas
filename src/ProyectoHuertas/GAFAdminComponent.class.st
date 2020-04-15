@@ -57,12 +57,13 @@ GAFAdminComponent >> renderPermissionSwitchsOn: html [
 								tableData: 'Permisos' ] ].
 			html
 				tableBody: [ self session gapAFarm users
-						do: [ :each | 
+						do: [ :each | html
+						tableRow:[
 							html tableData: [ html text: each email ].
 							html
 								tableData: [ self renderToggleExpertFor: each on: html.
 									html space.
-									self renderToggleAdminFor: each on: html ] ] ] ]
+									self renderToggleAdminFor: each on: html ] ] ] ] ]
 ]
 
 { #category : #rendering }
