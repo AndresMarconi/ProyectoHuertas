@@ -40,7 +40,7 @@ PlotsManagementComponentTest >> setUp [
 PlotsManagementComponentTest >> testPlotList [
 	self assert: self tableContent isEmpty.
 	self addOnePlotButton click.
-	self waitForStringToBePresent: 'Identificador'.
+	self waitForStringToBePresent: 'Aceptar'.
 	self addPlotWithId: '1'.
 	self waitForStringToBePresent: 'muchos'.
 	self assert: self tableContent equals: '1 1000'
