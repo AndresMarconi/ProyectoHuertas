@@ -27,16 +27,19 @@ EventEditor >> initializeComponents [
 
 	super initializeComponents.
 	dateEditorComponent := DatePropertyEditorComponent
+	   id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
 		required: true.
 	timeEditorComponent := TimeStringPropertyEditorComponent
+	   id: 'time'
 		subject: subject
 		selector: #time
 		label: 'Hora'
 		required: true.
 	plotEditorComponent := DropdownSelectPropertyEditorComponent
+	   id: 'plotSelector'
 		subject: subject
 		selector: #plot
 		label: 'Lote'

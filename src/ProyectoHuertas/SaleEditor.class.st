@@ -24,11 +24,13 @@ SaleEditor >> initializeComponents [
 
 	super initializeComponents.
 	dateEditorComponent := DatePropertyEditorComponent
+	   id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
 		required: true.
 	clientEditorComponent := TextLinePropertyEditorComponent
+	   id: 'client'
 		subject: subject
 		selector: #client
 		label: 'Cliente'

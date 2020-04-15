@@ -56,11 +56,13 @@ BatchPlotCreator >> initializeComponents [
 	"Initialize all property components"
 
 	plotIdsEditorComponent := TextAreaPropertyEditorComponent
+	   id: 'plotNames'
 		subject: self
 		selector: #plotNames
 		label: 'Nombres de los lotes a crear (separados por coma)'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
+	   id: 'surface'
 		subject: self
 		selector: #surface
 		label: 'Superficie de los lotes (m2)'

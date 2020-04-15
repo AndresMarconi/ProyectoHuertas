@@ -61,6 +61,7 @@ BachAddActiveIngredientsComponent >> initialize [
 	super initialize.
 	selectedIngredients := OrderedCollection new.
 	selectedIngredientsComponent := MultipleSelectPropertyEditorComponent
+		id: 'selectedIngredients'
 		subject: self
 		selector: #selectedIngredients
 		label: 'Ingredientes a agregar'

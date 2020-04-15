@@ -1,22 +1,8 @@
 Class {
 	#name : #ParasolHelperForDataPreparation,
 	#superclass : #Object,
-	#instVars : [
-		'user'
-	],
-	#category : #'ParasolHuertas-parasol'
+	#category : #'ParasolHuertas-helpers'
 }
-
-{ #category : #scripts }
-ParasolHelperForDataPreparation >> prepareStartUpFarm [
-	user := self sampleUser save.
-	self sampleCrops do: #save.
-	user addFarm: (Farm name: 'Granja de ' , user fullname) save.
-	user farms first
-		addPlot: (Plot id: 'Lote 1' surface: 1000) save;
-		addPlot: (Plot id: 'Lote 2' surface: 1000) save.
-	user farms first save
-]
 
 { #category : #'factory-methods' }
 ParasolHelperForDataPreparation >> sampleCrops [
@@ -35,7 +21,7 @@ ParasolHelperForDataPreparation >> sampleFullname [
 ]
 
 { #category : #'factory-methods' }
-ParasolHelperForDataPreparation >> sampleIngrediente [
+ParasolHelperForDataPreparation >> sampleIngredients [
 	^ {'Tomate' . 'Pimiento' . 'Pepino'}
 		collect: [ :each | Crop name: each yield: 1 ]
 ]
@@ -52,14 +38,4 @@ ParasolHelperForDataPreparation >> sampleUser [
 			(SHA256 new hashMessage:
 				self samplePassword asByteArray) asString;
 		yourself
-]
-
-{ #category : #accessing }
-ParasolHelperForDataPreparation >> user [
-	^ user
-]
-
-{ #category : #accessing }
-ParasolHelperForDataPreparation >> user: anObject [
-	user := anObject
 ]

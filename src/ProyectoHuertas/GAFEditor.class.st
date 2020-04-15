@@ -17,6 +17,7 @@ GAFEditor >> children [
 { #category : #'subclass-responsibility' }
 GAFEditor >> initializeComponents [
 	commentEditorComponent := TextAreaPropertyEditorComponent 
+	   id: 'commentEditor'
 		subject: subject
 		selector: #comment
 		label: 'Notas'

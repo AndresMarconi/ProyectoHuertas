@@ -43,22 +43,26 @@ HarvestingEditor >> initializeComponents [
 
 	super initializeComponents.
 	cropEditorComponent := DropdownSelectPropertyEditorComponent
+	   id: 'cropSelector'
 		subject: subject
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
 	cropEditorComponent possibleValuesBlock: [ self crops ].
 	cultivarEditorComponent := TextLinePropertyEditorComponent
+		id: 'cultivarName'
 		subject: subject
 		selector: #cultivarName
 		label: 'Variedad (cultivar)'
 		required: false.
 	quantityEditorComponent := NumberPropertyEditorComponent
+		id: 'quantity'
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad (Kg)'
 		required: true.
 	otherUnitEditorComponent := MeasurementPropertyEditorComponent
+	   id: 'otherUnit'
 		subject: subject
 		selector: #otherUnit
 		label: 'Cantidad (otra unidad)'

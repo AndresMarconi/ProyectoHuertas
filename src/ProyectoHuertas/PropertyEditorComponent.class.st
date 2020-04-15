@@ -17,9 +17,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-PropertyEditorComponent class >> subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
+PropertyEditorComponent class >> id: anId subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
 	^ self new
-		subject: anObject
+		id: anId
+			subject: anObject
 			getBlock: aGetBlock
 			setBlock: aSetBlock
 			label: aLabel
@@ -28,9 +29,10 @@ PropertyEditorComponent class >> subject: anObject getBlock: aGetBlock setBlock:
 ]
 
 { #category : #'instance creation' }
-PropertyEditorComponent class >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
+PropertyEditorComponent class >> id: anId subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
 	^ self new
-		subject: anObject
+		id: anId
+			subject: anObject
 			selector: aMessageSelector
 			label: aLabel
 			required: aBoolean;
@@ -90,7 +92,35 @@ PropertyEditorComponent >> hasProblems [
 
 { #category : #accessing }
 PropertyEditorComponent >> id [
-	^ id ifNil: [ id := Time millisecondClockValue asString ]
+	^ id
+		ifNil: [ label
+				ifNotNil: [ id := label asCamelCase asValidSelector ]
+				ifNil: [ id := Time millisecondClockValue asString ] ]
+]
+
+{ #category : #initialization }
+PropertyEditorComponent >> id: anId subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
+	id := anId.
+	subject := anObject.
+	getBlock := aGetBlock.
+	setBlock := aSetBlock.
+	label := aLabel.
+	required := aBoolean.
+	problems := OrderedCollection new.
+	bufferedValue := getBlock value: subject.
+	readOnly := false
+]
+
+{ #category : #initialization }
+PropertyEditorComponent >> id: anId subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
+	self
+		id: anId
+		subject: anObject
+		getBlock: [ :theSubject | theSubject perform: aMessageSelector ]
+		setBlock:
+			[ :theSubject :value | theSubject perform: aMessageSelector asMutator with: value ]
+		label: aLabel
+		required: aBoolean
 ]
 
 { #category : #accessing }
@@ -185,29 +215,6 @@ PropertyEditorComponent >> setBlock: anObject [
 { #category : #initialization }
 PropertyEditorComponent >> setDefault: aValue [
 	bufferedValue := aValue
-]
-
-{ #category : #initialization }
-PropertyEditorComponent >> subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
-	subject := anObject.
-	getBlock := aGetBlock.
-	setBlock := aSetBlock.
-	label := aLabel.
-	required := aBoolean.
-	problems := OrderedCollection new.
-	bufferedValue := getBlock value: subject.
-	readOnly := false
-]
-
-{ #category : #initialization }
-PropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
-	self
-		subject: anObject
-		getBlock: [ :theSubject | theSubject perform: aMessageSelector ]
-		setBlock:
-			[ :theSubject :value | theSubject perform: aMessageSelector asMutator with: value ]
-		label: aLabel
-		required: aBoolean
 ]
 
 { #category : #updating }

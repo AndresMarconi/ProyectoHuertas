@@ -20,6 +20,7 @@ FarmEditor >> initializeComponents [
 	"Initialize all property components"
 
 	nameEditorComponent := TextLinePropertyEditorComponent
+	   id: 'name'
 		subject: subject
 		selector: #name
 		label: 'Nombre de Granja'

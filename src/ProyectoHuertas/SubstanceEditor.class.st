@@ -45,16 +45,19 @@ SubstanceEditor >> initializeComponents [
 	"Initialize all property components"
 
 	comercialNameEditorComponent := TextLinePropertyEditorComponent
+		id: 'comercialName'
 		subject: subject
 		selector: #comercialName
 		label: 'Nombre Comercial'
 		required: true.
 	manufacturerEditorComponent := TextLinePropertyEditorComponent
+		id: 'manufacturer'
 		subject: subject
 		selector: #manufacturer
 		label: 'Fabricante'
 		required: false.
 	activeIngredientsEditorComponent := MultipleSelectPropertyEditorComponent
+		id: 'activeIngredients'
 		subject: subject
 		selector: #activeIngredients
 		label: 'Principios activos'
@@ -62,10 +65,11 @@ SubstanceEditor >> initializeComponents [
 	activeIngredientsEditorComponent
 		possibleValuesBlock: [ self activeIngredients ].
 	unitEditorComponent := DropdownSelectPropertyEditorComponent
+		id: 'unit'
 		subject: subject
 		selector: #unit
 		label: 'Unidad de medida'
 		required: true.
-	unitEditorComponent possibleValuesBlock: [Substance units].
+	unitEditorComponent possibleValuesBlock: [ Substance units ].
 	super initializeComponents
 ]

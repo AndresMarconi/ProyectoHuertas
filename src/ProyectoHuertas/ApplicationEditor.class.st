@@ -29,6 +29,7 @@ ApplicationEditor >> initializeComponents [
 
 	super initializeComponents.
 	reasonEditorComponent := DropdownSelectPropertyEditorComponent
+	   id: 'reason'
 		subject: subject
 		selector: #reason
 		label: 'Motivo'
@@ -36,21 +37,25 @@ ApplicationEditor >> initializeComponents [
 	reasonEditorComponent
 		possibleValuesBlock: [ {nil} , Application reasons ].
 	quantityEditorComponent := NumberPropertyEditorComponent
+	   id: 'quantity'
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad utilizada'
 		required: true.
 	doseEditorComponent := NumberPropertyEditorComponent
+	   id: 'dose'
 		subject: subject
 		selector: #dose
 		label: 'Dosificación'
 		required: false.
 	machineEditorComponent := TextLinePropertyEditorComponent
+	   id: 'machine'
 		subject: subject
 		selector: #machine
 		label: 'Maquina Usada'
 		required: false.
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
+		id: 'productSelector'
 		subject: subject
 		getBlock: [ :app | self inventoryItemFor: app substance ]
 		setBlock: [ :app :item | app substance: item substance ]

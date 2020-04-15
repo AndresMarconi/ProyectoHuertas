@@ -8,6 +8,18 @@ Class {
 }
 
 { #category : #'instance creation' }
+MeasurementPropertyEditorComponent class >> id: anId subject: anObject selector: aMessageSelector label: aLabel required: aBoolean units: aCollectionOfStrings [
+	^ self new
+		id: anId
+			subject: anObject
+			selector: aMessageSelector
+			label: aLabel
+			required: aBoolean
+			units: aCollectionOfStrings;
+		yourself
+]
+
+{ #category : #'instance creation' }
 MeasurementPropertyEditorComponent class >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean units: aCollectionOfStrings [
 	^ self new
 		subject: anObject
@@ -38,6 +50,19 @@ MeasurementPropertyEditorComponent >> handleCallbackWith: aString [
 ]
 
 { #category : #initialization }
+MeasurementPropertyEditorComponent >> id: anId subject: anObject selector: aMessageSelector label: aLabel required: aBoolean units: aCollectionOfStrings [
+	allowedUnits := aCollectionOfStrings.
+	super
+	   id: anId
+		subject: anObject
+		selector: aMessageSelector
+		label: aLabel
+		required: aBoolean.
+	bufferedValue
+		ifNil: [ bufferedValue := Measurement magnitude: 0 unit: allowedUnits first ]
+]
+
+{ #category : #initialization }
 MeasurementPropertyEditorComponent >> initialize [
 	super initialize.
 	allowedUnits := OrderedCollection with: nil
@@ -63,28 +88,4 @@ MeasurementPropertyEditorComponent >> renderInputOn: html [
 				id: self id , '-magnitude'.
 			required
 				ifTrue: [ input attributeAt: 'required' put: 'on' ] ]
-]
-
-{ #category : #initialization }
-MeasurementPropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
-	super
-		subject: anObject
-		selector: aMessageSelector
-		label: aLabel
-		required: aBoolean.
-	bufferedValue
-		ifNil:
-			[ bufferedValue := Measurement magnitude: 0 unit: allowedUnits first ]
-]
-
-{ #category : #initialization }
-MeasurementPropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean units: aCollectionOfStrings [
-	allowedUnits := aCollectionOfStrings.
-	super
-		subject: anObject
-		selector: aMessageSelector
-		label: aLabel
-		required: aBoolean.
-	bufferedValue
-		ifNil: [ bufferedValue := Measurement magnitude: 0 unit: allowedUnits first ]
 ]

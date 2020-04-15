@@ -31,15 +31,17 @@ CropEditor >> initializeComponents [
 	"Initialize all property components"
 
 	vulgarNameEditorComponent := DropdownSelectPropertyEditorComponent
+		id: 'vulgarName'
 		subject: subject
 		selector: #vulgarName
 		label: 'Nombre'
 		required: true.
 	vulgarNameEditorComponent
-		possibleValuesBlock: [self allowedCropNames];
+		possibleValuesBlock: [ self allowedCropNames ];
 		instructions:
 			'Solo se admiten cultivos para los que existan principios activos registrados en SENASA'.
 	yieldEditorComponent := TextLinePropertyEditorComponent
+		id: 'optimalYieldPerPlant'
 		subject: subject
 		selector: #optimalYieldPerPlant
 		label: 'Rinde óptimo (kg/hectárea)'

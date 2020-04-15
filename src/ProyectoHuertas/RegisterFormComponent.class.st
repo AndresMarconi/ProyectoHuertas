@@ -51,11 +51,13 @@ RegisterFormComponent >> fullname: anObject [
 RegisterFormComponent >> initialize [
 	super initialize.
 	repeatEmailComponent := EmailPropertyEditorComponent
+	   id: 'repeatEmail'
 		subject: self
 		selector: #repeatEmail
 		label: 'Repita el correo electrónico (e-mail)'
 		required: true.
 	fullnameComponent := TextLinePropertyEditorComponent
+	   id: 'fullname'
 		subject: self
 		selector: #fullname
 		label: 'Nombre completo'

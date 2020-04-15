@@ -38,11 +38,13 @@ InventoryItemMovementEditor >> initializeComponents [
 	"Initialize all property components"
 
 	dateEditorComponent := DatePropertyEditorComponent
+	   id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
 		required: true.
 	reasonEditorComponent := TextLinePropertyEditorComponent
+	   id: 'reason'
 		subject: subject
 		selector: #reason
 		label: 'Motivo'
@@ -51,6 +53,7 @@ InventoryItemMovementEditor >> initializeComponents [
 		instructions:
 			'Indique el motivo de este movimiento (p.e., compra, aplicaciones, desecho, etc.)'.
 	quantityEditorComponent := NumberPropertyEditorComponent
+	   id: 'quantity'
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad (' , substance unit , ')'

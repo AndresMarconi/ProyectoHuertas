@@ -43,11 +43,13 @@ LoginFormComponent >> email: anObject [
 { #category : #initilization }
 LoginFormComponent >> initialize [
 	emailComponent := EmailPropertyEditorComponent
+	   id: 'email'
 		subject: self
 		selector: #email
 		label: 'Correo electrónico (e-mail)'
 		required: true.
 	passwordComponent := PasswordPropertyEditorComponent
+	   id: 'password'
 		subject: self
 		selector: #password
 		label: 'Contraseña'

@@ -37,15 +37,17 @@ ActiveIngredientEditor >> initializeComponents [
 	"Initialize all property components"
 
 	tradeNameEditorComponent := DropdownSelectPropertyEditorComponent
+		id: 'surface'
 		subject: subject
-		selector: #tradeName
+		selector: #surface
 		label: 'Nombre'
 		required: true.
 	tradeNameEditorComponent
-		possibleValuesBlock: [self allowedNames];
+		possibleValuesBlock: [ self allowedNames ];
 		instructions:
 			'Solo se admiten principios activos registrados en SENASA para alguno de los cultivos existentes en el sistema'.
 	referenceUrlEditorComponent := TextLinePropertyEditorComponent
+		id: 'referenceUrl'
 		subject: subject
 		selector: #referenceUrl
 		label: 'URL de referencia'

@@ -39,33 +39,39 @@ SowingEditor >> initializeComponents [
 
 	super initializeComponents.
 	cropEditorComponent := DropdownSelectPropertyEditorComponent
+		id: 'cropSelector'
 		subject: subject
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
 	cropEditorComponent possibleValuesBlock: [ self crops ].
 	cultivarEditorComponent := TextLinePropertyEditorComponent
+		id: 'cultivar'
 		subject: subject
 		selector: #cultivarName
 		label: 'Variedad (cultivar)'
 		required: false.
 	quantityEditorComponent := MeasurementPropertyEditorComponent
+		id: 'quantity'
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad'
 		required: true
 		units: {'Plantas' . 'Kg de semilla'}.
 	timeToHarvestEditorComponent := NumberPropertyEditorComponent
+		id: 'timeToHarvest'
 		subject: subject
 		selector: #timeToHarvest
 		label: 'Tiempo estimado para cosechar (en días)'
 		required: true.
 	harvestDurationEditorComponent := NumberPropertyEditorComponent
+		id: 'harvestDuration'
 		subject: subject
 		selector: #harvestDuration
 		label: 'Duración estimada de la cosecha (en días)'
 		required: true.
 	expectedYieldEditorComponent := NumberPropertyEditorComponent
+		id: 'expectedYield'
 		subject: subject
 		selector: #expectedYield
 		label: 'Rendimiento total esperado (en Kg)'

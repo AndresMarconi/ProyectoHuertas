@@ -25,21 +25,25 @@ UserEditor >> initializeComponents [
 	"Initialize all property components"
 
 	userNameEditorComponent := TextLinePropertyEditorComponent
+		id: 'username'
 		subject: subject
 		selector: #username
 		label: 'Nombre de Usuario'
 		required: true.
 	firstNameEditorComponent := TextLinePropertyEditorComponent
+		id: 'firstName'
 		subject: subject
 		selector: #firstName
 		label: 'Nombre'
 		required: true.
 	lastNameEditorComponent := TextLinePropertyEditorComponent
+		id: 'lastName'
 		subject: subject
 		selector: #lastName
 		label: 'Apellido'
 		required: true.
 	passwordEditorComponent := TextLinePropertyEditorComponent
+		id: 'password'
 		subject: subject
 		selector: #password
 		label: 'Contaseña'

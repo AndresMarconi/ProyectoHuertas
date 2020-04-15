@@ -25,12 +25,14 @@ ProblemEditor >> initializeComponents [
 
 	super initializeComponents.
 	nameEditorComponent := TextLinePropertyEditorComponent
+		id: 'name'
 		subject: subject
 		selector: #name
 		label: 'Problema'
 		required: true.
 	nameEditorComponent instructions: 'por ejemplo, Mosca blanca'.
 	problemTypeEditorComponent := DropdownSelectPropertyEditorComponent
+	   id: 'type'
 		subject: subject
 		selector: #type
 		label: 'Tipo de problema'

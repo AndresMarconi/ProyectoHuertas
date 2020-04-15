@@ -37,14 +37,16 @@ PlotEditor >> initializeComponents [
 	"Initialize all property components"
 
 	idPEditorComponent := TextLinePropertyEditorComponent
+		id: 'plotId'
 		subject: subject
 		selector: #id
 		label: 'Identificador del lote'
 		required: true.
 	surfaceEditorComponent := NumberPropertyEditorComponent
+		id: 'surface'
 		subject: subject
 		selector: #surface
 		label: 'Superficie del Lote (m2)'
 		required: true.
-	super initializeComponents.
+	super initializeComponents
 ]

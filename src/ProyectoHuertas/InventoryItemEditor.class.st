@@ -19,6 +19,7 @@ InventoryItemEditor >> initializeComponents [
 	"Initialize all property components"
 
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
+	   id: 'substance'
 		subject: subject
 		selector: #substance
 		label: 'Substancia'
