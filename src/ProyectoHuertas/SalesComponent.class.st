@@ -65,3 +65,8 @@ SalesComponent >> saveAddedElement: aSale [
 				save ].
 	self session farm save
 ]
+
+{ #category : #callbacks }
+SalesComponent >> viewElement: element [
+	^self call: (SaleViewerComponent sale: element)
+]
