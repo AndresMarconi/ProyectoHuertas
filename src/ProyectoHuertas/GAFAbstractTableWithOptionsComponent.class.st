@@ -80,6 +80,11 @@ GAFAbstractTableWithOptionsComponent >> elementEditorClass [
 	^ self subclassResponsibility
 ]
 
+{ #category : #accessing }
+GAFAbstractTableWithOptionsComponent >> elements [
+	^ self subclassResponsibility
+]
+
 { #category : #initialization }
 GAFAbstractTableWithOptionsComponent >> filterComponent [
 	^ filterComponent

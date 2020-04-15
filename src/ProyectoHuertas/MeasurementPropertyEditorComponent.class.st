@@ -53,14 +53,14 @@ MeasurementPropertyEditorComponent >> renderInputOn: html [
 						callback: [ :value | bufferedValue unit: value ];
 						list: allowedUnits;
 						selected: bufferedValue unit;
-						id: selector , '-unit' ].
+						id: self id , '-unit' ].
 			input := html textInput.
 			input
 				formControl;
 				noAutocomplete;
 				callback: [ :value | self handleCallbackWith: value ];
 				value: bufferedValue magnitude printString;
-				id: selector , '-magnitude'.
+				id: self id , '-magnitude'.
 			required
 				ifTrue: [ input attributeAt: 'required' put: 'on' ] ]
 ]

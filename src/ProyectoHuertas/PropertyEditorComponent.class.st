@@ -2,18 +2,30 @@ Class {
 	#name : #PropertyEditorComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'subject',
 		'id',
-		'selector',
 		'label',
 		'readOnly',
 		'required',
 		'problems',
 		'bufferedValue',
-		'instructions'
+		'instructions',
+		'setBlock',
+		'getBlock',
+		'subject'
 	],
 	#category : #'ProyectoHuertas-widgets'
 }
+
+{ #category : #'instance creation' }
+PropertyEditorComponent class >> subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
+	^ self new
+		subject: anObject
+			getBlock: aGetBlock
+			setBlock: aSetBlock
+			label: aLabel
+			required: aBoolean;
+		yourself
+]
 
 { #category : #'instance creation' }
 PropertyEditorComponent class >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
@@ -27,7 +39,7 @@ PropertyEditorComponent class >> subject: anObject selector: aMessageSelector la
 
 { #category : #api }
 PropertyEditorComponent >> accept [
-	subject perform: selector asMutator with: bufferedValue.
+	setBlock value: subject value: bufferedValue.
 	problems := OrderedCollection new
 ]
 
@@ -48,8 +60,18 @@ PropertyEditorComponent >> bufferedValue: anObject [
 
 { #category : #api }
 PropertyEditorComponent >> cancel [
-	bufferedValue := subject perform: selector.
+	bufferedValue := getBlock value: subject.
 	problems := OrderedCollection new
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> getBlock [
+	^ getBlock
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> getBlock: anObject [
+	getBlock := anObject
 ]
 
 { #category : #rendering }
@@ -68,7 +90,7 @@ PropertyEditorComponent >> hasProblems [
 
 { #category : #accessing }
 PropertyEditorComponent >> id [
-	^ id ifNil: [ id := selector ifNil: [ Time millisecondClockValue ] ]
+	^ id ifNil: [ id := Time millisecondClockValue asString ]
 ]
 
 { #category : #accessing }
@@ -126,7 +148,7 @@ PropertyEditorComponent >> renderInstructionsOn: html [
 { #category : #rendering }
 PropertyEditorComponent >> renderLabelOn: html [
 	html label
-		for: selector;
+		for: self id;
 		with: [ html text: label.
 			required
 				ifTrue: [ html span
@@ -150,20 +172,42 @@ PropertyEditorComponent >> required: anObject [
 	required := anObject
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> setBlock [
+	^ setBlock
+]
+
+{ #category : #accessing }
+PropertyEditorComponent >> setBlock: anObject [
+	setBlock := anObject
+]
+
 { #category : #initialization }
 PropertyEditorComponent >> setDefault: aValue [
 	bufferedValue := aValue
 ]
 
 { #category : #initialization }
-PropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
+PropertyEditorComponent >> subject: anObject getBlock: aGetBlock setBlock: aSetBlock label: aLabel required: aBoolean [
 	subject := anObject.
-	selector := aMessageSelector.
+	getBlock := aGetBlock.
+	setBlock := aSetBlock.
 	label := aLabel.
 	required := aBoolean.
 	problems := OrderedCollection new.
-	bufferedValue := subject perform: selector.
+	bufferedValue := getBlock value: subject.
 	readOnly := false
+]
+
+{ #category : #initialization }
+PropertyEditorComponent >> subject: anObject selector: aMessageSelector label: aLabel required: aBoolean [
+	self
+		subject: anObject
+		getBlock: [ :theSubject | theSubject perform: aMessageSelector ]
+		setBlock:
+			[ :theSubject :value | theSubject perform: aMessageSelector asMutator with: value ]
+		label: aLabel
+		required: aBoolean
 ]
 
 { #category : #updating }
