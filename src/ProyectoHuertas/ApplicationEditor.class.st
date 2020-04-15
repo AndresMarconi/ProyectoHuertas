@@ -85,5 +85,5 @@ ApplicationEditor >> renderProblemsOn: html [
 ApplicationEditor >> substances [
 	^ self session farm inventoryItems
 		ifNotEmpty: [ :inventoryItems | inventoryItems collect: #substance ]
-		ifEmpty: [ self session gapAFarm substances asOrderedCollection ]
+		ifEmpty: [ Array new ]
 ]
