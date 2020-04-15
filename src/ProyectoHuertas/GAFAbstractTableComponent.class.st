@@ -18,11 +18,6 @@ GAFAbstractTableComponent >> columnValuesFor: element [
 ]
 
 { #category : #accessing }
-GAFAbstractTableComponent >> elements [
-	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
 GAFAbstractTableComponent >> filteredElements [ 
 	^self elements
 ]
@@ -79,7 +74,7 @@ GAFAbstractTableComponent >> renderTableRowFor: element on: html [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 GAFAbstractTableComponent >> tableHeadingOn: html [
 	html tableHead: [ 
 		html tableRow: [ self columnHeadings do: [ :heading | html tableHeading: heading ] ] ]

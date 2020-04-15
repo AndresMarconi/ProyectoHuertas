@@ -35,12 +35,11 @@ ApplicationEditor >> initializeComponents [
 		required: true.
 	reasonEditorComponent
 		possibleValuesBlock: [ {nil} , Application reasons ].
-	quantityEditorComponent := MeasurementPropertyEditorComponent
+	quantityEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad utilizada'
-		required: true
-		units: {'Kg' . 'L'}.
+		required: true.
 	doseEditorComponent := NumberPropertyEditorComponent
 		subject: subject
 		selector: #dose
@@ -53,18 +52,32 @@ ApplicationEditor >> initializeComponents [
 		required: false.
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		subject: subject
-		selector: #substance
+		getBlock: [ :app | self inventoryItemFor: app substance ]
+		setBlock: [ :app :item | app substance: item substance ]
 		label: 'Producto'
 		required: true.
 	substanceEditorComponent
-		possibleValuesBlock: [ {nil} , self substances ];
+		possibleValuesBlock: [ {nil} , self inventoryItems ];
 		labelsBlock: [ :each | 
 			each
 				ifNil: [ '' ]
-				ifNotNil: [ each comercialName , ' (en ' , each unit , ')' ] ];
+				ifNotNil: [ each substance comercialName , ' (en existencia: '
+						, each balance asString , ' ' , each substance unit , ')' ] ];
 		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
 	notAllowed := false.
 	notEnough := false
+]
+
+{ #category : #'subclass-responsibility' }
+ApplicationEditor >> inventoryItemFor: aSubstance [
+	^ self inventoryItems
+		detect: [ :each | each substance = aSubstance ]
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+ApplicationEditor >> inventoryItems [
+	^ self session farm inventoryItems
 ]
 
 { #category : #accessing }
