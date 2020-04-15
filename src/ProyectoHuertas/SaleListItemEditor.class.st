@@ -13,7 +13,8 @@ Class {
 
 { #category : #callbacks }
 SaleListItemEditor >> accept [
-	sale items: items
+ 	sale items: items.
+	
 ]
 
 { #category : #adding }
@@ -46,7 +47,7 @@ SaleListItemEditor >> cancel [
 
 { #category : #testing }
 SaleListItemEditor >> hasProblems [
-	^ false
+	^ (self children anySatisfy: #hasProblems) | items isEmpty
 ]
 
 { #category : #initialization }
@@ -57,7 +58,12 @@ SaleListItemEditor >> initialize [
 
 { #category : #accessing }
 SaleListItemEditor >> problems [
-	^ self children flatCollect: #problems
+	^ (self children flatCollect: #problems)
+		,
+			(items
+				ifEmpty:
+					[ {'Todavía no ha agregado items a la venta. Recuerde oprimir el botón [+] para agregar los items.'} ]
+				ifNotEmpty: [ Set new ])
 ]
 
 { #category : #adding }
@@ -68,11 +74,11 @@ SaleListItemEditor >> removeRowWith: item [
 { #category : #rendering }
 SaleListItemEditor >> renderContentOn: html [
 	html label: 'Productos'.
-	problems
+	"	problems
 		do: [ :each | 
 			html alert
 				beDanger;
-				with: each ].
+				with: each ]."
 	problems := OrderedCollection new.
 	self renderElementsTableOn: html
 ]
