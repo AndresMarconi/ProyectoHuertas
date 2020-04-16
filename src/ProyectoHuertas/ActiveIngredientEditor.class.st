@@ -37,9 +37,9 @@ ActiveIngredientEditor >> initializeComponents [
 	"Initialize all property components"
 
 	tradeNameEditorComponent := DropdownSelectPropertyEditorComponent
-		id: 'surface'
+		id: 'tradeName'
 		subject: subject
-		selector: #surface
+		selector: #tradeName
 		label: 'Nombre'
 		required: true.
 	tradeNameEditorComponent
