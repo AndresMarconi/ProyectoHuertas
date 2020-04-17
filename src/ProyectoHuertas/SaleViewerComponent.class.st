@@ -43,6 +43,8 @@ SaleViewerComponent >> renderContentOn: html [
 				column: [ html paragraph: [ html strong: 'Cliente' ].
 					html paragraph: sale client ]
 					mediumSize: 6 ].
+	html paragraph: [ html strong: 'Notas' ].
+	html paragraph: sale comment.
 	html paragraph: [ html strong: 'Descripción de venta' ].
 	super renderContentOn: html
 ]
