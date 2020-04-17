@@ -40,7 +40,7 @@ ApplicationEditor >> initializeComponents [
 	   id: 'quantity'
 		subject: subject
 		selector: #quantity
-		label: 'Cantidad utilizada'
+		label: 'Cantidad utilizada (por lote)'
 		required: true.
 	doseEditorComponent := NumberPropertyEditorComponent
 	   id: 'dose'

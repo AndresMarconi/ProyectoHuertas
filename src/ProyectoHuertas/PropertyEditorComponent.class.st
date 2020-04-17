@@ -157,7 +157,8 @@ PropertyEditorComponent >> readOnly: anObject [
 PropertyEditorComponent >> renderContentOn: html [
 	html
 		formGroup: [ self renderLabelOn: html.
-			self renderInputOn: html ]
+			self renderInputOn: html.
+			self renderInstructionsOn: html ]
 ]
 
 { #category : #hooks }
@@ -170,9 +171,10 @@ PropertyEditorComponent >> renderInstructionsOn: html [
 	readOnly
 		ifTrue: [ ^ self ].
 	instructions
-		ifNotNil: [ html
-				break;
-				small: instructions ]
+		ifNotNil: [ html small
+				id: id , 'HelpBlock';
+				class: 'form-text text-muted';
+				with: instructions ]
 ]
 
 { #category : #rendering }
@@ -184,7 +186,7 @@ PropertyEditorComponent >> renderLabelOn: html [
 				ifTrue: [ html span
 						style: 'color: red; ';
 						with: ' *' ].
-			self renderInstructionsOn: html ]
+ ]
 ]
 
 { #category : #rendering }
