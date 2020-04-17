@@ -60,6 +60,12 @@ GAFComponentTestCase >> plotSelector [
 	^ driver findElementByID: 'plotSelector'
 ]
 
+{ #category : #running }
+GAFComponentTestCase >> setUp [
+	super setUp.
+	driver manage timeouts implicitlyWait: (Duration seconds: 3)
+]
+
 { #category : #elements }
 GAFComponentTestCase >> tableContent [
 	^ ((driver findElementByClassName: 'table')

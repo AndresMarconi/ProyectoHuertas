@@ -14,10 +14,8 @@ PlotsManagementComponentTest >> addOnePlotButton [
 
 { #category : #scripts }
 PlotsManagementComponentTest >> addPlotWithId: plotId [
-	(driver findElementByID: 'plotId') click.
-	driver getKeyboard sendKeys: plotId.
-	(driver findElementByID: 'surface') click.
-	driver getKeyboard sendKeys: '1000'.
+	(driver findElementByID: 'plotId') sendKeys: plotId.
+	(driver findElementByID: 'surface') sendKeys: '1000'.
 	self acceptButton click
 ]
 
@@ -38,10 +36,9 @@ PlotsManagementComponentTest >> setUp [
 
 { #category : #tests }
 PlotsManagementComponentTest >> testPlotList [
+	driver manage timeouts.
 	self assert: self tableContent isEmpty.
 	self addOnePlotButton click.
-	self waitForStringToBePresent: 'Aceptar'.
 	self addPlotWithId: '1'.
-	self waitForStringToBePresent: 'muchos'.
 	self assert: self tableContent equals: '1 1000'
 ]
