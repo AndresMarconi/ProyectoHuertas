@@ -82,3 +82,20 @@ SowingEditor >> initializeComponents [
 SowingEditor >> plots [
 	^ self session farm plots asOrderedCollection
 ]
+
+{ #category : #'subclass-responsibility' }
+SowingEditor >> renderChildrenOn: html [
+	{dateEditorComponent.
+	timeEditorComponent.
+	plotEditorComponent.
+	cropEditorComponent} do: [ :each | html render: each ].
+	html render: commentEditorComponent.
+	html alert
+		beInfo;
+		with:
+			'La información que se solicita a continuación se utiliza para afrecerle mejores consejos. Si no la tiene, simplemente complete con 0 (cero)'.
+	{quantityEditorComponent.
+	timeToHarvestEditorComponent.
+	harvestDurationEditorComponent.
+	expectedYieldEditorComponent} do: [ :each | html render: each ]
+]
