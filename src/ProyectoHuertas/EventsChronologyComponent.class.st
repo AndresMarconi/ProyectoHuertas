@@ -104,8 +104,7 @@ EventsChronologyComponent >> summaryForAdversityReport: anAdversityReport [
 { #category : #summaries }
 EventsChronologyComponent >> summaryForApplication: anApplication [
 	^ anApplication substance comercialName , ': '
-		, anApplication quantity printString , ' (' , anApplication reason
-		, ')'
+		, anApplication quantity printString
 ]
 
 { #category : #summaries }

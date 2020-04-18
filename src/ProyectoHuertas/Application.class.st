@@ -5,14 +5,13 @@ Class {
 		'substance',
 		'machine',
 		'quantity',
-		'dose',
-		'reason'
+		'dose'
 	],
 	#category : #'ProyectoHuertas-model'
 }
 
 { #category : #'instance creation' }
-Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance dose: aDose machine: aMachine reason: aReason [
+Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance dose: aDose machine: aMachine [
 	^ self new
 		time: aTime;
 		dose: aDose;
@@ -20,19 +19,12 @@ Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance d
 		date: aDate;
 		plot: aPlot;
 		substance: aSubstance;
-		reason: aReason;
 		yourself
 ]
 
 { #category : #testing }
 Application class >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #constants }
-Application class >> reasons [
-	^ {'Control de plaga' . 'Tratamiento de enfermedad'.
-	'Tratamiento preventivo' . 'Tratamiento de suelo' . 'Fertilización'. 'Otro (aclarar en notas)'}
 ]
 
 { #category : #accessing }
@@ -69,16 +61,6 @@ Application >> quantity [
 { #category : #accessing }
 Application >> quantity: anObject [
 	quantity := anObject
-]
-
-{ #category : #accessing }
-Application >> reason [
-	^ reason
-]
-
-{ #category : #accessing }
-Application >> reason: anObject [
-	reason := anObject
 ]
 
 { #category : #accessing }

@@ -9,7 +9,6 @@ CSVApplicationsExporter >> elementRowFor: anApplication [
 	^ {anApplication date.
 	anApplication time.
 	anApplication plot id.
-	anApplication reason.
 	anApplication substance comercialName.
 	anApplication quantity.
 	anApplication dose.
@@ -19,5 +18,5 @@ CSVApplicationsExporter >> elementRowFor: anApplication [
 
 { #category : #exporting }
 CSVApplicationsExporter >> headerRow [
-	^ #('Fecha' 'Hora' 'Lote' 'Motivo' 'Producto' 'Cantidad' 'Dosificación' 'Maquina' 'Notas')
+	^ #('Fecha' 'Hora' 'Lote' 'Producto' 'Cantidad' 'Dosificación' 'Maquina' 'Notas')
 ]

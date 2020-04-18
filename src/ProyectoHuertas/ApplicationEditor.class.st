@@ -6,7 +6,6 @@ Class {
 		'doseEditorComponent',
 		'machineEditorComponent',
 		'substanceEditorComponent',
-		'reasonEditorComponent',
 		'quantityEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
@@ -14,8 +13,7 @@ Class {
 
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> eventSpecificChildren [
-	^ {reasonEditorComponent.
-	substanceEditorComponent.
+	^ {substanceEditorComponent.
 	quantityEditorComponent.
 	doseEditorComponent.
 	machineEditorComponent}
@@ -26,7 +24,6 @@ ApplicationEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
-	self initializeReasonEditorComponent.
 	self initializeQuantityEditorComponent.
 	self initializeDoseEditorComponent.
 	self initializeMachineEditorComponent.
@@ -62,18 +59,6 @@ ApplicationEditor >> initializeQuantityEditorComponent [
 		selector: #quantity
 		label: 'Cantidad utilizada (por lote)'
 		required: true
-]
-
-{ #category : #initialization }
-ApplicationEditor >> initializeReasonEditorComponent [
-	reasonEditorComponent := DropdownSelectPropertyEditorComponent
-		id: 'reason'
-		subject: subject
-		selector: #reason
-		label: 'Motivo'
-		required: true.
-	reasonEditorComponent
-		possibleValuesBlock: [ {nil} , Application reasons ]
 ]
 
 { #category : #initialization }

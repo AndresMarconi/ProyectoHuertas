@@ -83,9 +83,6 @@ ApplicationsComponentTest >> testAddApplication [
 	self
 		assertCollection: (self optionsInSelect: self plotSelector)
 		equals: {'' . 'A' . 'B'}.
-	self
-		assertCollection: (self optionsInSelect: self reasonSelector)
-		equals: {''} , Application reasons
 ]
 
 { #category : #tests }

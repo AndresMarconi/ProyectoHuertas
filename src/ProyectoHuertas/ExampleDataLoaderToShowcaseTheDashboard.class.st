@@ -156,7 +156,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aP
 		substance: substance
 		dose: '2'
 		machine: '1'
-		reason: Application reasons second.
+		.
 	aPlot
 		addEvent: sowing;
 		addEvent: application;
@@ -223,7 +223,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlo
 		substance: substance
 		dose: '2'
 		machine: '1'
-		reason: Application reasons first.
+		.
 	aPlot
 		addEvent: sowing;
 		addEvent: application;
