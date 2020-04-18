@@ -22,12 +22,6 @@ GAFComponentTestCase >> cancelButton [
 	^ driver findElementByPartialLinkText: 'Cancel'
 ]
 
-{ #category : #utility }
-GAFComponentTestCase >> clearActiveFieldWith: email [
-	email size
-		timesRepeat: [ driver getKeyboard sendKeys: BPKeys backSpace asString ]
-]
-
 { #category : #elements }
 GAFComponentTestCase >> commentField [
 	^ driver findElementByID: 'comment'
@@ -49,6 +43,13 @@ GAFComponentTestCase >> dateField [
 	^ driver findElementByID: 'date'
 ]
 
+{ #category : #elements }
+GAFComponentTestCase >> desiredDriverBrowserCapabilities [
+	^ BPChromeOptions new
+		setHeadless: true;
+		yourself
+]
+
 { #category : #utility }
 GAFComponentTestCase >> optionsInSelect: aSelectElement [
 	^ (aSelectElement findElementsByTagName: 'option')
@@ -63,7 +64,7 @@ GAFComponentTestCase >> plotSelector [
 { #category : #running }
 GAFComponentTestCase >> setUp [
 	super setUp.
-	driver manage timeouts implicitlyWait: (Duration seconds: 3)
+	driver manage timeouts implicitlyWait: (Duration seconds: 20)
 ]
 
 { #category : #elements }
