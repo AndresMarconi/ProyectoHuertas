@@ -60,10 +60,11 @@ SubstanceEditor >> initializeComponents [
 		id: 'activeIngredients'
 		subject: subject
 		selector: #activeIngredients
-		label: 'Principios activos'
+		label: 'Principios activos (controlados por SENASA)'
 		required: false.
 	activeIngredientsEditorComponent
-		possibleValuesBlock: [ self activeIngredients ].
+		possibleValuesBlock: [ self activeIngredients ];
+		instructions: 'mantenga oprimido Ctrl para seleccionar mas de uno'.
 	unitEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'unit'
 		subject: subject
