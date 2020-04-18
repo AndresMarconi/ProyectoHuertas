@@ -66,7 +66,10 @@ BatchPlotCreator >> initializePlotIdsEditorComopnent [
 		subject: self
 		selector: #plotNames
 		label: 'Nombres de los lotes a crear (separados por coma)'
-		required: true
+		required: true.
+	plotIdsEditorComponent
+		instructions:
+			'Si utiliza números, complete con ceros adelante para que tengan la misma longitud y luego queden ordenados, p.e., Lote 001, Lote 002, etc.'
 ]
 
 { #category : #initialization }

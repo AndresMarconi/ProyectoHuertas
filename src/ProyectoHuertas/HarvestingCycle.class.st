@@ -33,6 +33,11 @@ HarvestingCycle >> endOfPeriod [
 	^ self harvestDate addDays: self harvestDuration.
 ]
 
+{ #category : #accessing }
+HarvestingCycle >> events [
+	^ events
+]
+
 { #category : #'as yet unclassified' }
 HarvestingCycle >> harvestDate [
 	^self sowing date addDays: self sowing timeToHarvest
@@ -65,6 +70,11 @@ HarvestingCycle >> inWaitingPeriod [
 { #category : #events }
 HarvestingCycle >> initialize [
 	events := OrderedCollection new. 
+]
+
+{ #category : #events }
+HarvestingCycle >> removeEvent: anEvent [
+	events remove: anEvent ifAbsent: [ nil ]
 ]
 
 { #category : #events }

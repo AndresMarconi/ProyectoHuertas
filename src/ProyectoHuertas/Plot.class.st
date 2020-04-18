@@ -115,6 +115,19 @@ Plot >> problems [
 	^ self events select: [ :event | event class = AdversityReport ]
 ]
 
+{ #category : #'current cycle' }
+Plot >> recomputeCurrentCycle [
+	currentCycle := HarvestingCycle new.
+	events do: [ :event | currentCycle addEvent: event ]
+]
+
+{ #category : #accessing }
+Plot >> removeEvent: anEvent [
+	currentCycle removeEvent: anEvent.
+	events remove: anEvent.
+	anEvent plot: nil
+]
+
 { #category : #accessing }
 Plot >> sowings [
 	^ self events select: [ :event | event class = Sowing ]
