@@ -14,7 +14,7 @@ PlotsManagementComponentTest >> addOnePlotButton [
 
 { #category : #scripts }
 PlotsManagementComponentTest >> addPlotWithId: plotId [
-	self waitForStringToBePresent: 'id="plotID"'.
+	"driver getPageSource inspect". 
 	(driver findElementByID: 'plotId') sendKeys: plotId.
 	(driver findElementByID: 'surface') sendKeys: '1000'.
 	self acceptButton click
