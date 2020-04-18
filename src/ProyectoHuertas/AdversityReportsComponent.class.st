@@ -39,3 +39,9 @@ AdversityReportsComponent >> elements [
 	^ self session farm problems
 		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
+
+{ #category : #adding }
+AdversityReportsComponent >> saveAddedElement: aCollectionOfAdversityReports [
+	aCollectionOfAdversityReports
+		do: [ :each | super saveAddedElement: each ]
+]

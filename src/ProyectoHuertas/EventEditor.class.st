@@ -41,7 +41,7 @@ EventEditor >> initializeDateEditorComponent [
 		required: true
 ]
 
-{ #category : #initialization }
+{ #category : #'subclass-responsibility' }
 EventEditor >> initializePlotEditorComponent [
 	plotEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'plotSelector'

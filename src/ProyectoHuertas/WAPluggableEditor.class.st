@@ -20,6 +20,8 @@ WAPluggableEditor >> accept [
 	(self children anySatisfy: [ :each | each hasProblems ])
 		ifTrue: [ ^ self ].
 	self children do: #accept.
+	
+	"this last part only makes sense for embedded editors - are we using it?"
 	parent
 		ifNil: [ self answer: subject ]
 		ifNotNil: [ :it | it answer: subject ]

@@ -3,10 +3,25 @@ Class {
 	#superclass : #EventEditor,
 	#instVars : [
 		'descriptionEditorComponent',
-		'typesEditorComponent'
+		'typesEditorComponent',
+		'selectedPlots'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
 }
+
+{ #category : #callbacks }
+AdversityReportEditor >> accept [
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
+	self
+		answer:
+			(selectedPlots
+				collect: [ :each | 
+					subject copy
+						plot: each;
+						yourself ])
+]
 
 { #category : #'subclass-responsibility' }
 AdversityReportEditor >> allowedProblemTypes [
@@ -21,7 +36,6 @@ AdversityReportEditor >> eventSpecificChildren [
 
 { #category : #initialization }
 AdversityReportEditor >> initializeComponents [
-	"Initialize all property components"
 
 	super initializeComponents.
 	self initializeDescriptionEditorComponent.
@@ -42,6 +56,22 @@ AdversityReportEditor >> initializeDescriptionEditorComponent [
 ]
 
 { #category : #initialization }
+AdversityReportEditor >> initializePlotEditorComponent [
+	plotEditorComponent := MultipleSelectPropertyEditorComponent
+		id: 'plotSelector'
+		subject: self
+		selector: #selectedPlots
+		label: 'Lotes afectados'
+		required: true.
+	plotEditorComponent
+		rows: (10 min: self plots size);
+		possibleValuesBlock: [ self plots ];
+		labelsBlock: [ :each | each ifNil: [  ] ifNotNil: [ each id ] ];
+		instructions: 'mantenga oprimido Ctrl para seleccionar varios'.
+	subject plot ifNotNil: [ plotEditorComponent readOnly: true ]
+]
+
+{ #category : #initialization }
 AdversityReportEditor >> initializeTypesEditorComponent [
 	typesEditorComponent := MultipleSelectPropertyEditorComponent
 		id: #adversityTypes
@@ -58,4 +88,20 @@ AdversityReportEditor >> initializeTypesEditorComponent [
 { #category : #accessing }
 AdversityReportEditor >> plots [
 	^ self session farm plots asOrderedCollection
+]
+
+{ #category : #accessing }
+AdversityReportEditor >> selectedPlots [
+	^ selectedPlots
+]
+
+{ #category : #accessing }
+AdversityReportEditor >> selectedPlots: anObject [
+	selectedPlots := anObject
+]
+
+{ #category : #initialization }
+AdversityReportEditor >> subject: anAdversityReport [
+	selectedPlots := {anAdversityReport plot}.
+	super subject: anAdversityReport
 ]
