@@ -15,15 +15,20 @@ FarmEditor >> children [
 		super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 FarmEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeNameEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+FarmEditor >> initializeNameEditorComponent [
 	nameEditorComponent := TextLinePropertyEditorComponent
-	   id: 'name'
+		id: 'name'
 		subject: subject
 		selector: #name
 		label: 'Nombre de Granja'
-		required: true.
-	super initializeComponents.
+		required: true
 ]

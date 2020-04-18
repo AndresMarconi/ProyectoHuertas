@@ -14,12 +14,18 @@ InventoryItemEditor >> children [
 	^ {substanceEditorComponent} , super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 InventoryItemEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeSubstanceEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+InventoryItemEditor >> initializeSubstanceEditorComponent [
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
-	   id: 'substance'
+		id: 'substance'
 		subject: subject
 		selector: #substance
 		label: 'Substancia'
@@ -30,8 +36,7 @@ InventoryItemEditor >> initializeComponents [
 				ifNil: [  ]
 				ifNotNil: [ substance comercialName , ' (' , substance unit , ')' ] ].
 	substanceEditorComponent
-		possibleValuesBlock: [ {nil} , self substances ].
-	super initializeComponents
+		possibleValuesBlock: [ {nil} , self substances ]
 ]
 
 { #category : #accessing }

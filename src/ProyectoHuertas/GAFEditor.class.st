@@ -14,7 +14,7 @@ GAFEditor >> children [
 	^ {commentEditorComponent}
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 GAFEditor >> initializeComponents [
 	commentEditorComponent := TextAreaPropertyEditorComponent 
 	   id: 'commentEditor'

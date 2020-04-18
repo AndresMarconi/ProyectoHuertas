@@ -19,11 +19,18 @@ AdversityReportEditor >> eventSpecificChildren [
 	descriptionEditorComponent}
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 AdversityReportEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
+	self initializeDescriptionEditorComponent.
+	self initializeTypesEditorComponent.
+
+]
+
+{ #category : #initialization }
+AdversityReportEditor >> initializeDescriptionEditorComponent [
 	descriptionEditorComponent := TextLinePropertyEditorComponent
 		id: 'descriptionOfAdversities'
 		subject: subject
@@ -31,7 +38,11 @@ AdversityReportEditor >> initializeComponents [
 		label: 'Detalle'
 		required: true.
 	descriptionEditorComponent
-		instructions: 'por ejemplo: Mosca blanca y Arañuela roja'.
+		instructions: 'por ejemplo: Mosca blanca y Arañuela roja'
+]
+
+{ #category : #initialization }
+AdversityReportEditor >> initializeTypesEditorComponent [
 	typesEditorComponent := MultipleSelectPropertyEditorComponent
 		id: #adversityTypes
 		subject: subject

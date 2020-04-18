@@ -51,18 +51,28 @@ BatchPlotCreator >> initialize [
 	plotIds := OrderedCollection new.
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 BatchPlotCreator >> initializeComponents [
 	"Initialize all property components"
 
+	self initializePlotIdsEditorComopnent.
+	self initializeSurfaceEditorComponent
+]
+
+{ #category : #initialization }
+BatchPlotCreator >> initializePlotIdsEditorComopnent [
 	plotIdsEditorComponent := TextAreaPropertyEditorComponent
-	   id: 'plotNames'
+		id: 'plotNames'
 		subject: self
 		selector: #plotNames
 		label: 'Nombres de los lotes a crear (separados por coma)'
-		required: true.
+		required: true
+]
+
+{ #category : #initialization }
+BatchPlotCreator >> initializeSurfaceEditorComponent [
 	surfaceEditorComponent := NumberPropertyEditorComponent
-	   id: 'surface'
+		id: 'surface'
 		subject: self
 		selector: #surface
 		label: 'Superficie de los lotes (m2)'

@@ -26,10 +26,17 @@ CropEditor >> children [
 		super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 CropEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeVulgarNameEditorComponent.
+	self initializeYieldEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+CropEditor >> initializeVulgarNameEditorComponent [
 	vulgarNameEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'vulgarName'
 		subject: subject
@@ -39,14 +46,17 @@ CropEditor >> initializeComponents [
 	vulgarNameEditorComponent
 		possibleValuesBlock: [ self allowedCropNames ];
 		instructions:
-			'Solo se admiten cultivos para los que existan principios activos registrados en SENASA'.
+			'Solo se admiten cultivos para los que existan principios activos registrados en SENASA'
+]
+
+{ #category : #initialization }
+CropEditor >> initializeYieldEditorComponent [
 	yieldEditorComponent := TextLinePropertyEditorComponent
 		id: 'optimalYieldPerPlant'
 		subject: subject
 		selector: #optimalYieldPerPlant
 		label: 'Rinde óptimo (kg/hectárea)'
-		required: true.
-	super initializeComponents
+		required: true
 ]
 
 { #category : #rendering }

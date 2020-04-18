@@ -33,16 +33,40 @@ InventoryItemMovementEditor >> children [
 		super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 InventoryItemMovementEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeDateEditorComponent.
+	self initializeReadonEditorComponent.
+	self initializeQuantityEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+InventoryItemMovementEditor >> initializeDateEditorComponent [
 	dateEditorComponent := DatePropertyEditorComponent
 		id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
+		required: true
+]
+
+{ #category : #initialization }
+InventoryItemMovementEditor >> initializeQuantityEditorComponent [
+	quantityEditorComponent := NumberPropertyEditorComponent
+		id: 'quantity'
+		subject: subject
+		selector: #quantity
+		label: 'Cantidad (' , substance unit , ')'
 		required: true.
+	quantityEditorComponent
+		instructions: 'Utilice números negativos para indicar egresos.'
+]
+
+{ #category : #initialization }
+InventoryItemMovementEditor >> initializeReadonEditorComponent [
 	reasonEditorComponent := TextLinePropertyEditorComponent
 		id: 'reason'
 		subject: subject
@@ -51,16 +75,7 @@ InventoryItemMovementEditor >> initializeComponents [
 		required: true.
 	reasonEditorComponent
 		instructions:
-			'Si aumenta el stock, indice la fuente; si disminuye indique el destino.'.
-	quantityEditorComponent := NumberPropertyEditorComponent
-		id: 'quantity'
-		subject: subject
-		selector: #quantity
-		label: 'Cantidad (' , substance unit , ')'
-		required: true.
-	quantityEditorComponent
-		instructions: 'Utilice números negativos para indicar egresos.'.
-	super initializeComponents
+			'Si aumenta el stock, indice la fuente; si disminuye indique el destino.'
 ]
 
 { #category : #accessing }

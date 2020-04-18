@@ -21,25 +21,30 @@ EventEditor >> eventSpecificChildren [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 EventEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
+	self initializeDateEditorComponent.
+	self initializeTimeEditorComponent.
+	self initializePlotEditorComponent
+]
+
+{ #category : #initialization }
+EventEditor >> initializeDateEditorComponent [
 	dateEditorComponent := DatePropertyEditorComponent
-	   id: 'date'
+		id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
-		required: true.
-	timeEditorComponent := TimeStringPropertyEditorComponent
-	   id: 'time'
-		subject: subject
-		selector: #time
-		label: 'Hora'
-		required: true.
+		required: true
+]
+
+{ #category : #initialization }
+EventEditor >> initializePlotEditorComponent [
 	plotEditorComponent := DropdownSelectPropertyEditorComponent
-	   id: 'plotSelector'
+		id: 'plotSelector'
 		subject: subject
 		selector: #plot
 		label: 'Lote'
@@ -47,4 +52,14 @@ EventEditor >> initializeComponents [
 	plotEditorComponent
 		possibleValuesBlock: [ {nil} , self plots ];
 		labelsBlock: [ :each | each ifNil: [  ] ifNotNil: [ each id ] ]
+]
+
+{ #category : #initialization }
+EventEditor >> initializeTimeEditorComponent [
+	timeEditorComponent := TimeStringPropertyEditorComponent
+		id: 'time'
+		subject: subject
+		selector: #time
+		label: 'Hora'
+		required: true
 ]

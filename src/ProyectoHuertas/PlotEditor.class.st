@@ -14,7 +14,7 @@ PlotEditor >> accept [
 	super accept
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 PlotEditor >> checkIfPlotIdIsAlreadyInUse [
 	(self session farm
 		isPlotIdInUse: idPEditorComponent bufferedValue
@@ -32,21 +32,31 @@ PlotEditor >> children [
 		super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 PlotEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeIdEditorComponent.
+	self initializeSurfaceEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+PlotEditor >> initializeIdEditorComponent [
 	idPEditorComponent := TextLinePropertyEditorComponent
 		id: 'plotId'
 		subject: subject
 		selector: #id
 		label: 'Identificador del lote'
-		required: true.
+		required: true
+]
+
+{ #category : #initialization }
+PlotEditor >> initializeSurfaceEditorComponent [
 	surfaceEditorComponent := NumberPropertyEditorComponent
 		id: 'surface'
 		subject: subject
 		selector: #surface
 		label: 'Superficie del Lote (m2)'
-		required: true.
-	super initializeComponents
+		required: true
 ]

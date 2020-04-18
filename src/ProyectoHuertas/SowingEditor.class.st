@@ -33,48 +33,78 @@ SowingEditor >> frequentlyPlantedCrops [
 	^ self session farm frequentlyPlantedCrops
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 SowingEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
+	self initializeCropEditorComponent.
+	self initializeCultivarEditorComponent.
+	self initializeQuantityEditorComponent.
+	self initializeTimeToHarvestEditorComponent.
+	self initializeHarvestDurationEditorComponent.
+	self initializeExpectedYieldEditorComponent
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeCropEditorComponent [
 	cropEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'cropSelector'
 		subject: subject
 		selector: #crop
 		label: 'Cultivo'
 		required: true.
-	cropEditorComponent possibleValuesBlock: [ self crops ].
+	cropEditorComponent possibleValuesBlock: [ self crops ]
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeCultivarEditorComponent [
 	cultivarEditorComponent := TextLinePropertyEditorComponent
 		id: 'cultivar'
 		subject: subject
 		selector: #cultivarName
 		label: 'Variedad (cultivar)'
-		required: false.
+		required: false
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeExpectedYieldEditorComponent [
+	expectedYieldEditorComponent := NumberPropertyEditorComponent
+		id: 'expectedYield'
+		subject: subject
+		selector: #expectedYield
+		label: 'Rendimiento total esperado (en Kg)'
+		required: true
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeHarvestDurationEditorComponent [
+	harvestDurationEditorComponent := NumberPropertyEditorComponent
+		id: 'harvestDuration'
+		subject: subject
+		selector: #harvestDuration
+		label: 'Duración estimada de la cosecha (en días)'
+		required: true
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeQuantityEditorComponent [
 	quantityEditorComponent := MeasurementPropertyEditorComponent
 		id: 'quantity'
 		subject: subject
 		selector: #quantity
 		label: 'Cantidad'
 		required: true
-		units: {'Plantas' . 'Kg de semilla'}.
+		units: {'Plantas' . 'Kg de semilla'}
+]
+
+{ #category : #initialization }
+SowingEditor >> initializeTimeToHarvestEditorComponent [
 	timeToHarvestEditorComponent := NumberPropertyEditorComponent
 		id: 'timeToHarvest'
 		subject: subject
 		selector: #timeToHarvest
 		label: 'Tiempo estimado para cosechar (en días)'
-		required: true.
-	harvestDurationEditorComponent := NumberPropertyEditorComponent
-		id: 'harvestDuration'
-		subject: subject
-		selector: #harvestDuration
-		label: 'Duración estimada de la cosecha (en días)'
-		required: true.
-	expectedYieldEditorComponent := NumberPropertyEditorComponent
-		id: 'expectedYield'
-		subject: subject
-		selector: #expectedYield
-		label: 'Rendimiento total esperado (en Kg)'
 		required: true
 ]
 

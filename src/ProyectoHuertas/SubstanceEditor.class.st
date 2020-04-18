@@ -40,22 +40,8 @@ SubstanceEditor >> children [
 	activeIngredientsEditorComponent} , super children
 ]
 
-{ #category : #'subclass-responsibility' }
-SubstanceEditor >> initializeComponents [
-	"Initialize all property components"
-
-	comercialNameEditorComponent := TextLinePropertyEditorComponent
-		id: 'comercialName'
-		subject: subject
-		selector: #comercialName
-		label: 'Nombre Comercial'
-		required: true.
-	manufacturerEditorComponent := TextLinePropertyEditorComponent
-		id: 'manufacturer'
-		subject: subject
-		selector: #manufacturer
-		label: 'Fabricante'
-		required: false.
+{ #category : #initialization }
+SubstanceEditor >> initializeActiveIngredienteEditorComponent [
 	activeIngredientsEditorComponent := MultipleSelectPropertyEditorComponent
 		id: 'activeIngredients'
 		subject: subject
@@ -64,13 +50,47 @@ SubstanceEditor >> initializeComponents [
 		required: false.
 	activeIngredientsEditorComponent
 		possibleValuesBlock: [ self activeIngredients ];
-		instructions: 'mantenga oprimido Ctrl para seleccionar mas de uno'.
+		instructions: 'mantenga oprimido Ctrl para seleccionar mas de uno'
+]
+
+{ #category : #initialization }
+SubstanceEditor >> initializeComercialNameEditorComponent [
+	comercialNameEditorComponent := TextLinePropertyEditorComponent
+		id: 'comercialName'
+		subject: subject
+		selector: #comercialName
+		label: 'Nombre Comercial'
+		required: true
+]
+
+{ #category : #initialization }
+SubstanceEditor >> initializeComponents [
+	"Initialize all property components"
+
+	self initializeComercialNameEditorComponent.
+	self initializeManufaturerEditorComponent.
+	self initializeActiveIngredienteEditorComponent.
+	self initializeUnitEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+SubstanceEditor >> initializeManufaturerEditorComponent [
+	manufacturerEditorComponent := TextLinePropertyEditorComponent
+		id: 'manufacturer'
+		subject: subject
+		selector: #manufacturer
+		label: 'Fabricante'
+		required: false
+]
+
+{ #category : #initialization }
+SubstanceEditor >> initializeUnitEditorComponent [
 	unitEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'unit'
 		subject: subject
 		selector: #unit
 		label: 'Unidad de medida'
 		required: true.
-	unitEditorComponent possibleValuesBlock: [ Substance units ].
-	super initializeComponents
+	unitEditorComponent possibleValuesBlock: [ Substance units ]
 ]

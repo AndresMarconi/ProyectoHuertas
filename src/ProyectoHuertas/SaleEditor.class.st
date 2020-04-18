@@ -18,23 +18,38 @@ SaleEditor >> children [
 	listComponent} , super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
+SaleEditor >> initializeClientEditorComponent [
+	clientEditorComponent := TextLinePropertyEditorComponent
+		id: 'client'
+		subject: subject
+		selector: #client
+		label: 'Cliente'
+		required: true
+]
+
+{ #category : #initialization }
 SaleEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
+	self initializeDateEditorComponent.
+	self initializeClientEditorComponent.
+	self initializeListComponent
+]
+
+{ #category : #initialization }
+SaleEditor >> initializeDateEditorComponent [
 	dateEditorComponent := DatePropertyEditorComponent
-	   id: 'date'
+		id: 'date'
 		subject: subject
 		selector: #date
 		label: 'Fecha'
-		required: true.
-	clientEditorComponent := TextLinePropertyEditorComponent
-	   id: 'client'
-		subject: subject
-		selector: #client
-		label: 'Cliente'
-		required: true.
+		required: true
+]
+
+{ #category : #initialization }
+SaleEditor >> initializeListComponent [
 	listComponent := SaleListItemEditor new
 		sale: subject;
 		yourself

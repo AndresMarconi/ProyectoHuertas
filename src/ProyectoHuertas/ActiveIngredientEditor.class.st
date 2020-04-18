@@ -32,10 +32,27 @@ ActiveIngredientEditor >> children [
 	referenceUrlEditorComponent} , super children
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 ActiveIngredientEditor >> initializeComponents [
 	"Initialize all property components"
 
+	self initializeTradeNameEditorComponent.
+	self initializeReferenceUrlEditorComponent.
+	super initializeComponents
+]
+
+{ #category : #initialization }
+ActiveIngredientEditor >> initializeReferenceUrlEditorComponent [
+	referenceUrlEditorComponent := TextLinePropertyEditorComponent
+		id: 'referenceUrl'
+		subject: subject
+		selector: #referenceUrl
+		label: 'URL de referencia'
+		required: false
+]
+
+{ #category : #initialization }
+ActiveIngredientEditor >> initializeTradeNameEditorComponent [
 	tradeNameEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'tradeName'
 		subject: subject
@@ -45,14 +62,7 @@ ActiveIngredientEditor >> initializeComponents [
 	tradeNameEditorComponent
 		possibleValuesBlock: [ self allowedNames ];
 		instructions:
-			'Solo se admiten principios activos registrados en SENASA para alguno de los cultivos existentes en el sistema'.
-	referenceUrlEditorComponent := TextLinePropertyEditorComponent
-		id: 'referenceUrl'
-		subject: subject
-		selector: #referenceUrl
-		label: 'URL de referencia'
-		required: false.
-	super initializeComponents
+			'Solo se admiten principios activos registrados en SENASA para alguno de los cultivos existentes en el sistema'
 ]
 
 { #category : #rendering }

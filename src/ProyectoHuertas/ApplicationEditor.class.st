@@ -7,8 +7,6 @@ Class {
 		'machineEditorComponent',
 		'substanceEditorComponent',
 		'reasonEditorComponent',
-		'notAllowed',
-		'notEnough',
 		'quantityEditorComponent'
 	],
 	#category : #'ProyectoHuertas-ui-editors'
@@ -23,37 +21,63 @@ ApplicationEditor >> eventSpecificChildren [
 	machineEditorComponent}
 ]
 
-{ #category : #'subclass-responsibility' }
+{ #category : #initialization }
 ApplicationEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
+	self initializeReasonEditorComponent.
+	self initializeQuantityEditorComponent.
+	self initializeDoseEditorComponent.
+	self initializeMachineEditorComponent.
+	self initializeSubstanceEditorComponent.
+
+]
+
+{ #category : #initialization }
+ApplicationEditor >> initializeDoseEditorComponent [
+	doseEditorComponent := NumberPropertyEditorComponent
+		id: 'dose'
+		subject: subject
+		selector: #dose
+		label: 'Dosificación'
+		required: false
+]
+
+{ #category : #initialization }
+ApplicationEditor >> initializeMachineEditorComponent [
+	machineEditorComponent := TextLinePropertyEditorComponent
+		id: 'machine'
+		subject: subject
+		selector: #machine
+		label: 'Maquina Usada'
+		required: false
+]
+
+{ #category : #initialization }
+ApplicationEditor >> initializeQuantityEditorComponent [
+	quantityEditorComponent := NumberPropertyEditorComponent
+		id: 'quantity'
+		subject: subject
+		selector: #quantity
+		label: 'Cantidad utilizada (por lote)'
+		required: true
+]
+
+{ #category : #initialization }
+ApplicationEditor >> initializeReasonEditorComponent [
 	reasonEditorComponent := DropdownSelectPropertyEditorComponent
-	   id: 'reason'
+		id: 'reason'
 		subject: subject
 		selector: #reason
 		label: 'Motivo'
 		required: true.
 	reasonEditorComponent
-		possibleValuesBlock: [ {nil} , Application reasons ].
-	quantityEditorComponent := NumberPropertyEditorComponent
-	   id: 'quantity'
-		subject: subject
-		selector: #quantity
-		label: 'Cantidad utilizada (por lote)'
-		required: true.
-	doseEditorComponent := NumberPropertyEditorComponent
-	   id: 'dose'
-		subject: subject
-		selector: #dose
-		label: 'Dosificación'
-		required: false.
-	machineEditorComponent := TextLinePropertyEditorComponent
-	   id: 'machine'
-		subject: subject
-		selector: #machine
-		label: 'Maquina Usada'
-		required: false.
+		possibleValuesBlock: [ {nil} , Application reasons ]
+]
+
+{ #category : #initialization }
+ApplicationEditor >> initializeSubstanceEditorComponent [
 	substanceEditorComponent := DropdownSelectPropertyEditorComponent
 		id: 'productSelector'
 		subject: subject
@@ -68,9 +92,7 @@ ApplicationEditor >> initializeComponents [
 				ifNil: [ '' ]
 				ifNotNil: [ each substance comercialName , ' (en existencia: '
 						, each balance asString , ' ' , each substance unit , ')' ] ];
-		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'.
-	notAllowed := false.
-	notEnough := false
+		instructions: 'Solo podrá registrar aplicaciones de substancias en su inventario.'
 ]
 
 { #category : #'subclass-responsibility' }
@@ -93,10 +115,7 @@ ApplicationEditor >> plots [
 { #category : #rendering }
 ApplicationEditor >> renderProblemsOn: html [
 	super renderProblemsOn: html.
-	notAllowed ifTrue: [ html alert beDanger; 
-		with: 'no puede aplicar ', substanceEditorComponent bufferedValue comercialName,' a ', plotEditorComponent bufferedValue currentCrop vulgarName ].
-	notEnough ifTrue: [ html alert beDanger; 
-		with: 'no tiene suficiente ', substanceEditorComponent bufferedValue comercialName,' para aplicar']
+
 ]
 
 { #category : #accessing }
