@@ -63,3 +63,8 @@ EventEditor >> initializeTimeEditorComponent [
 		label: 'Hora'
 		required: true
 ]
+
+{ #category : #accessing }
+EventEditor >> plots [
+	^ self session farm plots asOrderedCollection
+]

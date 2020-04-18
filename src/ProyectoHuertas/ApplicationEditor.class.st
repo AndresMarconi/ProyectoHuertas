@@ -1,6 +1,6 @@
 Class {
 	#name : #ApplicationEditor,
-	#superclass : #EventEditor,
+	#superclass : #MultiPlotEventEditor,
 	#instVars : [
 		'surfaceEditorComponent',
 		'doseEditorComponent',
@@ -90,11 +90,6 @@ ApplicationEditor >> inventoryItemFor: aSubstance [
 { #category : #accessing }
 ApplicationEditor >> inventoryItems [
 	^ self session farm inventoryItems
-]
-
-{ #category : #accessing }
-ApplicationEditor >> plots [
-	^ self session farm plots asOrderedCollection
 ]
 
 { #category : #rendering }

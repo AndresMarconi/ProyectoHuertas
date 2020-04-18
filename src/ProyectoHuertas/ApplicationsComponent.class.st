@@ -43,3 +43,9 @@ ApplicationsComponent >> elements [
 ApplicationsComponent >> printOn: aStream [
 	aStream nextPutAll: 'Aplicaciones'
 ]
+
+{ #category : #adding }
+ApplicationsComponent >> saveAddedElement: aCollectionOfApplications [
+	aCollectionOfApplications
+		do: [ :each | super saveAddedElement: each ]
+]

@@ -108,11 +108,6 @@ SowingEditor >> initializeTimeToHarvestEditorComponent [
 		required: true
 ]
 
-{ #category : #accessing }
-SowingEditor >> plots [
-	^ self session farm plots asOrderedCollection
-]
-
 { #category : #'subclass-responsibility' }
 SowingEditor >> renderChildrenOn: html [
 	{dateEditorComponent.

@@ -98,11 +98,6 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 ]
 
 { #category : #accessing }
-HarvestingEditor >> plots [
-	^ self session farm plots asOrderedCollection
-]
-
-{ #category : #accessing }
 HarvestingEditor >> units [
 	^ self session farm harvestingUnits
 ]
