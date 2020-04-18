@@ -36,7 +36,7 @@ ApplicationsComponent >> elementEditorClass [
 
 { #category : #hooks }
 ApplicationsComponent >> elements [
-	^ (self session farm aplications) asSortedCollection: [ :a :b | a date > b date ]
+	^ (self session farm aplications) asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
 
 { #category : #printing }
