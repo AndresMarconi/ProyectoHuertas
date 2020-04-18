@@ -5,18 +5,18 @@ Class {
 }
 
 { #category : #exporting }
-CSVProblemsExporter >> elementRowFor: aProblem [
-	"#('Fecha' 'Hora' 'Lote' 'Tipo' 'Problema' 'Notas')"
+CSVProblemsExporter >> elementRowFor: anAdversityReport [
+	"#('Fecha' 'Hora' 'Lote' 'Tipificación' 'Detalles' 'Notas')"
 
-	^ {aProblem date.
-	aProblem time.
-	aProblem plot id.
-	aProblem name.
-	aProblem type.
-	aProblem comment}
+	^ {anAdversityReport date.
+	anAdversityReport time.
+	anAdversityReport plot id.
+	anAdversityReport adversityTypes asCommaString.
+	anAdversityReport descriptionOfAdversities.
+	anAdversityReport comment}
 ]
 
 { #category : #exporting }
 CSVProblemsExporter >> headerRow [
-	^ #('Fecha' 'Hora' 'Lote' 'Tipo' 'Problema' 'Notas')
+	^ #('Fecha' 'Hora' 'Lote' 'Tipificación' 'Detalles' 'Notas')
 ]

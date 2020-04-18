@@ -38,7 +38,7 @@ FarmerHomeComponent >> renderLeftMenuOn: html [
 						renderMenuBlock:
 							{('Tablero de control' -> self dashboardComponentClass).
 							('Plantación y siembra' -> SowingComponent).
-							('Adversidades' -> ProblemsComponent).
+							('Adversidades' -> AdversityReportsComponent).
 							('Aplicaciones' -> ApplicationsComponent).
 							('Cosecha' -> HarvestComponent).
 							('Cronología' -> EventsChronologyComponent)}

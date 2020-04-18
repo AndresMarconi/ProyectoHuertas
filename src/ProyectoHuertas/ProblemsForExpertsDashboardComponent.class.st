@@ -12,13 +12,16 @@ ProblemsForExpertsDashboardComponent >> elements [
 
 { #category : #'as yet unclassified' }
 ProblemsForExpertsDashboardComponent >> inThisMonth: elements of: type [
-	^(elements select: [ :issue | issue type = type ]) size
+	^ (elements select: [ :issue | issue adversityTypes includes: type ])
+		size
 ]
 
 { #category : #'as yet unclassified' }
 ProblemsForExpertsDashboardComponent >> inThisWeek: elements of: type [
-	^(elements select: [ :issue | 
-		issue type = type and: [ issue date isAfter: ((Date today) subtractDays: 7) ] ]) size
+	^ (elements
+		select: [ :issue | 
+			(issue adversityTypes includes: type)
+				and: [ issue date isAfter: (Date today subtractDays: 7) ] ]) size
 ]
 
 { #category : #rendering }
@@ -32,13 +35,14 @@ ProblemsForExpertsDashboardComponent >> renderContentOn: html [
 { #category : #rendering }
 ProblemsForExpertsDashboardComponent >> renderTableBodyOn: html [
 	| set |
-	set:= self elements.
-	html tableBody: [ 
-		(set collect: [ :issue | issue type ]) do: [ :element | 
-			html tableRow: [  
-				html tableData: element. 
-				html tableData: (self inThisMonth: set of: element ).
-				html tableData: (self inThisWeek: set of: element )  ] ] ]
+	set := self elements.
+	html
+		tableBody: [ (set collect: [ :issue | issue adversityTypes asCommaString ])
+				do: [ :element | 
+					html
+						tableRow: [ html tableData: element.
+							html tableData: (self inThisMonth: set of: element).
+							html tableData: (self inThisWeek: set of: element) ] ] ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -70,7 +70,7 @@ HarvestingCycle >> initialize [
 { #category : #events }
 HarvestingCycle >> restart [
 	events ifEmpty: [ ^ self ].
-	events last class = Application | (events last class = Problem)
+	events last class = Application | (events last class = AdversityReport)
 		ifTrue: [ events := OrderedCollection with: events last.
 			^ self ].
 	events := OrderedCollection new

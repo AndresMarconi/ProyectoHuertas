@@ -143,12 +143,12 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aP
 		timeToHarvest: 40
 		harvestDuration: 7
 		expectedYield: 2000.
-	problem := Problem
+	problem := AdversityReport
 		date: (lastDay subtractDays: 15)
 		time: '18:00' asTime
 		plot: aPlot
-		name: 'Alternaria'
-		type: Problem types second.
+		description: 'Alternaria'
+		types: {AdversityReport types second}.
 	application := Application
 		date: (lastDay subtractDays: 10)
 		time: '18:00' asTime
@@ -210,12 +210,12 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlo
 		timeToHarvest: 50
 		harvestDuration: 7
 		expectedYield: 2000.
-	problem := Problem
+	problem := AdversityReport
 		date: (lastDay subtractDays: 5)
 		time: '18:00' asTime
 		plot: aPlot
-		name: 'Pulgón'
-		type: Problem types first.
+		description: 'Pulgón'
+		types: {AdversityReport types first}.
 	application := Application
 		date: (lastDay subtractDays: 2)
 		time: '18:00' asTime
@@ -255,60 +255,60 @@ ExampleDataLoaderToShowcaseTheDashboard >> addFarmerDemoData [
 ExampleDataLoaderToShowcaseTheDashboard >> addProblemsTo: plots [
 	(plots at: 1)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 5)
 				time: '18:00' asTime
 				plot: (plots at: 1)
-				name: 'Pulgón'
-				type: Problem types first).
+				description: 'Pulgón'
+				types: {AdversityReport types first}).
 	(plots at: 2)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 5)
 				time: '18:00' asTime
 				plot: (plots at: 2)
-				name: 'Mosca blanca'
-				type: Problem types fourth).
+				description: 'Mosca blanca'
+				types: {AdversityReport types fourth}).
 	(plots at: 3)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 10)
 				time: '18:00' asTime
 				plot: (plots at: 3)
-				name: 'Pulgón'
-				type: Problem types first).
+				description: 'Pulgón'
+				types: {AdversityReport types first}).
 	(plots at: 4)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 10)
 				time: '18:00' asTime
 				plot: (plots at: 4)
-				name: 'Mosca blanca'
-				type: Problem types fourth).
+				description: 'Mosca blanca'
+				types: {AdversityReport types fourth}).
 	(plots at: 5)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 5)
 				time: '18:00' asTime
 				plot: (plots at: 5)
-				name: 'Alternaria'
-				type: Problem types second).
+				description: 'Alternaria'
+				types: {AdversityReport types second}).
 	(plots at: 7)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 5)
 				time: '18:00' asTime
 				plot: (plots at: 7)
-				name: 'Alternaria'
-				type: Problem types second).
+				description: 'Alternaria'
+				types: {AdversityReport types second}).
 	(plots at: 8)
 		addEvent:
-			(Problem
+			(AdversityReport
 				date: (lastDay subtractDays: 5)
 				time: '18:00' asTime
 				plot: (plots at: 8)
-				name: 'Alternaria'
-				type: Problem types second)
+				description: 'Alternaria'
+				types: {AdversityReport types second})
 ]
 
 { #category : #constants }

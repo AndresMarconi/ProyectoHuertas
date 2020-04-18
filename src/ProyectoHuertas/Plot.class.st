@@ -112,7 +112,7 @@ Plot >> printOn: aStream [
 
 { #category : #accessing }
 Plot >> problems [
-	^ self events select: [ :event | event class = Problem ]
+	^ self events select: [ :event | event class = AdversityReport ]
 ]
 
 { #category : #accessing }

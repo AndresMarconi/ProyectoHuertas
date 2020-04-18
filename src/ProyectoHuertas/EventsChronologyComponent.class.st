@@ -96,6 +96,12 @@ EventsChronologyComponent >> renderPlotSelectorOn: html [
 ]
 
 { #category : #summaries }
+EventsChronologyComponent >> summaryForAdversityReport: anAdversityReport [
+	^ anAdversityReport adversityTypes asCommaString , ' ('
+		, anAdversityReport descriptionOfAdversities , ')'
+]
+
+{ #category : #summaries }
 EventsChronologyComponent >> summaryForApplication: anApplication [
 	^ anApplication substance comercialName , ': '
 		, anApplication quantity printString , ' (' , anApplication reason
@@ -126,11 +132,6 @@ EventsChronologyComponent >> summaryForHarvesting: aHarvesting [
 ]
 
 { #category : #summaries }
-EventsChronologyComponent >> summaryForProblem: aProblem [
-	^ aProblem name , ' (' , aProblem type , ')'
-]
-
-{ #category : #summaries }
 EventsChronologyComponent >> summaryForSowing: aSowing [
 	| stream |
 	stream := String new writeStream.
@@ -151,6 +152,6 @@ EventsChronologyComponent >> typeDescriptorFor: element [
 	^ {(Application -> 'Aplicación').
 	(CropSale -> 'Venta').
 	(Harvesting -> 'Cosecha').
-	(Problem -> 'Adversidad').
+	(AdversityReport -> 'Adversidad').
 	(Sowing -> 'Siembra')} asDictionary at: element class
 ]
