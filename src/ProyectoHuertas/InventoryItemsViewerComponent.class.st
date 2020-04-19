@@ -42,6 +42,24 @@ InventoryItemsViewerComponent >> columnValuesFor: element [
 	element quantity greaseString} , (super columnValuesFor: element)
 ]
 
+{ #category : #rendering }
+InventoryItemsViewerComponent >> definedWithdrawalStringFor: aSubstance [
+	| stream |
+	stream := String new writeStream.
+	(aSubstance withdrawalRecommendationsByDays associations
+		asSortedCollection: [ :a :b | a key < b key ])
+		do: [ :association | 
+			association value
+				do: [ :recommendation| stream nextPutAll:  recommendation crop vulgarName ]
+				separatedBy: [ stream nextPutAll: ', ' ].
+			stream nextPutAll: ': '.
+			stream
+				nextPutAll: association key asString;
+				nextPutAll: ' días' ]
+		separatedBy: [ stream nextPutAll: ' - ' ].
+	^ stream contents
+]
+
 { #category : #callbacks }
 InventoryItemsViewerComponent >> editElement: element [
 	(self
@@ -105,6 +123,8 @@ InventoryItemsViewerComponent >> renderContentOn: html [
 				column: [ html paragraph: [ html strong: 'Principios activos' ].
 					html paragraph: activeIngredienteNames asCommaString ]
 					mediumSize: 6 ].
+	html paragraph: [ html strong: 'Carencias' ].
+	html paragraph: (self definedWithdrawalStringFor: item substance).
 	html paragraph: [ html strong: 'Movimientos' ].
 	super renderContentOn: html
 ]
