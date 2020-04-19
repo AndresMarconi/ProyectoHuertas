@@ -15,7 +15,7 @@ Event class >> isVoyageRoot [
 
 { #category : #accessing }
 Event >> date [
-	^ dateAndTime asDate
+	^ dateAndTime ifNil: [ nil ] ifNotNil: [ :it | it asDate ]
 ]
 
 { #category : #accessing }
@@ -26,12 +26,6 @@ Event >> date: aDate [
 { #category : #accessing }
 Event >> dateAndTime [
 	^ dateAndTime
-]
-
-{ #category : #accessing }
-Event >> initialize [
-	super initialize.
-	dateAndTime := DateAndTime now
 ]
 
 { #category : #accessing }
@@ -57,7 +51,7 @@ Event >> summaryFor: aSummaryRequestor [
 
 { #category : #accessing }
 Event >> time [
-	^ dateAndTime asTime 
+	^ dateAndTime ifNil: [ nil ] ifNotNil: [ :it | it asTime ]
 ]
 
 { #category : #accessing }
