@@ -1,6 +1,6 @@
 Class {
 	#name : #InventoryComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 

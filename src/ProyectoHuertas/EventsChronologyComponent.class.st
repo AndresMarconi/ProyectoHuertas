@@ -1,6 +1,6 @@
 Class {
 	#name : #EventsChronologyComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#instVars : [
 		'plot'
 	],

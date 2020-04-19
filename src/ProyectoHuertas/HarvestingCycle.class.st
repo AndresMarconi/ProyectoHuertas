@@ -18,18 +18,18 @@ HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
 ]
 
-{ #category : #queries }
+{ #category : #chronology }
 HarvestingCycle >> dateOfLatestEvent [
 	events ifEmpty: [ ^ nil ].
 	^ (events collect: #date) max
 ]
 
-{ #category : #queries }
+{ #category : #chronology }
 HarvestingCycle >> daysToEndOfHarvest [
 	^self endOfPeriod subtractDate: Date today
 ]
 
-{ #category : #queries }
+{ #category : #chronology }
 HarvestingCycle >> daysToHarvest [
 	^self harvestDate subtractDate: Date today
 ]
@@ -39,8 +39,8 @@ HarvestingCycle >> endOfPeriod [
 	^ self harvestDate addDays: self harvestDuration.
 ]
 
-{ #category : #queries }
-HarvestingCycle >> endsOfWaitingPeriods [
+{ #category : #withdrawal }
+HarvestingCycle >> endsOfWithdrawalPeriods [
 	self aplications ifEmpty: [ ^ Array new ].
 	^ self aplications
 		collect: [ :app | app endOfWaitingPeriodFor: self latestSowing crop ]
@@ -72,18 +72,14 @@ HarvestingCycle >> harvests [
 	^ events select: [ :each | each class = Harvesting ]
 ]
 
-{ #category : #queries }
-HarvestingCycle >> inWaitingPeriod [
-	| waitingPeriods |
-	waitingPeriods := self aplications collect: [ :app | app endOfWaitingPeriodFor: self latestSowing crop ].
-	(waitingPeriods select: [ :wp | wp isAfter: Date today ])
-		ifEmpty: [ ^ nil ]
-		ifNotEmpty: [ :it | ^ (it first) subtractDate: Date today ]
-]
-
 { #category : #initialization }
 HarvestingCycle >> initialize [
 	events := OrderedCollection new. 
+]
+
+{ #category : #withdrawal }
+HarvestingCycle >> isInWithdrawal [
+	^ self withdrawalPeriodDaysLeft > 0
 ]
 
 { #category : #testing }
@@ -92,8 +88,13 @@ HarvestingCycle >> isStaggered [
 ]
 
 { #category : #events }
+HarvestingCycle >> latestHarvest [
+	^ self harvests ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it last ]
+]
+
+{ #category : #events }
 HarvestingCycle >> latestSowing [
-	self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it first ]
+	^ self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it last ]
 ]
 
 { #category : #events }
@@ -115,16 +116,16 @@ HarvestingCycle >> sowings [
 	^ events select: [ :each | each class = Sowing ]
 ]
 
-{ #category : #queries }
+{ #category : #chronology }
 HarvestingCycle >> timeOfLatestEvent [
 	events ifEmpty: [ ^ nil ].
 	^ (events collect: #time) max
 ]
 
-{ #category : #queries }
-HarvestingCycle >> waitingPeriodDaysLeft [
+{ #category : #withdrawal }
+HarvestingCycle >> withdrawalPeriodDaysLeft [
 	self sowings ifEmpty: [ ^ 0 ].
-	^ self endsOfWaitingPeriods
+	^ self endsOfWithdrawalPeriods
 		ifEmpty: [ 0 ]
 		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ]
 ]

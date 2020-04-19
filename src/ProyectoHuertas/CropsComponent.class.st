@@ -1,6 +1,6 @@
 Class {
 	#name : #CropsComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 

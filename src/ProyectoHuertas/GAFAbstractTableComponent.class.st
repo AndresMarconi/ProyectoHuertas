@@ -9,11 +9,16 @@ Class {
 
 { #category : #rendering }
 GAFAbstractTableComponent >> columnHeadings [
-	^ self
+	^ self subclassResponsibility 
 ]
 
 { #category : #rendering }
 GAFAbstractTableComponent >> columnValuesFor: element [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+GAFAbstractTableComponent >> elements [
 	^ self subclassResponsibility
 ]
 
@@ -70,8 +75,7 @@ GAFAbstractTableComponent >> renderTableBodyOn: html [
 { #category : #rendering }
 GAFAbstractTableComponent >> renderTableRowFor: element on: html [
 	(self columnValuesFor: element)
-		do: [ :value | html tableData: value ].
-	
+		do: [ :value | html tableData: [ html html: value ] ]
 ]
 
 { #category : #rendering }

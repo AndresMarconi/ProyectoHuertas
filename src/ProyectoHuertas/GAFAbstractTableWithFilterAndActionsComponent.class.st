@@ -1,5 +1,5 @@
 Class {
-	#name : #GAFAbstractTableWithOptionsComponent,
+	#name : #GAFAbstractTableWithFilterAndActionsComponent,
 	#superclass : #GAFAbstractTableComponent,
 	#instVars : [
 		'editEnabled',
@@ -13,12 +13,12 @@ Class {
 }
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> actionsEnabled [
+GAFAbstractTableWithFilterAndActionsComponent >> actionsEnabled [
 	^ removeEnabled | duplicateEnabled | editEnabled | viewEnabled
 ]
 
 { #category : #callbacks }
-GAFAbstractTableWithOptionsComponent >> addElement [
+GAFAbstractTableWithFilterAndActionsComponent >> addElement [
 	| element |
 	element := self
 		call: (self elementEditorClass subject: self elementClass new).
@@ -27,73 +27,68 @@ GAFAbstractTableWithOptionsComponent >> addElement [
 ]
 
 { #category : #testing }
-GAFAbstractTableWithOptionsComponent >> addEnabled [
+GAFAbstractTableWithFilterAndActionsComponent >> addEnabled [
 	^ addEnabled
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> columnHeadings [
+GAFAbstractTableWithFilterAndActionsComponent >> columnHeadings [
 	^ self actionsEnabled
 		ifTrue: [ {''} ]
 		ifFalse: [ {} ]
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> columnValuesFor: element [
+GAFAbstractTableWithFilterAndActionsComponent >> columnValuesFor: element [
 	^ {}
 ]
 
 { #category : #callbacks }
-GAFAbstractTableWithOptionsComponent >> duplicateElement: element [
+GAFAbstractTableWithFilterAndActionsComponent >> duplicateElement: element [
 	(self call: (self elementEditorClass subject: element copy))
 		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 
 { #category : #testing }
-GAFAbstractTableWithOptionsComponent >> duplicateEnabledFor: element [
+GAFAbstractTableWithFilterAndActionsComponent >> duplicateEnabledFor: element [
 	^ duplicateEnabled
 ]
 
 { #category : #callbacks }
-GAFAbstractTableWithOptionsComponent >> editElement: element [
+GAFAbstractTableWithFilterAndActionsComponent >> editElement: element [
 	(self
 		call: (self elementEditorClass subject: element))
 		ifNotNil: [ :it | self saveEditedElement: it ]
 ]
 
 { #category : #testing }
-GAFAbstractTableWithOptionsComponent >> editEnabledFor: element [
+GAFAbstractTableWithFilterAndActionsComponent >> editEnabledFor: element [
 	^ editEnabled
 ]
 
 { #category : #hooks }
-GAFAbstractTableWithOptionsComponent >> elementClass [
+GAFAbstractTableWithFilterAndActionsComponent >> elementClass [
 	"Returns the class of elements to edit and add"
 
 	^ self subclassResponsibility
 ]
 
 { #category : #hooks }
-GAFAbstractTableWithOptionsComponent >> elementEditorClass [
+GAFAbstractTableWithFilterAndActionsComponent >> elementEditorClass [
 	"Returns the class of editor used to edit elements"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
-GAFAbstractTableWithOptionsComponent >> elements [
-	^ self subclassResponsibility
-]
-
 { #category : #initialization }
-GAFAbstractTableWithOptionsComponent >> filterComponent [
+GAFAbstractTableWithFilterAndActionsComponent >> filterComponent [
 	^ filterComponent
 		ifNil: [ filterComponent := TableFilterComponent
 				columns: (self columnHeadings copyWithout: 'Acciones') ]
 ]
 
 { #category : #accessing }
-GAFAbstractTableWithOptionsComponent >> filteredElements [
+GAFAbstractTableWithFilterAndActionsComponent >> filteredElements [
 	^ self filterComponent shouldFilter
 		ifTrue: [ self elements
 				select: [ :each | 
@@ -105,7 +100,7 @@ GAFAbstractTableWithOptionsComponent >> filteredElements [
 ]
 
 { #category : #initialization }
-GAFAbstractTableWithOptionsComponent >> initialize [
+GAFAbstractTableWithFilterAndActionsComponent >> initialize [
 	super initialize.
 	viewEnabled := false.
 	editEnabled := true.
@@ -116,22 +111,22 @@ GAFAbstractTableWithOptionsComponent >> initialize [
 ]
 
 { #category : #accessing }
-GAFAbstractTableWithOptionsComponent >> parent: anObject [
+GAFAbstractTableWithFilterAndActionsComponent >> parent: anObject [
 	parent := anObject
 ]
 
 { #category : #callbacks }
-GAFAbstractTableWithOptionsComponent >> removeElement: element [
+GAFAbstractTableWithFilterAndActionsComponent >> removeElement: element [
 	^ self subclassResponsibility
 ]
 
 { #category : #testing }
-GAFAbstractTableWithOptionsComponent >> removeEnabledFor: element [
+GAFAbstractTableWithFilterAndActionsComponent >> removeEnabledFor: element [
 	^ removeEnabled
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderActionMenuFor: element on: html [
+GAFAbstractTableWithFilterAndActionsComponent >> renderActionMenuFor: element on: html [
 	html dropdown
 		with: [ html formButton
 				id: 'dropdownMenuButton';
@@ -164,7 +159,7 @@ GAFAbstractTableWithOptionsComponent >> renderActionMenuFor: element on: html [
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderAddButtonOn: html [
+GAFAbstractTableWithFilterAndActionsComponent >> renderAddButtonOn: html [
 	addEnabled
 		ifTrue: [ html
 				paragraph: [ html anchor
@@ -176,19 +171,19 @@ GAFAbstractTableWithOptionsComponent >> renderAddButtonOn: html [
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderContentOn: html [
+GAFAbstractTableWithFilterAndActionsComponent >> renderContentOn: html [
 	html render: self filterComponent.
 	super renderContentOn: html.
 	self renderAddButtonOn: html
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderSpecificActionsFor: element on: html [
+GAFAbstractTableWithFilterAndActionsComponent >> renderSpecificActionsFor: element on: html [
 	^ self
 ]
 
 { #category : #rendering }
-GAFAbstractTableWithOptionsComponent >> renderTableRowFor: element on: html [
+GAFAbstractTableWithFilterAndActionsComponent >> renderTableRowFor: element on: html [
 	super renderTableRowFor: element on: html.
 	self actionsEnabled
 		ifFalse: [ ^ self ].
@@ -196,21 +191,21 @@ GAFAbstractTableWithOptionsComponent >> renderTableRowFor: element on: html [
 ]
 
 { #category : #hooks }
-GAFAbstractTableWithOptionsComponent >> saveAddedElement: anElement [
+GAFAbstractTableWithFilterAndActionsComponent >> saveAddedElement: anElement [
 	anElement save
 ]
 
 { #category : #hooks }
-GAFAbstractTableWithOptionsComponent >> saveEditedElement: anElement [
+GAFAbstractTableWithFilterAndActionsComponent >> saveEditedElement: anElement [
 	anElement save
 ]
 
 { #category : #callbacks }
-GAFAbstractTableWithOptionsComponent >> viewElement: element [
+GAFAbstractTableWithFilterAndActionsComponent >> viewElement: element [
 	^ self
 ]
 
 { #category : #testing }
-GAFAbstractTableWithOptionsComponent >> viewEnabledFor: element [
+GAFAbstractTableWithFilterAndActionsComponent >> viewEnabledFor: element [
 	^ viewEnabled
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #InventoryItemsViewerComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#instVars : [
 		'item'
 	],

@@ -31,13 +31,23 @@ FarmerHomeComponent >> loadStressTestDemoData [
 ]
 
 { #category : #rendering }
+FarmerHomeComponent >> plotStatusOverviewComponentClass [
+	^ PlotStatusOverviewComponent
+]
+
+{ #category : #rendering }
 FarmerHomeComponent >> renderLeftMenuOn: html [
 	html
 		form: [ html
 				listGroup: [ self
 						renderMenuBlock:
-							{('Tablero de control' -> self dashboardComponentClass).
-							('Plantación y siembra' -> SowingComponent).
+							{('Tablero de comando' -> self dashboardComponentClass).
+							('Estado detallado' -> self plotStatusOverviewComponentClass)}
+						heading: 'Información'
+						on: html.
+					self
+						renderMenuBlock:
+							{('Plantación y siembra' -> SowingComponent).
 							('Adversidades' -> AdversityReportsComponent).
 							('Aplicaciones' -> ApplicationsComponent).
 							('Cosecha' -> HarvestComponent).

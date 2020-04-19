@@ -104,7 +104,7 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 HarvestingEditor >> labelForPlot: each [
 	| daysLeft note |
 	each ifNil: [ ^ '' ].
-	daysLeft := each waitingPeriodDaysLeft.
+	daysLeft := each withdrawalPeriodDaysLeft.
 	note := daysLeft > 0
 		ifTrue: [ ' (en carencia por ' , daysLeft printString , ' días más)' ]
 		ifFalse: [ '' ].

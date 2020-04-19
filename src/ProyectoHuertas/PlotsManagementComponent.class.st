@@ -1,6 +1,6 @@
 Class {
 	#name : #PlotsManagementComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 

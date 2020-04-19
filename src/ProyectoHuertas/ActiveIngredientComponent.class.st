@@ -1,6 +1,6 @@
 Class {
 	#name : #ActiveIngredientComponent,
-	#superclass : #GAFAbstractTableWithOptionsComponent,
+	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
 	#category : #'ProyectoHuertas-ui-expert'
 }
 

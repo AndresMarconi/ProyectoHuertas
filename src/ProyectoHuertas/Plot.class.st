@@ -50,6 +50,11 @@ Plot >> dateOfLatestEvent [
 	^ currentCycle dateOfLatestEvent
 ]
 
+{ #category : #'current cycle' }
+Plot >> endsOfWithdrawalPeriods [
+	^ currentCycle endsOfWithdrawalPeriods
+]
+
 { #category : #accessing }
 Plot >> events [
 	^ events asSortedCollection: [ :a :b | a date > b date ]
@@ -93,6 +98,11 @@ Plot >> initialize [
 	super initialize.
 	currentCycle := HarvestingCycle new.
 	events := OrderedCollection new
+]
+
+{ #category : #'current cycle' }
+Plot >> isInWithdrawal [
+	^ currentCycle isInWithdrawal
 ]
 
 { #category : #'current cycle' }
@@ -153,7 +163,7 @@ Plot >> timeOfLatestEvent [
 	^ currentCycle timeOfLatestEvent
 ]
 
-{ #category : #utility }
-Plot >> waitingPeriodDaysLeft [
-	^ currentCycle waitingPeriodDaysLeft
+{ #category : #'current cycle' }
+Plot >> withdrawalPeriodDaysLeft [
+	^ currentCycle withdrawalPeriodDaysLeft
 ]
