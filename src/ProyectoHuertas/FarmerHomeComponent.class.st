@@ -12,6 +12,11 @@ FarmerHomeComponent >> barBrand [
 ]
 
 { #category : #rendering }
+FarmerHomeComponent >> cropStatusOverviewComponentClass [
+	^ CropStatusOverviewComponent
+]
+
+{ #category : #rendering }
 FarmerHomeComponent >> dashboardComponentClass [
 	^ FarmerDashboardComponent
 ]
@@ -42,7 +47,8 @@ FarmerHomeComponent >> renderLeftMenuOn: html [
 				listGroup: [ self
 						renderMenuBlock:
 							{('Tablero de comando' -> self dashboardComponentClass).
-							('Estado detallado' -> self plotStatusOverviewComponentClass)}
+							('Lotes' -> self plotStatusOverviewComponentClass).
+							('Cultivos' -> self cropStatusOverviewComponentClass)}
 						heading: 'Información'
 						on: html.
 					self
