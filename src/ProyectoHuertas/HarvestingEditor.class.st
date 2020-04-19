@@ -84,6 +84,9 @@ HarvestingEditor >> initializeOtherUnitEditorComponent [
 { #category : #initialization }
 HarvestingEditor >> initializePlotEditorComponent [
 	super initializePlotEditorComponent.
+	plotEditorComponent
+		labelsBlock: [ :each |  
+			self labelForPlot: each ].
 	plotEditorComponent dependentWidget: cropEditorComponent
 ]
 
@@ -95,6 +98,17 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 		selector: #quantity
 		label: 'Cantidad (Kg)'
 		required: true
+]
+
+{ #category : #initialization }
+HarvestingEditor >> labelForPlot: each [
+	| daysLeft note |
+	each ifNil: [ ^ '' ].
+	daysLeft := each waitingPeriodDaysLeft.
+	note := daysLeft > 0
+		ifTrue: [ ' (en carencia por ' , daysLeft printString , ' días más)' ]
+		ifFalse: [ '' ].
+	^ each id, note
 ]
 
 { #category : #accessing }

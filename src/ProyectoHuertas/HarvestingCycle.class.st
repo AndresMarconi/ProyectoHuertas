@@ -28,7 +28,7 @@ HarvestingCycle >> daysToHarvest [
 	^self harvestDate subtractDate: Date today
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingCycle >> endOfPeriod [
 	^ self harvestDate addDays: self harvestDuration.
 ]
@@ -38,17 +38,17 @@ HarvestingCycle >> events [
 	^ events
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingCycle >> harvestDate [
 	^self sowing date addDays: self sowing timeToHarvest
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingCycle >> harvestDuration [
 	^self sowing harvestDuration
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 HarvestingCycle >> harvested [
 	^ self harvests inject: 0 into: [ :sum :harvest | sum + harvest quantity ]
 ]
@@ -61,7 +61,7 @@ HarvestingCycle >> harvests [
 { #category : #queries }
 HarvestingCycle >> inWaitingPeriod [
 	| waitingPeriods |
-	waitingPeriods := self aplications collect: [ :app | app waitingPeriodFor: self sowing crop ].
+	waitingPeriods := self aplications collect: [ :app | app endOfWaitingPeriodFor: self sowing crop ].
 	(waitingPeriods select: [ :wp | wp isAfter: Date today ])
 		ifEmpty: [ ^ nil ]
 		ifNotEmpty: [ :it | ^ (it first) subtractDate: Date today ]
@@ -94,4 +94,17 @@ HarvestingCycle >> sowing [
 { #category : #queries }
 HarvestingCycle >> sowings [
 	^ events select: [ :each | each class = Sowing ]
+]
+
+{ #category : #queries }
+HarvestingCycle >> waitingPeriodDaysLeft [
+	| endsOfWaitingPeriod |
+	self sowings ifEmpty: [ ^ 0 ].
+	self aplications ifEmpty: [ ^ 0 ].
+	endsOfWaitingPeriod := self aplications
+		collect: [ :app | app endOfWaitingPeriodFor: self sowing crop ]
+		thenSelect: [ :each | each isAfter: Date today ].
+	^ endsOfWaitingPeriod
+		ifEmpty: [ 0 ]
+		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ]
 ]

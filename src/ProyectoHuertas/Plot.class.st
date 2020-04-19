@@ -142,3 +142,8 @@ Plot >> surface [
 Plot >> surface: anObject [
 	surface := anObject
 ]
+
+{ #category : #utility }
+Plot >> waitingPeriodDaysLeft [
+	^ currentCycle waitingPeriodDaysLeft
+]

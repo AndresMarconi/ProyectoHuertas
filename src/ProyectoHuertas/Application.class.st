@@ -37,6 +37,13 @@ Application >> dose: anObject [
 	dose := anObject
 ]
 
+{ #category : #queries }
+Application >> endOfWaitingPeriodFor: aCrop [
+	"Returns the date for the end of the waiting period of  crop - in case not waiting period is necesary, returns the date and time of application"
+
+	^ self date addDays: (substance maxWithdrawalTimeFor: aCrop)
+]
+
 { #category : #accessing }
 Application >> initialize [
 	super initialize.
@@ -76,9 +83,4 @@ Application >> substance: anObject [
 { #category : #printing }
 Application >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForApplication: self
-]
-
-{ #category : #queries }
-Application >> waitingPeriodFor: aCrop [
-	^ dateAndTime asDate addDays: (substance maxWithdrawalTimeFor: aCrop)
 ]
