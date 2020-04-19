@@ -13,7 +13,7 @@ PlotsInWithdrawalTimeComponent >> columnHeadings [
 PlotsInWithdrawalTimeComponent >> columnValuesFor: element [
 
 	^ {element id.
-		(element currentCycle sowing) crop vulgarName.
+		(element currentCycle latestSowing) crop vulgarName.
 		((element currentCycle aplications) last) substance comercialName.
 		(element currentCycle inWaitingPeriod asString), ' dias'}
 ]

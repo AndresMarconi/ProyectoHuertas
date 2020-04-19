@@ -132,7 +132,7 @@ Farm >> plots [
 
 { #category : #accessing }
 Farm >> plotsWithSowing [
-	^ plots reject: [ :plot | plot currentCycle sowing isNil ]
+	^ plots reject: [ :plot | plot currentCycle latestSowing isNil ]
 ]
 
 { #category : #'move-to-gapafarm' }

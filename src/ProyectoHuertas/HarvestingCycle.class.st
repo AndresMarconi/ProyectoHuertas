@@ -13,7 +13,7 @@ HarvestingCycle >> addEvent: anEvent [
 	events add: anEvent 
 ]
 
-{ #category : #queries }
+{ #category : #events }
 HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
 ]
@@ -33,6 +33,14 @@ HarvestingCycle >> endOfPeriod [
 	^ self harvestDate addDays: self harvestDuration.
 ]
 
+{ #category : #queries }
+HarvestingCycle >> endsOfWaitingPeriods [
+	self aplications ifEmpty: [ ^ Array new ].
+	^ self aplications
+		collect: [ :app | app endOfWaitingPeriodFor: self latestSowing crop ]
+		thenSelect: [ :each | each isAfter: Date today ]
+]
+
 { #category : #accessing }
 HarvestingCycle >> events [
 	^ events
@@ -40,12 +48,12 @@ HarvestingCycle >> events [
 
 { #category : #accessing }
 HarvestingCycle >> harvestDate [
-	^self sowing date addDays: self sowing timeToHarvest
+	^self latestSowing date addDays: self latestSowing timeToHarvest
 ]
 
 { #category : #accessing }
 HarvestingCycle >> harvestDuration [
-	^self sowing harvestDuration
+	^self latestSowing harvestDuration
 ]
 
 { #category : #accessing }
@@ -53,7 +61,7 @@ HarvestingCycle >> harvested [
 	^ self harvests inject: 0 into: [ :sum :harvest | sum + harvest quantity ]
 ]
 
-{ #category : #queries }
+{ #category : #events }
 HarvestingCycle >> harvests [
 	^ events select: [ :each | each class = Harvesting ]
 ]
@@ -61,15 +69,25 @@ HarvestingCycle >> harvests [
 { #category : #queries }
 HarvestingCycle >> inWaitingPeriod [
 	| waitingPeriods |
-	waitingPeriods := self aplications collect: [ :app | app endOfWaitingPeriodFor: self sowing crop ].
+	waitingPeriods := self aplications collect: [ :app | app endOfWaitingPeriodFor: self latestSowing crop ].
 	(waitingPeriods select: [ :wp | wp isAfter: Date today ])
 		ifEmpty: [ ^ nil ]
 		ifNotEmpty: [ :it | ^ (it first) subtractDate: Date today ]
 ]
 
-{ #category : #events }
+{ #category : #initialization }
 HarvestingCycle >> initialize [
 	events := OrderedCollection new. 
+]
+
+{ #category : #testing }
+HarvestingCycle >> isStaggered [
+	^ self sowings size > 1
+]
+
+{ #category : #events }
+HarvestingCycle >> latestSowing [
+	self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it first ]
 ]
 
 { #category : #events }
@@ -77,7 +95,7 @@ HarvestingCycle >> removeEvent: anEvent [
 	events remove: anEvent ifAbsent: [ nil ]
 ]
 
-{ #category : #events }
+{ #category : #private }
 HarvestingCycle >> restart [
 	events ifEmpty: [ ^ self ].
 	events last class = Application | (events last class = AdversityReport)
@@ -86,25 +104,15 @@ HarvestingCycle >> restart [
 	events := OrderedCollection new
 ]
 
-{ #category : #queries }
-HarvestingCycle >> sowing [
-	self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it first ]
-]
-
-{ #category : #queries }
+{ #category : #events }
 HarvestingCycle >> sowings [
 	^ events select: [ :each | each class = Sowing ]
 ]
 
 { #category : #queries }
 HarvestingCycle >> waitingPeriodDaysLeft [
-	| endsOfWaitingPeriod |
 	self sowings ifEmpty: [ ^ 0 ].
-	self aplications ifEmpty: [ ^ 0 ].
-	endsOfWaitingPeriod := self aplications
-		collect: [ :app | app endOfWaitingPeriodFor: self sowing crop ]
-		thenSelect: [ :each | each isAfter: Date today ].
-	^ endsOfWaitingPeriod
+	^ self endsOfWaitingPeriods
 		ifEmpty: [ 0 ]
 		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ]
 ]

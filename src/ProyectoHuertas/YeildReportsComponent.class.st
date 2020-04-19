@@ -15,7 +15,7 @@ YeildReportsComponent >> columnValuesFor: element [
 	^ {element id.
 		element currentCrop vulgarName.
 		element currentCycle harvested.
-		element currentCycle sowing expectedYield.
+		element currentCycle latestSowing expectedYield.
 		(element currentCycle daysToEndOfHarvest asString), ' dias'}
 ]
 

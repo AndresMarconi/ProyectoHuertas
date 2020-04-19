@@ -37,7 +37,7 @@ Plot >> aplications [
 
 { #category : #'current cycle' }
 Plot >> currentCrop [
-	^ (self currentCycle sowing) crop
+	^ (self currentCycle latestSowing) crop
 ]
 
 { #category : #'current cycle' }
