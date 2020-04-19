@@ -14,14 +14,14 @@ BaselineOfParasolHuertas >> baseline: spec [
 				proyectoHuertas: spec.
 			spec
 				package: 'ParasolHuertas'
-				with: [ spec requires: #('ProyectoHuertas' 'Parasol') ].
+				with: [ spec requires: #('ProyectoHuertas' 'Parasol-Core') ].
 			spec postLoadDoIt: #postLoadActions ]
 ]
 
 { #category : #baselines }
 BaselineOfParasolHuertas >> parasol: spec [
 	spec
-		baseline: 'Parasol'
+		package: 'Parasol-Core'
 		with: [ spec repository: 'github://SeasideSt/Parasol:master/repository' ]
 ]
 
