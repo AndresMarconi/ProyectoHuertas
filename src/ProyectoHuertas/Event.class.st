@@ -20,7 +20,9 @@ Event >> date [
 
 { #category : #accessing }
 Event >> date: aDate [
-	dateAndTime := DateAndTime date: aDate time: dateAndTime asTime
+	dateAndTime := DateAndTime
+		date: aDate
+		time: (dateAndTime ifNil: [ '00:00' asTime ] ifNotNil: [ :it | it asTime ])
 ]
 
 { #category : #accessing }
@@ -56,5 +58,7 @@ Event >> time [
 
 { #category : #accessing }
 Event >> time: aTime [
-	dateAndTime := DateAndTime date: dateAndTime asDate time: aTime
+	dateAndTime := DateAndTime
+		date: (dateAndTime ifNil: [ Date today ] ifNotNil: [ :it | it asDate ])
+		time: aTime
 ]

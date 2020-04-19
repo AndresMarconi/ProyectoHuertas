@@ -38,9 +38,16 @@ Farm >> addSale: anObject [
 	sales add: anObject
 ]
 
-{ #category : #'move-to-gapafarm' }
+{ #category : #events }
 Farm >> aplications [
 	^ plots flatCollect: [ :each | each aplications ]
+]
+
+{ #category : #utility }
+Farm >> dateOfLatestEvent [
+	^ ((self plots collect: #dateOfLatestEvent) copyWithout: nil)
+		ifEmpty: [ nil ]
+		ifNotEmpty: [ :it | it max ]
 ]
 
 { #category : #accessing }
@@ -73,7 +80,7 @@ Farm >> harvestingUnits: anObject [
 	harvestingUnits := anObject
 ]
 
-{ #category : #'move-to-gapafarm' }
+{ #category : #events }
 Farm >> harvestings [ 
 	^ self plots flatCollect: [ :each | each harvests ]
 ]
@@ -135,7 +142,7 @@ Farm >> plotsWithSowing [
 	^ plots reject: [ :plot | plot currentCycle latestSowing isNil ]
 ]
 
-{ #category : #'move-to-gapafarm' }
+{ #category : #events }
 Farm >> problems [
 	^ self plots flatCollect: [ :each | each problems ]
 ]
@@ -145,9 +152,16 @@ Farm >> sales [
 	^ sales
 ]
 
-{ #category : #'move-to-gapafarm' }
+{ #category : #events }
 Farm >> sowings [  
 	^ self plots flatCollect: [ :each | each sowings ]
+]
+
+{ #category : #utility }
+Farm >> timeOfLatestEvent [
+	^ ((self plots collect: #timeOfLatestEvent) copyWithout: nil)
+		ifEmpty: [ nil ]
+		ifNotEmpty: [ :it | it max ]
 ]
 
 { #category : #accessing }

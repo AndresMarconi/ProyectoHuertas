@@ -45,6 +45,11 @@ Plot >> currentCycle [
 	^ currentCycle
 ]
 
+{ #category : #'current cycle' }
+Plot >> dateOfLatestEvent [
+	^ currentCycle dateOfLatestEvent
+]
+
 { #category : #accessing }
 Plot >> events [
 	^ events asSortedCollection: [ :a :b | a date > b date ]
@@ -141,6 +146,11 @@ Plot >> surface [
 { #category : #accessing }
 Plot >> surface: anObject [
 	surface := anObject
+]
+
+{ #category : #'current cycle' }
+Plot >> timeOfLatestEvent [
+	^ currentCycle timeOfLatestEvent
 ]
 
 { #category : #utility }

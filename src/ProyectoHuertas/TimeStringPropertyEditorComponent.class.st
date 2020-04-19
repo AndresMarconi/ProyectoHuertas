@@ -24,7 +24,7 @@ TimeStringPropertyEditorComponent >> renderInputOn: html [
 		value:
 			(bufferedValue
 				ifNil: [ nil ]
-				ifNotNil: [ :it | it endsOfWaitingPeriods ]);
+				ifNotNil: [ :it | it print24WithoutSeconds ]);
 		callback: [ :value | self handleCallbackWith: value ];
 		id: self id
 ]

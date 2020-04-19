@@ -19,6 +19,12 @@ HarvestingCycle >> aplications [
 ]
 
 { #category : #queries }
+HarvestingCycle >> dateOfLatestEvent [
+	events ifEmpty: [ ^ nil ].
+	^ (events collect: #date) max
+]
+
+{ #category : #queries }
 HarvestingCycle >> daysToEndOfHarvest [
 	^self endOfPeriod subtractDate: Date today
 ]
@@ -107,6 +113,12 @@ HarvestingCycle >> restart [
 { #category : #events }
 HarvestingCycle >> sowings [
 	^ events select: [ :each | each class = Sowing ]
+]
+
+{ #category : #queries }
+HarvestingCycle >> timeOfLatestEvent [
+	events ifEmpty: [ ^ nil ].
+	^ (events collect: #time) max
 ]
 
 { #category : #queries }

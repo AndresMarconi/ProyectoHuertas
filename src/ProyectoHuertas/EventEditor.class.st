@@ -28,7 +28,8 @@ EventEditor >> initializeComponents [
 	super initializeComponents.
 	self initializeDateEditorComponent.
 	self initializeTimeEditorComponent.
-	self initializePlotEditorComponent
+	self initializePlotEditorComponent.
+	self suggestDateAndTimeIfMissing
 ]
 
 { #category : #initialization }
@@ -67,4 +68,14 @@ EventEditor >> initializeTimeEditorComponent [
 { #category : #accessing }
 EventEditor >> plots [
 	^ self session farm plots asOrderedCollection
+]
+
+{ #category : #initialization }
+EventEditor >> suggestDateAndTimeIfMissing [
+	dateEditorComponent bufferedValue
+		ifNil: [ dateEditorComponent
+				bufferedValue: self session farm dateOfLatestEvent ].
+	timeEditorComponent bufferedValue
+		ifNil: [ timeEditorComponent
+				bufferedValue: self session farm timeOfLatestEvent ]
 ]
