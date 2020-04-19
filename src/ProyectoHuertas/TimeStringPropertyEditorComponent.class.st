@@ -22,8 +22,9 @@ TimeStringPropertyEditorComponent >> renderInputOn: html [
 		formControl;
 		placeholder: 'hh:mm';
 		value:
-			(bufferedValue ifNil: [ Time now ] ifNotNil: [ :it | it ])
-				print24WithoutSeconds;
+			(bufferedValue
+				ifNil: [ nil ]
+				ifNotNil: [ :it | it endsOfWaitingPeriods ]);
 		callback: [ :value | self handleCallbackWith: value ];
 		id: self id
 ]
