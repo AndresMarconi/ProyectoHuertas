@@ -19,18 +19,28 @@ InventoryComponent >> addMovement: anInventoryItem [
 ]
 
 { #category : #rendering }
+InventoryComponent >> applicabilitiesStringFor: element [
+	^ (SenasaCatalogue singleton
+		applicabilitiesForSubstance: element substance) asCommaString
+]
+
+{ #category : #rendering }
+InventoryComponent >> balanceStringFor: element [
+	^ element balance asString , ' ' , element substance unit
+]
+
+{ #category : #rendering }
 InventoryComponent >> columnHeadings [
-	^ {'Nombre comercial' . 'Aptitud' . 'Disponible'}
-		, super columnHeadings
+	^ {'Nombre comercial' . 'Aptitud' . 'Cultivos autorizados'.
+	'Disponible'} , super columnHeadings
 ]
 
 { #category : #rendering }
 InventoryComponent >> columnValuesFor: element [
 	^ {element substance comercialName.
-	(SenasaCatalogue singleton
-		applicabilitiesForSubstance: element substance) asCommaString.
-	(element balance asString , ' ' , element substance unit)}
-		, (super columnValuesFor: element)
+	(self applicabilitiesStringFor: element).
+	(self registeredCropsStringFor: element).
+	(self balanceStringFor: element)} , (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
@@ -58,6 +68,12 @@ InventoryComponent >> initialize [
 	duplicateEnabled := false.
 	editEnabled := false.
 	viewEnabled := true
+]
+
+{ #category : #rendering }
+InventoryComponent >> registeredCropsStringFor: element [
+	^ (SenasaCatalogue singleton
+		registeredCropNamesForSubstance: element substance) asCommaString
 ]
 
 { #category : #rendering }

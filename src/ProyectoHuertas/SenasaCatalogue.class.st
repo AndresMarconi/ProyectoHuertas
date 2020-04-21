@@ -116,6 +116,14 @@ SenasaCatalogue >> registeredCropNamesForActiveIngredientNamed: aTradeName [
 ]
 
 { #category : #queries }
+SenasaCatalogue >> registeredCropNamesForSubstance: aSubstance [
+	^ (aSubstance activeIngredients
+		flatCollectAsSet:
+			[ :ingredient | self registeredCropNamesForActiveIngredientNamed: ingredient tradeName])
+		asSortedCollection
+]
+
+{ #category : #queries }
 SenasaCatalogue >> registeredIngredientsForCropNamed: aCropName [
 	^ ((records select: [ :each | each refersToCropNamed: aCropName ])
 		collect: #activeIngredientTradeName) asSet asSortedCollection
