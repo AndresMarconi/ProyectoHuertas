@@ -147,3 +147,11 @@ HarvestingCycle >> withdrawalPeriodDaysLeft [
 		ifEmpty: [ 0 ]
 		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ]
 ]
+
+{ #category : #testing }
+HarvestingCycle >> wouldRestartIfSowing: aSowing [
+	^ self latestSowing
+		ifNil: [ false ]
+		ifNotNil:
+			[ :it | it dateAndTime < aSowing dateAndTime & (it crop ~= aSowing crop) ]
+]
