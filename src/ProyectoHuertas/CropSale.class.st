@@ -34,6 +34,11 @@ CropSale >> crop: anObject [
 ]
 
 { #category : #accessing }
+CropSale >> dateAndTime [
+	^ sale date asDateAndTime
+]
+
+{ #category : #accessing }
 CropSale >> kilograms [
 	^ kilograms
 ]
