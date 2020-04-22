@@ -12,6 +12,24 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
+{ #category : #callbacks }
+SowingEditor >> accept [
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
+	subject plot currentCrop
+		ifNotNil: [ :currentCrop | 
+			currentCrop ~= subject crop
+				ifTrue: [ (self halt
+						confirm:
+							'En el lote ' , subject plot id , ' hay actualmente '
+								, currentCrop vulgarName
+								, ' ¿está seguro de que quiere dar inicio a un nuevo ciclo plantando '
+								, subject crop vulgarName , '?')
+						ifFalse: [ ^ self cancel ] ] ].
+	self answer: subject
+]
+
 { #category : #accessing }
 SowingEditor >> crops [
 	^ (self session farm mostFrequentelyPlanted: 10) , {nil}
