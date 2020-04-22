@@ -14,6 +14,11 @@ GAFEditor >> children [
 	^ {commentEditorComponent}
 ]
 
+{ #category : #'ui requests' }
+GAFEditor >> confirm: message [
+	^ self call: (FOMYesNoDialog message: message)
+]
+
 { #category : #initialization }
 GAFEditor >> initializeComponents [
 	commentEditorComponent := TextAreaPropertyEditorComponent 

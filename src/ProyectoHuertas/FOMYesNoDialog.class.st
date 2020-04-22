@@ -31,19 +31,20 @@ FOMYesNoDialog >> no [
 
 { #category : #rendering }
 FOMYesNoDialog >> renderContentOn: html [
-	html paragraph: message.
 	html
-		paragraph: [ html anchor
-				callback: [ self yes ];
-				with: [ html formButton
-						bePrimary;
-						with: 'Si' ].
-			html space.
-			html anchor
-				callback: [ self no ];
-				with: [ html formButton
-						beSecondary;
-						with: 'No' ] ]
+		container: [ html paragraph: message.
+			html
+				paragraph: [ html anchor
+						callback: [ self yes ];
+						with: [ html formButton
+								bePrimary;
+								with: 'Si' ].
+					html space.
+					html anchor
+						callback: [ self no ];
+						with: [ html formButton
+								beSecondary;
+								with: 'No' ] ] ]
 ]
 
 { #category : #callbacks }
