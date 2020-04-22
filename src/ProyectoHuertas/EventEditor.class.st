@@ -39,7 +39,8 @@ EventEditor >> initializeDateEditorComponent [
 		subject: subject
 		selector: #date
 		label: 'Fecha'
-		required: true
+		required: true.
+	subject date ifNotNil: [ dateEditorComponent readOnly: true ]
 ]
 
 { #category : #'subclass-responsibility' }
@@ -63,7 +64,8 @@ EventEditor >> initializeTimeEditorComponent [
 		subject: subject
 		selector: #time
 		label: 'Hora'
-		required: true
+		required: true.
+	subject time ifNotNil: [ timeEditorComponent readOnly: true ]
 ]
 
 { #category : #initialization }

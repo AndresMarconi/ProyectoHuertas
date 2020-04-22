@@ -21,6 +21,13 @@ DatePropertyEditorComponent >> obtainValueFromString: aString [
 DatePropertyEditorComponent >> renderInputOn: html [
 	| input |
 	input := html textInput.
+	readOnly
+		ifTrue: [ input
+				formControl;
+				readonly: readOnly;
+				value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it asDate ddmmyyyy ]);
+				id: self id.
+			^ self ].
 	input
 		noAutocomplete;
 		formControl;
@@ -35,4 +42,13 @@ DatePropertyEditorComponent >> renderInputOn: html [
 				onSelect: html jQuery ajax serializeThis).
 	required
 		ifTrue: [ input attributeAt: 'required' put: 'on' ]
+]
+
+{ #category : #hooks }
+DatePropertyEditorComponent >> renderReadOnlyOn: html [
+	html textInput
+		formControl;
+		readonly: readOnly;
+		value: (bufferedValue ifNil: [ '' ] ifNotNil: [ :it | it asDate ddmmyyyy ]);
+		id: self id
 ]

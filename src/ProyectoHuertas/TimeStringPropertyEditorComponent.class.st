@@ -19,6 +19,7 @@ TimeStringPropertyEditorComponent >> obtainValueFromString: aString [
 TimeStringPropertyEditorComponent >> renderInputOn: html [
 	html textInput
 		noAutocomplete;
+		readonly: readOnly ;
 		formControl;
 		placeholder: 'hh:mm';
 		value:
