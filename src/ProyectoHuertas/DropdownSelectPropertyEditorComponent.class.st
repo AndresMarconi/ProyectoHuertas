@@ -33,6 +33,13 @@ DropdownSelectPropertyEditorComponent >> initialize [
 	possibleValuesBlock := [ OrderedCollection new ]
 ]
 
+{ #category : #rendering }
+DropdownSelectPropertyEditorComponent >> labelFor: each [
+	^ labelsBlock
+		ifNil: [ each printString ]
+		ifNotNil: [ labelsBlock value: each ]
+]
+
 { #category : #accessing }
 DropdownSelectPropertyEditorComponent >> labelsBlock [
 	^ labelsBlock
@@ -75,5 +82,5 @@ DropdownSelectPropertyEditorComponent >> renderInputOn: html [
 		ifTrue: [ html textInput
 				formControl;
 				readonly: true;
-				with: bufferedValue ]
+				with: (self labelFor: bufferedValue) ]
 ]

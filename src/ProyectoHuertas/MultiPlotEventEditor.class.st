@@ -27,14 +27,17 @@ MultiPlotEventEditor >> initializePlotEditorComponent [
 		id: 'plotSelector'
 		subject: self
 		selector: #selectedPlots
-		label: 'Lotes afectados'
+		label: 'Lotes afectados - Cultivos'
 		required: true.
 	plotEditorComponent
 		rows: (10 min: self plots size);
 		possibleValuesBlock: [ self plots ];
 		labelsBlock: [ :each | self labelForPlot: each ];
 		instructions: 'mantenga oprimido Ctrl para seleccionar varios'.
-	subject plot ifNotNil: [ plotEditorComponent readOnly: true ]
+	subject plot
+		ifNotNil: [ plotEditorComponent
+				readOnly: true;
+				label: 'Lote afectado - Cultivo' ]
 ]
 
 { #category : #accessing }

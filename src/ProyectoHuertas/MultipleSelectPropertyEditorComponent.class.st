@@ -24,6 +24,13 @@ MultipleSelectPropertyEditorComponent >> initialize [
 	rows := 5
 ]
 
+{ #category : #hooks }
+MultipleSelectPropertyEditorComponent >> labelFor: each [
+	^ labelsBlock
+		ifNil: [ each printString ]
+		ifNotNil: [ labelsBlock value: each ]
+]
+
 { #category : #accessing }
 MultipleSelectPropertyEditorComponent >> labelsBlock [
 	^ labelsBlock
@@ -68,7 +75,7 @@ MultipleSelectPropertyEditorComponent >> renderReadOnlyOn: html [
 				formControl;
 				readonly: true;
 				with:
-					(bufferedValue collect: [ :each | self stringFor: each ])
+					(bufferedValue collect: [ :each | self labelFor: each ])
 						asCommaString ]
 ]
 
@@ -80,11 +87,4 @@ MultipleSelectPropertyEditorComponent >> rows [
 { #category : #accessing }
 MultipleSelectPropertyEditorComponent >> rows: anObject [
 	rows := anObject
-]
-
-{ #category : #hooks }
-MultipleSelectPropertyEditorComponent >> stringFor: each [
-	^ labelsBlock
-		ifNil: [ each printString ]
-		ifNotNil: [ labelsBlock value: each ]
 ]

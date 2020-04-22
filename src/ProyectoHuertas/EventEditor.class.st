@@ -52,7 +52,8 @@ EventEditor >> initializePlotEditorComponent [
 		required: true.
 	plotEditorComponent
 		possibleValuesBlock: [ {nil} , self plots ];
-		labelsBlock: [ :each | self labelForPlot: each ]
+		labelsBlock: [ :each | self labelForPlot: each ].
+	subject plot ifNotNil: [ plotEditorComponent readOnly: true. ]
 ]
 
 { #category : #initialization }
