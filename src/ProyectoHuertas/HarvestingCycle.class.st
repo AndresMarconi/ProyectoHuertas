@@ -18,6 +18,11 @@ HarvestingCycle >> addEvent: anEvent [
 ]
 
 { #category : #events }
+HarvestingCycle >> adversities [
+	^ events select: [ :each | each class = AdversityReport ]
+]
+
+{ #category : #events }
 HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
 ]
@@ -100,6 +105,14 @@ HarvestingCycle >> isInWithdrawal [
 { #category : #testing }
 HarvestingCycle >> isStaggered [
 	^ self sowings size > 1
+]
+
+{ #category : #events }
+HarvestingCycle >> latestAdversity [
+	^ (self adversities
+		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ])
+		ifEmpty: [ ^ nil ]
+		ifNotEmpty: [ :it | ^ it first ]
 ]
 
 { #category : #events }
