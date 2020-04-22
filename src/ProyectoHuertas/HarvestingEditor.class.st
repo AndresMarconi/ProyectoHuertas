@@ -60,14 +60,6 @@ HarvestingEditor >> initializeOtherUnitEditorComponent [
 ]
 
 { #category : #initialization }
-HarvestingEditor >> initializePlotEditorComponent [
-	super initializePlotEditorComponent.
-	plotEditorComponent
-		label: 'Lote - Cultivo';
-		labelsBlock: [ :each | self labelForPlot: each ]
-]
-
-{ #category : #initialization }
 HarvestingEditor >> initializeQuantityEditorComponent [
 	quantityEditorComponent := NumberPropertyEditorComponent
 		id: 'quantity'
@@ -75,24 +67,6 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 		selector: #quantity
 		label: 'Cantidad (Kg)'
 		required: true
-]
-
-{ #category : #initialization }
-HarvestingEditor >> labelForPlot: each [
-	| daysLeft |
-	each ifNil: [ ^ '' ].
-	^ String
-		streamContents: [ :stream | 
-			stream nextPutAll: each id.
-			each currentCycle latestSowing
-				ifNotNil: [ :it | 
-					stream
-						nextPutAll: ' - ';
-						nextPutAll: it crop vulgarName ].
-			daysLeft := each withdrawalPeriodDaysLeft.
-			daysLeft > 0
-				ifTrue: [ stream
-						nextPutAll: ' (en carencia por ' , daysLeft printString , ' días más)' ] ]
 ]
 
 { #category : #accessing }

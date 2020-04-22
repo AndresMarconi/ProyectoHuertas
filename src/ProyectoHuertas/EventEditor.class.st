@@ -48,11 +48,11 @@ EventEditor >> initializePlotEditorComponent [
 		id: 'plotSelector'
 		subject: subject
 		selector: #plot
-		label: 'Lote'
+		label: 'Lote - Cultivo presente'
 		required: true.
 	plotEditorComponent
 		possibleValuesBlock: [ {nil} , self plots ];
-		labelsBlock: [ :each | each ifNil: [  ] ifNotNil: [ each id ] ]
+		labelsBlock: [ :each | self labelForPlot: each ]
 ]
 
 { #category : #initialization }
@@ -63,6 +63,26 @@ EventEditor >> initializeTimeEditorComponent [
 		selector: #time
 		label: 'Hora'
 		required: true
+]
+
+{ #category : #initialization }
+EventEditor >> labelForPlot: each [
+	| daysLeft |
+	each ifNil: [ ^ '' ].
+	^ String
+		streamContents: [ :stream | 
+			stream nextPutAll: each id.
+			each currentCycle latestSowing
+				ifNotNil: [ :it | 
+					stream
+						nextPutAll: ' - ';
+						nextPutAll: it crop vulgarName ].
+			daysLeft := each withdrawalPeriodDaysLeft.
+			daysLeft > 0
+				ifTrue: [ stream
+						nextPutAll: ' (en carencia por ';
+						nextPutAll: daysLeft printString;
+						nextPutAll: ' días más)' ] ]
 ]
 
 { #category : #accessing }

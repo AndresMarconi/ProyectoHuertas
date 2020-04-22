@@ -32,7 +32,7 @@ MultiPlotEventEditor >> initializePlotEditorComponent [
 	plotEditorComponent
 		rows: (10 min: self plots size);
 		possibleValuesBlock: [ self plots ];
-		labelsBlock: [ :each | each ifNil: [  ] ifNotNil: [ each id ] ];
+		labelsBlock: [ :each | self labelForPlot: each ];
 		instructions: 'mantenga oprimido Ctrl para seleccionar varios'.
 	subject plot ifNotNil: [ plotEditorComponent readOnly: true ]
 ]
