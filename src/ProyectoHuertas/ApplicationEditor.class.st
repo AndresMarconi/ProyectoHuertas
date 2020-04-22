@@ -52,6 +52,14 @@ ApplicationEditor >> initializeMachineEditorComponent [
 ]
 
 { #category : #initialization }
+ApplicationEditor >> initializePlotEditorComponent [
+	super initializePlotEditorComponent.
+	plotEditorComponent
+		label: 'Lote - Cultivo';
+		labelsBlock: [ :each | self labelForPlot: each ]
+]
+
+{ #category : #initialization }
 ApplicationEditor >> initializeQuantityEditorComponent [
 	quantityEditorComponent := NumberPropertyEditorComponent
 		id: 'quantity'
@@ -90,6 +98,19 @@ ApplicationEditor >> inventoryItemFor: aSubstance [
 { #category : #accessing }
 ApplicationEditor >> inventoryItems [
 	^ self session farm inventoryItems
+]
+
+{ #category : #initialization }
+ApplicationEditor >> labelForPlot: each [
+	each ifNil: [ ^ '' ].
+	^ String
+		streamContents: [ :stream | 
+			stream nextPutAll: each id.
+			each currentCycle latestSowing
+				ifNotNil: [ :it | 
+					stream
+						nextPutAll: ' - ';
+						nextPutAll: it crop vulgarName ] ]
 ]
 
 { #category : #rendering }

@@ -79,7 +79,7 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 
 { #category : #initialization }
 HarvestingEditor >> labelForPlot: each [
-	| daysLeft note |
+	| daysLeft |
 	each ifNil: [ ^ '' ].
 	^ String
 		streamContents: [ :stream | 
@@ -90,7 +90,7 @@ HarvestingEditor >> labelForPlot: each [
 						nextPutAll: ' - ';
 						nextPutAll: it crop vulgarName ].
 			daysLeft := each withdrawalPeriodDaysLeft.
-			note := daysLeft > 0
+			daysLeft > 0
 				ifTrue: [ stream
 						nextPutAll: ' (en carencia por ' , daysLeft printString , ' días más)' ] ]
 ]
