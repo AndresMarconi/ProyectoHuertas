@@ -49,11 +49,11 @@ FarmerHomeComponent >> renderLeftMenuOn: html [
 							{('Tablero de comando' -> self dashboardComponentClass).
 							('Lotes' -> self plotStatusOverviewComponentClass).
 							('Cultivos' -> self cropStatusOverviewComponentClass)}
-						heading: 'Información'
+						heading: 'La granja hoy'
 						on: html.
 					self
 						renderMenuBlock:
-							{('Plantación y siembra' -> SowingComponent).
+							{('Implantación' -> SowingComponent).
 							('Adversidades' -> AdversityReportsComponent).
 							('Aplicaciones' -> ApplicationsComponent).
 							('Cosecha' -> HarvestComponent).
