@@ -37,7 +37,9 @@ Plot >> aplications [
 
 { #category : #'current cycle' }
 Plot >> currentCrop [
-	^ (self currentCycle latestSowing) crop
+	^ self currentCycle latestSowing
+		ifNil: [ nil ]
+		ifNotNil: [ :sowing | sowing crop ]
 ]
 
 { #category : #'current cycle' }

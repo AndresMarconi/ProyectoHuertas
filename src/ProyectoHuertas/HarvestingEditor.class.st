@@ -11,13 +11,13 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
-{ #category : #accessing }
-HarvestingEditor >> crops [
-
-	^ {nil}
-		,
-			(self cropsActiveInSelectedPlot
-				ifEmpty: [ self session gapAFarm crops ])
+{ #category : #callbacks }
+HarvestingEditor >> accept [
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
+	subject crop: subject plot currentCycle latestSowing crop.
+	self answer: subject
 ]
 
 { #category : #accessing }
@@ -33,7 +33,6 @@ HarvestingEditor >> cropsActiveInSelectedPlot [
 HarvestingEditor >> eventSpecificChildren [
 	^ {quantityEditorComponent.
 	otherUnitEditorComponent.
-	cropEditorComponent.
 	cultivarEditorComponent}
 ]
 
@@ -42,22 +41,10 @@ HarvestingEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
-	self initializeCropEditorComponent.
 	self initializeCultivarEditorComponent.
 	self initializeQuantityEditorComponent.
 	self initializeOtherUnitEditorComponent.
-	self initializePlotEditorComponent
-]
-
-{ #category : #initialization }
-HarvestingEditor >> initializeCropEditorComponent [
-	cropEditorComponent := DropdownSelectPropertyEditorComponent
-		id: 'cropSelector'
-		subject: subject
-		selector: #crop
-		label: 'Cultivo'
-		required: true.
-	cropEditorComponent possibleValuesBlock: [ self crops ]
+	self initializePlotEditorComponent.
 ]
 
 { #category : #initialization }
@@ -85,9 +72,8 @@ HarvestingEditor >> initializeOtherUnitEditorComponent [
 HarvestingEditor >> initializePlotEditorComponent [
 	super initializePlotEditorComponent.
 	plotEditorComponent
-		labelsBlock: [ :each |  
-			self labelForPlot: each ].
-	plotEditorComponent dependentWidget: cropEditorComponent
+		label: 'Lote - Cultivo';
+		labelsBlock: [ :each | self labelForPlot: each ]
 ]
 
 { #category : #initialization }
@@ -104,11 +90,23 @@ HarvestingEditor >> initializeQuantityEditorComponent [
 HarvestingEditor >> labelForPlot: each [
 	| daysLeft note |
 	each ifNil: [ ^ '' ].
-	daysLeft := each withdrawalPeriodDaysLeft.
-	note := daysLeft > 0
-		ifTrue: [ ' (en carencia por ' , daysLeft printString , ' días más)' ]
-		ifFalse: [ '' ].
-	^ each id, note
+	^ String
+		streamContents: [ :stream | 
+			stream nextPutAll: each id.
+			each currentCycle latestSowing
+				ifNotNil: [ :it | 
+					stream
+						nextPutAll: ' - ';
+						nextPutAll: it crop vulgarName ].
+			daysLeft := each withdrawalPeriodDaysLeft.
+			note := daysLeft > 0
+				ifTrue: [ stream
+						nextPutAll: ' (en carencia por ' , daysLeft printString , ' días más)' ] ]
+]
+
+{ #category : #accessing }
+HarvestingEditor >> plots [
+	^ self session farm plots select: [ :each | each currentCrop notNil ]
 ]
 
 { #category : #accessing }

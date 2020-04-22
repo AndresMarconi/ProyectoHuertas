@@ -133,6 +133,11 @@ PropertyEditorComponent >> instructions: anObject [
 	instructions := anObject
 ]
 
+{ #category : #accessing }
+PropertyEditorComponent >> label: anObject [
+	label := anObject
+]
+
 { #category : #hooks }
 PropertyEditorComponent >> obtainValueFromString: value [
 	^ value
