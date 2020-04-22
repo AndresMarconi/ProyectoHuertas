@@ -9,13 +9,28 @@ Class {
 
 { #category : #events }
 HarvestingCycle >> addEvent: anEvent [
-	anEvent species = Sowing ifTrue: [ self restart. ].
-	events add: anEvent 
+	(events notEmpty
+		and: [ anEvent dateAndTime < self dateAndTimeOfFirstEvent ])
+		ifTrue: [ ^ self ].
+	(anEvent species = Sowing and: [ anEvent crop ~= self crop ])
+		ifTrue: [ self restart ].
+	events add: anEvent
 ]
 
 { #category : #events }
 HarvestingCycle >> aplications [
 	^ events select: [ :each | each class = Application ]
+]
+
+{ #category : #events }
+HarvestingCycle >> crop [
+	^ self latestSowing ifNil: [ nil ] ifNotNil: [ :it | it crop ]
+]
+
+{ #category : #chronology }
+HarvestingCycle >> dateAndTimeOfFirstEvent [
+	events ifEmpty: [ ^ nil ].
+	^ (events collect: #dateAndTime) min
 ]
 
 { #category : #chronology }
@@ -94,7 +109,10 @@ HarvestingCycle >> latestHarvest [
 
 { #category : #events }
 HarvestingCycle >> latestSowing [
-	^ self sowings ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it last ]
+	^ (self sowings
+		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ])
+		ifEmpty: [ ^ nil ]
+		ifNotEmpty: [ :it | ^ it first ]
 ]
 
 { #category : #events }
