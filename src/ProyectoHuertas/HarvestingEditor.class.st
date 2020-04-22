@@ -20,15 +20,6 @@ HarvestingEditor >> accept [
 	self answer: subject
 ]
 
-{ #category : #accessing }
-HarvestingEditor >> cropsActiveInSelectedPlot [
-	| selectedPlot |
-	selectedPlot := plotEditorComponent bufferedValue.
-	selectedPlot ifNil: [ ^ OrderedCollection new ].
-	^ (selectedPlot currentCycle sowings collect: #crop) asSet
-		asSortedCollection: [ :a :b | a vulgarName < b vulgarName ]
-]
-
 { #category : #'subclass-responsibility' }
 HarvestingEditor >> eventSpecificChildren [
 	^ {quantityEditorComponent.
