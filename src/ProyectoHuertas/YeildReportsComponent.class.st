@@ -1,6 +1,6 @@
 Class {
 	#name : #YeildReportsComponent,
-	#superclass : #GAFAbstractTableComponent,
+	#superclass : #GAFAbstractWidgetComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
@@ -32,8 +32,6 @@ YeildReportsComponent >> parent [
 	^ parent
 ]
 
-{ #category : #rendering }
-YeildReportsComponent >> renderContentOn: html [
-	paginator elementsPerPage: 5.
-	super renderContentOn: html
+{ #category : #'as yet unclassified' }
+YeildReportsComponent >> viewAll [
 ]

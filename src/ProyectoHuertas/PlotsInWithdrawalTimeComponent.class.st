@@ -1,6 +1,6 @@
 Class {
 	#name : #PlotsInWithdrawalTimeComponent,
-	#superclass : #GAFAbstractTableComponent,
+	#superclass : #GAFAbstractWidgetComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
@@ -30,8 +30,6 @@ PlotsInWithdrawalTimeComponent >> parent [
 	^ parent
 ]
 
-{ #category : #rendering }
-PlotsInWithdrawalTimeComponent >> renderContentOn: html [
-	paginator elementsPerPage: 5.
-	super renderContentOn: html
+{ #category : #'as yet unclassified' }
+PlotsInWithdrawalTimeComponent >> viewAll [
 ]

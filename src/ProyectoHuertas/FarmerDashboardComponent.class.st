@@ -15,7 +15,7 @@ Class {
 FarmerDashboardComponent >> initializeComponents [
 	plotsInwithdrawalTimeComponent:=
 		(DashboardCardDecorator new
-				component: PlotsInWithdrawalTimeComponent new;
+				component: (PlotsInWithdrawalTimeComponent rows: 5);
 				title: 'En carencia';
 				subtitle:
 					'Respete las carencias correspondientes a los fitosanitarios aplicados.';
@@ -24,7 +24,7 @@ FarmerDashboardComponent >> initializeComponents [
 				yourself).
 	nextToHarvestComponent:=
 		(DashboardCardDecorator new
-				component: NextToHarvestComponent new;
+				component: (NextToHarvestComponent rows: 5);
 				title: 'Próximo a cosechar';
 				subtitle:
 					'Los siguientes fechas de cosecha de acercan - evite aplicar fitosanitarios.';
@@ -33,21 +33,21 @@ FarmerDashboardComponent >> initializeComponents [
 				yourself).
 	yieldReportsComponent:=
 		(DashboardCardDecorator new
-				component: YeildReportsComponent new;
+				component: (YeildReportsComponent rows: 5);
 				title: 'Progreso de la cosecha';
 				subtitle: 'Su rinde actual vs. el esperato y el óptimo.';
 				size: 6; 
 				yourself).
 	newsDahboardComponent:=
 		(DashboardCardDecorator new
-				component: NewsDahboardComponent new;
+				component: (NewsDahboardComponent rows: 5);
 				title: 'Noticias';
 				subtitle: 'Ultimas noticias, seleccionadas para usted.';
 				size: 6;
 				yourself).
 	gapAlertComponent :=
 		(DashboardCardDecorator new
-				component: GAPAlertDahboardComponent new;
+				component: (GAPAlertDahboardComponent rows: 5);
 				title: 'Alerta de buenas practicas';
 				subtitle: 'Se encontraron los siguientes incumplimiento en buenas practicas.';
 				size: 6;

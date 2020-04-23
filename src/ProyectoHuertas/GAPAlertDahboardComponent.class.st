@@ -1,6 +1,6 @@
 Class {
 	#name : #GAPAlertDahboardComponent,
-	#superclass : #GAFAbstractTableComponent,
+	#superclass : #GAFAbstractWidgetComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
@@ -38,4 +38,8 @@ GAPAlertDahboardComponent >> renderContentOn: html [
 									with: [ html formButton
 										bePrimary;
 										with: [ html span class: 'fa fa-eye' ] ] ] ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+GAPAlertDahboardComponent >> viewAll [
 ]

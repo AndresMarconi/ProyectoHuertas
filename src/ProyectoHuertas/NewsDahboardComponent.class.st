@@ -1,6 +1,6 @@
 Class {
 	#name : #NewsDahboardComponent,
-	#superclass : #GAFAbstractTableComponent,
+	#superclass : #GAFAbstractWidgetComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
@@ -31,4 +31,8 @@ NewsDahboardComponent >> renderContentOn: html [
 								tableData: [ html anchor
 										url: '';
 										with: 'Tomate platense, ¿el mas rico de todos?' ] ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+NewsDahboardComponent >> viewAll [
 ]

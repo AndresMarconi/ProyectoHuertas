@@ -1,6 +1,6 @@
 Class {
 	#name : #NextToHarvestComponent,
-	#superclass : #GAFAbstractTableComponent,
+	#superclass : #GAFAbstractWidgetComponent,
 	#category : #'ProyectoHuertas-ui-farmer-dashboard'
 }
 
@@ -35,8 +35,6 @@ NextToHarvestComponent >> plotsInWaitingPeriod [
 	^ self session farm plots reject: [ :plot | plot isInWithdrawal ]
 ]
 
-{ #category : #rendering }
-NextToHarvestComponent >> renderContentOn: html [
-	paginator elementsPerPage: 5.
-	super renderContentOn: html.
+{ #category : #'as yet unclassified' }
+NextToHarvestComponent >> viewAll [
 ]
