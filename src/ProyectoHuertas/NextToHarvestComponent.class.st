@@ -32,7 +32,7 @@ NextToHarvestComponent >> parent [
 
 { #category : #'as yet unclassified' }
 NextToHarvestComponent >> plotsInWaitingPeriod [
-	^ self session farm plots reject: [ :plot | plot isInWithdrawal ]
+	^ self session farm plots select: [ :plot | plot isInWithdrawal ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -18,7 +18,9 @@ GAFAbstractWidgetComponent class >> rows: aRowQuantity [
 GAFAbstractWidgetComponent >> renderButtonShowAllOn: html [
 	(self elements size > rows)
 		ifTrue: [ html
-				paragraph: [ html anchor
+				paragraph 
+					class: 'd-flex flex-row-reverse';
+					with: [ html anchor
 					   id: 'view-All-button';
 						callback: [ self viewAll ];
 						with: [ html formButton
@@ -30,6 +32,7 @@ GAFAbstractWidgetComponent >> renderButtonShowAllOn: html [
 GAFAbstractWidgetComponent >> renderContentOn: html [
 	paginator elementsPerPage: rows.
 	self renderElementsTableOn: html.
+	self renderButtonShowAllOn: html
 ]
 
 { #category : #accessing }
