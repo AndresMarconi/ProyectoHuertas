@@ -18,7 +18,7 @@ GAFAbstractDashboardComponent >> initializeComponents [
 { #category : #rendering }
 GAFAbstractDashboardComponent >> renderContentOn: html [
 	html
-		row: [ self sortedWigets
+		row: [ self sortedWigets 
 				do: [ :widget | 
 					widget hasElementsToShow
 						ifTrue: [ html column: [ html render: widget ] mediumSize: widget sizeOfColumn ] ] ]

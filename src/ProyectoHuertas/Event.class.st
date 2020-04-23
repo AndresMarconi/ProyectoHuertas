@@ -43,7 +43,6 @@ Event >> plot: anObject [
 { #category : #copying }
 Event >> postCopy [
 	plot := nil.
-	dateAndTime := nil.
 	^ self
 ]
 
