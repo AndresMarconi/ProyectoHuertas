@@ -32,4 +32,5 @@ PlotsInWithdrawalTimeComponent >> parent [
 
 { #category : #'as yet unclassified' }
 PlotsInWithdrawalTimeComponent >> viewAll [
+	^parent call: PlotsInWithdrawalTimePageComponent new
 ]

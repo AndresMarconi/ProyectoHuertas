@@ -14,6 +14,14 @@ GAFAbstractWidgetComponent class >> rows: aRowQuantity [
 		yourself
 ]
 
+{ #category : #accessing }
+GAFAbstractWidgetComponent class >> rows: aRowQuantity parent: aParent [
+	^ self new
+		rows: aRowQuantity;
+		parent: aParent;
+		yourself
+]
+
 { #category : #rendering }
 GAFAbstractWidgetComponent >> renderButtonShowAllOn: html [
 	(self elements size > rows)
