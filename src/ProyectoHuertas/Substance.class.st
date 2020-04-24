@@ -46,7 +46,7 @@ Substance >> allowedUsage [
 	^ withdrawalPeriodRecommendations collect: [ :each | each crop ]
 ]
 
-{ #category : #'withdrawal-periods' }
+{ #category : #testing }
 Substance >> canBeSafelyAppliedTo: aCrop [
 	"returns true if the substance is exempt for the crop, or the withdrawal time is known"
 
