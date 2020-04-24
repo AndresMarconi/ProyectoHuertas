@@ -116,6 +116,14 @@ HarvestingCycle >> latestAdversity [
 ]
 
 { #category : #events }
+HarvestingCycle >> latestApplication [
+	^ (self aplications
+		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ])
+		ifEmpty: [ ^ nil ]
+		ifNotEmpty: [ :it | ^ it first ]
+]
+
+{ #category : #events }
 HarvestingCycle >> latestHarvest [
 	^ self harvests ifEmpty: [ ^ nil ] ifNotEmpty: [ :it | ^ it last ]
 ]

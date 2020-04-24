@@ -11,9 +11,9 @@ PlotStatusOverviewComponent >> adversitySummaryForPlot: aPlot [
 			aPlot currentCycle latestAdversity
 				ifNotNil: [ :it | 
 					stream
-						nextPutAll: 'Se <b>reportó ';
+						nextPutAll: '<b>';
 						nextPutAll: it descriptionOfAdversities;
-						nextPutAll: '</b> hace ';
+						nextPutAll: ':</b> hace ';
 						nextPutAll: (Date today - it date) asDays truncated printString;
 						nextPutAll: ' días (el ';
 						nextPutAll: it date ddmmyyyy;
@@ -24,16 +24,21 @@ PlotStatusOverviewComponent >> adversitySummaryForPlot: aPlot [
 PlotStatusOverviewComponent >> applicationsSummaryForPlot: aPlot [
 	^ String
 		streamContents: [ :stream | 
-			aPlot isInWithdrawal
-				ifTrue: [ stream
-						nextPutAll: '<span style="color:red">En carencia hasta el ';
-						nextPutAll: aPlot endsOfWithdrawalPeriods max ddmmyyyy;
-						nextPutAll: '. </span>' ] ]
+			aPlot currentCycle latestApplication
+				ifNotNil: [ :it | 
+					stream
+						nextPutAll: '<b> ';
+						nextPutAll: it substance comercialName;
+						nextPutAll: '</b> hace ';
+						nextPutAll: (Date today - it date) asDays truncated printString;
+						nextPutAll: ' días (el ';
+						nextPutAll: it date ddmmyyyy;
+						nextPutAll: '). ' ] ]
 ]
 
 { #category : #rendering }
 PlotStatusOverviewComponent >> columnHeadings [
-	^ {'Lote' . 'Implantación' . 'Adversidades'}
+	^ {'Lote' . 'Implantación' . 'Adversidades'. 'Aplicaciones'}
 ]
 
 { #category : #rendering }
@@ -43,7 +48,9 @@ PlotStatusOverviewComponent >> columnValuesFor: element [
 
 	^ {element id.
 	(self sowingSummaryForPlot: element).
-	(self adversitySummaryForPlot: element)}
+	(self adversitySummaryForPlot: element).
+	((self applicationsSummaryForPlot: element)
+		, (self withdrawalSummaryForPlot: element))}
 ]
 
 { #category : #accessing }
@@ -82,11 +89,22 @@ PlotStatusOverviewComponent >> sowingSummaryForPlot: aPlot [
 			aPlot currentCycle latestSowing
 				ifNotNil: [ :it | 
 					stream
-						nextPutAll: 'Se <b>sembró ';
+						nextPutAll: '<b>';
 						nextPutAll: it crop vulgarName;
-						nextPutAll: '</b> hace ';
+						nextPutAll: ':</b> hace ';
 						nextPutAll: (Date today - it date) asDays truncated printString;
 						nextPutAll: ' días (el ';
 						nextPutAll: it date ddmmyyyy;
 						nextPutAll: '). ' ] ]
+]
+
+{ #category : #summaries }
+PlotStatusOverviewComponent >> withdrawalSummaryForPlot: aPlot [
+	^ String
+		streamContents: [ :stream | 
+			aPlot isInWithdrawal
+				ifTrue: [ stream
+						nextPutAll: '<span style="color:red">En carencia hasta el ';
+						nextPutAll: aPlot endsOfWithdrawalPeriods max ddmmyyyy;
+						nextPutAll: '. </span>' ] ]
 ]
