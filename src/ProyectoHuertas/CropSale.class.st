@@ -34,6 +34,11 @@ CropSale >> crop: anObject [
 ]
 
 { #category : #accessing }
+CropSale >> date [
+	^ sale date asDate
+]
+
+{ #category : #accessing }
 CropSale >> dateAndTime [
 	^ sale date asDateAndTime
 ]
@@ -61,4 +66,9 @@ CropSale >> sale: anObject [
 { #category : #printing }
 CropSale >> summaryFor: aSummaryRequestor [
 	^ aSummaryRequestor summaryForCropSale: self
+]
+
+{ #category : #accessing }
+CropSale >> time [
+	^ sale date asTime
 ]
