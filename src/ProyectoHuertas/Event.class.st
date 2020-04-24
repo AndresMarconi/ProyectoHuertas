@@ -31,6 +31,11 @@ Event >> dateAndTime [
 ]
 
 { #category : #accessing }
+Event >> dateAndTime: anUndefinedObject [ 
+	dateAndTime := anUndefinedObject
+]
+
+{ #category : #accessing }
 Event >> plot [
 	^ plot
 ]
@@ -38,12 +43,6 @@ Event >> plot [
 { #category : #accessing }
 Event >> plot: anObject [
 	plot := anObject
-]
-
-{ #category : #copying }
-Event >> postCopy [
-	plot := nil.
-	^ self
 ]
 
 { #category : #printing }

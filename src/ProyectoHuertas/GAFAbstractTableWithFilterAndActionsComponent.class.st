@@ -43,9 +43,14 @@ GAFAbstractTableWithFilterAndActionsComponent >> columnValuesFor: element [
 	^ {}
 ]
 
+{ #category : #hooks }
+GAFAbstractTableWithFilterAndActionsComponent >> duplicate: element [
+	^ element copy
+]
+
 { #category : #callbacks }
 GAFAbstractTableWithFilterAndActionsComponent >> duplicateElement: element [
-	(self call: (self elementEditorClass subject: element copy))
+	(self call: (self elementEditorClass subject: (self duplicate: element)))
 		ifNotNil: [ :it | self saveAddedElement: it ]
 ]
 

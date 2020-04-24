@@ -15,12 +15,20 @@ EventsTableComponent >> columnValuesFor: element [
 	element plot id}
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #hooks }
+EventsTableComponent >> duplicate: anEvent [
+	^ (super duplicate: anEvent)
+		plot: nil;
+		dateAndTime: nil;
+		yourself
+]
+
+{ #category : #private }
 EventsTableComponent >> generalColumnHeadings [
 	^super columnHeadings
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 EventsTableComponent >> generalColumnValuesFor: element [
 	^super columnValuesFor: element
 ]
