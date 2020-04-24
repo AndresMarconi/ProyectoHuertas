@@ -14,7 +14,9 @@ PlotsInWithdrawalTimeComponent >> columnValuesFor: element [
 	^ {element id.
 	element currentCycle latestSowing crop vulgarName.
 	element currentCycle aplications last substance comercialName.
-	(element currentCycle withdrawalPeriodDaysLeft asString , ' dias')}
+	([ element currentCycle withdrawalPeriodDaysLeft asString , ' dias' ]
+		on: MissingWithdrawalInformationException
+		do: [ '¿?' ])}
 ]
 
 { #category : #accessing }

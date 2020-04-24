@@ -46,7 +46,7 @@ SenasaCatalogue >> addRecords: aCollectionOfRecords [
 		asSortedCollection
 ]
 
-{ #category : #queries }
+{ #category : #'substance specific' }
 SenasaCatalogue >> applicabilitiesForSubstance: aSubstance [
 	^ self
 		combinedApplicabilitiesFor: (aSubstance activeIngredients collect: #tradeName) asSet
@@ -82,6 +82,27 @@ SenasaCatalogue >> isExempt: anActiveIngredientTradeName [
 		allSatisfy: #isExempt
 ]
 
+{ #category : #testing }
+SenasaCatalogue >> isExempt: anActiveIngredientTradeName for: aCropVulgarName [
+	(self cropVulgarNames includes: aCropVulgarName)
+		ifFalse: [ ^ false ].
+	^ (self isExempt: anActiveIngredientTradeName)
+		or: [ (self recordsForCropNamed: aCropVulgarName)
+				allSatisfy: [ :each | each isExempt ] ]
+]
+
+{ #category : #'substance specific' }
+SenasaCatalogue >> isSubstanceExempt: aSubstance [
+	^ (aSubstance activeIngredients collect: #tradeName)
+		allSatisfy: [ :each | self isExempt: each ]
+]
+
+{ #category : #'substance specific' }
+SenasaCatalogue >> isSubstanceExempt: aSubstance for: aCrop [
+	^ (aSubstance activeIngredients collect: #tradeName)
+		allSatisfy: [ :each | self isExempt: each for: aCrop vulgarName]
+]
+
 { #category : #accessing }
 SenasaCatalogue >> records [
 	^ records
@@ -115,7 +136,7 @@ SenasaCatalogue >> registeredCropNamesForActiveIngredientNamed: aTradeName [
 		asSortedCollection
 ]
 
-{ #category : #queries }
+{ #category : #'substance specific' }
 SenasaCatalogue >> registeredCropNamesForSubstance: aSubstance [
 	^ (aSubstance activeIngredients
 		flatCollectAsSet:

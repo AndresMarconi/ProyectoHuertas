@@ -32,7 +32,7 @@ FOMYesNoDialog >> no [
 { #category : #rendering }
 FOMYesNoDialog >> renderContentOn: html [
 	html
-		container: [ html paragraph: message.
+		container: [ html paragraph: [ html html: message ].
 			html
 				paragraph: [ html anchor
 						callback: [ self yes ];

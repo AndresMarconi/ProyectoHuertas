@@ -61,7 +61,12 @@ HarvestingCycle >> endOfPeriod [
 
 { #category : #withdrawal }
 HarvestingCycle >> endsOfWithdrawalPeriods [
+	"Returns the dates for the end of the waiting periods of all applications in this cycle - in case not waiting period is necesary, returns the date and time of application.
+	
+	Raises MissingWithdrawalInformationException the withdrawal perios is needed and has not been set. "
+
 	self aplications ifEmpty: [ ^ Array new ].
+	self sowings ifEmpty: [ ^ Array new ].
 	^ self aplications
 		collect: [ :app | app endOfWaitingPeriodFor: self latestSowing crop ]
 		thenSelect: [ :each | each isAfter: Date today ]
@@ -99,7 +104,9 @@ HarvestingCycle >> initialize [
 
 { #category : #withdrawal }
 HarvestingCycle >> isInWithdrawal [
-	^ self withdrawalPeriodDaysLeft > 0
+	^ [ self withdrawalPeriodDaysLeft > 0 ]
+		on: MissingWithdrawalInformationException
+		do: [ true ]
 ]
 
 { #category : #testing }

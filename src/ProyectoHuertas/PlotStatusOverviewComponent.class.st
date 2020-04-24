@@ -100,11 +100,13 @@ PlotStatusOverviewComponent >> sowingSummaryForPlot: aPlot [
 
 { #category : #summaries }
 PlotStatusOverviewComponent >> withdrawalSummaryForPlot: aPlot [
-	^ String
-		streamContents: [ :stream | 
-			aPlot isInWithdrawal
-				ifTrue: [ stream
-						nextPutAll: '<span style="color:red">En carencia hasta el ';
-						nextPutAll: aPlot endsOfWithdrawalPeriods max ddmmyyyy;
-						nextPutAll: '. </span>' ] ]
+	| message |
+	message := [ aPlot endsOfWithdrawalPeriods
+		ifEmpty: [ '' ]
+		ifNotEmpty: [ :ends | 
+			'<span style="color:red">En carencia hasta el ' , ends max ddmmyyyy
+				, '. </span>' ] ]
+		on: MissingWithdrawalInformationException
+		do: [ '<span style="color:red">En carencia por tiempo desconocido</span>' ].
+	^ message
 ]

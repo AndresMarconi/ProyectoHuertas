@@ -32,8 +32,8 @@ Substance >> activeIngredients: anObject [
 ]
 
 { #category : #accessing }
-Substance >> addActiveIngredient: anObject [
-	activeIngredients add: anObject
+Substance >> addActiveIngredient: anActiveIngrediente [
+	activeIngredients add: anActiveIngrediente
 ]
 
 { #category : #'withdrawal-periods' }
@@ -44,6 +44,15 @@ Substance >> addWithdrawalRecommendation: withdrawalPeriodRecommendation [
 { #category : #accessing }
 Substance >> allowedUsage [
 	^ withdrawalPeriodRecommendations collect: [ :each | each crop ]
+]
+
+{ #category : #'withdrawal-periods' }
+Substance >> canBeSafelyAppliedTo: aCrop [
+	"returns true if the substance is exempt for the crop, or the withdrawal time is known"
+
+	^ (SenasaCatalogue singleton isSubstanceExempt: self for: aCrop)
+		or: [ (withdrawalPeriodRecommendations
+				select: [ :wp | wp crop = aCrop & wp daysToWait notNil ]) notEmpty ]
 ]
 
 { #category : #accessing }
@@ -90,14 +99,6 @@ Substance >> manufacturer [
 { #category : #accessing }
 Substance >> manufacturer: anObject [
 	manufacturer := anObject
-]
-
-{ #category : #'withdrawal-periods' }
-Substance >> maxWithdrawalTimeFor: aCrop [
-	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
-		collect: [ :wp | wp daysToWait ])
-		ifEmpty: [ 0 ]
-		ifNotEmpty: [ :times | times max ]
 ]
 
 { #category : #copying }
@@ -157,4 +158,17 @@ Substance >> withdrawalRecommendationsByDays [
 				at: recommendation daysToWait 
 				ifAbsentPut: OrderedCollection new) add: recommendation ].
 	^ simplifiedWithdrawalPeriodRecommendations
+]
+
+{ #category : #'withdrawal-periods' }
+Substance >> withdrawalTimeFor: aCrop [
+	"Returns the withdrawal time for this substance and the crop. If it should have been specified but it was not, signals MissingWithdrawalInformationException"
+
+	(SenasaCatalogue singleton isSubstanceExempt: self for: aCrop)
+		ifTrue: [ ^ 0 ].
+	^ ((withdrawalPeriodRecommendations select: [ :wp | wp crop = aCrop ])
+		collect: [ :wp | wp daysToWait ])
+		ifEmpty: [ (MissingWithdrawalInformationException crop: aCrop substance: self)
+				signal ]
+		ifNotEmpty: [ :times | times max ]
 ]

@@ -18,12 +18,7 @@ SowingEditor >> accept [
 		ifTrue: [ ^ self ].
 	self children do: #accept.
 	(subject plot currentCycle wouldRestartIfSowing: subject)
-		ifTrue: [ (self
-				confirm:
-					'En el lote ' , subject plot id , ' hay actualmente '
-						, subject plot currentCycle crop vulgarName
-						, ' ¿está seguro de que quiere dar inicio a un nuevo ciclo plantando '
-						, subject crop vulgarName , '?')
+		ifTrue: [ self shouldProceed
 				ifFalse: [ ^ self cancel ] ].
 	self answer: subject
 ]
@@ -139,4 +134,14 @@ SowingEditor >> renderChildrenOn: html [
 	timeToHarvestEditorComponent.
 	harvestDurationEditorComponent.
 	expectedYieldEditorComponent} do: [ :each | html render: each ]
+]
+
+{ #category : #callbacks }
+SowingEditor >> shouldProceed [
+	^ self
+		confirm:
+			'En el lote <b>' , subject plot id , '</b> hay actualmente <b>'
+				, subject plot currentCycle crop vulgarName
+				, '</b> ¿está seguro de que quiere dar inicio a un nuevo ciclo plantando <b>'
+				, subject crop vulgarName , '</b>?'
 ]

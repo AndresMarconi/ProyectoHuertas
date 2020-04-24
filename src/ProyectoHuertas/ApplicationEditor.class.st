@@ -11,6 +11,17 @@ Class {
 	#category : #'ProyectoHuertas-ui-editors'
 }
 
+{ #category : #callbacks }
+ApplicationEditor >> accept [
+	(self children anySatisfy: [ :each | each hasProblems ])
+		ifTrue: [ ^ self ].
+	self children do: #accept.
+	self isApplicationSafe
+		ifFalse: [ self shouldProceed
+				ifFalse: [ ^ self cancel ] ].
+	super accept. 
+]
+
 { #category : #'subclass-responsibility' }
 ApplicationEditor >> eventSpecificChildren [
 	^ {substanceEditorComponent.
@@ -92,10 +103,30 @@ ApplicationEditor >> inventoryItems [
 	^ self session farm inventoryItems
 ]
 
+{ #category : #testing }
+ApplicationEditor >> isApplicationSafe [
+	| crops |
+	crops := (self selectedPlots collect: [ :each | each currentCrop ])
+		copyWithout: nil.
+	^ crops isEmpty
+		or: [ crops
+				allSatisfy: [ :crop | subject substance canBeSafelyAppliedTo: crop ] ]
+]
+
 { #category : #rendering }
 ApplicationEditor >> renderProblemsOn: html [
 	super renderProblemsOn: html.
 
+]
+
+{ #category : #testing }
+ApplicationEditor >> shouldProceed [
+	^ self
+		confirm:
+			'Se desconocen los tiempos de carencia de <b>'
+				, subject substance comercialName
+				,
+					'</b> para algunos de los cultivos en los lotes seleccionados ¿está seguro de que quiere registrar su aplicación de todos modos?'
 ]
 
 { #category : #accessing }

@@ -39,9 +39,11 @@ Application >> dose: anObject [
 
 { #category : #queries }
 Application >> endOfWaitingPeriodFor: aCrop [
-	"Returns the date for the end of the waiting period of  crop - in case not waiting period is necesary, returns the date and time of application"
+	"Returns the date for the end of the waiting period of  crop - in case not waiting period is necesary, returns the date and time of application.
+	
+	Raises MissingWithdrawalInformationException the withdrawal perios is needed and has not been set. "
 
-	^ self date addDays: (substance maxWithdrawalTimeFor: aCrop)
+	^ self date addDays: (substance withdrawalTimeFor: aCrop)
 ]
 
 { #category : #accessing }
