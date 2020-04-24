@@ -77,12 +77,20 @@ ApplicationsComponentTest >> setUp [
 { #category : #tests }
 ApplicationsComponentTest >> testAddApplication [
 	self addButton click.
+	3 seconds wait.
+	self assert: (self dateField getAttribute: 'value') equals: ''.
+	self dateField sendKeys: '01/01/2020'.
+	self
+		assert: (self dateField getAttribute: 'value')
+		equals: '01/01/2020'.
+	self timeField sendKeys: '10:00'.
+	self assert: (self timeField getAttribute: 'value') equals: '10:00'.
 	self
 		assertCollection: (self optionsInSelect: self productSelector)
 		equals: {'' . 'Mospilan (en existencia: 0 Kg)'}.
 	self
 		assertCollection: (self optionsInSelect: self plotSelector)
-		equals: {'' . 'A' . 'B'}.
+		equals: {'A' . 'B'}
 ]
 
 { #category : #tests }

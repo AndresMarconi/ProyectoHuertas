@@ -1,6 +1,6 @@
 Class {
 	#name : #GAFComponentTestCase,
-	#superclass : #BPParasolSelfTestCase,
+	#superclass : #BPSeasideWebDriverTestCase,
 	#instVars : [
 		'helper'
 	],
@@ -46,7 +46,7 @@ GAFComponentTestCase >> dateField [
 { #category : #elements }
 GAFComponentTestCase >> desiredDriverBrowserCapabilities [
 	^ BPChromeOptions new
-		setHeadless: true;
+		setHeadless: false;
 		yourself
 ]
 
@@ -64,7 +64,7 @@ GAFComponentTestCase >> plotSelector [
 { #category : #running }
 GAFComponentTestCase >> setUp [
 	super setUp.
-	driver manage timeouts implicitlyWait: (Duration seconds: 20)
+	"driver manage timeouts implicitlyWait: (Duration seconds: 20)"
 ]
 
 { #category : #elements }
@@ -76,14 +76,4 @@ GAFComponentTestCase >> tableContent [
 { #category : #elements }
 GAFComponentTestCase >> timeField [
 	^ driver findElementByID: 'time'
-]
-
-{ #category : #scripts }
-GAFComponentTestCase >> waitForStringToBePresent: aString [
-	self
-		waitUntil: [ driver getPageSource ]
-		is: [ :value | value includesSubstring: aString ]
-		checkEvery: (Duration milliseconds: 100)
-		timeoutAfter: (Duration seconds: 5)
-		with: [ nil ]
 ]

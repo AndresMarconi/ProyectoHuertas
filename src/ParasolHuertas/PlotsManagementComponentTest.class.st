@@ -14,7 +14,6 @@ PlotsManagementComponentTest >> addOnePlotButton [
 
 { #category : #scripts }
 PlotsManagementComponentTest >> addPlotWithId: plotId [
-	"driver getPageSource inspect". 
 	(driver findElementByID: 'plotId') sendKeys: plotId.
 	(driver findElementByID: 'surface') sendKeys: '1000'.
 	self acceptButton click
@@ -37,8 +36,9 @@ PlotsManagementComponentTest >> setUp [
 
 { #category : #tests }
 PlotsManagementComponentTest >> testPlotList [
-	self assert: self tableContent isEmpty. 
+	self assert: self tableContent isEmpty.
 	self addOnePlotButton click.
+	3 seconds wait.
 	self addPlotWithId: '1'.
 	self assert: self tableContent equals: '1 1000'
 ]
