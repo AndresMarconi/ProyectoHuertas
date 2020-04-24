@@ -29,6 +29,10 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoEvents [
 	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 1). 
 	self addEventAcelgaToHarvestTo: (self session farm plots at: 2).
 	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 3). 
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 11). 
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 12). 
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 13). 
+	self addEventTomatoInwaitingPeriodTo: (self session farm plots at: 14). 
 	self addEventAcelgaToHarvestTo: (self session farm plots at: 4).
 	self addEventEspinacaInwaitingPeriodTo: (self session farm plots at: 5).	
 	self addEventPimientoInHarvestingTo: (self session farm plots at: 7).
@@ -51,10 +55,9 @@ ExampleDataLoaderToShowcaseTheDashboard >> addDemoSubstances [
 	ingredients:= session gapAFarm activeIngredients.
 	crops:= session gapAFarm crops.
 	self 
-		addSubstance: (ingredients at: 1) to: (crops at: 9) with: 10;
-		addSubstance: (ingredients at: 10) to: (crops at: 1) with: 3;
-		addSubstance: (ingredients at: 5) to: (crops at: 4) with: 8;
-		addSubstance: (ingredients at: 7) to: (crops at: 5) with: 21.		
+		addSubstance: (ingredients at: 4) to: (crops at: 9) with: 10;
+		addSubstance: (ingredients at: 3) to: (crops at: 1) with: 3;
+		addSubstance: (ingredients at: 10) to: (crops at: 5) with: 21.		
 ]
 
 { #category : #adding }
@@ -205,9 +208,9 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlo
 	| crop substance sowing problem application |
 	crop := session gapAFarm crops
 		detect: [ :each | each vulgarName = 'Tomate' ].
-	substance := session gapAFarm substances at: 1.
+	substance := session gapAFarm substances at: 2.
 	sowing := Sowing
-		date: (lastDay subtractDays: 45)
+		date: (lastDay subtractDays: 45) 
 		time: '18:00' asTime
 		plot: aPlot
 		crop: crop
@@ -343,7 +346,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> crops [
 
 { #category : #constants }
 ExampleDataLoaderToShowcaseTheDashboard >> plots [
-	^ (1 to: 10)
+	^ (1 to: 20)
 		collect: [ :each | Plot id: 'A' , each asString surface: 1000 ]
 ]
 

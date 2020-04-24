@@ -21,7 +21,7 @@ PlotsInWithdrawalTimeComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 PlotsInWithdrawalTimeComponent >> elements [
-	^ (self session farm plotsWithSowing
+	^(self session farm plotsWithSowing
 		select: [ :each | each isInWithdrawal ])
 		asSortedCollection:
 			[ :a :b | a withdrawalPeriodDaysLeft < b withdrawalPeriodDaysLeft ]
