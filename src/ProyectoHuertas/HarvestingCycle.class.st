@@ -162,12 +162,6 @@ HarvestingCycle >> sowings [
 	^ events select: [ :each | each class = Sowing ]
 ]
 
-{ #category : #chronology }
-HarvestingCycle >> timeOfLatestEvent [
-	events ifEmpty: [ ^ nil ].
-	^ (events collect: #time) max
-]
-
 { #category : #withdrawal }
 HarvestingCycle >> withdrawalPeriodDaysLeft [
 	self sowings ifEmpty: [ ^ 0 ]. 

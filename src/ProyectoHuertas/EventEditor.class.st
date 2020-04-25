@@ -95,10 +95,13 @@ EventEditor >> plots [
 
 { #category : #initialization }
 EventEditor >> suggestDateAndTimeIfMissing [
+	| dateAndTimeOfLastAddedEvent |
+	dateAndTimeOfLastAddedEvent := self session
+		dateAndTimeOfLastAddedEvent ifNil: [ DateAndTime now ].
 	dateEditorComponent bufferedValue
 		ifNil: [ dateEditorComponent
-				bufferedValue: self session farm dateOfLatestEvent ].
+				bufferedValue: dateAndTimeOfLastAddedEvent asDate ].
 	timeEditorComponent bufferedValue
 		ifNil: [ timeEditorComponent
-				bufferedValue: self session farm timeOfLatestEvent ]
+				bufferedValue: dateAndTimeOfLastAddedEvent asTime ]
 ]

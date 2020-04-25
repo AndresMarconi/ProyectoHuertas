@@ -3,10 +3,21 @@ Class {
 	#superclass : #WASession,
 	#instVars : [
 		'user',
-		'farm'
+		'farm',
+		'dateAndTimeOfLastAddedEvent'
 	],
 	#category : #'ProyectoHuertas-ui-common'
 }
+
+{ #category : #accessing }
+GAFSession >> dateAndTimeOfLastAddedEvent [
+	^ dateAndTimeOfLastAddedEvent
+]
+
+{ #category : #accessing }
+GAFSession >> dateAndTimeOfLastAddedEvent: aDateAndTime [ 
+	dateAndTimeOfLastAddedEvent := aDateAndTime
+]
 
 { #category : #accessing }
 GAFSession >> farm [

@@ -157,13 +157,6 @@ Farm >> sowings [
 	^ self plots flatCollect: [ :each | each sowings ]
 ]
 
-{ #category : #utility }
-Farm >> timeOfLatestEvent [
-	^ ((self plots collect: #timeOfLatestEvent) copyWithout: nil)
-		ifEmpty: [ nil ]
-		ifNotEmpty: [ :it | it max ]
-]
-
 { #category : #accessing }
 Farm >> updateStockOf: substance with: item [ 
 	substance updateStock: item

@@ -170,11 +170,6 @@ Plot >> surface: anObject [
 ]
 
 { #category : #'current cycle' }
-Plot >> timeOfLatestEvent [
-	^ currentCycle timeOfLatestEvent
-]
-
-{ #category : #'current cycle' }
 Plot >> withdrawalPeriodDaysLeft [
 	^ currentCycle withdrawalPeriodDaysLeft
 ]
