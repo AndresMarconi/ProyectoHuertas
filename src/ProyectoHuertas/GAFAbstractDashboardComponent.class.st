@@ -17,16 +17,25 @@ GAFAbstractDashboardComponent >> initializeComponents [
 
 { #category : #rendering }
 GAFAbstractDashboardComponent >> renderContentOn: html [
+	| widgets |
+	widgets := self sortedWigets.
 	html
-		row: [ self sortedWigets 
-				do: [ :widget | 
-					widget hasElementsToShow
-						ifTrue: [ html column: [ html render: widget ] mediumSize: widget sizeOfColumn ] ] ]
+		row: [ html
+				column: [ widgets
+						ifNotEmpty: [ (1 to: widgets size by: 2)
+								do: [ :pos | html render: (widgets at: pos) ] ] ]
+				mediumSize: 6.
+			html
+				column: [ widgets size > 1
+						ifTrue: [ (2 to: widgets size by: 2)
+								do: [ :pos | html render: (widgets at: pos) ] ] ]
+				mediumSize: 6 ]
 ]
 
 { #category : #'as yet unclassified' }
 GAFAbstractDashboardComponent >> sortedWigets [
-	^self widgets asSortedCollection: [ :a :b | a sizeOfColumn <= b sizeOfColumn ]
+	^ (self widgets select: [ :each | each hasElementsToShow ])
+		asSortedCollection: [ :a :b | a sizeOfColumn <= b sizeOfColumn ]
 ]
 
 { #category : #initialization }
