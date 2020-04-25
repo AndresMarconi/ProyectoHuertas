@@ -36,6 +36,7 @@ EventsTableComponent >> generalColumnValuesFor: element [
 { #category : #adding }
 EventsTableComponent >> saveAddedElement: anEvent [
 	super saveAddedElement: anEvent.
+	self session dateAndTimeOfLastAddedEvent: anEvent dateAndTime.
 	anEvent plot addEvent: anEvent.
 	anEvent plot save
 ]

@@ -80,12 +80,16 @@ EventEditor >> labelForPlot: each [
 					stream
 						nextPutAll: ' - ';
 						nextPutAll: it crop vulgarName ].
-			daysLeft := each withdrawalPeriodDaysLeft.
-			daysLeft > 0
-				ifTrue: [ stream
-						nextPutAll: ' (en carencia por ';
-						nextPutAll: daysLeft printString;
-						nextPutAll: ' días más)' ] ]
+			daysLeft := [ each withdrawalPeriodDaysLeft ]
+				on: MissingWithdrawalInformationException
+				do: [ nil ].
+			daysLeft
+				ifNil: [ stream nextPutAll: ' (en carencia por tiempo desconocido)' ]
+				ifNotNil: [ daysLeft > 0
+						ifTrue: [ stream
+								nextPutAll: ' (en carencia por ';
+								nextPutAll: daysLeft printString;
+								nextPutAll: ' días más)' ] ] ]
 ]
 
 { #category : #accessing }
@@ -97,7 +101,8 @@ EventEditor >> plots [
 EventEditor >> suggestDateAndTimeIfMissing [
 	| dateAndTimeOfLastAddedEvent |
 	dateAndTimeOfLastAddedEvent := self session
-		dateAndTimeOfLastAddedEvent ifNil: [ DateAndTime now ].
+		dateAndTimeOfLastAddedEvent.
+	dateAndTimeOfLastAddedEvent ifNil: [ ^ self ].
 	dateEditorComponent bufferedValue
 		ifNil: [ dateEditorComponent
 				bufferedValue: dateAndTimeOfLastAddedEvent asDate ].

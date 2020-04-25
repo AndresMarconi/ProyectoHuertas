@@ -198,7 +198,7 @@ GAFAbstractTableWithFilterAndActionsComponent >> renderTableRowFor: element on: 
 { #category : #hooks }
 GAFAbstractTableWithFilterAndActionsComponent >> saveAddedElement: anElement [
 	anElement save.
-	self session dateAndTimeOfLastAddedEvent: anElement dateAndTime
+	
 ]
 
 { #category : #hooks }
