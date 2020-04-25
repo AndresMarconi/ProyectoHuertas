@@ -3,7 +3,6 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'quantity',
-		'crop',
 		'cultivarName',
 		'otherUnit'
 	],
@@ -33,16 +32,6 @@ Harvesting class >> units [
 		with: 'Paquetes'
 		with: 'Canastos'
 		with: 'Razos') copy
-]
-
-{ #category : #accessing }
-Harvesting >> crop [
-	^ crop
-]
-
-{ #category : #accessing }
-Harvesting >> crop: anObject [
-	crop := anObject
 ]
 
 { #category : #accessing }

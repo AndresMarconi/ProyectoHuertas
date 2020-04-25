@@ -3,7 +3,6 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'kilograms',
-		'crop',
 		'sale'
 	],
 	#category : #'ProyectoHuertas-model'
@@ -21,16 +20,6 @@ CropSale class >> product: aCrop kilograms: kg fromPlot: aPlot [
 		kilograms: kg;
 		plot: aPlot;
 		yourself
-]
-
-{ #category : #accessing }
-CropSale >> crop [
-	^ crop
-]
-
-{ #category : #accessing }
-CropSale >> crop: anObject [
-	crop := anObject
 ]
 
 { #category : #accessing }

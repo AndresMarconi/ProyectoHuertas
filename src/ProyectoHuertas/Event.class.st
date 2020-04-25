@@ -3,7 +3,8 @@ Class {
 	#superclass : #GafObject,
 	#instVars : [
 		'plot',
-		'dateAndTime'
+		'dateAndTime',
+		'crop'
 	],
 	#category : #'ProyectoHuertas-model'
 }
@@ -11,6 +12,16 @@ Class {
 { #category : #testing }
 Event class >> isVoyageRoot [
 	^ false
+]
+
+{ #category : #accessing }
+Event >> crop [
+	^ crop
+]
+
+{ #category : #accessing }
+Event >> crop: anObject [
+	crop := anObject
 ]
 
 { #category : #accessing }

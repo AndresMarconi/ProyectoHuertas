@@ -1,6 +1,6 @@
 Class {
 	#name : #Application,
-	#superclass : #Event,
+	#superclass : #EventOnPlantedPlot,
 	#instVars : [
 		'substance',
 		'machine',

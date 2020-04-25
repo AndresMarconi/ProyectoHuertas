@@ -13,7 +13,7 @@ Crop class >> isVoyageRoot [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Crop class >> name: aName yield: aYield [
 	^ self new
 		vulgarName: aName;

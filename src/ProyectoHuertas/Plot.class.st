@@ -35,6 +35,15 @@ Plot >> aplications [
 	^ self events select: [ :event | event class = Application ]
 ]
 
+{ #category : #utility }
+Plot >> cropAtDateAndTime: aDateAndTime [
+	^ (self sowings select: [ :each | each dateAndTime < aDateAndTime ])
+		ifEmpty: [ nil ]
+		ifNotEmpty: [ :sowings | 
+			(sowings asSortedCollection: [ :a :b | a dateAndTime < b dateAndTime ])
+				last crop ]
+]
+
 { #category : #'current cycle' }
 Plot >> currentCrop [
 	^ self currentCycle latestSowing

@@ -3,7 +3,6 @@ Class {
 	#superclass : #Event,
 	#instVars : [
 		'quantity',
-		'crop',
 		'cultivarName',
 		'timeToHarvest',
 		'harvestDuration',
@@ -29,16 +28,6 @@ Sowing class >> date: aDate time: aTime plot: aPlot crop: aCrop quantity: aQuant
 { #category : #testing }
 Sowing class >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #accessing }
-Sowing >> crop [
-	^ crop
-]
-
-{ #category : #accessing }
-Sowing >> crop: anObject [
-	crop := anObject
 ]
 
 { #category : #accessing }

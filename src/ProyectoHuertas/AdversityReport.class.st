@@ -1,6 +1,6 @@
 Class {
 	#name : #AdversityReport,
-	#superclass : #Event,
+	#superclass : #EventOnPlantedPlot,
 	#instVars : [
 		'descriptionOfAdversities',
 		'adversityTypes'
