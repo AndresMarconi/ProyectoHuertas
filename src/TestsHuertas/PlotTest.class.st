@@ -34,7 +34,8 @@ PlotTest >> testAddEvent [
 				crop: potato;
 				yourself).
 	self assert: (plot events includes: sowing).
-	self assert: sowing plot equals: plot
+	self assert: sowing plot equals: plot.
+	self assert: (plot currentCycle events includes: sowing)
 ]
 
 { #category : #testing }

@@ -11,7 +11,7 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Sowing class >> date: aDate time: aTime plot: aPlot crop: aCrop quantity: aQuantity timeToHarvest: aTTH harvestDuration: aHD expectedYield: aEY [
 	^ self new
 		date: aDate;

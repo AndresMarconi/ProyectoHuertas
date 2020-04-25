@@ -9,7 +9,7 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Harvesting class >> date: aDate time: aTime plot: aPlot crop: aCrop quantity: aQuantity [
 	^ self new
 		date: aDate;
