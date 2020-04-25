@@ -173,7 +173,7 @@ HarvestingCycle >> withdrawalPeriodDaysLeft [
 	self sowings ifEmpty: [ ^ 0 ]. 
 	^ self endsOfWithdrawalPeriods
 		ifEmpty: [ 0 ]
-		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ]
+		ifNotEmpty: [ :dates | dates max: [ :date | date subtractDate: Date today ] ] 
 ]
 
 { #category : #testing }

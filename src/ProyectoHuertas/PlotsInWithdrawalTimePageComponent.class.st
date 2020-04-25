@@ -14,15 +14,23 @@ PlotsInWithdrawalTimePageComponent >> columnValuesFor: element [
 	^ {element id.
 	element currentCycle latestSowing crop vulgarName.
 	element currentCycle aplications last substance comercialName.
-	(element currentCycle withdrawalPeriodDaysLeft asString , ' dias')}
+	([ element currentCycle withdrawalPeriodDaysLeft asString , ' dias' ]
+		on: MissingWithdrawalInformationException
+		do: [ '¿?' ])}
 ]
 
 { #category : #accessing }
 PlotsInWithdrawalTimePageComponent >> elements [
 	^ (self session farm plotsWithSowing
 		select: [ :each | each isInWithdrawal ])
-		asSortedCollection:
-			[ :a :b | a withdrawalPeriodDaysLeft < b withdrawalPeriodDaysLeft ]
+		asSortedCollection: [ :a :b | 
+			([ a withdrawalPeriodDaysLeft ]
+				on: MissingWithdrawalInformationException
+				do: [ 9999 ])
+				<
+					([ b withdrawalPeriodDaysLeft ]
+						on: MissingWithdrawalInformationException
+						do: [ 9999 ]) ] 
 ]
 
 { #category : #rendering }
