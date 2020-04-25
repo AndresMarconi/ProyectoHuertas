@@ -99,12 +99,24 @@ EventsChronologyComponent >> renderPlotSelectorOn: html [
 EventsChronologyComponent >> summaryForAdversityReport: anAdversityReport [
 	^ anAdversityReport adversityTypes asCommaString , ' ('
 		, anAdversityReport descriptionOfAdversities , ')'
+		,
+			(anAdversityReport crop
+				ifNil: [ '' ]
+				ifNotNil: [ :it | ' en ' , it vulgarName ])
 ]
 
 { #category : #summaries }
 EventsChronologyComponent >> summaryForApplication: anApplication [
-	^ anApplication substance comercialName , ': '
-		, anApplication quantity printString
+	^ anApplication substance comercialName
+		,
+			(anApplication quantity
+				ifNil: [ '' ]
+				ifNotNil:
+					[ :quantity | ' (', quantity printString , ' ' , anApplication substance unit, ')' ])
+		,
+			(anApplication crop
+				ifNil: [ '' ]
+				ifNotNil: [ :crop | ' sobre ' , crop vulgarName ])
 ]
 
 { #category : #summaries }

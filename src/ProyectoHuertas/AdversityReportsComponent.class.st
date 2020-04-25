@@ -6,7 +6,8 @@ Class {
 
 { #category : #rendering }
 AdversityReportsComponent >> columnHeadings [
-	^ super columnHeadings , { 'Tipificación (detalle)'. }, self generalColumnHeadings
+	^ super columnHeadings , {'Cultivo' . 'Tipificación (detalle)'}
+		, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -15,7 +16,8 @@ AdversityReportsComponent >> columnValuesFor: element [
 
 	^ (super columnValuesFor: element)
 		,
-			{(element adversityTypes asCommaString , ' ('
+			{(element crop ifNil: [ '' ] ifNotNil: [ :it | it vulgarName ]).
+			(element adversityTypes asCommaString , ' ('
 				, element descriptionOfAdversities , ')')}
 		, (self generalColumnValuesFor: element)
 ]

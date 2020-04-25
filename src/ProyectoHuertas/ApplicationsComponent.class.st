@@ -6,7 +6,8 @@ Class {
 
 { #category : #rendering }
 ApplicationsComponent >> columnHeadings [
-	^ super columnHeadings , {'Producto' . 'Cantidad'}, self generalColumnHeadings
+	^ super columnHeadings , {'Cultivo' . 'Producto' . 'Cantidad'}
+		, self generalColumnHeadings
 ]
 
 { #category : #rendering }
@@ -15,7 +16,8 @@ ApplicationsComponent >> columnValuesFor: element [
 
 	^ (super columnValuesFor: element)
 		,
-			{element substance comercialName.
+			{(element crop ifNil: [ '' ] ifNotNil: [ :it | it vulgarName ]).
+			element substance comercialName.
 			(element quantity printString , ' ' , element substance unit)}
 		, (self generalColumnValuesFor: element)
 ]

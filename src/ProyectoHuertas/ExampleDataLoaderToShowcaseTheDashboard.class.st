@@ -162,9 +162,8 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventEspinacaInwaitingPeriodTo: aP
 		time: '18:00' asTime
 		plot: aPlot
 		substance: substance
-		dose: '2'
-		machine: '1'
-		.
+		quantity: 2
+		machine: '1'.
 	aPlot
 		addEvent: sowing;
 		addEvent: application;
@@ -229,7 +228,7 @@ ExampleDataLoaderToShowcaseTheDashboard >> addEventTomatoInwaitingPeriodTo: aPlo
 		time: '18:00' asTime
 		plot: aPlot
 		substance: substance
-		dose: '2'
+		quantity: 2
 		machine: '1'
 		.
 	aPlot
@@ -254,9 +253,11 @@ ExampleDataLoaderToShowcaseTheDashboard >> addExpertDemoData [
 { #category : #loading }
 ExampleDataLoaderToShowcaseTheDashboard >> addFarmerDemoData [
 	session gapAFarm crops ifEmpty: [ self addExpertDemoData ].
-	session farm plots
-		ifEmpty: [ self addDemoPlots].
-	self addDemoEvents
+	session farm plots ifEmpty: [ self addDemoPlots ].
+	self addSubstancesToInventory.
+	self addDemoEvents.
+
+
 ]
 
 { #category : #adding }
@@ -332,6 +333,19 @@ ExampleDataLoaderToShowcaseTheDashboard >> addSubstance: ingredient to: crop wit
 		referenceUrl: '') .
 	substance save.
 	^substance 
+]
+
+{ #category : #loading }
+ExampleDataLoaderToShowcaseTheDashboard >> addSubstancesToInventory [
+	Substance selectAll
+		do: [ :each | 
+			self session farm
+				addInventoryItem:
+					(InventoryItem new
+						substance: each;
+						save;
+						yourself) ].
+	self session farm save
 ]
 
 { #category : #constants }

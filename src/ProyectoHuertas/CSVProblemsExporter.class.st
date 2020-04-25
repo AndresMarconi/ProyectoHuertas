@@ -11,6 +11,9 @@ CSVProblemsExporter >> elementRowFor: anAdversityReport [
 	^ {anAdversityReport date.
 	anAdversityReport time.
 	anAdversityReport plot id.
+	(anAdversityReport crop
+		ifNil: [ '' ]
+		ifNotNil: [ :it | it vulgarName ]).
 	anAdversityReport adversityTypes asCommaString.
 	anAdversityReport descriptionOfAdversities.
 	anAdversityReport comment}
@@ -18,5 +21,5 @@ CSVProblemsExporter >> elementRowFor: anAdversityReport [
 
 { #category : #exporting }
 CSVProblemsExporter >> headerRow [
-	^ #('Fecha' 'Hora' 'Lote' 'Tipificación' 'Detalles' 'Notas')
+	^ #('Fecha' 'Hora' 'Lote' 'Cultivo' 'Tipificación' 'Detalles' 'Notas')
 ]

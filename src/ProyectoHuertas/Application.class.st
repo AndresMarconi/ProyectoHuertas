@@ -11,10 +11,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance dose: aDose machine: aMachine [
+Application class >> date: aDate time: aTime plot: aPlot substance: aSubstance quantity: aQuantity machine: aMachine [
 	^ self new
 		time: aTime;
-		dose: aDose;
+		quantity: aQuantity;
 		machine: aMachine;
 		date: aDate;
 		plot: aPlot;
