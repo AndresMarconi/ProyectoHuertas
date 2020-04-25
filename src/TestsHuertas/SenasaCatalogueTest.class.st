@@ -1,7 +1,7 @@
 Class {
 	#name : #SenasaCatalogueTest,
 	#superclass : #TestCase,
-	#category : #'ProyectoHuertas-tests'
+	#category : #'TestsHuertas-tests'
 }
 
 { #category : #testing }

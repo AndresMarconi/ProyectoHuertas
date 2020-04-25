@@ -1,7 +1,7 @@
 Class {
 	#name : #SubstanceTest,
 	#superclass : #TestCase,
-	#category : #'ProyectoHuertas-tests'
+	#category : #'TestsHuertas-tests'
 }
 
 { #category : #tests }
