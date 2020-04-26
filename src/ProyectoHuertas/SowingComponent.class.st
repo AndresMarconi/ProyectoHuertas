@@ -7,7 +7,7 @@ Class {
 { #category : #rendering }
 SowingComponent >> columnHeadings [
 	^ super columnHeadings , {'Cultivo' . 'Variedad (cultivar)'.
-	'Cantidad'}, self generalColumnHeadings
+	'Cantidad'}
 ]
 
 { #category : #rendering }
@@ -18,7 +18,7 @@ SowingComponent >> columnValuesFor: element [
 		,
 			{element crop vulgarName.
 			element cultivarName.
-			(element quantity magnitude asString , ' ' , element quantity unit)}, (self generalColumnValuesFor: element)
+			(element quantity magnitude asString , ' ' , element quantity unit)}
 ]
 
 { #category : #hooks }

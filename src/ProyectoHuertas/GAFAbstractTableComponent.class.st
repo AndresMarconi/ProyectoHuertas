@@ -64,6 +64,11 @@ GAFAbstractTableComponent >> renderExtraRowValue: element On: html [
 ]
 
 { #category : #rendering }
+GAFAbstractTableComponent >> renderHeadingRowOn: html [
+	^ self columnHeadings do: [ :heading | html tableHeading: heading ]
+]
+
+{ #category : #rendering }
 GAFAbstractTableComponent >> renderTableBodyOn: html [
 	html
 		tableBody: [ (paginator selectElementsIn: self filteredElements)
@@ -80,6 +85,6 @@ GAFAbstractTableComponent >> renderTableRowFor: element on: html [
 
 { #category : #rendering }
 GAFAbstractTableComponent >> tableHeadingOn: html [
-	html tableHead: [ 
-		html tableRow: [ self columnHeadings do: [ :heading | html tableHeading: heading ] ] ]
+	html tableHead:
+		[ html tableRow: [ self renderHeadingRowOn: html ] ]
 ]

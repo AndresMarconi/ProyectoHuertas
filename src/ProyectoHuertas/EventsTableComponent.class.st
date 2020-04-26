@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 EventsTableComponent >> columnHeadings [
-	^ {'Fecha' . 'Lote'}
+	^ {'Fecha' . 'Lote'} 
 ]
 
 { #category : #rendering }
@@ -21,16 +21,6 @@ EventsTableComponent >> duplicate: anEvent [
 		plot: nil;
 		dateAndTime: nil;
 		yourself
-]
-
-{ #category : #private }
-EventsTableComponent >> generalColumnHeadings [
-	^super columnHeadings
-]
-
-{ #category : #private }
-EventsTableComponent >> generalColumnValuesFor: element [
-	^super columnValuesFor: element
 ]
 
 { #category : #adding }

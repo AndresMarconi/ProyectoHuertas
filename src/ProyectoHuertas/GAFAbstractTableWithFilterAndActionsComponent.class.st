@@ -31,18 +31,6 @@ GAFAbstractTableWithFilterAndActionsComponent >> addEnabled [
 	^ addEnabled
 ]
 
-{ #category : #rendering }
-GAFAbstractTableWithFilterAndActionsComponent >> columnHeadings [
-	^ self actionsEnabled
-		ifTrue: [ {''} ]
-		ifFalse: [ {} ]
-]
-
-{ #category : #rendering }
-GAFAbstractTableWithFilterAndActionsComponent >> columnValuesFor: element [
-	^ {}
-]
-
 { #category : #hooks }
 GAFAbstractTableWithFilterAndActionsComponent >> duplicate: element [
 	^ element copy
@@ -180,6 +168,13 @@ GAFAbstractTableWithFilterAndActionsComponent >> renderContentOn: html [
 	html render: self filterComponent.
 	super renderContentOn: html.
 	self renderAddButtonOn: html
+]
+
+{ #category : #rendering }
+GAFAbstractTableWithFilterAndActionsComponent >> renderHeadingRowOn: html [
+	super renderHeadingRowOn: html.
+	self actionsEnabled
+		ifTrue: [ html tableHeading: '' ]
 ]
 
 { #category : #rendering }

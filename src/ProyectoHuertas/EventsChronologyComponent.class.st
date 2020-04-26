@@ -1,6 +1,6 @@
 Class {
 	#name : #EventsChronologyComponent,
-	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
+	#superclass : #EventsTableComponent,
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 

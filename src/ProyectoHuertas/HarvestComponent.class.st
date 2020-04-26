@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 HarvestComponent >> columnHeadings [
-	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}, self generalColumnHeadings
+	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
 ]
 
 { #category : #rendering }
@@ -17,7 +17,7 @@ HarvestComponent >> columnValuesFor: element [
 		,
 			{element crop vulgarName.
 			element cultivarName.
-			(self quantityStringFor: element)}, (self generalColumnValuesFor: element)
+			(self quantityStringFor: element)}
 ]
 
 { #category : #hooks }

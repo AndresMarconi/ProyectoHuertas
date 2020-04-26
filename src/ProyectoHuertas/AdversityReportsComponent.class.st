@@ -7,7 +7,7 @@ Class {
 { #category : #rendering }
 AdversityReportsComponent >> columnHeadings [
 	^ super columnHeadings , {'Cultivo' . 'Tipificación (detalle)'}
-		, self generalColumnHeadings
+		
 ]
 
 { #category : #rendering }
@@ -19,7 +19,7 @@ AdversityReportsComponent >> columnValuesFor: element [
 			{(element crop ifNil: [ '' ] ifNotNil: [ :it | it vulgarName ]).
 			(element adversityTypes asCommaString , ' ('
 				, element descriptionOfAdversities , ')')}
-		, (self generalColumnValuesFor: element)
+		
 ]
 
 { #category : #hooks }
