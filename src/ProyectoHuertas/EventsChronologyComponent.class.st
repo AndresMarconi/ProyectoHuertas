@@ -109,5 +109,5 @@ EventsChronologyComponent >> typeDescriptorFor: element [
 	(CropSale -> 'Venta').
 	(Harvesting -> 'Cosecha').
 	(AdversityReport -> 'Adversidad').
-	(Sowing -> 'Siembra')} asDictionary at: element class
+	(Sowing -> 'Implantación')} asDictionary at: element class
 ]
