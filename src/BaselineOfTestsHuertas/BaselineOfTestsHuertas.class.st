@@ -11,11 +11,19 @@ BaselineOfTestsHuertas >> baseline: spec [
 		for: #common
 		do: [ self
 				parasol: spec;
+				mocketry: spec;
 				proyectoHuertas: spec.
 			spec
 				package: 'TestsHuertas'
-				with: [ spec requires: #('ProyectoHuertas' 'Parasol') ].
+				with: [ spec requires: #('ProyectoHuertas' 'Parasol' 'Mocketry') ].
 			spec postLoadDoIt: #postLoadActions ]
+]
+
+{ #category : #baselines }
+BaselineOfTestsHuertas >> mocketry: spec [
+	spec
+		baseline: 'Mocketry'
+		with: [ spec repository: 'github://dionisiydk/Mocketry:v6.0.2' ]
 ]
 
 { #category : #baselines }
