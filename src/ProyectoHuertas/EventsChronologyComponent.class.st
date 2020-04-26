@@ -1,9 +1,6 @@
 Class {
 	#name : #EventsChronologyComponent,
 	#superclass : #GAFAbstractTableWithFilterAndActionsComponent,
-	#instVars : [
-		'plot'
-	],
 	#category : #'ProyectoHuertas-ui-farmer'
 }
 
@@ -30,13 +27,7 @@ EventsChronologyComponent >> columnValuesFor: element [
 
 { #category : #accessing }
 EventsChronologyComponent >> elements [
-	| events |
-	events := plot
-		ifNotNil: [ plot events ]
-		ifNil: [ self session farm
-				ifNotNil: [ :farm | farm events ]
-				ifNil: [ Array new ] ].
-	^ events
+	^ self session farm events
 		asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
 
@@ -47,16 +38,6 @@ EventsChronologyComponent >> initialize [
 	editEnabled := false.
 	duplicateEnabled := false.
 	removeEnabled := false.
-]
-
-{ #category : #accessing }
-EventsChronologyComponent >> plot [
-	^ plot
-]
-
-{ #category : #accessing }
-EventsChronologyComponent >> plot: anObject [
-	plot := anObject
 ]
 
 { #category : #summaries }
