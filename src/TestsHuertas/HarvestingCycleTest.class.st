@@ -88,3 +88,10 @@ HarvestingCycleTest >> testAddEvent_restartOnNewSowing [
 		assertCollection: plot currentCycle events
 		equals: {potatoSowingFirstOfFebruary} asOrderedCollection
 ]
+
+{ #category : #running }
+HarvestingCycleTest >> testRemoveEvent_Sowing [
+  "If removing one sowing, the whole cycle must be recomputed"
+
+	self fail
+]
