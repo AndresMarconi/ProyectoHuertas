@@ -8,6 +8,16 @@ Metacello new
 	load.
   ```
   
+  To load the tests 
+  
+```Smalltalk
+Metacello new
+	baseline: 'TestsHuertas';
+	repository: 'github://AndresMarconi/ProyectoHuertas';
+	onConflictUseLoaded;
+	load.
+```
+  
  # Registering the application
  
  The #initialize class method on class FOMHomeComponent registers the application on /huertas
