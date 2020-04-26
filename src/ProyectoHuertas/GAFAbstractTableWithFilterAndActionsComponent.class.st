@@ -171,6 +171,17 @@ GAFAbstractTableWithFilterAndActionsComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
+GAFAbstractTableWithFilterAndActionsComponent >> renderElementRowFor: element class: aCssClass on: html [
+	| td |
+	super renderElementRowFor: element class: aCssClass on: html.
+	self actionsEnabled
+		ifFalse: [ ^ self ].
+	td := html tableData.
+	aCssClass ifNotNil: [ td class: aCssClass ].
+	td with: [ self renderActionMenuFor: element on: html ]
+]
+
+{ #category : #rendering }
 GAFAbstractTableWithFilterAndActionsComponent >> renderHeadingRowOn: html [
 	super renderHeadingRowOn: html.
 	self actionsEnabled
@@ -180,14 +191,6 @@ GAFAbstractTableWithFilterAndActionsComponent >> renderHeadingRowOn: html [
 { #category : #rendering }
 GAFAbstractTableWithFilterAndActionsComponent >> renderSpecificActionsFor: element on: html [
 	^ self
-]
-
-{ #category : #rendering }
-GAFAbstractTableWithFilterAndActionsComponent >> renderTableRowFor: element on: html [
-	super renderTableRowFor: element on: html.
-	self actionsEnabled
-		ifFalse: [ ^ self ].
-	html tableData: [ self renderActionMenuFor: element on: html ]
 ]
 
 { #category : #hooks }

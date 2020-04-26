@@ -51,6 +51,16 @@ GAFAbstractTableComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
+GAFAbstractTableComponent >> renderElementRowFor: element class: aCssClass on: html [
+	(self columnValuesFor: element)
+		do: [ :value | 
+			| td |
+			td := html tableData.
+			aCssClass ifNotNil: [ td class: aCssClass ].
+			td with: [ html html: value ] ]
+]
+
+{ #category : #rendering }
 GAFAbstractTableComponent >> renderElementsTableOn: html [
 	html table
 		class: 'table table-hover table-sm';
@@ -74,13 +84,7 @@ GAFAbstractTableComponent >> renderTableBodyOn: html [
 		tableBody: [ (paginator selectElementsIn: self filteredElements)
 				do: [ :element | 
 					html tableRow:
-						[ self renderTableRowFor: element on: html ] ] ]
-]
-
-{ #category : #rendering }
-GAFAbstractTableComponent >> renderTableRowFor: element on: html [
-	(self columnValuesFor: element)
-		do: [ :value | html tableData: [ html html: value ] ]
+						[ self renderElementRowFor: element class: nil on: html ] ] ]
 ]
 
 { #category : #rendering }

@@ -23,10 +23,39 @@ EventsTableComponent >> duplicate: anEvent [
 		yourself
 ]
 
+{ #category : #rendering }
+EventsTableComponent >> renderContentOn: html [
+	super renderContentOn: html.
+	html
+		paragraph: [ html small
+				class: 'text-muted';
+				with:
+					'Nota: Los eventos de ciclos anteriores (si existen) se muestran en color mas claro.' ]
+]
+
+{ #category : #rendering }
+EventsTableComponent >> renderElementRowFor: element class: aCssClass on: html [
+	(element plot currentCycle events includes: element)
+		ifTrue: [ super
+				renderElementRowFor: element
+				class: 'current-cycle-event'
+				on: html ]
+		ifFalse: [ super
+				renderElementRowFor: element
+				class: 'past-cycle-event'
+				on: html ]
+]
+
 { #category : #adding }
 EventsTableComponent >> saveAddedElement: anEvent [
 	super saveAddedElement: anEvent.
 	self session dateAndTimeOfLastAddedEvent: anEvent dateAndTime.
 	anEvent plot addEvent: anEvent.
 	anEvent plot save
+]
+
+{ #category : #style }
+EventsTableComponent >> style [
+	^ '	.past-cycle-event {color: silver}
+	'
 ]
