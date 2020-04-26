@@ -59,42 +59,6 @@ EventsChronologyComponent >> plot: anObject [
 	plot := anObject
 ]
 
-{ #category : #rendering }
-EventsChronologyComponent >> renderPlotFilterOn: html [
-	html
-		form: [ html
-				row: [ html
-						column: [ html select
-								formControl;
-								selected: plot;
-								callback: [ :value | 
-									plot := value.
-									paginator := Paginator
-										subject: self
-										selector: #elements
-										pageSize: 10 ];
-								id: 'plot';
-								list: {nil} , self session farm plots ]
-							mediumSize: 3;
-						column: [ html submitButton
-								class: 'btn btn-primary';
-								with: 'Filtrar' ]
-							mediumSize: 6 ] ]
-]
-
-{ #category : #rendering }
-EventsChronologyComponent >> renderPlotSelectorOn: html [
-	"This is horrible! "
-
-	html
-		navigation: [ self session farm plots
-				do: [ :each | 
-					html navigationLink
-						beDisabledIf: [ plot = each ];
-						callback: [ plot := each. ];
-						with: each printString ] ]
-]
-
 { #category : #summaries }
 EventsChronologyComponent >> summaryForAdversityReport: anAdversityReport [
 	^ anAdversityReport adversityTypes asCommaString , ' ('
