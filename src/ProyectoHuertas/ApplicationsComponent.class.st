@@ -41,11 +41,6 @@ ApplicationsComponent >> elements [
 	^ (self session farm aplications) asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
 
-{ #category : #printing }
-ApplicationsComponent >> printOn: aStream [
-	aStream nextPutAll: 'Aplicaciones'
-]
-
 { #category : #adding }
 ApplicationsComponent >> saveAddedElement: aCollectionOfApplications [
 	aCollectionOfApplications
