@@ -2,10 +2,16 @@ Class {
 	#name : #HarvestingCycle,
 	#superclass : #Object,
 	#instVars : [
-		'events'
+		'events',
+		'isOutOfSync'
 	],
 	#category : #'ProyectoHuertas-model'
 }
+
+{ #category : #voyage }
+HarvestingCycle class >> isVoyageRoot [
+	^ false
+]
 
 { #category : #events }
 HarvestingCycle >> addEvent: anEvent [
@@ -100,6 +106,7 @@ HarvestingCycle >> harvests [
 { #category : #initialization }
 HarvestingCycle >> initialize [
 	events := OrderedCollection new. 
+	isOutOfSync := false. 
 ]
 
 { #category : #withdrawal }
@@ -107,6 +114,11 @@ HarvestingCycle >> isInWithdrawal [
 	^ [ self withdrawalPeriodDaysLeft > 0 ]
 		on: MissingWithdrawalInformationException
 		do: [ true ]
+]
+
+{ #category : #testing }
+HarvestingCycle >> isOutOfSync [
+	^isOutOfSync 
 ]
 
 { #category : #testing }
@@ -145,7 +157,11 @@ HarvestingCycle >> latestSowing [
 
 { #category : #events }
 HarvestingCycle >> removeEvent: anEvent [
-	events remove: anEvent ifAbsent: [ nil ]
+	(events includes: anEvent)
+		ifFalse: [ ^ self ].
+	events remove: anEvent.
+	anEvent class == Sowing
+		ifTrue: [ isOutOfSync := true ]
 ]
 
 { #category : #private }

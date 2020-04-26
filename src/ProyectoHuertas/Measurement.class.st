@@ -8,6 +8,11 @@ Class {
 	#category : #'ProyectoHuertas-model'
 }
 
+{ #category : #voyage }
+Measurement class >> isVoyageRoot [
+	^ false
+]
+
 { #category : #'instance creation' }
 Measurement class >> magnitude: aNumber unit: aString [
 	^ self new

@@ -151,7 +151,9 @@ Plot >> recomputeCurrentCycle [
 Plot >> removeEvent: anEvent [
 	currentCycle removeEvent: anEvent.
 	events remove: anEvent.
-	anEvent plot: nil
+	anEvent plot: nil.
+	currentCycle isOutOfSync
+		ifTrue: [ self recomputeCurrentCycle ]
 ]
 
 { #category : #accessing }

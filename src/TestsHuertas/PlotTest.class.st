@@ -54,3 +54,15 @@ PlotTest >> testCropAtDateAndTime [
 		assert: (plot cropAtDateAndTime: '3/15/2020' asDateAndTime)
 		equals: lettuce
 ]
+
+{ #category : #running }
+PlotTest >> testRemoveEvent_Sowing [
+	"If removing one sowing, the plot's cycle must be recomputed"
+
+	| cycle tomatoSowingFirstOfJanuary |
+	cycle := plot currentCycle.
+	tomatoSowingFirstOfJanuary := self tomatoSowingFirstOfJanuary.
+	plot addEvent: tomatoSowingFirstOfJanuary.
+	plot removeEvent: tomatoSowingFirstOfJanuary.
+	self deny: cycle == plot currentCycle
+]

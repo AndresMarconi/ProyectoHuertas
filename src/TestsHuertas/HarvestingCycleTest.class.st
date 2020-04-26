@@ -89,9 +89,16 @@ HarvestingCycleTest >> testAddEvent_restartOnNewSowing [
 		equals: {potatoSowingFirstOfFebruary} asOrderedCollection
 ]
 
-{ #category : #running }
-HarvestingCycleTest >> testRemoveEvent_Sowing [
-  "If removing one sowing, the whole cycle must be recomputed"
+{ #category : #testing }
+HarvestingCycleTest >> testIsOutOfSync [
+	"If removing one sowing, the cycle becomes outOfSync"
 
-	self fail
+	| cycle |
+	cycle := plot currentCycle.
+	self deny: cycle isOutOfSync.
+	sowing := self tomatoSowingFirstOfJanuary.
+	cycle addEvent: sowing.
+	self deny: cycle isOutOfSync.
+	cycle removeEvent: sowing.
+	self assert: cycle isOutOfSync
 ]
