@@ -46,3 +46,9 @@ ApplicationsComponent >> saveAddedElement: aCollectionOfApplications [
 	aCollectionOfApplications
 		do: [ :each | super saveAddedElement: each ]
 ]
+
+{ #category : #callbacks }
+ApplicationsComponent >> summaryForEvent: element [
+	^ '<b>la aplicación de ' , element substance comercialName , ' del '
+		, element date ddmmyyyy , ' en el lote ' , element plot id , '</b>'
+]

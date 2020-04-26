@@ -39,3 +39,9 @@ SowingComponent >> elementEditorClass [
 SowingComponent >> elements [
 	^ (self session farm sowings) asSortedCollection: [ :a :b | a dateAndTime > b dateAndTime ]
 ]
+
+{ #category : #callbacks }
+SowingComponent >> summaryForEvent: element [
+	^ '<b>la implantación de ' , element crop vulgarName , ' del '
+		, element date ddmmyyyy , ' en el lote ' , element plot id , ' (que podría haber dado inicio al ciclo actual)</b>'
+]

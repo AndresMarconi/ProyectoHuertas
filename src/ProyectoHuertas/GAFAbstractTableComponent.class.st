@@ -9,12 +9,12 @@ Class {
 
 { #category : #rendering }
 GAFAbstractTableComponent >> columnHeadings [
-	^ self subclassResponsibility 
+	^ {}
 ]
 
 { #category : #rendering }
 GAFAbstractTableComponent >> columnValuesFor: element [
-	^ self subclassResponsibility
+	^ {}
 ]
 
 { #category : #accessing }

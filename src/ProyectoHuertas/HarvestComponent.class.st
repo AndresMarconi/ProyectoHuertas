@@ -53,3 +53,9 @@ HarvestComponent >> quantityStringFor: aHarvesing [
 				nextPutAll: it printString ].
 	^ stream contents
 ]
+
+{ #category : #callbacks }
+HarvestComponent >> summaryForEvent: element [
+	^ '<b>la cosecha de ' , element crop vulgarName , ' del '
+		, element date ddmmyyyy , ' en el lote ' , element plot id , '</b>'
+]

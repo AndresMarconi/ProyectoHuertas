@@ -64,5 +64,8 @@ PlotTest >> testRemoveEvent_Sowing [
 	tomatoSowingFirstOfJanuary := self tomatoSowingFirstOfJanuary.
 	plot addEvent: tomatoSowingFirstOfJanuary.
 	plot removeEvent: tomatoSowingFirstOfJanuary.
-	self deny: cycle == plot currentCycle
+	self assert: tomatoSowingFirstOfJanuary plot isNil.
+	self deny: cycle == plot currentCycle.
+	self assert: plot events isEmpty.
+	self assert: plot currentCycle events isEmpty
 ]

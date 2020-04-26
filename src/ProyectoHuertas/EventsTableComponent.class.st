@@ -23,6 +23,26 @@ EventsTableComponent >> duplicate: anEvent [
 		yourself
 ]
 
+{ #category : #initialization }
+EventsTableComponent >> initialize [
+	super initialize.
+	removeEnabled := true.
+]
+
+{ #category : #callbacks }
+EventsTableComponent >> removeElement: element [
+	| plot |
+	(self
+		confirm:
+			'¿Está seguro de que quiere borrar ' , (self summaryForEvent: element)
+				, '? El cambio no se podrá deshacer.')
+		ifFalse: [ ^ self ].
+	plot := element plot.
+	plot removeEvent: element.
+	plot save.
+	element remove
+]
+
 { #category : #rendering }
 EventsTableComponent >> renderContentOn: html [
 	super renderContentOn: html.
@@ -58,4 +78,9 @@ EventsTableComponent >> saveAddedElement: anEvent [
 EventsTableComponent >> style [
 	^ '	.past-cycle-event {color: silver}
 	'
+]
+
+{ #category : #callbacks }
+EventsTableComponent >> summaryForEvent: element [
+	self subclassResponsibility
 ]

@@ -47,3 +47,10 @@ AdversityReportsComponent >> saveAddedElement: aCollectionOfAdversityReports [
 	aCollectionOfAdversityReports
 		do: [ :each | super saveAddedElement: each ]
 ]
+
+{ #category : #callbacks }
+AdversityReportsComponent >> summaryForEvent: element [
+	^ '<b>el reporte de ' , element adversityTypes asCommaString
+		, ' del ' , element date ddmmyyyy , ' en el lote ' , element plot id
+		, '</b>'
+]
