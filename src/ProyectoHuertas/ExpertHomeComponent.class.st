@@ -44,7 +44,8 @@ ExpertHomeComponent >> renderLeftMenuOn: html [
 						renderMenuBlock:
 							{('Cultivos' -> CropsComponent).
 							('Principios activos' -> ActiveIngredientComponent).
-							('Fitosanitarios y fertilizantes' -> SubstancesComponent)}
+							('Fitosanitarios y fertilizantes' -> SubstancesComponent).
+							('Resoluciones SENASA' -> SenasaCatalogueComponent)}
 						heading: 'Catálogos'
 						on: html.
 					self
