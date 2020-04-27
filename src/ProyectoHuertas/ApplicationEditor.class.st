@@ -44,7 +44,7 @@ ApplicationEditor >> initializeComponents [
 
 { #category : #initialization }
 ApplicationEditor >> initializeDoseEditorComponent [
-	doseEditorComponent := NumberPropertyEditorComponent
+	doseEditorComponent := TextLinePropertyEditorComponent
 		id: 'dose'
 		subject: subject
 		selector: #dose
