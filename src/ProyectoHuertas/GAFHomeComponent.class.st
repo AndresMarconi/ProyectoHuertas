@@ -41,6 +41,7 @@ GAFHomeComponent >> dashboardComponentClass [
 
 { #category : #initialization }
 GAFHomeComponent >> initialize [
+	super initialize.
 	selectedComponent := self dashboardComponentClass new
 ]
 
@@ -60,22 +61,28 @@ GAFHomeComponent >> logout [
 ]
 
 { #category : #rendering }
-GAFHomeComponent >> renderContentOn: html [
+GAFHomeComponent >> renderBodyOn: html [
 	| menuColumn |
+	^ html
+		row: [ menuColumn := html column.
+			self session farm ~= self session user farms first
+				ifTrue: [ menuColumn style: 'background-color: red;' ].
+			menuColumn
+				mediumSize: 2;
+				with: [ self renderLeftMenuOn: html ].
+			html column: [ html render: selectedComponent ] mediumSize: 10 ]
+]
+
+{ #category : #rendering }
+GAFHomeComponent >> renderContentOn: html [
 	GAFDeployer demoMode
 		ifTrue: [ self renderDemoStampOn: html ].
 	html
 		container: [ self session loginRequired
-				ifTrue: [ ^ self renderLoginRequiredMessageOn: html ].
-			self renderNavbarOn: html.
-			html
-				row: [ menuColumn := html column.
-					self session farm ~= self session user farms first
-						ifTrue: [ menuColumn style: 'background-color: red;' ].
-					menuColumn
-						mediumSize: 2;
-						with: [ self renderLeftMenuOn: html ].
-					html column: [ html render: selectedComponent ] mediumSize: 10 ] ]
+				ifTrue: [ self renderLoginRequiredMessageOn: html ]
+				ifFalse: [ self renderNavbarOn: html.
+					self renderBodyOn: html.
+					self renderFooterOn: html ] ]
 ]
 
 { #category : #rendering }
@@ -90,6 +97,13 @@ GAFHomeComponent >> renderDemoDataButtonOn: html [
 		callback: [ self loadDashboardShowcaseDemoData ];
 		with: 'Load data to showcase dashboard'.
 	html space
+]
+
+{ #category : #rendering }
+GAFHomeComponent >> renderFooterOn: html [
+	html
+		footer: [ html horizontalRule.
+			self renderFooterNoteOn: html ]
 ]
 
 { #category : #rendering }
