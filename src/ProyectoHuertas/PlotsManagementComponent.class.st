@@ -13,13 +13,15 @@ PlotsManagementComponent >> addManyElements [
 
 { #category : #rendering }
 PlotsManagementComponent >> columnHeadings [
-	^ {'ID' . 'Superficie (m2)' },super columnHeadings
+	^ {'ID' . 'Superficie (m2)'. 'Notas' },super columnHeadings
 ]
 
 { #category : #rendering }
 PlotsManagementComponent >> columnValuesFor: element [
 	^ {element id.
-	element surface}, (super columnValuesFor: element)
+	element surface.
+	(self shorten: element comment to: 45)}
+		, (super columnValuesFor: element)
 ]
 
 { #category : #hooks }
