@@ -6,7 +6,7 @@ Class {
 
 { #category : #rendering }
 HarvestComponent >> columnHeadings [
-	^ super columnHeadings , { 'Cultivo' . 'Variedad (cultivar)' . 'Cantidad'}
+	^ super columnHeadings , { 'Cultivo' . 'Cantidad'. 'Notas'}
 ]
 
 { #category : #rendering }
@@ -16,8 +16,8 @@ HarvestComponent >> columnValuesFor: element [
 	^ (super columnValuesFor: element)
 		,
 			{element crop vulgarName.
-			element cultivarName.
-			(self quantityStringFor: element)}
+			(self quantityStringFor: element).
+			(self shorten: element comment to: 25)}
 ]
 
 { #category : #hooks }
@@ -48,9 +48,10 @@ HarvestComponent >> quantityStringFor: aHarvesing [
 		nextPutAll: ' Kg'.
 	aHarvesing otherUnit
 		ifNotNil: [ :it | 
-			stream
-				nextPutAll: ' / ';
-				nextPutAll: it printString ].
+			it magnitude > 0
+				ifTrue: [ stream
+						nextPutAll: ' / ';
+						nextPutAll: it printString ] ].
 	^ stream contents
 ]
 

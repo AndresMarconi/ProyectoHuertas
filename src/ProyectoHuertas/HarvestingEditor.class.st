@@ -24,7 +24,7 @@ HarvestingEditor >> accept [
 HarvestingEditor >> eventSpecificChildren [
 	^ {quantityEditorComponent.
 	otherUnitEditorComponent.
-	cultivarEditorComponent}
+	}
 ]
 
 { #category : #initialization }
@@ -32,7 +32,6 @@ HarvestingEditor >> initializeComponents [
 	"Initialize all property components"
 
 	super initializeComponents.
-	self initializeCultivarEditorComponent.
 	self initializeQuantityEditorComponent.
 	self initializeOtherUnitEditorComponent.
 	self initializePlotEditorComponent.
