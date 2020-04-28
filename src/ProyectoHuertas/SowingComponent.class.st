@@ -6,8 +6,8 @@ Class {
 
 { #category : #rendering }
 SowingComponent >> columnHeadings [
-	^ super columnHeadings , {'Cultivo' . 'Variedad (cultivar)'.
-	'Cantidad'}
+	^ super columnHeadings , {'Cultivo' . 
+	'Cantidad'. 'Notas'}
 ]
 
 { #category : #rendering }
@@ -17,8 +17,10 @@ SowingComponent >> columnValuesFor: element [
 	^ (super columnValuesFor: element)
 		,
 			{element crop vulgarName.
-			element cultivarName.
-			(element quantity magnitude asString , ' ' , element quantity unit)}
+			(element quantity magnitude > 0
+				ifTrue: [ element quantity magnitude asString , ' ' , element quantity unit ]
+				ifFalse: [ '' ]).
+			(self shorten: element comment to: 25)}
 ]
 
 { #category : #hooks }

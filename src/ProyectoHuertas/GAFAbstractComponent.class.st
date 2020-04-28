@@ -139,6 +139,13 @@ GAFAbstractComponent >> rendererClass [
 	^ SBSHtmlCanvas
 ]
 
+{ #category : #utility }
+GAFAbstractComponent >> shorten: aString to: maxSize [
+	^ aString size > maxSize
+		ifTrue: [ (aString copyFrom: 1 to: maxSize) , ' ...' ]
+		ifFalse: [ aString ]
+]
+
 { #category : #rendering }
 GAFAbstractComponent >> toggleTermsAndConditions [
 	displayTermsAndContitions := displayTermsAndContitions not
