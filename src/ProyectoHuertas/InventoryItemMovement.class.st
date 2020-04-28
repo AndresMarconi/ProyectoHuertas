@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 InventoryItemMovement >> date [
-	^ date
+	^ date asDate
 ]
 
 { #category : #accessing }

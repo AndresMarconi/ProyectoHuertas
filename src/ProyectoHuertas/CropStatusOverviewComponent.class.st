@@ -10,14 +10,15 @@ Class {
 
 { #category : #rendering }
 CropStatusOverviewComponent >> columnHeadings [
-	^ {'Cultivo' . 'Sembrado en' . 'Cosechando en'}
+	^ {'Cultivo' . 'Implantado en ...' . 'Cosechando en... '. 'Cosechado'}
 ]
 
 { #category : #rendering }
 CropStatusOverviewComponent >> columnValuesFor: crop [
 	^ {crop vulgarName.
 	(self sowedInStringFor: crop).
-	(self harvestingInStringFor: crop)}
+	(self harvestingInStringFor: crop).
+	((self totalHarvestedFor: crop) printString , ' Kg')}
 ]
 
 { #category : #accessing }
@@ -70,4 +71,10 @@ CropStatusOverviewComponent >> sowedInStringFor: crop [
 			(them collect: [ :each | each plot id ]) asSet asSortedCollection
 				asCommaString ]
 		ifAbsent: [ '' ]
+]
+
+{ #category : #rendering }
+CropStatusOverviewComponent >> totalHarvestedFor: crop [
+	^ (harvestsPerCrop at: crop ifAbsent: [ Set new ])
+		sumNumbers: [ :each | each quantity truncated ]
 ]
