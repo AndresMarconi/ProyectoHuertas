@@ -11,14 +11,15 @@ SubstancesForExpertsDashboardComponent >> elements [
 
 { #category : #'as yet unclassified' }
 SubstancesForExpertsDashboardComponent >> inThisMonth: elements of: ingredient [
-	^(elements select: [ :application | application substance activeIngredients includes: ingredient ]) size
+	^ elements size
 ]
 
 { #category : #'as yet unclassified' }
 SubstancesForExpertsDashboardComponent >> inThisWeek: elements of: ingredient [
-	^(elements select: [ :application | 
-		(application substance activeIngredients includes: ingredient) 
-		and: [ application date isAfter: ((Date today) subtractDays: 7) ] ]) size
+	^ (elements
+		select:
+			[ :application | application date isAfter: (Date today subtractDays: 7) ])
+		size
 ]
 
 { #category : #rendering }
@@ -31,14 +32,28 @@ SubstancesForExpertsDashboardComponent >> renderContentOn: html [
 
 { #category : #rendering }
 SubstancesForExpertsDashboardComponent >> renderTableBodyOn: html [
-	| set |
-	set:= self elements.
-	html tableBody: [ 
-		(set flatCollect: [ :application | application substance activeIngredients ]) do: [ :element | 
-			html tableRow: [  
-				html tableData: element. 
-				html tableData: (self inThisMonth: set of: element ).
-				html tableData: (self inThisWeek: set of: element )  ] ] ]
+	| applicationsPerSubstance |
+	applicationsPerSubstance := Dictionary new.
+	self elements
+		do: [ :each | 
+			(applicationsPerSubstance
+				at: each substance
+				ifAbsentPut: OrderedCollection new) add: each ].
+	html
+		tableBody: [ applicationsPerSubstance keys asOrderedCollection
+				do: [ :substance | 
+					html
+						tableRow: [ html tableData: substance comercialName.
+							html
+								tableData:
+									(self
+										inThisMonth: (applicationsPerSubstance at: substance)
+										of: substance).
+							html
+								tableData:
+									(self
+										inThisWeek: (applicationsPerSubstance at: substance)
+										of: substance) ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
