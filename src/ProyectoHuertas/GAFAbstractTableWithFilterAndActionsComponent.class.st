@@ -82,14 +82,16 @@ GAFAbstractTableWithFilterAndActionsComponent >> filterComponent [
 
 { #category : #accessing }
 GAFAbstractTableWithFilterAndActionsComponent >> filteredElements [
-	^ self filterComponent shouldFilter
-		ifTrue: [ self elements
-				select: [ :each | 
-					((self columnValuesFor: each)
-						at: (self columnHeadings indexOf: self filterComponent column))
-						asLowercase
-						includesSubstring: self filterComponent filter asLowercase ] ]
-		ifFalse: [ self elements ]
+	| allElements |
+	allElements := self elements.
+	self filterComponent shouldFilter
+		ifFalse: [ ^ allElements ].
+	^ allElements
+		select: [ :each | 
+			((self columnValuesFor: each)
+				at: (self columnHeadings indexOf: self filterComponent column))
+				asLowercase
+				includesSubstring: self filterComponent filter asLowercase ]
 ]
 
 { #category : #initialization }
