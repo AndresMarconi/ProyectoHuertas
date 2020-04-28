@@ -11,17 +11,17 @@ CropsForExpertsDashboardComponent >> elements [
 
 { #category : #'as yet unclassified' }
 CropsForExpertsDashboardComponent >> inThisMonth: elements of: crop [
-	^ elements
+	^ (elements
 		inject: 0
-		into: [ :sum :sowing | sum + sowing quantity magnitude ]
+		into: [ :sum :sowing | sum + sowing quantity magnitude ]) truncated
 ]
 
 { #category : #'as yet unclassified' }
 CropsForExpertsDashboardComponent >> inThisWeek: elements of: crop [
-	^ (elements
+	^ ((elements
 		select: [ :sowing | sowing date isAfter: (Date today subtractDays: 7) ])
 		inject: 0
-		into: [ :sum :sowing | sum + sowing quantity magnitude ]
+		into: [ :sum :sowing | sum + sowing quantity magnitude ]) truncated
 ]
 
 { #category : #rendering }

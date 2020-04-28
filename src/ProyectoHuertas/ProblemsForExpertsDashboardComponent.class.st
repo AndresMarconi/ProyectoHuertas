@@ -11,17 +11,15 @@ ProblemsForExpertsDashboardComponent >> elements [
 ]
 
 { #category : #'as yet unclassified' }
-ProblemsForExpertsDashboardComponent >> inThisMonth: elements of: type [
-	^ (elements select: [ :issue | issue adversityTypes includes: type ])
-		size
+ProblemsForExpertsDashboardComponent >> inThisMonth: reports of: type [
+	^ reports size
 ]
 
 { #category : #'as yet unclassified' }
 ProblemsForExpertsDashboardComponent >> inThisWeek: elements of: type [
 	^ (elements
-		select: [ :issue | 
-			(issue adversityTypes includes: type)
-				and: [ issue date isAfter: (Date today subtractDays: 7) ] ]) size
+		select: [ :issue | issue date isAfter: (Date today subtractDays: 7) ])
+		size
 ]
 
 { #category : #rendering }
@@ -34,15 +32,17 @@ ProblemsForExpertsDashboardComponent >> renderContentOn: html [
 
 { #category : #rendering }
 ProblemsForExpertsDashboardComponent >> renderTableBodyOn: html [
-	| set |
-	set := self elements.
+	| adversitiesPerTypes |
+	adversitiesPerTypes := Dictionary new. 
+	self elements do: [ :each | each adversityTypes do: [ :type | (adversitiesPerTypes at: type ifAbsentPut: OrderedCollection new)  add:each]   ].
+	
 	html
-		tableBody: [ (set collect: [ :issue | issue adversityTypes asCommaString ])
-				do: [ :element | 
+		tableBody: [ adversitiesPerTypes keys asOrderedCollection 
+				do: [ :type | 
 					html
-						tableRow: [ html tableData: element.
-							html tableData: (self inThisMonth: set of: element).
-							html tableData: (self inThisWeek: set of: element) ] ] ]
+						tableRow: [ html tableData: type.
+							html tableData: (self inThisMonth: (adversitiesPerTypes at: type) of: type).
+							html tableData: (self inThisWeek: (adversitiesPerTypes at: type) of: type) ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
