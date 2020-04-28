@@ -11,18 +11,17 @@ CropsForExpertsDashboardComponent >> elements [
 
 { #category : #'as yet unclassified' }
 CropsForExpertsDashboardComponent >> inThisMonth: elements of: crop [
-	| sowings |
-	sowings:= (elements select: [ :sowing | (sowing crop vulgarName) = crop ]).
-	^sowings inject: 0 into: [ :sum :sowing | sum + sowing quantity magnitude] 
+	^ elements
+		inject: 0
+		into: [ :sum :sowing | sum + sowing quantity magnitude ]
 ]
 
 { #category : #'as yet unclassified' }
 CropsForExpertsDashboardComponent >> inThisWeek: elements of: crop [
-	| sowings |
-	sowings:= (elements select: [ :sowing | 
-		(sowing crop vulgarName) = crop  
-		and: [ sowing date isAfter: ((Date today) subtractDays: 7) ] ]).
-	^ sowings inject: 0 into: [ :sum :sowing | sum + sowing quantity magnitude] 
+	^ (elements
+		select: [ :sowing | sowing date isAfter: (Date today subtractDays: 7) ])
+		inject: 0
+		into: [ :sum :sowing | sum + sowing quantity magnitude ]
 ]
 
 { #category : #rendering }
@@ -35,14 +34,22 @@ CropsForExpertsDashboardComponent >> renderContentOn: html [
 
 { #category : #rendering }
 CropsForExpertsDashboardComponent >> renderTableBodyOn: html [
-	| set |
-	set:= self elements.
-	html tableBody: [ 
-		(set collect: [ :sowing | sowing crop vulgarName ]) do: [ :element | 
-			html tableRow: [  
-				html tableData: element. 
-				html tableData: (self inThisMonth: set of: element ).
-				html tableData: (self inThisWeek: set of: element ) ] ] ]
+	| set sowingsPerCrop |
+	sowingsPerCrop := Dictionary new.
+	self elements
+		do: [ :each | 
+			(sowingsPerCrop at: each crop ifAbsentPut: OrderedCollection new)
+				add: each ].
+	html
+		tableBody: [ (sowingsPerCrop keys
+				asSortedCollection: [ :a :b | a vulgarName < b vulgarName ])
+				do: [ :crop | 
+					html
+						tableRow: [ html tableData: crop vulgarName.
+							html
+								tableData: (self inThisMonth: (sowingsPerCrop at: crop) of: crop).
+							html
+								tableData: (self inThisWeek: (sowingsPerCrop at: crop) of: crop) ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
