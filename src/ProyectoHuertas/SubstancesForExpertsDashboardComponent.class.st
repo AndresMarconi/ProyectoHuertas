@@ -9,12 +9,12 @@ SubstancesForExpertsDashboardComponent >> elements [
 	^((self session gapAFarm users flatCollect: [ :user | user farms ]) flatCollect: [ :farm | farm aplications ]) select: [ :each | each date isAfter: ((Date today) subtractDays: 30) ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 SubstancesForExpertsDashboardComponent >> inThisMonth: elements of: ingredient [
 	^ elements size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 SubstancesForExpertsDashboardComponent >> inThisWeek: elements of: ingredient [
 	^ (elements
 		select:
@@ -56,7 +56,7 @@ SubstancesForExpertsDashboardComponent >> renderTableBodyOn: html [
 										of: substance) ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 SubstancesForExpertsDashboardComponent >> tableHeadingOn: html [
 	html tableHead: [ 
 		html tableRow: [ 
